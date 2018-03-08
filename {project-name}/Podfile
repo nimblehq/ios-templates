@@ -6,20 +6,23 @@ def main_pods
   pod 'Alamofire'
 end
 
+def testing_pods
+  pod 'Quick'
+  pod 'Nimble'
+end
+
 target '{project-name}' do
   main_pods
 end
 
 target '{project-name} staging' do
-
   main_pods
+end
 
-  target '{project-name}Tests' do
-    # Pods for testing
-  end
+target '{project-name}Tests' do
+  testing_pods
+end
 
-  target '{project-name}UITests' do
-    # Pods for testing
-  end
-
+target '{project-name}UITests' do
+  testing_pods
 end
