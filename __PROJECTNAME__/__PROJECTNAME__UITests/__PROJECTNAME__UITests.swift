@@ -1,6 +1,6 @@
 //
 //  _project_name_UITests.swift
-//  {project-name}UITests
+//  __PROJECTNAME__UITests
 //
 //  Created by Pirush Prechathavanich on 3/8/18.
 //  Copyright © 2018 Nimbl3. All rights reserved.

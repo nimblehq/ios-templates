@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  {project-name}
+//  __PROJECTNAME__
 //
 //  Created by Pirush Prechathavanich on 3/8/18.
 //  Copyright © 2018 Nimbl3. All rights reserved.
