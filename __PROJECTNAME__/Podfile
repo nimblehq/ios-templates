@@ -1,0 +1,28 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+use_frameworks!
+
+def main_pods
+  pod 'Alamofire'
+end
+
+def testing_pods
+  pod 'Quick'
+  pod 'Nimble'
+end
+
+target '__PROJECTNAME__' do
+  main_pods
+end
+
+target '__PROJECTNAME__ staging' do
+  main_pods
+end
+
+target '__PROJECTNAME__Tests' do
+  testing_pods
+end
+
+target '__PROJECTNAME__UITests' do
+  testing_pods
+end
