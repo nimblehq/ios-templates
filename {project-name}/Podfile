@@ -11,18 +11,18 @@ def testing_pods
   pod 'Nimble'
 end
 
-target '{project-name}' do
+target '__PROJECTNAME__' do
   main_pods
 end
 
-target '{project-name} staging' do
+target '__PROJECTNAME__ staging' do
   main_pods
 end
 
-target '{project-name}Tests' do
+target '__PROJECTNAME__Tests' do
   testing_pods
 end
 
-target '{project-name}UITests' do
+target '__PROJECTNAME__UITests' do
   testing_pods
 end
