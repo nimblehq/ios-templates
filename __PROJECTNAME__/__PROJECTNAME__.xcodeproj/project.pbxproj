@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		216899C52057924A00217C63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216899C42057924A00217C63 /* Constants.swift */; };
+		216899C62057924A00217C63 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216899C42057924A00217C63 /* Constants.swift */; };
 		217C1D382050F0020087F6F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217C1D372050F0020087F6F0 /* AppDelegate.swift */; };
 		217C1D3A2050F0020087F6F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217C1D392050F0020087F6F0 /* ViewController.swift */; };
 		217C1D3D2050F0020087F6F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 217C1D3B2050F0020087F6F0 /* Main.storyboard */; };
@@ -44,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		097B219A8527268F852E6928 /* Pods-__PROJECTNAME__ staging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-__PROJECTNAME__ staging.debug.xcconfig"; path = "Pods/Target Support Files/Pods-__PROJECTNAME__ staging/Pods-__PROJECTNAME__ staging.debug.xcconfig"; sourceTree = "<group>"; };
+		216899C42057924A00217C63 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		217C1D342050F0020087F6F0 /* __PROJECTNAME__.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = __PROJECTNAME__.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		217C1D372050F0020087F6F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		217C1D392050F0020087F6F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +156,76 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		216899BC2057908000217C63 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		216899BD2057908600217C63 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				217C1D392050F0020087F6F0 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		216899BE2057908B00217C63 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		216899BF2057909100217C63 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		216899C02057909500217C63 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		216899C1205790A200217C63 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				216899C3205790BD00217C63 /* Infos */,
+				216899C2205790A600217C63 /* Constants */,
+				217C1D372050F0020087F6F0 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		216899C2205790A600217C63 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				216899C42057924A00217C63 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		216899C3205790BD00217C63 /* Infos */ = {
+			isa = PBXGroup;
+			children = (
+				217C1D762050F5270087F6F0 /* __PROJECTNAME__ staging-Info.plist */,
+				217C1D432050F0020087F6F0 /* Info.plist */,
+			);
+			path = Infos;
+			sourceTree = "<group>";
+		};
+		216899C72057930800217C63 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		217C1D2B2050F0020087F6F0 = {
 			isa = PBXGroup;
 			children = (
@@ -179,13 +252,16 @@
 		217C1D362050F0020087F6F0 /* __PROJECTNAME__ */ = {
 			isa = PBXGroup;
 			children = (
-				217C1D372050F0020087F6F0 /* AppDelegate.swift */,
-				217C1D392050F0020087F6F0 /* ViewController.swift */,
+				216899C1205790A200217C63 /* Application */,
+				216899C72057930800217C63 /* Services */,
+				216899C02057909500217C63 /* Protocols */,
+				216899BF2057909100217C63 /* Extensions */,
+				216899BD2057908600217C63 /* Controllers */,
+				216899BE2057908B00217C63 /* Views */,
+				216899BC2057908000217C63 /* Models */,
 				217C1D3B2050F0020087F6F0 /* Main.storyboard */,
 				217C1D3E2050F0020087F6F0 /* Assets.xcassets */,
 				217C1D402050F0020087F6F0 /* LaunchScreen.storyboard */,
-				217C1D762050F5270087F6F0 /* __PROJECTNAME__ staging-Info.plist */,
-				217C1D432050F0020087F6F0 /* Info.plist */,
 			);
 			path = __PROJECTNAME__;
 			sourceTree = "<group>";
@@ -615,6 +691,7 @@
 			files = (
 				217C1D3A2050F0020087F6F0 /* ViewController.swift in Sources */,
 				217C1D382050F0020087F6F0 /* AppDelegate.swift in Sources */,
+				216899C52057924A00217C63 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,6 +717,7 @@
 			files = (
 				217C1D682050F5270087F6F0 /* ViewController.swift in Sources */,
 				217C1D692050F5270087F6F0 /* AppDelegate.swift in Sources */,
+				216899C62057924A00217C63 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,7 +871,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
-				INFOPLIST_FILE = __PROJECTNAME__/Info.plist;
+				INFOPLIST_FILE = __PROJECTNAME__/Application/Infos/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DPRODUCTION";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__;
@@ -811,7 +889,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
-				INFOPLIST_FILE = __PROJECTNAME__/Info.plist;
+				INFOPLIST_FILE = __PROJECTNAME__/Application/Infos/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DPRODUCTION";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__;
@@ -899,7 +977,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
-				INFOPLIST_FILE = "__PROJECTNAME__/__PROJECTNAME__ staging-Info.plist";
+				INFOPLIST_FILE = "__PROJECTNAME__/Application/Constants/__PROJECTNAME__ staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGING";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__.staging;
@@ -917,7 +995,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
-				INFOPLIST_FILE = "__PROJECTNAME__/__PROJECTNAME__ staging-Info.plist";
+				INFOPLIST_FILE = "__PROJECTNAME__/Application/Constants/__PROJECTNAME__ staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGING";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__.staging;
