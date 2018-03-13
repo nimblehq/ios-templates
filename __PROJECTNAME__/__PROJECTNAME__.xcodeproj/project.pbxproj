@@ -47,14 +47,14 @@
 			containerPortal = 217C1D2C2050F0020087F6F0 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 217C1D332050F0020087F6F0;
-			remoteInfo = "__PROJECTNAME__";
+			remoteInfo = __PROJECTNAME__;
 		};
 		217C1D542050F0020087F6F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 217C1D2C2050F0020087F6F0 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 217C1D332050F0020087F6F0;
-			remoteInfo = "__PROJECTNAME__";
+			remoteInfo = __PROJECTNAME__;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -179,6 +179,7 @@
 		216899C1205790A200217C63 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				216899D02057E01500217C63 /* Resources */,
 				216899C3205790BD00217C63 /* Infos */,
 				216899C2205790A600217C63 /* Constants */,
 				217C1D372050F0020087F6F0 /* AppDelegate.swift */,
@@ -208,6 +209,14 @@
 			children = (
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		216899D02057E01500217C63 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				217C1D3E2050F0020087F6F0 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		217C1D2B2050F0020087F6F0 = {
@@ -244,7 +253,6 @@
 				216899BE2057908B00217C63 /* Views */,
 				216899BC2057908000217C63 /* Models */,
 				217C1D3B2050F0020087F6F0 /* Main.storyboard */,
-				217C1D3E2050F0020087F6F0 /* Assets.xcassets */,
 				217C1D402050F0020087F6F0 /* LaunchScreen.storyboard */,
 			);
 			path = __PROJECTNAME__;
@@ -298,7 +306,7 @@
 			dependencies = (
 			);
 			name = __PROJECTNAME__;
-			productName = "__PROJECTNAME__";
+			productName = __PROJECTNAME__;
 			productReference = 217C1D342050F0020087F6F0 /* __PROJECTNAME__.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -320,7 +328,7 @@
 				216899C92057976500217C63 /* PBXTargetDependency */,
 			);
 			name = __PROJECTNAME__Tests;
-			productName = "__PROJECTNAME__Tests";
+			productName = __PROJECTNAME__Tests;
 			productReference = 217C1D482050F0020087F6F0 /* __PROJECTNAME__Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -342,7 +350,7 @@
 				216899CB2057976700217C63 /* PBXTargetDependency */,
 			);
 			name = __PROJECTNAME__UITests;
-			productName = "__PROJECTNAME__UITests";
+			productName = __PROJECTNAME__UITests;
 			productReference = 217C1D532050F0020087F6F0 /* __PROJECTNAME__UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
