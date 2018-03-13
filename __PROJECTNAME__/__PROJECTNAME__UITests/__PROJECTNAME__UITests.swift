@@ -7,8 +7,9 @@
 //
 
 import XCTest
+@testable import __PROJECTNAME___staging
 
-class _project_name_UITests: XCTestCase {
+class __PROJECTNAME__UITests: XCTestCase {
         
     override func setUp() {
         super.setUp()

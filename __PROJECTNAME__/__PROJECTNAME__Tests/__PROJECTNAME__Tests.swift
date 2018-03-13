@@ -7,9 +7,9 @@
 //
 
 import XCTest
-@testable import _project_name_
+@testable import __PROJECTNAME___staging
 
-class _project_name_Tests: XCTestCase {
+class __PROJECTNAME__Tests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -17,13 +17,18 @@ class _project_name_Tests: XCTestCase {
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+                // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        #if PRODUCTION
+            print("### production")
+        #elseif STAGING
+            print("### staging")
+        #elseif TESTING
+            print("### testing")
+        #endif
     }
     
     func testPerformanceExample() {
