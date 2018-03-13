@@ -908,7 +908,7 @@
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				INFOPLIST_FILE = __PROJECTNAME__Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) -DTEST";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTING";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -926,7 +926,7 @@
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				INFOPLIST_FILE = __PROJECTNAME__Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) -DTEST";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTING";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -943,7 +943,7 @@
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				INFOPLIST_FILE = __PROJECTNAME__UITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) -DTEST";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTING";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -960,7 +960,7 @@
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				INFOPLIST_FILE = __PROJECTNAME__UITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "$(inherited) -DTEST";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DTESTING";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__UITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -977,7 +977,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
-				INFOPLIST_FILE = "__PROJECTNAME__/Application/Constants/__PROJECTNAME__ staging-Info.plist";
+				INFOPLIST_FILE = "__PROJECTNAME__/Application/Infos/__PROJECTNAME__ staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGING";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__.staging;
@@ -995,7 +995,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
-				INFOPLIST_FILE = "__PROJECTNAME__/Application/Constants/__PROJECTNAME__ staging-Info.plist";
+				INFOPLIST_FILE = "__PROJECTNAME__/Application/Infos/__PROJECTNAME__ staging-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DSTAGING";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__.staging;
