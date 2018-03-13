@@ -28,6 +28,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		216899C82057976500217C63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 217C1D2C2050F0020087F6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 217C1D652050F5270087F6F0;
+			remoteInfo = "__PROJECTNAME__ staging";
+		};
+		216899CA2057976700217C63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 217C1D2C2050F0020087F6F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 217C1D652050F5270087F6F0;
+			remoteInfo = "__PROJECTNAME__ staging";
+		};
 		217C1D492050F0020087F6F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 217C1D2C2050F0020087F6F0 /* Project object */;
@@ -53,7 +67,7 @@
 		217C1D3C2050F0020087F6F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		217C1D3E2050F0020087F6F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		217C1D412050F0020087F6F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		217C1D432050F0020087F6F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		217C1D432050F0020087F6F0 /* __PROJECTNAME__-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "__PROJECTNAME__-Info.plist"; sourceTree = "<group>"; };
 		217C1D482050F0020087F6F0 /* __PROJECTNAME__Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = __PROJECTNAME__Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		217C1D4C2050F0020087F6F0 /* __PROJECTNAME__Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = __PROJECTNAME__Tests.swift; sourceTree = "<group>"; };
 		217C1D4E2050F0020087F6F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -214,7 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				217C1D762050F5270087F6F0 /* __PROJECTNAME__ staging-Info.plist */,
-				217C1D432050F0020087F6F0 /* Info.plist */,
+				217C1D432050F0020087F6F0 /* __PROJECTNAME__-Info.plist */,
 			);
 			path = Infos;
 			sourceTree = "<group>";
@@ -339,6 +353,7 @@
 			);
 			dependencies = (
 				217C1D4A2050F0020087F6F0 /* PBXTargetDependency */,
+				216899C92057976500217C63 /* PBXTargetDependency */,
 			);
 			name = __PROJECTNAME__Tests;
 			productName = "{project-name}Tests";
@@ -360,6 +375,7 @@
 			);
 			dependencies = (
 				217C1D552050F0020087F6F0 /* PBXTargetDependency */,
+				216899CB2057976700217C63 /* PBXTargetDependency */,
 			);
 			name = __PROJECTNAME__UITests;
 			productName = "{project-name}UITests";
@@ -403,12 +419,12 @@
 					217C1D472050F0020087F6F0 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 217C1D332050F0020087F6F0;
+						TestTargetID = 217C1D652050F5270087F6F0;
 					};
 					217C1D522050F0020087F6F0 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 217C1D332050F0020087F6F0;
+						TestTargetID = 217C1D652050F5270087F6F0;
 					};
 					217C1D652050F5270087F6F0 = {
 						ProvisioningStyle = Automatic;
@@ -724,6 +740,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		216899C92057976500217C63 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 217C1D652050F5270087F6F0 /* __PROJECTNAME__ staging */;
+			targetProxy = 216899C82057976500217C63 /* PBXContainerItemProxy */;
+		};
+		216899CB2057976700217C63 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 217C1D652050F5270087F6F0 /* __PROJECTNAME__ staging */;
+			targetProxy = 216899CA2057976700217C63 /* PBXContainerItemProxy */;
+		};
 		217C1D4A2050F0020087F6F0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 217C1D332050F0020087F6F0 /* __PROJECTNAME__ */;
@@ -871,7 +897,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
-				INFOPLIST_FILE = __PROJECTNAME__/Application/Infos/Info.plist;
+				INFOPLIST_FILE = "__PROJECTNAME__/Application/Infos/__PROJECTNAME__-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DPRODUCTION";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__;
@@ -889,7 +915,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
-				INFOPLIST_FILE = __PROJECTNAME__/Application/Infos/Info.plist;
+				INFOPLIST_FILE = "__PROJECTNAME__/Application/Infos/__PROJECTNAME__-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited) -DPRODUCTION";
 				PRODUCT_BUNDLE_IDENTIFIER = nimbl3.__PROJECTNAME__;
@@ -913,7 +939,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECTNAME__.app/__PROJECTNAME__";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECTNAME__ staging.app/__PROJECTNAME__ staging";
 			};
 			name = Debug;
 		};
@@ -931,7 +957,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECTNAME__.app/__PROJECTNAME__";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECTNAME__ staging.app/__PROJECTNAME__ staging";
 			};
 			name = Release;
 		};
@@ -948,7 +974,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "{project-name}";
+				TEST_TARGET_NAME = "__PROJECTNAME__ staging";
 			};
 			name = Debug;
 		};
@@ -965,7 +991,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "{project-name}";
+				TEST_TARGET_NAME = "__PROJECTNAME__ staging";
 			};
 			name = Release;
 		};
