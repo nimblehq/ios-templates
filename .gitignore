@@ -65,3 +65,9 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+
+# Cookie cutter
+# to ignore any cookie cutter generated files and directories
+
+cookiecutter.json
+{{ cookiecutter.*
