@@ -1,0 +1,17 @@
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_whitespace
+opt_in_rules: # some rules are only opt-in
+  - attributes
+  - closure_spacing
+  - contains_over_first_not_nil
+  - empty_count
+  - empty_string
+  - explicit_init
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Pods
+
+# rule configurations
+
+line_length:
+  ignores_function_declarations: true
+  ignores_comments: true
