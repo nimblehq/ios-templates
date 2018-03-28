@@ -1,14 +1,14 @@
 //
-//  _project_name_UITests.swift
-//  __PROJECTNAME__UITests
+//  __PROJECT_NAME__UITests.swift
+//  __PROJECT NAME__UITests
 //
-//  Created by Pirush Prechathavanich on 3/8/18.
-//  Copyright © 2018 Nimbl3. All rights reserved.
+//  Created by __AUTHOR NAME__ on 3/19/18.
+//  Copyright © 2018 __ORGANIZATION NAME__. All rights reserved.
 //
 
 import XCTest
 
-class _project_name_UITests: XCTestCase {
+class __PROJECT_NAME__UITests: XCTestCase {
         
     override func setUp() {
         super.setUp()
