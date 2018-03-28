@@ -1,0 +1,24 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+def testing_pods
+  pod 'Quick'
+  pod 'Nimble'
+end
+
+target '__PROJECT NAME__' do
+  use_frameworks!
+
+  pod 'Alamofire'
+
+  target '__PROJECT NAME__Tests' do
+    inherit! :search_paths
+    testing_pods
+  end
+
+  target '__PROJECT NAME__UITests' do
+    inherit! :search_paths
+    testing_pods
+  end
+
+end
