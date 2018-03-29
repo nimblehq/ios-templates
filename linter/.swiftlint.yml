@@ -10,6 +10,17 @@ opt_in_rules: # some rules are only opt-in
   - extension_access_modifier
   - fatal_error_message
   - first_where
+  - implicitly_unwrapped_optional
+  - joined_default_parameter
+  - literal_expression_end_indentation
+  - multiline_arguments
+  - multiline_parameters
+  - nimble_operator
+  - operator_usage_whitespace
+  - overridden_super_call
+  - pattern_matching_keywords
+  - private_action
+  - prohibited_super_call
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
 
