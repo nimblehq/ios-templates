@@ -21,6 +21,14 @@ opt_in_rules: # some rules are only opt-in
   - pattern_matching_keywords
   - private_action
   - prohibited_super_call
+  - redundant_nil_coalescing
+  - single_test_class
+  - sorted_first_last
+  - trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - untyped_error_in_catch
+  - vertical_parameter_alignment_on_call
+  - yoda_condition
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
 
