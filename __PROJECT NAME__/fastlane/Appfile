@@ -1,0 +1,3 @@
+apple_id("#{ENV['APPLE_ID']}")
+app_identifier("#{ENV['BUNDLE_ID']}")
+team_id("#{ENV['TEAM_ID']}")
