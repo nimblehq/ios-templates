@@ -206,6 +206,7 @@
 				2112D305205F70A200288FD9 /* Sources */,
 				2112D306205F70A200288FD9 /* Frameworks */,
 				2112D307205F70A200288FD9 /* Resources */,
+				215BF30C206CD80600ADDB06 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -323,6 +324,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		215BF30C206CD80600ADDB06 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" __CRASHLYTICS_API_TOKEN__ __CRASHLYTICS_BUILD_SECRET__";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2112D305205F70A200288FD9 /* Sources */ = {

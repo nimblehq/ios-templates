@@ -10,6 +10,8 @@ target '__PROJECT NAME__' do
   use_frameworks!
 
   pod 'Alamofire'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
   target '__PROJECT NAME__Tests' do
     inherit! :search_paths
