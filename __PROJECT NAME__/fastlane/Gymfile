@@ -1,0 +1,2 @@
+clean(true)
+output_directory("./build")
