@@ -69,20 +69,17 @@ platform :ios do
       username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
       output_path: "./code_signing/profiles/adhoc",
-
     )
 
     # RELEASE
     cert(
       username: "#{ENV['APPLE_ID']}",
       output_path: "./code_signing/certificates/distribution",
-
     )
     sigh(
       username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID']}",
       output_path: "./code_signing/profiles/appstore",
-
     )
   end
 
