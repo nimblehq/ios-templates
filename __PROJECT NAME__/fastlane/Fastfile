@@ -1,0 +1,98 @@
+require("dotenv")
+Dotenv.load
+default_platform(:ios)
+
+platform :ios do
+  desc "setup_template"
+  lane :setup_template do
+    ## DEBUG
+    create_app_on_developer_portal(
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
+      app_name: "#{ENV['APP_NAME_DEBUG']}",
+      skip_itc: true,
+    )
+
+    create_app_on_developer_portal(
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
+      app_name: "#{ENV['APP_NAME_STAGING']}",
+      skip_itc: true,
+    )
+
+    create_app_on_developer_portal(
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID']}",
+      app_name: "#{ENV['APP_NAME']}",
+      skip_itc: true, # should be false
+    )
+
+    download_certs_and_provisioning_profiles()
+  end
+
+  desc "Create new iOS apps on iTunes Connect and Dev Portal"
+  private_lane :create_app_on_developer_portal do |options|
+    produce(
+      username: options[:username],
+      app_identifier: options[:app_identifier],
+      app_name: options[:app_name],
+      language: options[:language] || "English",
+      app_version: options[:app_version] || "1.0",
+      sku: options[:sku],
+      team_name: options[:team_name],
+      skip_itc: options[:skip_itc],
+    )
+  end
+
+  desc "Check, download and install certifications and provisioning profiles"
+  lane :download_certs_and_provisioning_profiles do
+    # DEBUG
+    cert(
+      development: true,
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      output_path: "./certificates/development",
+    )
+    sigh(
+      development: true,
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
+      output_path: "./profiles/development",
+    )
+
+    # STAGING
+    cert(
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      output_path: "./certificates/distribution",
+    )
+    sigh(
+      adhoc: true,
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
+      output_path: "./profiles/adhoc",
+
+    )
+
+    # RELEASE
+    cert(
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      output_path: "./certificates/distribution",
+
+    )
+    sigh(
+      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID']}",
+      output_path: "./profiles/appstore",
+
+    )
+  end
+
+  desc "clear build and deriveData"
+  lane :clear_all do
+    clean_cocoapods_cache
+    clean_build_artifacts
+    clear_derived_data(derived_data_path: 'derivedData')
+    sh "rm -rf #{ENV['PWD']}/derivedData/*"
+    sh "rm -rf #{ENV['PWD']}/build/*"
+    clear_targets
+  end
+end
