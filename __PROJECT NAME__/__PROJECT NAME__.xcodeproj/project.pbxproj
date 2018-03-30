@@ -489,7 +489,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "$(SRCROOT)/__PROJECT NAME__/Application/Infos/Info.plist";
+				INFOPLIST_FILE = "__PROJECT NAME__/Application/Infos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "--BUNDLE-IDENTIFIER--.debug";
 				PRODUCT_NAME = "$(TARGET_NAME) debug";
@@ -508,7 +508,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
-				INFOPLIST_FILE = "$(SRCROOT)/__PROJECT NAME__/Application/Infos/Info.plist";
+				INFOPLIST_FILE = "__PROJECT NAME__/Application/Infos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "--BUNDLE-IDENTIFIER--";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -644,7 +644,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = "STAGING=1";
-				INFOPLIST_FILE = "$(SRCROOT)/__PROJECT NAME__/Application/Infos/Info.plist";
+				INFOPLIST_FILE = "__PROJECT NAME__/Application/Infos/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "--BUNDLE-IDENTIFIER--.staging";
 				PRODUCT_NAME = "$(TARGET_NAME) staging";
