@@ -7,23 +7,23 @@ platform :ios do
   lane :setup_template do
     ## DEBUG
     create_app_on_developer_portal(
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
-      app_name: "#{ENV['APP_NAME_DEBUG']}",
+      app_name: "#{ENV['SCHEME_NAME_DEBUG']}",
       skip_itc: true,
     )
 
     create_app_on_developer_portal(
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
-      app_name: "#{ENV['APP_NAME_STAGING']}",
+      app_name: "#{ENV['SCHEME_NAME_STAGING']}",
       skip_itc: true,
     )
 
     create_app_on_developer_portal(
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID']}",
-      app_name: "#{ENV['APP_NAME']}",
+      app_name: "#{ENV['SCHEME_NAME']}",
       skip_itc: true, # should be false
     )
 
@@ -49,39 +49,39 @@ platform :ios do
     # DEBUG
     cert(
       development: true,
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
-      output_path: "./certificates/development",
+      username: "#{ENV['APPLE_ID']}",
+      output_path: "./code_signing/certificates/development",
     )
     sigh(
       development: true,
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
-      output_path: "./profiles/development",
+      output_path: "./code_signing/profiles/development",
     )
 
     # STAGING
     cert(
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
-      output_path: "./certificates/distribution",
+      username: "#{ENV['APPLE_ID']}",
+      output_path: "./code_signing/certificates/distribution",
     )
     sigh(
       adhoc: true,
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
-      output_path: "./profiles/adhoc",
+      output_path: "./code_signing/profiles/adhoc",
 
     )
 
     # RELEASE
     cert(
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
-      output_path: "./certificates/distribution",
+      username: "#{ENV['APPLE_ID']}",
+      output_path: "./code_signing/certificates/distribution",
 
     )
     sigh(
-      username: "#{ENV['APPSTORE_APPLE_ID']}",
+      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID']}",
-      output_path: "./profiles/appstore",
+      output_path: "./code_signing/profiles/appstore",
 
     )
   end
