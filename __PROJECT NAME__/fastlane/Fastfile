@@ -62,6 +62,15 @@ platform :ios do
     download_certs_and_provisioning_profiles()
   end
 
+  private_lane :bump_build do
+    unless (last_git_commit[:message].include?("Bump build number to"))
+      increment_build_number(
+        build_number: number_of_commits,
+      )
+      git_commit(path: "*", message: "Bump build number to #{number_of_commits}")
+    end
+  end
+
   desc "create App ID for all app bundles."
   private_lane :create_app_on_developer_portal do |options|
     produce(
