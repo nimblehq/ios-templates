@@ -3,6 +3,45 @@ Dotenv.load
 default_platform(:ios)
 
 platform :ios do
+  desc "Check, download and install certifications and provisioning profiles"
+  lane :download_certs_and_provisioning_profiles do
+    # Development Cert.
+    cert(
+      development: true,
+      username: "#{ENV['APPLE_ID']}",
+      output_path: "./code_signing/certificates/development",
+    )
+
+    # Distrubution Cert.
+    cert(
+      username: "#{ENV['APPLE_ID']}",
+      output_path: "./code_signing/certificates/distribution",
+    )
+
+    # Development Mobile Provisioning ( DEBUG )
+    sigh(
+      development: true,
+      username: "#{ENV['APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
+      output_path: "./code_signing/profiles/development",
+    )
+
+    # Ad-Hoc Mobile Provisioning ( STAGING )
+    sigh(
+      adhoc: true,
+      username: "#{ENV['APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
+      output_path: "./code_signing/profiles/adhoc",
+    )
+
+    # AppStore Mobile Provisioning ( RELEASE )
+    sigh(
+      username: "#{ENV['APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID']}",
+      output_path: "./code_signing/profiles/appstore",
+    )
+  end
+
   desc "setup_template"
   lane :setup_template do
     ## DEBUG
@@ -24,9 +63,8 @@ platform :ios do
       username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID']}",
       app_name: "#{ENV['SCHEME_NAME']}",
-      skip_itc: true, # should be false
+      skip_itc: false,
     )
-
     download_certs_and_provisioning_profiles()
   end
 
@@ -41,45 +79,6 @@ platform :ios do
       sku: options[:sku],
       team_name: options[:team_name],
       skip_itc: options[:skip_itc],
-    )
-  end
-
-  desc "Check, download and install certifications and provisioning profiles"
-  lane :download_certs_and_provisioning_profiles do
-    # DEBUG
-    cert(
-      development: true,
-      username: "#{ENV['APPLE_ID']}",
-      output_path: "./code_signing/certificates/development",
-    )
-    sigh(
-      development: true,
-      username: "#{ENV['APPLE_ID']}",
-      app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
-      output_path: "./code_signing/profiles/development",
-    )
-
-    # STAGING
-    cert(
-      username: "#{ENV['APPLE_ID']}",
-      output_path: "./code_signing/certificates/distribution",
-    )
-    sigh(
-      adhoc: true,
-      username: "#{ENV['APPLE_ID']}",
-      app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
-      output_path: "./code_signing/profiles/adhoc",
-    )
-
-    # RELEASE
-    cert(
-      username: "#{ENV['APPLE_ID']}",
-      output_path: "./code_signing/certificates/distribution",
-    )
-    sigh(
-      username: "#{ENV['APPLE_ID']}",
-      app_identifier: "#{ENV['BUNDLE_ID']}",
-      output_path: "./code_signing/profiles/appstore",
     )
   end
 
