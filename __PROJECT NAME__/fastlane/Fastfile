@@ -3,6 +3,54 @@ Dotenv.load
 default_platform(:ios)
 
 platform :ios do
+  desc "Send Beta to Crashlytics"
+  lane :release_beta_build do
+    download_certs_and_provisioning_profiles()
+    # STAGING
+    bump_build()
+    build_app(
+      export_method: "ad-hoc",
+      export_team_id: "#{ENV['TEAM_ID']}",
+      clean: true,
+      scheme: "#{ENV['APP_NAME_STAGING']}",
+      xcargs: "-ONLY_ACTIVE_ARCH=NO",
+      include_bitcode: true,
+      include_symbols: true,
+      derived_data_path: "derivedData",
+      configuration: "Staging",
+      output_directory: "build",
+    )
+    upload_to_crashlytics(app_name: "#{ENV['APP_NAME_STAGING']}")
+  end
+
+  desc "Deploy to Crashlytics"
+  private_lane :upload_to_crashlytics do |options|
+    crashlytics(
+      ipa_path: "./build/#{ENV['APP_NAME_STAGING']}.ipa",
+      groups: nil,
+      emails: ["#{ENV['APPLE_ID']}"],
+      debug: false,
+      notifications: true,
+      notes_path: "release_notes.txt",
+    )
+
+    slack(message: options[:app_name].concat("was successfully uploaded to Crashlytics")) unless ENV['SLACK_URL'].nil?
+  end
+
+  desc "Deploy to AppStore"
+  lane :release_app_store_build do
+    download_certs_and_provisioning_profiles()
+    app_name = "#{ENV['APP_NAME_DEBUG']}"
+    sync_code_signing(type: "appstore")
+    build_app(
+      export_method: "app-store",
+      scheme: "#{ENV['APP_NAME']}",
+      workspace: "#{ENV['WORKSPACE']}",
+      include_bitcode: true,
+    )
+    upload_to_app_store()
+  end
+
   desc "Create new or download certificate and mobileProvision for all app bundles."
   lane :download_certs_and_provisioning_profiles do
     # Development Cert.
