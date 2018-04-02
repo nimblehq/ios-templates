@@ -29,6 +29,15 @@ opt_in_rules: # some rules are only opt-in
   - untyped_error_in_catch
   - vertical_parameter_alignment_on_call
   - yoda_condition
+  - closure_end_indentation
+  - discouraged_optional_boolean
+  - discouraged_optional_collection
+  - force_unwrapping
+  - large_tuple
+  - object_literal
+  - prefixed_toplevel_constant
+  - private_outlet
+  - override_in_extension
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
 
