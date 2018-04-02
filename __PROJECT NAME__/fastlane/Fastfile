@@ -60,18 +60,18 @@ platform :ios do
       output_path: "./code_signing/certs/development",
     )
 
-    # Distrubution Cert.
-    cert(
-      username: "#{ENV['APPLE_ID']}",
-      output_path: "./code_signing/certs/distribution",
-    )
-
     # Development Mobile Provisioning ( DEBUG )
     sigh(
       development: true,
       username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
       output_path: "./code_signing/profiles/development",
+    )
+
+    # Distrubution Cert.
+    cert(
+      username: "#{ENV['APPLE_ID']}",
+      output_path: "./code_signing/certs/distribution",
     )
 
     # Ad-Hoc Mobile Provisioning ( STAGING )
