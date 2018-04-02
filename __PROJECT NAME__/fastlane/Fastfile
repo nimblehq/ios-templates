@@ -33,7 +33,7 @@ platform :ios do
       notifications: true,
       notes_path: "release_notes.txt",
     )
-
+    upload_symbols_to_crashlytics(dsym_path: "./build/#{ENV['SCHEME_NAME_STAGING']}.app.dSYM.zip")
     slack(message: options[:app_name].concat("was successfully uploaded to Crashlytics")) unless ENV['SLACK_URL'].nil?
   end
 
