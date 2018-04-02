@@ -9,7 +9,7 @@ platform :ios do
     cert(
       development: true,
       username: "#{ENV['APPLE_ID']}",
-      output_path: "./code_signing/certificates/development",
+      output_path: "./code_signing/certs/development",
     )
 
     # Distrubution Cert.
