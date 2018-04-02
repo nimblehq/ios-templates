@@ -1,7 +1,7 @@
 
 platform :ios do
   desc "Deploy to AppStore"
-  lane :release_app_store_build do
+  lane :release_app_store do
     download_certs_and_provisioning_profiles()
     app_name = "#{ENV['SCHEME_NAME_DEBUG']}"
     sync_code_signing(type: "appstore")

@@ -1,7 +1,7 @@
 
 platform :ios do
   desc "Send Beta to Crashlytics"
-  lane :release_beta_build do
+  lane :release_beta do
     download_certs_and_provisioning_profiles()
     # STAGING
     bump_build()
@@ -23,7 +23,7 @@ platform :ios do
   desc "Deploy to Crashlytics"
   private_lane :upload_to_crashlytics do |options|
     crashlytics(
-      ipa_path: "./build/#{ENV['SCHEME_NAME_STAGING']}.ipa",
+      ipa_path: "./build/#{options[:app_name]}.ipa",
       groups: nil,
       emails: ["#{ENV['APPLE_ID']}"],
       debug: false,

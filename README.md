@@ -65,9 +65,9 @@ ROOT
     - Nimble _- Test target only_
 
 #### Fabric & Crashlytics Integration
-  - Application Bundle Identifier need to be added to `Farbric.app` first.
+  - Application Bundle Identifier need to be added to `Fabric.app` first.
   - Follow the `Fabric.app` instructions, **ignore** import Fabric & Crashlytics to Xcode Project and `AppDelegate.swift` process.
-  - When `Fabric.app` ask to build or run, execute it with `STAGING` schme.
+  - When `Fabric.app` ask to build or run, execute it with `STAGING` scheme.
 
 #### SwiftLint integration
 More information on opted in/out Rules to come...
