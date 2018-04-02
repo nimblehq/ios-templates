@@ -3,7 +3,7 @@ Dotenv.load
 default_platform(:ios)
 
 platform :ios do
-  desc "Check, download and install certifications and provisioning profiles"
+  desc "Create new or download certificate and mobileProvision for all app bundles."
   lane :download_certs_and_provisioning_profiles do
     # Development Cert.
     cert(
@@ -42,7 +42,7 @@ platform :ios do
     )
   end
 
-  desc "Create App IDs and Code Signing"
+  desc "create App ID for all app bundles then Code Signing"
   lane :create_app_id_and_code_signing do
     ## DEBUG
     create_app_on_developer_portal(
@@ -62,7 +62,7 @@ platform :ios do
     download_certs_and_provisioning_profiles()
   end
 
-  desc "Create new iOS apps on iTunes Connect and Dev Portal"
+  desc "create App ID for all app bundles."
   private_lane :create_app_on_developer_portal do |options|
     produce(
       username: "#{ENV['APPLE_ID']}",
@@ -83,6 +83,5 @@ platform :ios do
     clear_derived_data(derived_data_path: 'derivedData')
     sh "rm -rf #{ENV['PWD']}/derivedData/*"
     sh "rm -rf #{ENV['PWD']}/build/*"
-    clear_targets
   end
 end
