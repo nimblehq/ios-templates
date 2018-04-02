@@ -1,0 +1,75 @@
+
+platform :ios do
+  desc "Create new or download certificate and mobileProvision for all app bundles."
+  lane :download_certs_and_provisioning_profiles do
+    # Development Cert.
+    get_certificates(
+      development: true,
+      username: "#{ENV['APPLE_ID']}",
+      output_path: "./code_signing/certs/development",
+    )
+
+    # Development Mobile Provisioning ( DEBUG )
+    get_provisioning_profile(
+      development: true,
+      username: "#{ENV['APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
+      output_path: "./code_signing/profiles/development",
+    )
+
+    # Distrubution Cert.
+    get_certificates(
+      username: "#{ENV['APPLE_ID']}",
+      output_path: "./code_signing/certs/distribution",
+    )
+
+    # Ad-Hoc Mobile Provisioning ( STAGING )
+    get_provisioning_profile(
+      adhoc: true,
+      username: "#{ENV['APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
+      output_path: "./code_signing/profiles/adhoc",
+    )
+
+    # AppStore Mobile Provisioning ( RELEASE )
+    get_provisioning_profile(
+      username: "#{ENV['APPLE_ID']}",
+      app_identifier: "#{ENV['BUNDLE_ID']}",
+      output_path: "./code_signing/profiles/appstore",
+    )
+  end
+
+  desc "create App ID for all app bundles then Code Signing"
+  lane :create_app_id_and_code_signing do
+    ## DEBUG
+    create_app_on_developer_portal(
+      app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
+      app_name: "#{ENV['SCHEME_NAME_DEBUG']}",
+    )
+    ## STAGING
+    create_app_on_developer_portal(
+      app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
+      app_name: "#{ENV['SCHEME_NAME_STAGING']}",
+    )
+    ## RELEASE
+    create_app_on_developer_portal(
+      app_identifier: "#{ENV['BUNDLE_ID']}",
+      app_name: "#{ENV['SCHEME_NAME']}",
+    )
+    download_certs_and_provisioning_profiles()
+  end
+
+  desc "create App ID for all app bundles."
+  private_lane :create_app_on_developer_portal do |options|
+    produce(
+      username: "#{ENV['APPLE_ID']}",
+      app_identifier: options[:app_identifier],
+      app_name: options[:app_name],
+      language: options[:language] || "English",
+      app_version: options[:app_version] || "1.0",
+      sku: options[:sku],
+      team_name: options[:team_name],
+      skip_itc: true,
+    )
+  end
+end

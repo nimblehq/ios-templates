@@ -1,0 +1,16 @@
+
+platform :ios do
+  desc "Deploy to AppStore"
+  lane :release_app_store do
+    download_certs_and_provisioning_profiles()
+    app_name = "#{ENV['SCHEME_NAME_DEBUG']}"
+    sync_code_signing(type: "appstore")
+    build_app(
+      export_method: "app-store",
+      scheme: "#{ENV['SCHEME_NAME']}",
+      workspace: "#{ENV['WORKSPACE']}",
+      include_bitcode: true,
+    )
+    upload_to_app_store()
+  end
+end

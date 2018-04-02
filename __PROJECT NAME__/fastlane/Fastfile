@@ -1,79 +1,26 @@
 require("dotenv")
 Dotenv.load
+
+import "./Crashlytics/Crashfile"
+import "./iTunesConnect/Connectfile"
+import "./Developer Portal/Codefile"
+
 default_platform(:ios)
 
 platform :ios do
-  desc "Create new or download certificate and mobileProvision for all app bundles."
-  lane :download_certs_and_provisioning_profiles do
-    # Development Cert.
-    cert(
-      development: true,
-      username: "#{ENV['APPLE_ID']}",
-      output_path: "./code_signing/certs/development",
-    )
-
-    # Distrubution Cert.
-    cert(
-      username: "#{ENV['APPLE_ID']}",
-      output_path: "./code_signing/certificates/distribution",
-    )
-
-    # Development Mobile Provisioning ( DEBUG )
-    sigh(
-      development: true,
-      username: "#{ENV['APPLE_ID']}",
-      app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
-      output_path: "./code_signing/profiles/development",
-    )
-
-    # Ad-Hoc Mobile Provisioning ( STAGING )
-    sigh(
-      adhoc: true,
-      username: "#{ENV['APPLE_ID']}",
-      app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
-      output_path: "./code_signing/profiles/adhoc",
-    )
-
-    # AppStore Mobile Provisioning ( RELEASE )
-    sigh(
-      username: "#{ENV['APPLE_ID']}",
-      app_identifier: "#{ENV['BUNDLE_ID']}",
-      output_path: "./code_signing/profiles/appstore",
-    )
-  end
-
-  desc "create App ID for all app bundles then Code Signing"
-  lane :create_app_id_and_code_signing do
-    ## DEBUG
-    create_app_on_developer_portal(
-      app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
-      app_name: "#{ENV['SCHEME_NAME_DEBUG']}",
-    )
-    ## STAGING
-    create_app_on_developer_portal(
-      app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
-      app_name: "#{ENV['SCHEME_NAME_STAGING']}",
-    )
-    ## RELEASE
-    create_app_on_developer_portal(
-      app_identifier: "#{ENV['BUNDLE_ID']}",
-      app_name: "#{ENV['SCHEME_NAME']}",
-    )
-    download_certs_and_provisioning_profiles()
-  end
-
-  desc "create App ID for all app bundles."
-  private_lane :create_app_on_developer_portal do |options|
-    produce(
-      username: "#{ENV['APPLE_ID']}",
-      app_identifier: options[:app_identifier],
-      app_name: options[:app_name],
-      language: options[:language] || "English",
-      app_version: options[:app_version] || "1.0",
-      sku: options[:sku],
-      team_name: options[:team_name],
-      skip_itc: true,
-    )
+  private_lane :bump_build do
+    build_number = number_of_commits
+    unless (last_git_commit[:message].include?("Bump build number to"))
+      increment_build_number(
+        build_number: build_number,
+      )
+      begin
+        git_add
+        ensure_git_status_clean
+      rescue
+        git_commit(path: "*", message: "Bump build number to #{build_number}")
+      end
+    end
   end
 
   desc "clear build and deriveData"
