@@ -63,7 +63,7 @@ platform :ios do
     # Distrubution Cert.
     cert(
       username: "#{ENV['APPLE_ID']}",
-      output_path: "./code_signing/certificates/distribution",
+      output_path: "./code_signing/certs/distribution",
     )
 
     # Development Mobile Provisioning ( DEBUG )
