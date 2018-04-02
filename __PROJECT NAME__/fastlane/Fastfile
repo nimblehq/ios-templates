@@ -111,11 +111,12 @@ platform :ios do
   end
 
   private_lane :bump_build do
-    unless (last_git_commit[:message].include?("Bump build number to"))
+    build_number = number_of_commits
+    unless (last_git_commit[:message].include?("Bump build number to")) && build_number == 1
       increment_build_number(
-        build_number: number_of_commits,
+        build_number: build_number,
       )
-      git_commit(path: "*", message: "Bump build number to #{number_of_commits}")
+      git_commit(path: "*", message: "Bump build number to #{build_number}")
     end
   end
 
