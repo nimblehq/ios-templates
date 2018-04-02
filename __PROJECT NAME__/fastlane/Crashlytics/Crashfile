@@ -1,0 +1,36 @@
+
+platform :ios do
+  desc "Send Beta to Crashlytics"
+  lane :release_beta_build do
+    download_certs_and_provisioning_profiles()
+    # STAGING
+    bump_build()
+    build_app(
+      export_method: "ad-hoc",
+      export_team_id: "#{ENV['TEAM_ID']}",
+      clean: true,
+      scheme: "#{ENV['SCHEME_NAME_STAGING']}",
+      xcargs: "-ONLY_ACTIVE_ARCH=NO",
+      include_bitcode: true,
+      include_symbols: true,
+      derived_data_path: "derivedData",
+      configuration: "Staging",
+      output_directory: "build",
+    )
+    upload_to_crashlytics(app_name: "#{ENV['SCHEME_NAME_STAGING']}")
+  end
+
+  desc "Deploy to Crashlytics"
+  private_lane :upload_to_crashlytics do |options|
+    crashlytics(
+      ipa_path: "./build/#{ENV['SCHEME_NAME_STAGING']}.ipa",
+      groups: nil,
+      emails: ["#{ENV['APPLE_ID']}"],
+      debug: false,
+      notifications: true,
+      notes_path: "release_notes.txt",
+    )
+    upload_symbols_to_crashlytics(dsym_path: "./build/#{ENV['SCHEME_NAME_STAGING']}.app.dSYM.zip")
+    slack(message: options[:app_name].concat("was successfully uploaded to Crashlytics")) unless ENV['SLACK_URL'].nil?
+  end
+end
