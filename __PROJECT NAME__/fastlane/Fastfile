@@ -54,14 +54,14 @@ platform :ios do
   desc "Create new or download certificate and mobileProvision for all app bundles."
   lane :download_certs_and_provisioning_profiles do
     # Development Cert.
-    cert(
+    get_certificates(
       development: true,
       username: "#{ENV['APPLE_ID']}",
       output_path: "./code_signing/certs/development",
     )
 
     # Development Mobile Provisioning ( DEBUG )
-    sigh(
+    get_provisioning_profile(
       development: true,
       username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
@@ -69,13 +69,13 @@ platform :ios do
     )
 
     # Distrubution Cert.
-    cert(
+    get_certificates(
       username: "#{ENV['APPLE_ID']}",
       output_path: "./code_signing/certs/distribution",
     )
 
     # Ad-Hoc Mobile Provisioning ( STAGING )
-    sigh(
+    get_provisioning_profile(
       adhoc: true,
       username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
@@ -83,7 +83,7 @@ platform :ios do
     )
 
     # AppStore Mobile Provisioning ( RELEASE )
-    sigh(
+    get_provisioning_profile(
       username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID']}",
       output_path: "./code_signing/profiles/appstore",
