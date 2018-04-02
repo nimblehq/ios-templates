@@ -42,28 +42,22 @@ platform :ios do
     )
   end
 
-  desc "setup_template"
-  lane :setup_template do
+  desc "Create App IDs and Code Signing"
+  lane :create_app_id_and_code_signing do
     ## DEBUG
     create_app_on_developer_portal(
-      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_DEBUG']}",
       app_name: "#{ENV['SCHEME_NAME_DEBUG']}",
-      skip_itc: true,
     )
-
+    ## STAGING
     create_app_on_developer_portal(
-      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID_STAGING']}",
       app_name: "#{ENV['SCHEME_NAME_STAGING']}",
-      skip_itc: true,
     )
-
+    ## RELEASE
     create_app_on_developer_portal(
-      username: "#{ENV['APPLE_ID']}",
       app_identifier: "#{ENV['BUNDLE_ID']}",
       app_name: "#{ENV['SCHEME_NAME']}",
-      skip_itc: false,
     )
     download_certs_and_provisioning_profiles()
   end
@@ -71,14 +65,14 @@ platform :ios do
   desc "Create new iOS apps on iTunes Connect and Dev Portal"
   private_lane :create_app_on_developer_portal do |options|
     produce(
-      username: options[:username],
+      username: "#{ENV['APPLE_ID']}",
       app_identifier: options[:app_identifier],
       app_name: options[:app_name],
       language: options[:language] || "English",
       app_version: options[:app_version] || "1.0",
       sku: options[:sku],
       team_name: options[:team_name],
-      skip_itc: options[:skip_itc],
+      skip_itc: true,
     )
   end
 
