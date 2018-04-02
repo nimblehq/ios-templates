@@ -12,6 +12,7 @@ target '__PROJECT NAME__' do
   pod 'Alamofire'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod ‘SwiftLint’
 
   target '__PROJECT NAME__Tests' do
     inherit! :search_paths
