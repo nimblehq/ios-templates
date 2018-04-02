@@ -12,7 +12,7 @@ platform :ios do
       export_method: "ad-hoc",
       export_team_id: "#{ENV['TEAM_ID']}",
       clean: true,
-      scheme: "#{ENV['APP_NAME_STAGING']}",
+      scheme: "#{ENV['SCHEME_NAME_STAGING']}",
       xcargs: "-ONLY_ACTIVE_ARCH=NO",
       include_bitcode: true,
       include_symbols: true,
@@ -20,13 +20,13 @@ platform :ios do
       configuration: "Staging",
       output_directory: "build",
     )
-    upload_to_crashlytics(app_name: "#{ENV['APP_NAME_STAGING']}")
+    upload_to_crashlytics(app_name: "#{ENV['SCHEME_NAME_STAGING']}")
   end
 
   desc "Deploy to Crashlytics"
   private_lane :upload_to_crashlytics do |options|
     crashlytics(
-      ipa_path: "./build/#{ENV['APP_NAME_STAGING']}.ipa",
+      ipa_path: "./build/#{ENV['SCHEME_NAME_STAGING']}.ipa",
       groups: nil,
       emails: ["#{ENV['APPLE_ID']}"],
       debug: false,
@@ -40,11 +40,11 @@ platform :ios do
   desc "Deploy to AppStore"
   lane :release_app_store_build do
     download_certs_and_provisioning_profiles()
-    app_name = "#{ENV['APP_NAME_DEBUG']}"
+    app_name = "#{ENV['SCHEME_NAME_DEBUG']}"
     sync_code_signing(type: "appstore")
     build_app(
       export_method: "app-store",
-      scheme: "#{ENV['APP_NAME']}",
+      scheme: "#{ENV['SCHEME_NAME']}",
       workspace: "#{ENV['WORKSPACE']}",
       include_bitcode: true,
     )
