@@ -64,7 +64,7 @@ platform :ios do
     produce(
       username: "#{ENV['APPLE_ID']}",
       app_identifier: options[:app_identifier],
-      app_name: options[:app_name],
+      app_name: options[:app_name].gsub("-", " "),
       language: options[:language] || "English",
       app_version: options[:app_version] || "1.0",
       sku: options[:sku],
