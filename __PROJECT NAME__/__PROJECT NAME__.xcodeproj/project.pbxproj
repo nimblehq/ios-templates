@@ -353,7 +353,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Staging\" ]; then\n\"${PODS_ROOT}/Fabric/run\" __CRASHLYTICS_API_TOKEN__ __CRASHLYTICS_BUILD_SECRET__\nfi";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" __CRASHLYTICS_API_TOKEN__ __CRASHLYTICS_BUILD_SECRET__";
 		};
 /* End PBXShellScriptBuildPhase section */
 
