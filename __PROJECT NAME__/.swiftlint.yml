@@ -1,5 +1,3 @@
-disabled_rules: # rule identifiers to exclude from running
-  - trailing_whitespace
 opt_in_rules: # some rules are only opt-in
   - attributes
   - closure_spacing
@@ -46,3 +44,8 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 line_length:
   ignores_function_declarations: true
   ignores_comments: true
+identifier_name:
+  excluded:
+    - id
+trailing_whitespace:
+  ignores_empty_lines: true
