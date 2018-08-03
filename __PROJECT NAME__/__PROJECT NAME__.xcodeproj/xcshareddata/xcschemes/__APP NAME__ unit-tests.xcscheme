@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0920"
+   LastUpgradeVersion = "0940"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -9,26 +9,25 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2112D308205F70A200288FD9"
-               BuildableName = "__PROJECT NAME__.app"
-               BlueprintName = "__PROJECT NAME__"
+               BlueprintIdentifier = "2112D31C205F70A200288FD9"
+               BuildableName = "__PROJECT NAME__Tests.xctest"
+               BlueprintName = "__PROJECT NAME__Tests"
                ReferencedContainer = "container:__PROJECT NAME__.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Staging"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      codeCoverageEnabled = "YES"
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -40,23 +39,13 @@
                ReferencedContainer = "container:__PROJECT NAME__.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2112D327205F70A200288FD9"
-               BuildableName = "__PROJECT NAME__UITests.xctest"
-               BlueprintName = "__PROJECT NAME__UITests"
-               ReferencedContainer = "container:__PROJECT NAME__.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2112D308205F70A200288FD9"
-            BuildableName = "__PROJECT NAME__.app"
-            BlueprintName = "__PROJECT NAME__"
+            BlueprintIdentifier = "2112D31C205F70A200288FD9"
+            BuildableName = "__PROJECT NAME__Tests.xctest"
+            BlueprintName = "__PROJECT NAME__Tests"
             ReferencedContainer = "container:__PROJECT NAME__.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -64,51 +53,48 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Staging"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2112D308205F70A200288FD9"
-            BuildableName = "__PROJECT NAME__.app"
-            BlueprintName = "__PROJECT NAME__"
+            BlueprintIdentifier = "2112D31C205F70A200288FD9"
+            BuildableName = "__PROJECT NAME__Tests.xctest"
+            BlueprintName = "__PROJECT NAME__Tests"
             ReferencedContainer = "container:__PROJECT NAME__.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Staging"
+      buildConfiguration = "Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2112D308205F70A200288FD9"
-            BuildableName = "__PROJECT NAME__.app"
-            BlueprintName = "__PROJECT NAME__"
+            BlueprintIdentifier = "2112D31C205F70A200288FD9"
+            BuildableName = "__PROJECT NAME__Tests.xctest"
+            BlueprintName = "__PROJECT NAME__Tests"
             ReferencedContainer = "container:__PROJECT NAME__.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Staging">
+      buildConfiguration = "Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Staging"
+      buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
