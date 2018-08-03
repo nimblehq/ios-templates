@@ -1,0 +1,5 @@
+git_url("#{ENV["CODE_SIGNING_REPOSITORY"]}")
+username("#{ENV["APPLE_ID"]}")
+team_name("#{ENV["TEAM_NAME"]}")
+git_branch("#{ENV["REPOSITORY_NAME"]}")
+force_for_new_devices(true)
