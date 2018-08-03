@@ -1,34 +1,141 @@
 require("dotenv")
 Dotenv.load
 
-import "./Crashlytics/Crashfile"
-import "./iTunesConnect/Connectfile"
-import "./Developer Portal/Codefile"
+@bump_build_commit_message = "[ci-skip] bump build to"
+
+skip_docs
 
 default_platform(:ios)
-
 platform :ios do
-  private_lane :bump_build do
-    build_number = number_of_commits
-    unless (last_git_commit[:message].include?("Bump build number to"))
-      increment_build_number(
-        build_number: build_number,
+  desc "Run unit tests"
+  lane :unit_tests do
+    run_test_suite(
+      unit_tests: true,
+    )
+  end
+
+  desc "Run UI tests"
+  lane :ui_tests do
+    run_test_suite(
+      ui_tests: true,
+    )
+  end
+
+  desc "Run Tests Suite"
+  lane :run_test_suite do |options|
+    if options[:unit_tests].nil? && options[:ui_tests].nil?
+      unit_tests = true
+      ui_tests = true
+    else
+      ui_tests = options.fetch(:ui_tests, false)
+      unit_tests = options.fetch(:unit_tests, false)
+    end
+
+    test_without_building = options.fetch(:test_without_building, false)
+
+    ci_build_for_testing if !test_without_building
+
+    if unit_tests
+      scan(
+        scheme: "#{ENV["SCHEME_NAME_UNIT_TESTS"]}",
+        test_without_building: true,
+        clean: false,
       )
-      begin
-        git_add
-        ensure_git_status_clean
-      rescue
-        git_commit(path: "*", message: "Bump build number to #{build_number}")
-      end
+    end
+
+    if ui_tests
+      scan(
+        scheme: "#{ENV["SCHEME_NAME_UI_TESTS"]}",
+        test_without_building: true,
+        clean: false,
+      )
     end
   end
 
-  desc "clear build and deriveData"
-  lane :clear_all do
-    clean_cocoapods_cache
-    clean_build_artifacts
-    clear_derived_data(derived_data_path: 'derivedData')
-    sh "rm -rf #{ENV['PWD']}/derivedData/*"
-    sh "rm -rf #{ENV['PWD']}/build/*"
+  desc "Install Cocoapods"
+  lane :setup_cocoapods do
+    cocoapods(
+      use_bundle_exec: true,
+      try_repo_update_on_error: true,
+    )
+  end
+
+  desc "Update project version number and create a pull request to merge into develop"
+  lane :bump_project_version do |options|
+    unless git_branch == "develop"
+      raise "bump_project_version need to be execute on develop branch"
+    end
+
+    current_version = get_version_number
+    version_number = options[:to_version]
+
+    if version_number.nil?
+      version_number = prompt(text: "(current_version: #{current_version}), new version number: ")
+    end
+
+    bump_version_branch = "chore/bump-version-to-#{version_number}"
+
+    sh "git pull origin develop"
+    sh "git checkout -b #{bump_version_branch}"
+
+    increment_version_number(
+      version_number: version_number,
+    )
+
+    commit_version_bump(
+      message: "[ci-skip] bump version to #{version_number}",
+    )
+
+    push_to_git_remote(
+      local_branch: bump_version_branch,
+      remote_branch: bump_version_branch,
+      tags: false,
+    )
+
+    description = File.read("../bump_version_pull_request_template.txt")
+
+    release_story = get_pivotal_tracker_stories(types: ["release"]).first
+    story_id = release_story["id"]
+    description.sub!("--story-id--", "#{story_id}")
+    description.sub!("--version--", "#{version_number}")
+
+    create_bitbucket_pull_request(origin: bump_version_branch,
+                                  destination: "develop",
+                                  title: "[##{story_id}]  Update project version to #{version_number}",
+                                  description: description)
+
+    sh "git checkout develop"
+    sh "git branch -d -f #{bump_version_branch}"
+  end
+
+  def bump_build
+    unless (last_git_commit[:message].include?(@bump_build_commit_message))
+      increment_build_number(
+        build_number: number_of_commits,
+      )
+    end
+    get_build_number
+  end
+
+  def hash_version
+    current_commit = last_git_commit
+    current_version = get_version_number
+    wraped_commit_hash = "[" + current_commit[:abbreviated_commit_hash] + "]"
+    version_with_hash = current_version + "-" + wraped_commit_hash
+    increment_version_number(
+      version_number: version_with_hash,
+    )
   end
 end
+
+def is_jenkins?
+  !ENV["IS_JENKINS"].nil?
+end
+
+import "./Crashlytics/Crashfile"
+import "./iTunesConnect/Connectfile"
+import "./Crashlytics/ReleaseNotefile"
+import "./Developer Portal/Codefile"
+import "./PivotalTrackerAPI/story"
+import "./BitbucketAPI/pull_request"
+import "./CI/CIfile"
