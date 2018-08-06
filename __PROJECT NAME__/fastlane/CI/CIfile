@@ -63,7 +63,8 @@ platform :ios do
 
     crashlytics(
       ipa_path: "./build/#{ENV["PROJECT_NAME"]}.ipa",
-      groups: is_internal ? ["internal"] : ["braive-team"],
+      # note: - change the right statement to external group
+      groups: is_internal ? ["internal"] : [],
       debug: false,
       notifications: true,
       notes_path: "release_notes.txt",
