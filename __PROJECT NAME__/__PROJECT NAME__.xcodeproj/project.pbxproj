@@ -562,6 +562,7 @@
 		2112D335205F70A200288FD9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
@@ -572,13 +573,14 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECT NAME__ debug.app/__PROJECT NAME__ debug";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECT NAME__.app/__PROJECT NAME__";
 			};
 			name = Debug;
 		};
 		2112D336205F70A200288FD9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
@@ -589,7 +591,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECT NAME__ debug.app/__PROJECT NAME__ debug";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECT NAME__.app/__PROJECT NAME__";
 			};
 			name = Release;
 		};
@@ -703,6 +705,7 @@
 		2112D33C205F715F00288FD9 /* Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
@@ -713,7 +716,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECT NAME__ debug.app/__PROJECT NAME__ debug";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/__PROJECT NAME__.app/__PROJECT NAME__";
 			};
 			name = Staging;
 		};
