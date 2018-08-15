@@ -31,3 +31,4 @@ Temporary Items
 
 cookiecutter.json
 {{ cookiecutter.*
+/__PROJECT NAME__/.bundle/ruby
