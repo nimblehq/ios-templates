@@ -80,21 +80,27 @@ platform :ios do
   end
 
   desc "create App ID for all app bundles"
-  lane :create_app_ids do
+  lane :create_app_ids do |options|
     ## DEBUG
     create_app_on_developer_portal(
       app_identifier: "#{ENV["BUNDLE_ID_DEBUG"]}",
       app_name: "#{ENV["SCHEME_NAME_DEBUG"]}",
+      sku: options[:sku],
+      team_name: options[:team_name],
     )
     ## STAGING
     create_app_on_developer_portal(
       app_identifier: "#{ENV["BUNDLE_ID_STAGING"]}",
       app_name: "#{ENV["SCHEME_NAME_STAGING"]}",
+      sku: options[:sku],
+      team_name: options[:team_name],
     )
     ## RELEASE
     create_app_on_developer_portal(
       app_identifier: "#{ENV["BUNDLE_ID"]}",
       app_name: "#{ENV["SCHEME_NAME"]}",
+      sku: options[:sku],
+      team_name: options[:team_name],
     )
   end
 
