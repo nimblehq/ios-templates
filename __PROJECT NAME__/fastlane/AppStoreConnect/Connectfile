@@ -1,0 +1,10 @@
+
+platform :ios do
+  desc "Deploy to App Store"
+  lane :release_appstore do
+    match_appstore
+
+    ci_build_for_appstore
+    ci_upload_to_appstore
+  end
+end

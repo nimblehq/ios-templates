@@ -136,6 +136,7 @@ end
 
 import "./Crashlytics/Crashfile"
 import "./iTunesConnect/Connectfile"
+import "./AppstoreConnect/Connectfile"
 import "./Crashlytics/ReleaseNotefile"
 import "./Developer Portal/Codefile"
 import "./PivotalTrackerAPI/story"
