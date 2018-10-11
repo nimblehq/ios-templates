@@ -41,6 +41,10 @@ ROOT
   - Integrate UI and unit test
 
 #### Code Signing
+  - AppID
+    - AppIDs can be created automatically with `lane :create_app_ids`, this will create AppIDs for `Appstore`, `Staging` and `Debug` schemes.
+  - App Store Connect 
+    - App in App Store Connect needs to be created manually. 
   - Certificate
     - Development
       - for DEBUG build configuration.
