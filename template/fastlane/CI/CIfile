@@ -148,4 +148,34 @@ platform :ios do
       description: description,
     )
   end
+
+  desc "Build .ipa for AppStore"
+  lane :ci_build_for_appstore do
+    build_app(
+      export_method: "app-store",
+      export_team_id: "#{ENV["TEAM_ID"]}",
+      clean: true,
+      scheme: "#{ENV["SCHEME_NAME"]}",
+      xcargs: "-ONLY_ACTIVE_ARCH=NO",
+      include_bitcode: true,
+      include_symbols: true,
+      derived_data_path: "derivedData",
+      configuration: "Release",
+      output_directory: "build",
+    )
+  end
+
+  desc "Upload .ipa to AppStore"
+  lane :ci_upload_to_appstore do
+    deliver(
+      app_identifier: "#{ENV["BUNDLE_ID"]}",
+      app_version: get_version_number,
+      ipa: "./build/#{ENV["PROJECT_NAME"]}.ipa", # todo: change to env TARGET_NAME
+      dev_portal_team_id: "#{ENV["TEAM_ID"]}", # todo: env DEV_PORTAL_TEAM_ID
+      dev_portal_team_name: "#{ENV["TEAM_NAME"]}", # todo: env DEV_PORTAL_TEAM_NAME
+      team_id: "#{ENV["TEAM_ID"]}", # todo: env APPSTORE_CONNECT_TEAM_ID
+      team_name: "#{ENV["TEAM_NAME"]}", # todo: env APPSTORE_CONNECT_TEAM_NAME
+      force: true, # Skip the HTML report file verification
+    )
+  end
 end
