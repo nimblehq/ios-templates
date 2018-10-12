@@ -129,7 +129,7 @@ pipeline {
             } else if (env.BRANCH_NAME =~ /release\//) {
               sh 'bundle exec fastlane ci_upload_to_crashlytics is_internal:false'
               sh 'bundle exec fastlane ci_upload_dSYM'
-              withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'braive-bitbucket-ssh', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+              withCredentials(bindings: [sshUserPrivateKey(credentialsId: '__GIT_SSH_JENKINS_CREDENTIAL_ID__', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                 sh '''
                   eval $(ssh-agent) && ssh-add $SSH_PRIVATE_KEY
                   ssh git@bitbucket.org

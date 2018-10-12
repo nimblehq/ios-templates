@@ -29,7 +29,7 @@ platform :ios do
   end
 
   def generate_release_note_header
-    release_note = "Braive (#{get_version_number}) "
+    release_note = "#{ENV["PROJECT_NAME"]} (#{get_version_number}) "
     release_note += "\n"
   end
 
