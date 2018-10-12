@@ -2,7 +2,12 @@
 Our optimized iOS template used in our projects
 
 ## Usage
-Run `Bakery` file to generate project from template. Simply follow the steps.
+
+```
+brew install flintbox/Flint/flint
+flint t c https://github.com/nimbl3/ios-templates
+flint s ios-templates
+```
 
 ## What's included
 
