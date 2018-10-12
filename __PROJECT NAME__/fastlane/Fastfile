@@ -1,7 +1,7 @@
 require("dotenv")
 Dotenv.load
 
-@bump_build_commit_message = "[ci-skip] bump build to"
+@bump_build_commit_message = "[skip-ci] bump build to"
 
 skip_docs
 
@@ -83,7 +83,7 @@ platform :ios do
     )
 
     commit_version_bump(
-      message: "[ci-skip] bump version to #{version_number}",
+      message: "[skip-ci] bump version to #{version_number}",
     )
 
     push_to_git_remote(
@@ -99,10 +99,12 @@ platform :ios do
     description.sub!("--story-id--", "#{story_id}")
     description.sub!("--version--", "#{version_number}")
 
-    create_bitbucket_pull_request(origin: bump_version_branch,
-                                  destination: "develop",
-                                  title: "[##{story_id}]  Update project version to #{version_number}",
-                                  description: description)
+    create_bitbucket_pull_request(
+      origin: bump_version_branch,
+      destination: "develop",
+      title: "[skip-ci][##{story_id}]  Update project version to #{version_number}",
+      description: description,
+    )
 
     sh "git checkout develop"
     sh "git branch -d -f #{bump_version_branch}"
