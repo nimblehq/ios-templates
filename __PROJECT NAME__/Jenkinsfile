@@ -171,12 +171,3 @@ pipeline {
     }
   }
 }
-
-def doesNotContainCISkip() {
-  def containCISkip = sh (script: "git log -1 | grep '.*\\[ci-skip].*'", returnStatus: true)
-  if (containCISkip == 0) {
-    echo "'[ci-skip]' found in git latest commit message. Skipping"
-    return false
-  }
-  return true
-}
