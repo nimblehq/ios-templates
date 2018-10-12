@@ -31,11 +31,19 @@ ROOT
     - **Debug** for development - _with `DEBUG` flag defined_
     - **Release** for releasing to App Store - _with `RELEASE` flag defined_
     - **Staging** for releasing beta - _with `STAGING` flag defined_
-  - Schemes setup:
-    - **_{Project name}_** - with _release_ configuration without tests
-    - **_{Project name}_ debug** - with _debug_ configuration and tests included
-    - **_{Project name}_ staging** - with _staging_ configuration and tests included
-  - Set _Defines module_ to `YES` for enabling Quick & Nimble test module.
+
+  - Schemes:
+    - This project is set up with 6 schemes as listed below:
+      - **{Project name}** - targeted at production level for releasing to App Store.
+      - **{Project name} staging** - set up for staging environment with Ad-hoc distribution provisioning profile for releasing beta to Crashlytics.
+      - **{Project name} debug** - set up for staging environment with development
+      provisioning profile for development and debugging. This scheme includes unit testing.
+      - **{Project name} test suite** - configured for both UI and unit tests. *This scheme is intended for Jenkins to build testing targets only once.*
+      - **{Project name} unit-tests** - configured for unit tests only.
+      - **{Project name} ui-tests** - configured for UI tests only.
+
+> When working on the project, usually **test suite** and **unit-tests** can be omitted as the former one is only meant for building testing targets, and unit tests are already includes in **debug** scheme for the latter one.
+
   - Add a run script for SwiftLint
   - Add a run script for Crashlytics
   - Integrate UI and unit test
@@ -106,7 +114,6 @@ More information on opted in/out Rules to come...
 
 #### Credentials Management 
  There're some environment variables required to be set up both on Local machine and Jenkins Master
-
   - **${PREFIX}**_CRASHLYTICS_API_TOKEN
   - **${PREFIX}**_CRASHLYTICS_BUILD_SECRET
   - **${PREFIX}**_MATCH_PASSWORD
@@ -121,3 +128,12 @@ More information on opted in/out Rules to come...
   - These variables need to be set on Jenkins with this following navigation. 
     - `Project > Credentials > Project's Scope > Add credentials`
   - All credentials can be passed as environment variables in Jenkinsfile using [Jenkins Credentials Binding](https://jenkins.io/doc/pipeline/steps/credentials-binding/)
+#### **Jenkins**
+
+Using `[skip-ci]` in commit message will make Jenkins skip every pipeline on the job.
+
+Using `[skip-deploy]` in commit message or pull request title will make Jenkins skip `Build for deploy` and `Deploy` steps. 
+
+**[Nimbl3's Jenkins](http://jenkins.nimbl3.com)** is configured with global shared library linking to `master` branch of [jenkins-shared-library](https://github.com/nimbl3/jenkins-pipeline-shared) repository.
+
+> Be cautious of the usage of `[skip-ci]` as, currently, it will make the job's result to `SUCCESS` all the time.
