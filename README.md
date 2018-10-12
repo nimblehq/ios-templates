@@ -103,3 +103,21 @@ More information on opted in/out Rules to come...
       - create `App ID` on developer portal then `download_certs_and_provisioning_profiles`
     - `clear_all`
       - delete `deriveData` and `build` directories in project. 
+
+#### Credentials Management 
+ There're some environment variables required to be set up both on Local machine and Jenkins Master
+
+  - **${PREFIX}**_CRASHLYTICS_API_TOKEN
+  - **${PREFIX}**_CRASHLYTICS_BUILD_SECRET
+  - **${PREFIX}**_MATCH_PASSWORD
+  - **${PREFIX}**_PT_PROJECT_ID
+  - **${PREFIX}**_PT_PROJECT_TOKEN
+  - **${PREFIX}**_BITBUCKET_CREDENTIAL
+  > **${PREFIX}** is project name uppercased.  
+
+- Local machine
+  - These variables need to be defined and export in `.zshrc` at the root directory of current user's machine.
+- Jenkins master 
+  - These variables need to be set on Jenkins with this following navigation. 
+    - `Project > Credentials > Project's Scope > Add credentials`
+  - All credentials can be passed as environment variables in Jenkinsfile using [Jenkins Credentials Binding](https://jenkins.io/doc/pipeline/steps/credentials-binding/)
