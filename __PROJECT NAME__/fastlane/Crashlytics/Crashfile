@@ -15,4 +15,13 @@ platform :ios do
     commit_and_push_changes
     create_release_pull_requests
   end
+
+  def crashlytics_internal_tester_groups 
+    ENV["CRASHLYTICS_INTERNAL_TESTER_GROUPS"].split(",")
+  end
+
+  def crashlytics_external_tester_groups 
+    ENV["CRASHLYTICS_EXTERNAL_TESTER_GROUPS"].split(",")
+  end
+
 end

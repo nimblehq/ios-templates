@@ -72,7 +72,8 @@ ROOT
   - Application Bundle Identifier need to be added to `Fabric.app` first.
   - Follow the `Fabric.app` instructions, **ignore** import Fabric & Crashlytics to Xcode Project and `AppDelegate.swift` process.
   - When `Fabric.app` ask to build or run, execute it with `STAGING` scheme.
-  - `Fabric` teams need to be create and put fill in `fastlane/CI/CIfile`
+  - `Fabric` tester group can be configure in `./fastlane/.env`
+  - `Fabric` tester group will be able to create on `Fabric` website after first product is deployed.  
 
 #### SwiftLint integration
 More information on opted in/out Rules to come...
