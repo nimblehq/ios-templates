@@ -106,8 +106,17 @@ pipeline {
             sh 'bundle exec fastlane ci_build_for_internal_beta'
           } else if (env.BRANCH_NAME =~ /release\//) {
             sh 'bundle exec fastlane ci_build_for_beta'
+
+            withCredentials(bindings: [sshUserPrivateKey(credentialsId: 'braive-bitbucket-ssh', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
+              sh '''
+                eval $(ssh-agent) && ssh-add $SSH_PRIVATE_KEY
+                ssh git@bitbucket.org
+                bundle exec fastlane ci_commit_bump_build
+                bundle exec fastlane ci_push_changes
+              '''
+            }
           } else if (env.BRANCH_NAME ==~ /master/) {
-            //todo:- change to release_appstore once the app is published
+            sh 'bundle exec fastlane ci_build_for_appstore'
           }
         }
       }
@@ -132,16 +141,9 @@ pipeline {
             } else if (env.BRANCH_NAME =~ /release\//) {
               sh 'bundle exec fastlane ci_upload_to_crashlytics is_internal:false'
               sh 'bundle exec fastlane ci_upload_dSYM'
-              withCredentials(bindings: [sshUserPrivateKey(credentialsId: '__GIT_SSH_JENKINS_CREDENTIAL_ID__', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
-                sh '''
-                  eval $(ssh-agent) && ssh-add $SSH_PRIVATE_KEY
-                  ssh git@bitbucket.org
-                  bundle exec fastlane ci_commit_bump_build_and_push_changes
-                '''
-              }
               sh 'bundle exec fastlane ci_create_release_pull_request'
             } else if (env.BRANCH_NAME ==~ /master/) {
-              //todo:- change to release_appstore once the app is published
+              sh 'bundle exec fastlane ci_upload_to_appstore'
             }
             sh 'bundle exec fastlane remove_keychain'
           } else {

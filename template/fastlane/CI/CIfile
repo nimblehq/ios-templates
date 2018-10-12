@@ -96,13 +96,16 @@ platform :ios do
     clear_derived_data(derived_data_path: "derivedData")
   end
 
-  desc "Commit bump build and relase note then push changes"
-  lane :ci_commit_bump_build_and_push_changes do
+  desc "Commit bump build and release note"
+  lane :ci_commit_bump_build do
     commit_version_bump(
       message: "#{@bump_build_commit_message} #{get_build_number} and update release notes",
       include: "release_notes.txt",
     )
+  end
 
+  desc "Push changes to remote origin"
+  lane :ci_push_changes do
     current_branch = ENV.fetch("GIT_BRANCH", git_branch)
 
     push_to_git_remote(

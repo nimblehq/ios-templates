@@ -117,6 +117,12 @@ More information on opted in/out Rules to come...
     - `clear_all`
       - delete `deriveData` and `build` directories in project. 
 
+#### Deploy to App Store Connect
+  - App Store Connect
+    - Log in to App Store Connect and create `App` with App Store release bundle indentifier. 
+  - Fastlane
+    - execute `fastlane deliver init` to create metadata template files for delivering to App Store Connect via fastlane.
+    
 #### Credentials Management 
  There're some environment variables required to be set up both on Local machine and Jenkins Master
   - **${PREFIX}**_CRASHLYTICS_API_TOKEN
