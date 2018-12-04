@@ -2,14 +2,12 @@
 platform :ios, '10.0'
 
 def testing_pods
-  pod 'Quick'
-  pod 'Nimble'
+  # pod for test targets
 end
 
 target '__PROJECT NAME__' do
   use_frameworks!
 
-  pod 'Alamofire'
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'SwiftLint'
