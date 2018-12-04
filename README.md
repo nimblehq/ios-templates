@@ -110,7 +110,7 @@ More information on opted in/out Rules to come...
     - `lane :create_app_id_and_code_signing`
       - create `App ID` on developer portal then `download_certs_and_provisioning_profiles`
     - `clear_all`
-      - delete `deriveData` and `build` directories in project. 
+      - delete `DeriveData` and `Build` directories in project. 
 
 #### Credentials Management 
  There're some environment variables required to be set up both on Local machine and Jenkins Master

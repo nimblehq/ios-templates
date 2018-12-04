@@ -50,9 +50,9 @@ platform :ios do
       xcargs: "-ONLY_ACTIVE_ARCH=NO",
       include_bitcode: true,
       include_symbols: true,
-      derived_data_path: "derivedData",
+      derived_data_path: "DerivedData",
       configuration: "Staging",
-      output_directory: "build",
+      output_directory: "Build",
     )
   end
 

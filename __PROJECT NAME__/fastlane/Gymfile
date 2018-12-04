@@ -1,2 +1,2 @@
 clean(true)
-output_directory("./build")
+output_directory("./Build")
