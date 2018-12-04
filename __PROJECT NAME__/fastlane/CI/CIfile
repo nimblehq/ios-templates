@@ -62,7 +62,7 @@ platform :ios do
     is_internal ? generate_release_note_from_commits : generate_release_note_from_pivotal_tracker
 
     crashlytics(
-      ipa_path: "./build/#{ENV["PROJECT_NAME"]}.ipa",
+      ipa_path: "./build/#{ENV["PRODUCT_NAME_STAGING"]}.ipa",
       groups: is_internal ? crashlytics_internal_tester_groups : crashlytics_external_tester_groups, 
       debug: false,
       notifications: true,
