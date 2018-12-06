@@ -31,7 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2112D309205F70A200288FD9 /* __PROJECT NAME__ debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "__PROJECT NAME__ debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2112D309205F70A200288FD9 /* __PROJECT NAME__ Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "__PROJECT NAME__ Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2112D30C205F70A200288FD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2112D313205F70A200288FD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2112D316205F70A200288FD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		2112D30A205F70A200288FD9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2112D309205F70A200288FD9 /* __PROJECT NAME__ debug.app */,
+				2112D309205F70A200288FD9 /* __PROJECT NAME__ Debug.app */,
 				2112D31D205F70A200288FD9 /* __PROJECT NAME__Tests.xctest */,
 				2112D328205F70A200288FD9 /* __PROJECT NAME__UITests.xctest */,
 			);
@@ -215,7 +215,7 @@
 			);
 			name = "__PROJECT NAME__";
 			productName = "__PROJECT NAME__";
-			productReference = 2112D309205F70A200288FD9 /* __PROJECT NAME__ debug.app */;
+			productReference = 2112D309205F70A200288FD9 /* __PROJECT NAME__ Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2112D31C205F70A200288FD9 /* __PROJECT NAME__Tests */ = {
@@ -534,7 +534,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "--BUNDLE-IDENTIFIER--.debug";
-				PRODUCT_NAME = "$(TARGET_NAME) debug";
+				PRODUCT_NAME = "$(TARGET_NAME) $(CONFIGURATION)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -698,7 +698,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "--BUNDLE-IDENTIFIER--.staging";
-				PRODUCT_NAME = "$(TARGET_NAME) staging";
+				PRODUCT_NAME = "$(TARGET_NAME) $(CONFIGURATION)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGING;
 				SWIFT_VERSION = 4.0;
