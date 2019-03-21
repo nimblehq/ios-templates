@@ -1,0 +1,151 @@
+platform :ios do
+  desc "Build for testing"
+  lane :ci_build_for_testing do
+    scan(
+      scheme: "#{ENV["SCHEME_NAME_TEST_SUITE"]}",
+      build_for_testing: true,
+      should_zip_build_products: true,
+      clean: true,
+    )
+  end
+
+  desc "Run Unit run_test_suite without building"
+  lane :ci_unit_tests do
+    run_test_suite(unit_tests: true, test_without_building: true)
+  end
+
+  desc "Run UI run_test_suite without building"
+  lane :ci_ui_tests do
+    run_test_suite(ui_tests: true, test_without_building: true)
+  end
+
+  desc "Match for deploy (CI use this lane)"
+  lane :ci_code_signing_for_deploy do
+    branch_name = ENV["GIT_BRANCH"]
+    branch_name == "master" ? match_appstore : match_adhoc
+  end
+
+  desc "Build & achieve internal beta"
+  lane :ci_build_for_internal_beta do
+    ci_build_for_crashlytics(is_internal: true)
+  end
+
+  desc "Build & achieve external beta"
+  lane :ci_build_for_beta do
+    ci_build_for_crashlytics(is_internal: false)
+  end
+
+  desc "Build .ipa for Crashlytics"
+  private_lane :ci_build_for_crashlytics do |options|
+    is_internal = options.fetch(:is_internal, true)
+
+    hash_version if is_internal
+
+    bump_build
+    build_app(
+      export_method: "ad-hoc",
+      export_team_id: "#{ENV["TEAM_ID"]}",
+      clean: true,
+      scheme: "#{ENV["SCHEME_NAME_STAGING"]}",
+      xcargs: "-ONLY_ACTIVE_ARCH=NO",
+      include_bitcode: true,
+      include_symbols: true,
+      derived_data_path: "derivedData",
+      configuration: "Staging",
+      output_directory: "build",
+    )
+  end
+
+  desc "Deploy to Crashlytics"
+  lane :ci_upload_to_crashlytics do |options|
+    is_internal = options.fetch(:is_internal, true)
+    is_internal ? generate_release_note_from_commits : generate_release_note_from_pivotal_tracker
+
+    crashlytics(
+      ipa_path: "./build/#{ENV["PRODUCT_NAME_STAGING"]}.ipa",
+      groups: is_internal ? crashlytics_internal_tester_groups : crashlytics_external_tester_groups, 
+      debug: false,
+      notifications: true,
+      notes_path: "release_notes.txt",
+    )
+
+    unless ENV["SLACK_URL"].nil?
+      app_name = "#{ENV["SCHEME_NAME_STAGING"]}"
+      app_name += " (#{get_version_number})" if is_internal
+      app_name += " build #{get_build_number}"
+      message = app_name + " was successfully uploaded to Crashlytics"
+      slack(message: message)
+    end
+  end
+
+  desc "Upload dSYM to Crashlytics"
+  lane :ci_upload_dSYM do
+    upload_symbols_to_crashlytics(dsym_path: "./build/#{ENV["PRODUCT_NAME_STAGING"]}.app.dSYM.zip")
+  end
+
+  desc "Discard all git changes"
+  lane :ci_clean_git_repository do
+    sh "git checkout -f" # discard tracked files
+    sh "git clean -fd" # discard untracked files
+  end
+
+  desc "Clean up build artifacts, pods cache, and derived data"
+  lane :ci_clean_up do
+    clean_cocoapods_cache
+    clean_build_artifacts
+    clear_derived_data(derived_data_path: "derivedData")
+  end
+
+  desc "Commit bump build and relase note then push changes"
+  lane :ci_commit_bump_build_and_push_changes do
+    commit_version_bump(
+      message: "#{@bump_build_commit_message} #{get_build_number} and update release notes",
+      include: "release_notes.txt",
+    )
+
+    current_branch = ENV.fetch("GIT_BRANCH", git_branch)
+
+    push_to_git_remote(
+      local_branch: "HEAD",
+      remote_branch: current_branch,
+      tags: false,
+    )
+  end
+
+  desc "Create pull request from release to develop and master"
+  lane :ci_create_release_pull_request do
+    release_story = get_pivotal_tracker_stories(types: ["release"]).first
+    current_branch = ENV.fetch("GIT_BRANCH", git_branch)
+
+    version_number = get_version_number
+    pull_request_title = [
+      "[##{release_story["id"]}]",
+      "Release",
+      "#{version_number}",
+    ].join(" ")
+
+    release_note_message = File.read("../release_notes.txt")
+    description = File.read("../release_pull_request_template.txt")
+
+    release_story = get_pivotal_tracker_stories(types: ["release"]).first
+    story_id = release_story["id"]
+
+    description.sub!("--story-id--", "#{story_id}")
+    description.sub!("--version--", "#{version_number}")
+    description.sub!("--release-note--", "#{release_note_message}")
+
+    create_bitbucket_pull_request(
+      origin: current_branch,
+      title: pull_request_title,
+      destination: "master",
+      description: description,
+    )
+
+    create_bitbucket_pull_request(
+      origin: current_branch,
+      title: "[skip-deploy]" + pull_request_title,
+      destination: "develop",
+      description: description,
+    )
+  end
+end

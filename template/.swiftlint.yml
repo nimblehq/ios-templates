@@ -1,0 +1,52 @@
+opt_in_rules: # some rules are only opt-in
+  - attributes
+  - closure_spacing
+  - contains_over_first_not_nil
+  - empty_count
+  - empty_string
+  - explicit_init
+  - extension_access_modifier
+  - fatal_error_message
+  - first_where
+  - implicitly_unwrapped_optional
+  - joined_default_parameter
+  - literal_expression_end_indentation
+  - multiline_arguments
+  - multiline_parameters
+  - nimble_operator
+  - operator_usage_whitespace
+  - overridden_super_call
+  - pattern_matching_keywords
+  - private_action
+  - prohibited_super_call
+  - redundant_nil_coalescing
+  - single_test_class
+  - sorted_first_last
+  - trailing_closure
+  - unneeded_parentheses_in_closure_argument
+  - untyped_error_in_catch
+  - vertical_parameter_alignment_on_call
+  - yoda_condition
+  - closure_end_indentation
+  - discouraged_optional_boolean
+  - discouraged_optional_collection
+  - force_unwrapping
+  - large_tuple
+  - object_literal
+  - prefixed_toplevel_constant
+  - private_outlet
+  - override_in_extension
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Pods
+  - .bundle
+
+# rule configurations
+
+line_length:
+  ignores_function_declarations: true
+  ignores_comments: true
+identifier_name:
+  excluded:
+    - id
+trailing_whitespace:
+  ignores_empty_lines: true

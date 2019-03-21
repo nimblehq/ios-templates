@@ -1,4 +1,0 @@
-https://www.pivotaltracker.com/story/show/--story-id--
-
-### **What Happened**
-- Update project version to reflect with our current developing version --version--
