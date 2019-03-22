@@ -131,7 +131,6 @@ More information on opted in/out Rules to come...
   - **${PREFIX}**_PT_PROJECT_ID
   - **${PREFIX}**_PT_PROJECT_TOKEN
   - **${PREFIX}**_BITBUCKET_CREDENTIAL
-  > **${PREFIX}** is project name uppercased.  
 
 - Local machine
   - These variables need to be defined and export in `.zshrc` at the root directory of current user's machine.
