@@ -1,3 +1,4 @@
 pod ruby 2.6.1
 fastlane ruby 2.6.1
 pronto ruby 2.6.1
+bundle ruby 2.6.1
