@@ -216,6 +216,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-darwin-18
 
 DEPENDENCIES
   cocoapods
@@ -224,4 +225,4 @@ DEPENDENCIES
   pronto
 
 BUNDLED WITH
-   1.17.1
+   2.0.0.dev
