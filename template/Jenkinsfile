@@ -25,10 +25,10 @@ pipeline {
     stage('Setup CI') {
       when { not { expression { shouldSkipCI() } } } 
       steps {
-        sh 'bundle install --path .bundle'
-        sh 'bundle exec fastlane run setup_jenkins'
-        sh 'bundle exec fastlane ci_clean_up'
-        sh 'bundle exec fastlane setup_cocoapods'
+        sh 'executable/init'
+        sh 'summon/bin fastlane run setup_jenkins'
+        sh 'summon/bin fastlane ci_clean_up'
+        sh 'summon/bin fastlane setup_cocoapods'
       }
     }
 
@@ -46,21 +46,21 @@ pipeline {
         PRONTO_SWIFTLINT_PATH = "${env.WORKSPACE}/Pods/SwiftLint/swiftlint"
       }
       steps {
-        sh "bundle exec pronto run -f bitbucket_pr -c upstream/${env.CHANGE_TARGET}"
+        sh "summon/bin pronto run -f bitbucket_pr -c upstream/${env.CHANGE_TARGET}"
       }
     }
     
     stage('Build for testing') {
       when { not { expression { shouldSkipCI() } } }
       steps {
-        sh 'bundle exec fastlane ci_build_for_testing'
+        sh 'summon/bin fastlane ci_build_for_testing'
       }
     }
 
     stage('Unit tests') {
       when { not { expression { shouldSkipCI() } } }
       steps {
-        sh 'bundle exec fastlane ci_unit_tests'
+        sh 'summon/bin fastlane ci_unit_tests'
       }
     }
 
@@ -70,7 +70,7 @@ pipeline {
         script {
           if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
             //todo:- later add a flag to run only for critical for wip branch
-            sh 'bundle exec fastlane ci_ui_tests'
+            sh 'summon/bin fastlane ci_ui_tests'
           }
         }
       }
@@ -99,13 +99,13 @@ pipeline {
             sh '''
               eval $(ssh-agent) && ssh-add $SSH_PRIVATE_KEY
               ssh git@bitbucket.org
-              bundle exec fastlane ci_code_signing_for_deploy
+              summon/bin fastlane ci_code_signing_for_deploy
             '''
           }
           if (env.BRANCH_NAME ==~ /develop/) {
-            sh 'bundle exec fastlane ci_build_for_internal_beta'
+            sh 'summon/bin fastlane ci_build_for_internal_beta'
           } else if (env.BRANCH_NAME =~ /release\//) {
-            sh 'bundle exec fastlane ci_build_for_beta'
+            sh 'summon/bin fastlane ci_build_for_beta'
           } else if (env.BRANCH_NAME ==~ /master/) {
             //todo:- change to release_appstore once the app is published
           }
@@ -127,23 +127,23 @@ pipeline {
         script {
           if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
             if (env.BRANCH_NAME ==~ /develop/) {
-              sh 'bundle exec fastlane ci_upload_to_crashlytics is_internal:true'
-              sh 'bundle exec fastlane ci_upload_dSYM'
+              sh 'summon/bin fastlane ci_upload_to_crashlytics is_internal:true'
+              sh 'summon/bin fastlane ci_upload_dSYM'
             } else if (env.BRANCH_NAME =~ /release\//) {
-              sh 'bundle exec fastlane ci_upload_to_crashlytics is_internal:false'
-              sh 'bundle exec fastlane ci_upload_dSYM'
+              sh 'summon/bin fastlane ci_upload_to_crashlytics is_internal:false'
+              sh 'summon/bin fastlane ci_upload_dSYM'
               withCredentials(bindings: [sshUserPrivateKey(credentialsId: '__GIT_SSH_JENKINS_CREDENTIAL_ID__', keyFileVariable: 'SSH_PRIVATE_KEY')]) {
                 sh '''
                   eval $(ssh-agent) && ssh-add $SSH_PRIVATE_KEY
                   ssh git@bitbucket.org
-                  bundle exec fastlane ci_commit_bump_build_and_push_changes
+                  summon/bin fastlane ci_commit_bump_build_and_push_changes
                 '''
               }
-              sh 'bundle exec fastlane ci_create_release_pull_request'
+              sh 'summon/bin fastlane ci_create_release_pull_request'
             } else if (env.BRANCH_NAME ==~ /master/) {
               //todo:- change to release_appstore once the app is published
             }
-            sh 'bundle exec fastlane remove_keychain'
+            sh 'summon/bin fastlane remove_keychain'
           } else {
             echo 'Found an issue when building. Deployment failed'
           }
@@ -157,7 +157,7 @@ pipeline {
         not { expression { shouldSkipDeploy() } }
       }
       steps {
-        sh 'bundle exec fastlane ci_clean_git_repository'
+        sh 'summon/bin fastlane ci_clean_git_repository'
       }
     }
   }
