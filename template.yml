@@ -2,6 +2,8 @@ description: "Nimbl3 iOS App Template"
 variables:
   - name: "__PROJECT NAME__"
     displayName: "[Project] Project Name"
+  - name: "__PROJECT_PREFIX__"
+    displayName: "[PROJECT] 2-3 Uppercased letters"
   - name: "__AUTHOR NAME__"
     displayName: "[Project] Author Name"
   - name: "__ORGANIZATION NAME__"
