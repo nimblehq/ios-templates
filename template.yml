@@ -15,7 +15,7 @@ variables:
   - name: "__CRASHLYTICS_BUILD_SECRET__"
     displayName: "[Project] Crashlytics Build Secret (Used in .xcodeproj run script build phase)"
   - name: "__REPOSITORY_NAME__"
-    displayName: "[Keychain] Keychain Group Name (Go to see 'Keychain Access' app and 'Keychains' side panel)"
+    displayName: "[fastlane match | GIT | Keychain] match with branch, BitBucket API, Keychain Group Name"
   - name: "__CODE_SIGNING_REPOSITORY_URL__"
     displayName: "[fastlane match] Code Signing Repository URL (In SSH scheme)"
   - name: "__DEVELOPER_PORTAL_APPLE_ID__"
