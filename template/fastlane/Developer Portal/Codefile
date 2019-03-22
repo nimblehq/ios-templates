@@ -107,7 +107,7 @@ platform :ios do
   desc "create App ID for all app bundles."
   private_lane :create_app_on_developer_portal do |options|
     produce(
-      username: "#{ENV["APPLE_ID"]}",
+      username: "#{ENV["DEVELOPER_PORTAL_APPLE_ID"]}",
       app_identifier: options[:app_identifier],
       app_name: options[:app_name].gsub("-", " "),
       language: options[:language] || "English",

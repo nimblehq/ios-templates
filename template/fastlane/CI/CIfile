@@ -44,7 +44,7 @@ platform :ios do
     bump_build
     build_app(
       export_method: "ad-hoc",
-      export_team_id: "#{ENV["TEAM_ID"]}",
+      export_team_id: "#{ENV["DEVELOPER_PORTAL_TEAM_ID"]}",
       clean: true,
       scheme: "#{ENV["SCHEME_NAME_STAGING"]}",
       xcargs: "-ONLY_ACTIVE_ARCH=NO",
@@ -156,7 +156,7 @@ platform :ios do
   lane :ci_build_for_appstore do
     build_app(
       export_method: "app-store",
-      export_team_id: "#{ENV["TEAM_ID"]}",
+      export_team_id: "#{ENV["DEVELOPER_PORTAL_TEAM_ID"]}",
       clean: true,
       scheme: "#{ENV["SCHEME_NAME"]}",
       xcargs: "-ONLY_ACTIVE_ARCH=NO",
@@ -174,10 +174,10 @@ platform :ios do
       app_identifier: "#{ENV["BUNDLE_ID"]}",
       app_version: get_version_number,
       ipa: "./build/#{ENV["PROJECT_NAME"]}.ipa", # todo: change to env TARGET_NAME
-      dev_portal_team_id: "#{ENV["TEAM_ID"]}", # todo: env DEV_PORTAL_TEAM_ID
-      dev_portal_team_name: "#{ENV["TEAM_NAME"]}", # todo: env DEV_PORTAL_TEAM_NAME
-      team_id: "#{ENV["TEAM_ID"]}", # todo: env APPSTORE_CONNECT_TEAM_ID
-      team_name: "#{ENV["TEAM_NAME"]}", # todo: env APPSTORE_CONNECT_TEAM_NAME
+      dev_portal_team_id: "#{ENV["DEVELOPER_PORTAL_TEAM_ID"]}",
+      dev_portal_team_name: "#{ENV["DEVELOPER_PORTAL_TEAM_NAME"]}",
+      team_id: "#{ENV["APPSTORE_CONNECT_TEAM_ID"]}",
+      team_name: "#{ENV["APPSTORE_CONNECT_TEAM_NAME"]}",
       force: true, # Skip the HTML report file verification
     )
   end
