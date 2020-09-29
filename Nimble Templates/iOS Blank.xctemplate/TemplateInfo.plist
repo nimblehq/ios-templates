@@ -8,7 +8,17 @@
     <string>co.nimble.ios-template.blank</string>
     <key>Nodes</key>
     <array>
-        <string>.temp</string>
+        <string>temp</string>
     </array>
+    
+    <key>Definitions</key>
+    <dict>
+        <key>temp</key>
+        <dict>
+			<key>Path</key>
+			<string>../temp/</string>
+        </dict>
+    </dict>
+
 </dict>
 </plist>

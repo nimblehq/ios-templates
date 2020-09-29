@@ -9,28 +9,32 @@
 
 	<key>Definitions</key>
     <dict>
-        <key>UnitTests/.temp</key>
+        <key>UnitTests/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>UnitTests</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>UITests/.temp</key>
+        <key>UITests/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>UITests</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
     </dict>
 
     <key>Nodes</key>
     <array>
-        <string>UnitTests/.temp</string>
-        <string>UITests/.temp</string>
+        <string>UnitTests/temp</string>
+        <string>UITests/temp</string>
     </array>
 </dict>
 </plist>

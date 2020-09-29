@@ -9,126 +9,150 @@
 
 	<key>Definitions</key>
     <dict>
-        <key>Application/AppDelegate/.temp</key>
+        <key>Application/AppDelegate/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Application</string>
 				<string>AppDelegate</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Application/Constants/.temp</key>
+        <key>Application/Constants/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Application</string>
 				<string>Constants</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Application/Entitlements/.temp</key>
+        <key>Application/Entitlements/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Application</string>
 				<string>Entitlements</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Application/Localizations/.temp</key>
+        <key>Application/Localizations/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Application</string>
 				<string>Localizations</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Application/Resources/.temp</key>
+        <key>Application/Resources/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Application</string>
 				<string>Resources</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Extensions/.temp</key>
+        <key>Extensions/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Extensions</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Models/.temp</key>
+        <key>Models/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Models</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Modules/.temp</key>
+        <key>Modules/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Modules</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Protocols/.temp</key>
+        <key>Protocols/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Protocols</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Services/Network/.temp</key>
+        <key>Services/Network/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Services</string>
 				<string>Network</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Utilities/Logger/.temp</key>
+        <key>Utilities/Logger/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Utilities</string>
 				<string>Logger</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
-        <key>Views/.temp</key>
+        <key>Views/temp</key>
         <dict>
 			<key>Group</key>
 			<array>
 				<string>Views</string>
 			</array>
+			<key>Path</key>
+			<string>../temp/</string>
         </dict>
 
     </dict>
 
     <key>Nodes</key>
     <array>
-        <string>Application/AppDelegate/.temp</string>
-        <string>Application/Constants/.temp</string>
-        <string>Application/Entitlements/.temp</string>
-        <string>Application/Localizations/.temp</string>
-        <string>Application/Resources/.temp</string>
+        <string>Application/AppDelegate/temp</string>
+        <string>Application/Constants/temp</string>
+        <string>Application/Entitlements/temp</string>
+        <string>Application/Localizations/temp</string>
+        <string>Application/Resources/temp</string>
 		
-        <string>Extensions/.temp</string>
-        <string>Models/.temp</string>
-        <string>Modules/.temp</string>
-        <string>Protocols/.temp</string>
-        <string>Services/Network/.temp</string>
-        <string>Utilities/Logger/.temp</string>
-		<string>Views/.temp</string>
+        <string>Extensions/temp</string>
+        <string>Models/temp</string>
+        <string>Modules/temp</string>
+        <string>Protocols/temp</string>
+        <string>Services/Network/temp</string>
+        <string>Utilities/Logger/temp</string>
+		<string>Views/temp</string>
     </array>
 </dict>
 </plist>
