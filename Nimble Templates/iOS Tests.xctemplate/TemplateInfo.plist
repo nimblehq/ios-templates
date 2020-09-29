@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Kind</key>
+    <string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+    <key>Identifier</key>
+    <string>co.nimble.ios-template.tests</string>
+
+	<key>Definitions</key>
+    <dict>
+        <key>UnitTests/.temp</key>
+        <dict>
+			<key>Group</key>
+			<array>
+				<string>UnitTests</string>
+			</array>
+        </dict>
+
+        <key>UITests/.temp</key>
+        <dict>
+			<key>Group</key>
+			<array>
+				<string>UITests</string>
+			</array>
+        </dict>
+
+    </dict>
+
+    <key>Nodes</key>
+    <array>
+        <string>UnitTests/.temp</string>
+        <string>UITests/.temp</string>
+    </array>
+</dict>
+</plist>

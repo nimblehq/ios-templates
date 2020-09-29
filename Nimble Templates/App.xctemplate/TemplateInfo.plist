@@ -9,7 +9,6 @@
     <key>Ancestors</key>
     <array>
         <string>com.apple.dt.unit.coreDataCocoaTouchApplication</string>
-        <string>com.apple.dt.unit.sceneLifecycleApplication</string>
     </array>
     <key>Concrete</key>
     <true/>
@@ -186,5 +185,30 @@ let contentView = ContentView().environment(\.managedObjectContext, context)
             <string>popup</string>
         </dict>
     </array>
+
+    <key>Components</key>
+    <array>
+        <dict>
+            <key>Identifier</key>
+            <string>co.nimble.ios-template.blank</string>
+            <key>Name</key>
+            <string>Design</string>
+        </dict>
+
+        <dict>
+            <key>Identifier</key>
+            <string>co.nimble.ios-template.sources</string>
+            <key>Name</key>
+            <string>Sources</string>
+        </dict>
+
+        <dict>
+            <key>Identifier</key>
+            <string>co.nimble.ios-template.tests</string>
+            <key>Name</key>
+            <string>Tests</string>
+        </dict>
+    </array>
+
 </dict>
 </plist>
