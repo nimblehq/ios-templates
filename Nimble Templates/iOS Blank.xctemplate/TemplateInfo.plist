@@ -15,8 +15,8 @@
     <dict>
         <key>temp</key>
         <dict>
-			<key>Path</key>
-			<string>../temp/</string>
+            <key>Path</key>
+            <string>../temp/</string>
         </dict>
     </dict>
 

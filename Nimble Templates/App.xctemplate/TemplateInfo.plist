@@ -190,13 +190,6 @@ let contentView = ContentView().environment(\.managedObjectContext, context)
     <array>
         <dict>
             <key>Identifier</key>
-            <string>co.nimble.ios-template.blank</string>
-            <key>Name</key>
-            <string>Design</string>
-        </dict>
-
-        <dict>
-            <key>Identifier</key>
             <string>co.nimble.ios-template.sources</string>
             <key>Name</key>
             <string>Sources</string>
