@@ -51,17 +51,17 @@
 						<key>Nodes</key>
 						<array>
 							<string>Application/AppDelegate/Application.AppDelegate.swift</string>
-         			<string>Application/Constants/Constants.swift</string>
-         			<string>Application/Entitlements/Entitlements.swift</string>
-         			<string>Application/Localizations/Localizations.swift</string>
-         			<string>Application/Resources/Resource.swift</string>
-         			<string>Extensions/Extensions.swift</string>
-         			<string>Models/Models.swift</string>
-         			<string>Modules/Modules.swift</string>
-         			<string>Protocols/Protocols.swift</string>
-         			<string>Services/Services.swift</string>
-         			<string>Utilities/Utilities.swift</string>
- 							<string>Views/View.swift</string>
+							<string>Application/Constants/Constants.swift</string>
+							<string>Application/Entitlements/Entitlements.swift</string>
+							<string>Application/Localizations/Localizations.swift</string>
+							<string>Application/Resources/Resource.swift</string>
+							<string>Extensions/Extensions.swift</string>
+							<string>Models/Models.swift</string>
+							<string>Modules/Modules.swift</string>
+							<string>Protocols/Protocols.swift</string>
+							<string>Services/Services.swift</string>
+							<string>Utilities/Utilities.swift</string>
+							<string>Views/View.swift</string>
 							<string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
 						</array>
 						<key>Definitions</key>
