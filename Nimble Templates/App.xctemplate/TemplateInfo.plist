@@ -46,7 +46,7 @@
 						<key>RequiredOptions</key>
 						<dict>
 							<key>userInterface</key>
-							<string>UI Programmatically</string>
+							<string>Programmatically</string>
 						</dict>
 						<key>Nodes</key>
 						<array>
@@ -203,10 +203,10 @@ if let windowScene = scene as? UIWindowScene {
 			<key>Values</key>
 			<array>
 				<string>SwiftUI</string>
-				<string>UI Programmatically</string>
+				<string>Programmatically</string>
 			</array>
 			<key>Default</key>
-			<string>UI Programmatically</string>
+			<string>Programmatically</string>
 			<key>Type</key>
 			<string>popup</string>
 		</dict>
