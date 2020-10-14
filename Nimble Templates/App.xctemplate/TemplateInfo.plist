@@ -2,119 +2,171 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>Kind</key>
-    <string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
-    <key>Identifier</key>
-    <string>co.nimblehq.dt.unit.singleViewApplication</string>
-    <key>Ancestors</key>
-    <array>
-        <string>com.apple.dt.unit.coreDataCocoaTouchApplication</string>
-        <string>com.apple.dt.unit.sceneLifecycleApplication</string>
-    </array>
-    <key>Concrete</key>
-    <true/>
-    <key>Description</key>
-    <string>This template provides a starting point for an application that uses a single view. It provides a view controller to manage the view, and a storyboard or nib file that contains the view.</string>
-    <key>SortOrder</key>
-    <integer>1</integer>
-    <key>NameOfInitialFileForEditor</key>
-    <string>ContentView.swift</string>
-    <key>Options</key>
-    <array>
-        <dict>
-            <key>Identifier</key>
-            <string>languageChoice</string>
-            <key>Units</key>
-            <dict>
-                <key>Objective-C</key>
-                <dict>
-                    <key>Nodes</key>
-                    <array>
-                        <string>ViewController.h:comments</string>
-                        <string>ViewController.h:imports:importCocoa</string>
-                        <string>ViewController.h:interface(___FILEBASENAME___ : UIViewController)</string>
-                        <string>ViewController.m:comments</string>
-                        <string>ViewController.m:imports:importHeader:ViewController.h</string>
-                        <string>ViewController.m:extension</string>
-                        <string>ViewController.m:implementation:methods:viewDidLoad(- (void\)viewDidLoad)</string>
-                        <string>ViewController.m:implementation:methods:viewDidLoad:super</string>
-                        <string>Info.plist:UIMainStoryboardFile</string>
-                        <string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
-                        <string>Base.lproj/Main.storyboard</string>
-                    </array>
-                    <key>Definitions</key>
-                    <dict>
-                        <key>Base.lproj/Main.storyboard</key>
-                        <dict>
-                            <key>Path</key>
-                            <string>Main.storyboard</string>
-                            <key>SortOrder</key>
-                            <integer>98</integer>
-                        </dict>
-                        <key>Info.plist:UIMainStoryboardFile</key>
-                        <string>&lt;key&gt;UIMainStoryboardFile&lt;/key&gt;
-                            &lt;string&gt;Main&lt;/string&gt;
-                        </string>
-                    </dict>
-                </dict>
-                <key>Swift</key>
-                <array>
-                    <dict>
-                        <key>RequiredOptions</key>
-                        <dict>
-                            <key>userInterface</key>
-                            <string>Storyboard</string>
-                        </dict>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Identifier</key>
+	<string>co.nimblehq.dt.unit.singleViewApplication</string>
+	<key>Ancestors</key>
+	<array>
+		<string>co.nimble.dt.unit.cocoaTouchApplicationBase</string>
+	</array>
+	<key>Concrete</key>
+	<true/>
+	<key>Description</key>
+	<string>This template provides a starting point for an application that uses a single view.</string>
+	<key>SortOrder</key>
+	<integer>1</integer>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Default</key>
+			<string>Swift</string>
+			<key>Identifier</key>
+			<string>languageChoice</string>
+			<key>Units</key>
+			<dict>
+				<key>Objective-C</key>
+				<dict>
+					<key>Nodes</key>
+					<array>
+						<string>ViewController.h:comments</string>
+						<string>ViewController.h:imports:importCocoa</string>
+						<string>ViewController.h:interface(___FILEBASENAME___ : UIViewController)</string>
+						<string>ViewController.m:comments</string>
+						<string>ViewController.m:imports:importHeader:ViewController.h</string>
+						<string>ViewController.m:extension</string>
+						<string>ViewController.m:implementation:methods:viewDidLoad(- (void\)viewDidLoad)</string>
+						<string>ViewController.m:implementation:methods:viewDidLoad:super</string>
+						<string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
+					</array>
+				</dict>
+				<key>Swift</key>
+				<array>
+					<dict>
+						<key>RequiredOptions</key>
+						<dict>
+							<key>userInterface</key>
+							<string>Programmatically</string>
+						</dict>
 						<key>Nodes</key>
 						<array>
-							<string>ViewController.swift:comments</string>
-							<string>ViewController.swift:imports:importCocoa</string>
-							<string>ViewController.swift:implementation(___FILEBASENAME___: UIViewController)</string>
-							<string>ViewController.swift:implementation:methods:viewDidLoad(override func viewDidLoad(\))</string>
-							<string>ViewController.swift:implementation:methods:viewDidLoad:super</string>
-							<string>Info.plist:UIMainStoryboardFile</string>
+							<string>Application/AppDelegate/Application.AppDelegate.swift</string>
+							<string>Application/Constants/Constants.swift</string>
+							<string>Application/Entitlements/Entitlements.swift</string>
+							<string>Application/Localizations/Localizations.swift</string>
+							<string>Application/Resources/Resource.swift</string>
+							<string>Extensions/Extensions.swift</string>
+							<string>Models/Models.swift</string>
+							<string>Modules/Modules.swift</string>
+							<string>Protocols/Protocols.swift</string>
+							<string>Services/Services.swift</string>
+							<string>Utilities/Utilities.swift</string>
+							<string>Views/View.swift</string>
 							<string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
-							<string>Base.lproj/Main.storyboard</string>
 						</array>
 						<key>Definitions</key>
 						<dict>
-							<key>Base.lproj/Main.storyboard</key>
+							<key>Application/AppDelegate/Application.AppDelegate.swift</key>
 							<dict>
-								<key>Path</key>
-								<string>Main.storyboard</string>
-								<key>SortOrder</key>
-								<integer>98</integer>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>AppDelegate</string>
+								</array>
 							</dict>
-							<key>Info.plist:UIMainStoryboardFile</key>
-							<string>&lt;key&gt;UIMainStoryboardFile&lt;/key&gt;
-								&lt;string&gt;Main&lt;/string&gt;
-							</string>
+							<key>Application/Constants/Constants.swift</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>Constants</string>
+								</array>
+							</dict>
+							<key>Application/Entitlements/Entitlements.swift</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>Entitlements</string>
+								</array>
+							</dict>
+							<key>Application/Localizations/Localizations.swift</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>Localizations</string>
+								</array>
+							</dict>
+							<key>Application/Resources/Resource.swift</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>Resources</string>
+								</array>
+							</dict>
+							<key>Extensions/Extensions.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Extensions</string>
+							</dict>
+							<key>Models/Models.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Models</string>
+							</dict>
+							<key>Modules/Modules.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Modules</string>
+							</dict>
+							<key>Protocols/Protocols.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Protocols</string>
+							</dict>
+							<key>Services/Services.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Services</string>
+							</dict>
+							<key>Utilities/Utilities.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Utilities</string>
+							</dict>
+							<key>Views/View.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Views</string>
+							</dict>
 						</dict>
-                    </dict>
-                    <dict>
-                        <key>RequiredOptions</key>
-                        <dict>
-                            <key>userInterface</key>
-                            <string>SwiftUI</string>
-                            <key>appLifecycle</key>
-                            <string>Cocoa</string>
-                        </dict>
-                        <key>Nodes</key>
-                        <array>
-                            <string>Preview Content/Preview Assets.xcassets</string>
-                            <string>SceneDelegate.swift:imports:importSwiftUI</string>
-                            <string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</string>
-                            <string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</string>
-                        </array>
-                        <key>Definitions</key>
-                        <dict>
-                            <key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</key>
-                            <string>
+					</dict>
+					<dict>
+						<key>RequiredOptions</key>
+						<dict>
+							<key>userInterface</key>
+							<string>SwiftUI</string>
+							<key>appLifecycle</key>
+							<string>Cocoa</string>
+						</dict>
+						<key>Nodes</key>
+						<array>
+							<string>Preview Content/Preview Assets.xcassets</string>
+							<string>SceneDelegate.swift:imports:importSwiftUI</string>
+							<string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</string>
+							<string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</string>
+						</array>
+						<key>Definitions</key>
+						<dict>
+							<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</key>
+							<string>
 // Create the SwiftUI view that provides the window contents.
 let contentView = ContentView()
 </string>
-                            <key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</key>
-                            <string>
+							<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</key>
+							<string>
 // Use a UIHostingController as window root view controller.
 if let windowScene = scene as? UIWindowScene {
     let window = UIWindow(windowScene: windowScene)
@@ -122,69 +174,42 @@ if let windowScene = scene as? UIWindowScene {
     self.window = window
     window.makeKeyAndVisible()
 }</string>
-                            <key>*:imports:importSwiftUI</key>
-                            <string>import SwiftUI</string>
-                        </dict>
-                        <key>Targets</key>
-                        <array>
-                            <dict>
-                                <key>SharedSettings</key>
-                                <dict>
-                                    <key>ENABLE_PREVIEWS</key>
-                                    <string>YES</string>
-                                    <key>DEVELOPMENT_ASSET_PATHS</key>
-                                    <string>___PACKAGENAMEPREVIEWCONTENT:quoteIfNeeded___</string>
-                                </dict>
-                            </dict>
-                        </array>
-                    </dict>
-                    <dict>
-                        <key>RequiredOptions</key>
-                        <dict>
-                            <key>userInterface</key>
-                            <string>SwiftUI</string>
-                            <key>coreData</key>
-                            <string>true</string>
-                            <key>appLifecycle</key>
-                            <string>Cocoa</string>
-                        </dict>
-                        <key>Nodes</key>
-                        <array>
-                            <string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</string>
-                        </array>
-                        <key>Definitions</key>
-                        <dict>
-                            <key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</key>
-                            <string>
-// Get the managed object context from the shared persistent container.
-let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
-// Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
-// Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-let contentView = ContentView().environment(\.managedObjectContext, context)
-</string>
-                        </dict>
-                    </dict>
-                </array>
-            </dict>
-        </dict>
-        <dict>
-            <key>Identifier</key>
-            <string>userInterface</string>
-            <key>Name</key>
-            <string>Interface:</string>
-            <key>Description</key>
-            <string>The type of user interface.</string>
-            <key>Values</key>
-            <array>
-                <string>SwiftUI</string>
-                <string>Storyboard</string>
-            </array>
-            <key>Default</key>
-            <string>SwiftUI</string>
-            <key>Type</key>
-            <string>popup</string>
-        </dict>
-    </array>
+							<key>*:imports:importSwiftUI</key>
+							<string>import SwiftUI</string>
+						</dict>
+						<key>Targets</key>
+						<array>
+							<dict>
+								<key>SharedSettings</key>
+								<dict>
+									<key>ENABLE_PREVIEWS</key>
+									<string>YES</string>
+									<key>DEVELOPMENT_ASSET_PATHS</key>
+									<string>___PACKAGENAMEPREVIEWCONTENT:quoteIfNeeded___</string>
+								</dict>
+							</dict>
+						</array>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>userInterface</string>
+			<key>Name</key>
+			<string>Interface:</string>
+			<key>Description</key>
+			<string>The type of user interface.</string>
+			<key>Values</key>
+			<array>
+				<string>SwiftUI</string>
+				<string>Programmatically</string>
+			</array>
+			<key>Default</key>
+			<string>Programmatically</string>
+			<key>Type</key>
+			<string>popup</string>
+		</dict>
+	</array>
 </dict>
 </plist>
