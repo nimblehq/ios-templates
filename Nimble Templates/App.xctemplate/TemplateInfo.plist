@@ -325,7 +325,7 @@
 							<string>
 // Create the SwiftUI view that provides the window contents.
 let contentView = ContentView()
-								</string>
+</string>
 							<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</key>
 							<string>
 // Use a UIHostingController as window root view controller.
