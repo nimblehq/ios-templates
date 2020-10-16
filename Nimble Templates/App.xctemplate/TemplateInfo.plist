@@ -1,348 +1,333 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
+	<key>Identifier</key>
+	<string>co.nimblehq.dt.unit.singleViewApplication</string>
+	<key>Ancestors</key>
+	<array>
+		<string>co.nimble.dt.unit.cocoaTouchApplicationBase</string>
+	</array>
+	<key>Concrete</key>
+	<true/>
+	<key>Description</key>
+	<string>This template provides a starting point for an application that uses a single view.</string>
+	<key>SortOrder</key>
+	<integer>1</integer>
+	<key>Project</key>
 	<dict>
-		<key>Kind</key>
-		<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
-		<key>Identifier</key>
-		<string>co.nimblehq.dt.unit.singleViewApplication</string>
-		<key>Ancestors</key>
-		<array>
-			<string>co.nimble.dt.unit.cocoaTouchApplicationBase</string>
-		</array>
-		<key>Concrete</key>
-		<true/>
-		<key>Description</key>
-		<string>This template provides a starting point for an application that uses a single view.</string>
-		<key>SortOrder</key>
-		<integer>1</integer>
-
-		<key>Project</key>
+		<key>Configurations</key>
 		<dict>
-			<key>Configurations</key>
+			<key>Dev Staging</key>
 			<dict>
-				<key>Dev Staging</key>
-				<dict>
-					<key>ONLY_ACTIVE_ARCH</key>
-					<string>YES</string>
-					<key>GCC_OPTIMIZATION_LEVEL</key>
-					<string>0</string>
-					<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-					<string>DEBUG=1 STAGING=1 $(inherited)</string>
-					<key>MTL_ENABLE_DEBUG_INFO</key>
-					<string>INCLUDE_SOURCE</string>
-					<key>ENABLE_TESTABILITY</key>
-					<string>YES</string>
-					<key>GCC_DYNAMIC_NO_PIC</key>
-					<string>NO</string>
-					<key>SWIFT_OPTIMIZATION_LEVEL</key>
-					<string>-Onone</string>
-					<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-					<array>
-						<string>DEBUG</string>
-						<string>STAGING</string>
-					</array>
-					<key>DEBUG_INFORMATION_FORMAT</key>
-					<string>dwarf</string>
-					<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-					<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
-				</dict>
-				<key>Staging</key>
-				<dict>
-					<key>ENABLE_NS_ASSERTIONS</key>
-					<string>NO</string>
-					<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-					<string>STAGING=1 $(inherited)</string>
-					<key>MTL_ENABLE_DEBUG_INFO</key>
-					<string>NO</string>
-					<key>GCC_OPTIMIZATION_LEVEL</key>
-					<string>0</string>
-					<key>SWIFT_COMPILATION_MODE</key>
-					<string>wholemodule</string>
-					<key>SWIFT_OPTIMIZATION_LEVEL</key>
-					<string>-Onone</string>
-					<key>DEBUG_INFORMATION_FORMAT</key>
-					<string>dwarf-with-dsym</string>
-					<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<string>DEBUG=1 STAGING=1 $(inherited)</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>INCLUDE_SOURCE</string>
+				<key>ENABLE_TESTABILITY</key>
+				<string>YES</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<array>
+					<string>DEBUG</string>
 					<string>STAGING</string>
-					<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-					<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
-				</dict>
-				<key>Dev UAT</key>
-				<dict>
-					<key>ONLY_ACTIVE_ARCH</key>
-					<string>YES</string>
-					<key>GCC_OPTIMIZATION_LEVEL</key>
-					<string>0</string>
-					<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-					<string>DEBUG=1 UAT=1 $(inherited)</string>
-					<key>MTL_ENABLE_DEBUG_INFO</key>
-					<string>INCLUDE_SOURCE</string>
-					<key>ENABLE_TESTABILITY</key>
-					<string>YES</string>
-					<key>GCC_DYNAMIC_NO_PIC</key>
-					<string>NO</string>
-					<key>SWIFT_OPTIMIZATION_LEVEL</key>
-					<string>-Onone</string>
-					<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-					<array>
-						<string>DEBUG</string>
-						<string>UAT</string>
-					</array>
-					<key>DEBUG_INFORMATION_FORMAT</key>
-					<string>dwarf</string>
-					<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-					<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
-				</dict>
-				<key>UAT</key>
-				<dict>
-					<key>ENABLE_NS_ASSERTIONS</key>
-					<string>NO</string>
-					<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-					<string>UAT=1 $(inherited)</string>
-					<key>MTL_ENABLE_DEBUG_INFO</key>
-					<string>NO</string>
-					<key>SWIFT_COMPILATION_MODE</key>
-					<string>wholemodule</string>
-					<key>GCC_OPTIMIZATION_LEVEL</key>
-					<string>0</string>
-					<key>SWIFT_OPTIMIZATION_LEVEL</key>
-					<string>-Onone</string>
-					<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				</array>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
+			</dict>
+			<key>Staging</key>
+			<dict>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<string>STAGING=1 $(inherited)</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>SWIFT_COMPILATION_MODE</key>
+				<string>wholemodule</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<string>STAGING</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
+			</dict>
+			<key>Dev UAT</key>
+			<dict>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<string>DEBUG=1 UAT=1 $(inherited)</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>INCLUDE_SOURCE</string>
+				<key>ENABLE_TESTABILITY</key>
+				<string>YES</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<array>
+					<string>DEBUG</string>
 					<string>UAT</string>
-					<key>DEBUG_INFORMATION_FORMAT</key>
-					<string>dwarf-with-dsym</string>
-					<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-					<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
-				</dict>
-				<key>Dev Production</key>
-				<dict>
-					<key>ONLY_ACTIVE_ARCH</key>
-					<string>YES</string>
-					<key>GCC_OPTIMIZATION_LEVEL</key>
-					<string>s</string>
-					<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-					<string>DEBUG=1 PRODUCTION=1 $(inherited)</string>
-					<key>MTL_ENABLE_DEBUG_INFO</key>
-					<string>INCLUDE_SOURCE</string>
-					<key>ENABLE_TESTABILITY</key>
-					<string>YES</string>
-					<key>GCC_DYNAMIC_NO_PIC</key>
-					<string>NO</string>
-					<key>SWIFT_OPTIMIZATION_LEVEL</key>
-					<string>-O</string>
-					<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-					<array>
-						<string>DEBUG</string>
-						<string>PRODUCTION</string>
-					</array>
-					<key>DEBUG_INFORMATION_FORMAT</key>
-					<string>dwarf</string>
-					<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-					<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
-				</dict>
-				<key>Production</key>
-				<dict>
-					<key>ENABLE_NS_ASSERTIONS</key>
-					<string>NO</string>
-					<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-					<string>PRODUCTION=1 $(inherited)</string>
-					<key>MTL_ENABLE_DEBUG_INFO</key>
-					<string>NO</string>
-					<key>GCC_OPTIMIZATION_LEVEL</key>
-					<string>s</string>
-					<key>SWIFT_COMPILATION_MODE</key>
-					<string>wholemodule</string>
-					<key>SWIFT_OPTIMIZATION_LEVEL</key>
-					<string>-O</string>
-					<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				</array>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
+			</dict>
+			<key>UAT</key>
+			<dict>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<string>UAT=1 $(inherited)</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>SWIFT_COMPILATION_MODE</key>
+				<string>wholemodule</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>0</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-Onone</string>
+				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<string>UAT</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
+			</dict>
+			<key>Dev Production</key>
+			<dict>
+				<key>ONLY_ACTIVE_ARCH</key>
+				<string>YES</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>s</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<string>DEBUG=1 PRODUCTION=1 $(inherited)</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>INCLUDE_SOURCE</string>
+				<key>ENABLE_TESTABILITY</key>
+				<string>YES</string>
+				<key>GCC_DYNAMIC_NO_PIC</key>
+				<string>NO</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-O</string>
+				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<array>
+					<string>DEBUG</string>
 					<string>PRODUCTION</string>
-					<key>DEBUG_INFORMATION_FORMAT</key>
-					<string>dwarf-with-dsym</string>
-					<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-					<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
-				</dict>
+				</array>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
+			</dict>
+			<key>Production</key>
+			<dict>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>NO</string>
+				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
+				<string>PRODUCTION=1 $(inherited)</string>
+				<key>MTL_ENABLE_DEBUG_INFO</key>
+				<string>NO</string>
+				<key>GCC_OPTIMIZATION_LEVEL</key>
+				<string>s</string>
+				<key>SWIFT_COMPILATION_MODE</key>
+				<string>wholemodule</string>
+				<key>SWIFT_OPTIMIZATION_LEVEL</key>
+				<string>-O</string>
+				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
+				<string>PRODUCTION</string>
+				<key>DEBUG_INFORMATION_FORMAT</key>
+				<string>dwarf-with-dsym</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
 			</dict>
 		</dict>
-		<key>Targets</key>
-		<array>
+	</dict>
+	<key>Targets</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>___PACKAGENAME___</string>
+			<key>SharedSettings</key>
 			<dict>
-				<key>Name</key>
-				<string>___PACKAGENAME___</string>
-				<key>SharedSettings</key>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
+				<key>SWIFT_VERSION</key>
+				<string>5.0</string>
+			</dict>
+		</dict>
+	</array>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Default</key>
+			<string>Swift</string>
+			<key>Identifier</key>
+			<string>languageChoice</string>
+			<key>Units</key>
+			<dict>
+				<key>Objective-C</key>
 				<dict>
-					<key>PRODUCT_NAME</key>
-					<string>$(TARGET_NAME)</string>
-					<key>SWIFT_VERSION</key>
-					<string>5.0</string>
+					<key>Nodes</key>
+					<array>
+						<string>ViewController.h:comments</string>
+						<string>ViewController.h:imports:importCocoa</string>
+						<string>ViewController.h:interface(___FILEBASENAME___ : UIViewController)</string>
+						<string>ViewController.m:comments</string>
+						<string>ViewController.m:imports:importHeader:ViewController.h</string>
+						<string>ViewController.m:extension</string>
+						<string>ViewController.m:implementation:methods:viewDidLoad(- (void\)viewDidLoad)</string>
+						<string>ViewController.m:implementation:methods:viewDidLoad:super</string>
+						<string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
+					</array>
 				</dict>
-				<key>BuildPhases</key>
+				<key>Swift</key>
 				<array>
 					<dict>
-						<key>Class</key>
-						<string>ShellScript</string>
-						<key>Name</key>
-						<string>Run SwiftLint</string>
-						<key>ShellPath</key>
-						<string>/bin/sh</string>
-						<key>ShellScript</key>
-						<string>&quot;${PODS_ROOT}/SwiftLint/swiftlint&quot;</string>
-					</dict>
-				</array>
-			</dict>
-		</array>
-
-		<key>Options</key>
-		<array>
-			<dict>
-				<key>Default</key>
-				<string>Swift</string>
-				<key>Identifier</key>
-				<string>languageChoice</string>
-				<key>Units</key>
-				<dict>
-					<key>Objective-C</key>
-					<dict>
+						<key>RequiredOptions</key>
+						<dict>
+							<key>userInterface</key>
+							<string>Programmatically</string>
+						</dict>
 						<key>Nodes</key>
 						<array>
-							<string>ViewController.h:comments</string>
-							<string>ViewController.h:imports:importCocoa</string>
-							<string>ViewController.h:interface(___FILEBASENAME___ : UIViewController)</string>
-							<string>ViewController.m:comments</string>
-							<string>ViewController.m:imports:importHeader:ViewController.h</string>
-							<string>ViewController.m:extension</string>
-							<string>ViewController.m:implementation:methods:viewDidLoad(- (void\)viewDidLoad)</string>
-							<string>ViewController.m:implementation:methods:viewDidLoad:super</string>
+							<string>Application/AppDelegate/Application.AppDelegate.swift</string>
+							<string>Application/Constants/Constants.swift</string>
+							<string>Application/Entitlements/Entitlements.swift</string>
+							<string>Application/Localizations/Localizations.swift</string>
+							<string>Application/Resources/Resource.swift</string>
+							<string>Extensions/Extensions.swift</string>
+							<string>Models/Models.swift</string>
+							<string>Modules/Modules.swift</string>
+							<string>Protocols/Protocols.swift</string>
+							<string>Services/Services.swift</string>
+							<string>Utilities/Utilities.swift</string>
+							<string>Views/View.swift</string>
 							<string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
 						</array>
-					</dict>
-					<key>Swift</key>
-					<array>
+						<key>Definitions</key>
 						<dict>
-							<key>RequiredOptions</key>
+							<key>Application/AppDelegate/Application.AppDelegate.swift</key>
 							<dict>
-								<key>userInterface</key>
-								<string>Programmatically</string>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>AppDelegate</string>
+								</array>
 							</dict>
-							<key>Nodes</key>
-							<array>
-								<string>Application/AppDelegate/Application.AppDelegate.swift</string>
-								<string>Application/Constants/Constants.swift</string>
-								<string>Application/Entitlements/Entitlements.swift</string>
-								<string>Application/Localizations/Localizations.swift</string>
-								<string>Application/Resources/Resource.swift</string>
-								<string>Extensions/Extensions.swift</string>
-								<string>Models/Models.swift</string>
-								<string>Modules/Modules.swift</string>
-								<string>Protocols/Protocols.swift</string>
-								<string>Services/Services.swift</string>
-								<string>Utilities/Utilities.swift</string>
-								<string>Views/View.swift</string>
-								<string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
-							</array>
-							<key>Definitions</key>
+							<key>Application/Constants/Constants.swift</key>
 							<dict>
-								<key>Application/AppDelegate/Application.AppDelegate.swift</key>
-								<dict>
-									<key>Group</key>
-									<array>
-										<string>Application</string>
-										<string>AppDelegate</string>
-									</array>
-								</dict>
-								<key>Application/Constants/Constants.swift</key>
-								<dict>
-									<key>Group</key>
-									<array>
-										<string>Application</string>
-										<string>Constants</string>
-									</array>
-								</dict>
-								<key>Application/Entitlements/Entitlements.swift</key>
-								<dict>
-									<key>Group</key>
-									<array>
-										<string>Application</string>
-										<string>Entitlements</string>
-									</array>
-								</dict>
-								<key>Application/Localizations/Localizations.swift</key>
-								<dict>
-									<key>Group</key>
-									<array>
-										<string>Application</string>
-										<string>Localizations</string>
-									</array>
-								</dict>
-								<key>Application/Resources/Resource.swift</key>
-								<dict>
-									<key>Group</key>
-									<array>
-										<string>Application</string>
-										<string>Resources</string>
-									</array>
-								</dict>
-								<key>Extensions/Extensions.swift</key>
-								<dict>
-									<key>Group</key>
-									<string>Extensions</string>
-								</dict>
-								<key>Models/Models.swift</key>
-								<dict>
-									<key>Group</key>
-									<string>Models</string>
-								</dict>
-								<key>Modules/Modules.swift</key>
-								<dict>
-									<key>Group</key>
-									<string>Modules</string>
-								</dict>
-								<key>Protocols/Protocols.swift</key>
-								<dict>
-									<key>Group</key>
-									<string>Protocols</string>
-								</dict>
-								<key>Services/Services.swift</key>
-								<dict>
-									<key>Group</key>
-									<string>Services</string>
-								</dict>
-								<key>Utilities/Utilities.swift</key>
-								<dict>
-									<key>Group</key>
-									<string>Utilities</string>
-								</dict>
-								<key>Views/View.swift</key>
-								<dict>
-									<key>Group</key>
-									<string>Views</string>
-								</dict>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>Constants</string>
+								</array>
+							</dict>
+							<key>Application/Entitlements/Entitlements.swift</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>Entitlements</string>
+								</array>
+							</dict>
+							<key>Application/Localizations/Localizations.swift</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>Localizations</string>
+								</array>
+							</dict>
+							<key>Application/Resources/Resource.swift</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Application</string>
+									<string>Resources</string>
+								</array>
+							</dict>
+							<key>Extensions/Extensions.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Extensions</string>
+							</dict>
+							<key>Models/Models.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Models</string>
+							</dict>
+							<key>Modules/Modules.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Modules</string>
+							</dict>
+							<key>Protocols/Protocols.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Protocols</string>
+							</dict>
+							<key>Services/Services.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Services</string>
+							</dict>
+							<key>Utilities/Utilities.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Utilities</string>
+							</dict>
+							<key>Views/View.swift</key>
+							<dict>
+								<key>Group</key>
+								<string>Views</string>
 							</dict>
 						</dict>
+					</dict>
+					<dict>
+						<key>RequiredOptions</key>
 						<dict>
-							<key>RequiredOptions</key>
-							<dict>
-								<key>userInterface</key>
-								<string>SwiftUI</string>
-								<key>appLifecycle</key>
-								<string>Cocoa</string>
-							</dict>
-							<key>Nodes</key>
-							<array>
-								<string>Preview Content/Preview Assets.xcassets</string>
-								<string>SceneDelegate.swift:imports:importSwiftUI</string>
-								<string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</string>
-								<string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</string>
-							</array>
-							<key>Definitions</key>
-							<dict>
-								<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</key>
-								<string>
+							<key>userInterface</key>
+							<string>SwiftUI</string>
+							<key>appLifecycle</key>
+							<string>Cocoa</string>
+						</dict>
+						<key>Nodes</key>
+						<array>
+							<string>Preview Content/Preview Assets.xcassets</string>
+							<string>SceneDelegate.swift:imports:importSwiftUI</string>
+							<string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</string>
+							<string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</string>
+						</array>
+						<key>Definitions</key>
+						<dict>
+							<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</key>
+							<string>
 // Create the SwiftUI view that provides the window contents.
 let contentView = ContentView()
 								</string>
-								<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</key>
-								<string>
+							<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</key>
+							<string>
 // Use a UIHostingController as window root view controller.
 if let windowScene = scene as? UIWindowScene {
     let window = UIWindow(windowScene: windowScene)
@@ -350,42 +335,42 @@ if let windowScene = scene as? UIWindowScene {
     self.window = window
     window.makeKeyAndVisible()
 }</string>
-								<key>*:imports:importSwiftUI</key>
-								<string>import SwiftUI</string>
-							</dict>
-							<key>Targets</key>
-							<array>
-								<dict>
-									<key>SharedSettings</key>
-									<dict>
-										<key>ENABLE_PREVIEWS</key>
-										<string>YES</string>
-										<key>DEVELOPMENT_ASSET_PATHS</key>
-										<string>___PACKAGENAMEPREVIEWCONTENT:quoteIfNeeded___</string>
-									</dict>
-								</dict>
-							</array>
+							<key>*:imports:importSwiftUI</key>
+							<string>import SwiftUI</string>
 						</dict>
-					</array>
-				</dict>
-			</dict>
-			<dict>
-				<key>Identifier</key>
-				<string>userInterface</string>
-				<key>Name</key>
-				<string>Interface:</string>
-				<key>Description</key>
-				<string>The type of user interface.</string>
-				<key>Values</key>
-				<array>
-					<string>SwiftUI</string>
-					<string>Programmatically</string>
+						<key>Targets</key>
+						<array>
+							<dict>
+								<key>SharedSettings</key>
+								<dict>
+									<key>ENABLE_PREVIEWS</key>
+									<string>YES</string>
+									<key>DEVELOPMENT_ASSET_PATHS</key>
+									<string>___PACKAGENAMEPREVIEWCONTENT:quoteIfNeeded___</string>
+								</dict>
+							</dict>
+						</array>
+					</dict>
 				</array>
-				<key>Default</key>
-				<string>Programmatically</string>
-				<key>Type</key>
-				<string>popup</string>
 			</dict>
-		</array>
-	</dict>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>userInterface</string>
+			<key>Name</key>
+			<string>Interface:</string>
+			<key>Description</key>
+			<string>The type of user interface.</string>
+			<key>Values</key>
+			<array>
+				<string>SwiftUI</string>
+				<string>Programmatically</string>
+			</array>
+			<key>Default</key>
+			<string>Programmatically</string>
+			<key>Type</key>
+			<string>popup</string>
+		</dict>
+	</array>
+</dict>
 </plist>
