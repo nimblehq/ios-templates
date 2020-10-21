@@ -24,18 +24,12 @@
 			<dict>
 				<key>ONLY_ACTIVE_ARCH</key>
 				<string>YES</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>YES</string>
 				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
 				<string>DEBUG=1 STAGING=1 $(inherited)</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>INCLUDE_SOURCE</string>
 				<key>ENABLE_TESTABILITY</key>
 				<string>YES</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
 				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
 				<array>
 					<string>DEBUG</string>
@@ -52,8 +46,6 @@
 				<string>NO</string>
 				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
 				<string>STAGING=1 $(inherited)</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
 				<key>GCC_OPTIMIZATION_LEVEL</key>
 				<string>0</string>
 				<key>SWIFT_COMPILATION_MODE</key>
@@ -71,18 +63,14 @@
 			<dict>
 				<key>ONLY_ACTIVE_ARCH</key>
 				<string>YES</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
+				<key>ENABLE_NS_ASSERTIONS</key>
+				<string>YES</string>
 				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
 				<string>DEBUG=1 UAT=1 $(inherited)</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>INCLUDE_SOURCE</string>
 				<key>ENABLE_TESTABILITY</key>
 				<string>YES</string>
 				<key>GCC_DYNAMIC_NO_PIC</key>
 				<string>NO</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
 				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
 				<array>
 					<string>DEBUG</string>
@@ -96,17 +84,11 @@
 			<key>UAT</key>
 			<dict>
 				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
+				<string>YES</string>
 				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
 				<string>UAT=1 $(inherited)</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>SWIFT_COMPILATION_MODE</key>
-				<string>wholemodule</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
+				<key>ENABLE_TESTABILITY</key>
+				<string>YES</string>
 				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
 				<string>UAT</string>
 				<key>DEBUG_INFORMATION_FORMAT</key>
@@ -118,18 +100,12 @@
 			<dict>
 				<key>ONLY_ACTIVE_ARCH</key>
 				<string>YES</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>s</string>
 				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
 				<string>DEBUG=1 PRODUCTION=1 $(inherited)</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>INCLUDE_SOURCE</string>
 				<key>ENABLE_TESTABILITY</key>
 				<string>YES</string>
 				<key>GCC_DYNAMIC_NO_PIC</key>
 				<string>NO</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-O</string>
 				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
 				<array>
 					<string>DEBUG</string>
@@ -146,14 +122,12 @@
 				<string>NO</string>
 				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
 				<string>PRODUCTION=1 $(inherited)</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
 				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>s</string>
+				<string>0</string>
 				<key>SWIFT_COMPILATION_MODE</key>
 				<string>wholemodule</string>
 				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-O</string>
+				<string>-Onone</string>
 				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
 				<string>PRODUCTION</string>
 				<key>DEBUG_INFORMATION_FORMAT</key>
