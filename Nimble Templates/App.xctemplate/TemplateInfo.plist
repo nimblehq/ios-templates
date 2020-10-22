@@ -156,8 +156,6 @@
 			<string>___PACKAGENAME___</string>
 			<key>SharedSettings</key>
 			<dict>
-				<!-- <key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string> -->
 				<key>SWIFT_VERSION</key>
 				<string>5.0</string>
 			</dict>

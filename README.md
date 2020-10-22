@@ -42,20 +42,22 @@ Because you will not use the default configutations (`Debug` and `Release`) any 
 
 <img src="./images/readme/configuration_result.png" width="500">
 
-One more thing there are some duplicated build settings which is store in the file `project.pbxproj`. Some of them are automaticcally initialized and some are customized. For an instance, the build settings `PRODUCT_BUNDLE_IDENTIFIER` for `Dev Staging` are duplicated.
+One more thing there are some duplicated build settings stored in the file `project.pbxproj`. Some of them are automatically initialized and some are customized. For an instance, the build setting `PRODUCT_BUNDLE_IDENTIFIER` for `Dev Staging` is duplicated.
 
 | Default | Custom |
 |---|---|
 | <img src="./images/readme/configuration_default-attributes.png" width="400"> | <img src="./images/readme/configuration_custom-attributes.png" width="400"> |
 
-What we should do is to remove all duplicated settings for all build configuration. This is the list of settings that you should remove fron the default initializing:
+What we should do is to remove all duplicated settings for all build configurations. 
+
+The following list is the default initialized settings that you should remove:
 
 - `PRODUCT_BUNDLE_IDENTIFIER`
 - `PRODUCT_NAME`
 
 > Note: 
 >
-> - Check the `Debug`/`Release` build configurations are completely remove out of the file `project.pbxproj
+> - Check the `Debug`/`Release` build configurations are completely remove out of the file `project.pbxproj`
 
 ### Schemes
 
