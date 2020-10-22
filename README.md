@@ -22,18 +22,40 @@ $ bash install.sh
 
 ### Configurations
 
-After creating project, when we go to Project's Info tab, there are two default configurations:
+After creating project with this template, when we go to Project's Info tab, there are two default configurations:
 
 - `Debug`
 - `Release`
 
-We have to close and reopen project in Xcode to reveal all 6 custom configurations and 2 default configurations.
+What you have to do is close and reopen project with Xcode. This time you can reveal all 6 custom configurations and 2 default configurations.
 
 <img src="./images/readme/configurations_remove-default-configurations.png" width="500">
 
-Because we do not use the default configutations (`Debug` and `Release`) any more. So we should manually remove them. Open `Project` > Tab `Info` and remove unecessary configuration.
+Because you will not use the default configutations (`Debug` and `Release`) any more. So we should manually remove them. Open `Project` > Tab `Info` and remove unecessary configuration.
+
+- `Dev Staging`
+- `Staging`
+- `Dev UAT`
+- `UAT`
+- `Dev Production`
+- `Production`
 
 <img src="./images/readme/configuration_result.png" width="500">
+
+One more thing there are some duplicated build settings which is store in the file `project.pbxproj`. Some of them are automaticcally initialized and some are customized. For an instance, the build settings `PRODUCT_BUNDLE_IDENTIFIER` for `Dev Staging` are duplicated.
+
+| Default | Custom |
+|---|---|
+| <img src="./images/readme/configuration_default-attributes.png" width="400"> | <img src="./images/readme/configuration_custom-attributes.png" width="400"> |
+
+What we should do is to remove all duplicated settings for all build configuration. This is the list of settings that you should remove fron the default initializing:
+
+- `PRODUCT_BUNDLE_IDENTIFIER`
+- `PRODUCT_NAME`
+
+> Note: 
+>
+> - Check the `Debug`/`Release` build configurations are completely remove out of the file `project.pbxproj
 
 ### Schemes
 

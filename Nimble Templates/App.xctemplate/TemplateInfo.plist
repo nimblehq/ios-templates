@@ -39,6 +39,8 @@
 				<string>dwarf</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME) Staging</string>
 			</dict>
 			<key>Staging</key>
 			<dict>
@@ -58,6 +60,8 @@
 				<string>STAGING</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME) Staging</string>
 			</dict>
 			<key>Dev UAT</key>
 			<dict>
@@ -80,6 +84,8 @@
 				<string>dwarf</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME) UAT</string>
 			</dict>
 			<key>UAT</key>
 			<dict>
@@ -95,6 +101,8 @@
 				<string>dwarf-with-dsym</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME) UAT</string>
 			</dict>
 			<key>Dev Production</key>
 			<dict>
@@ -115,6 +123,8 @@
 				<string>dwarf</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
 			</dict>
 			<key>Production</key>
 			<dict>
@@ -134,6 +144,8 @@
 				<string>dwarf-with-dsym</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
 			</dict>
 		</dict>
 	</dict>
@@ -144,8 +156,8 @@
 			<string>___PACKAGENAME___</string>
 			<key>SharedSettings</key>
 			<dict>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
+				<!-- <key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string> -->
 				<key>SWIFT_VERSION</key>
 				<string>5.0</string>
 			</dict>
