@@ -39,6 +39,8 @@
 				<string>dwarf</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME) Staging</string>
 			</dict>
 			<key>Staging</key>
 			<dict>
@@ -58,6 +60,8 @@
 				<string>STAGING</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME) Staging</string>
 			</dict>
 			<key>Dev UAT</key>
 			<dict>
@@ -80,6 +84,8 @@
 				<string>dwarf</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME) UAT</string>
 			</dict>
 			<key>UAT</key>
 			<dict>
@@ -95,6 +101,8 @@
 				<string>dwarf-with-dsym</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME) UAT</string>
 			</dict>
 			<key>Dev Production</key>
 			<dict>
@@ -115,6 +123,8 @@
 				<string>dwarf</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
 			</dict>
 			<key>Production</key>
 			<dict>
@@ -134,6 +144,8 @@
 				<string>dwarf-with-dsym</string>
 				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(TARGET_NAME)</string>
 			</dict>
 		</dict>
 	</dict>
@@ -144,8 +156,6 @@
 			<string>___PACKAGENAME___</string>
 			<key>SharedSettings</key>
 			<dict>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
 				<key>SWIFT_VERSION</key>
 				<string>5.0</string>
 			</dict>
@@ -308,7 +318,8 @@ if let windowScene = scene as? UIWindowScene {
     window.rootViewController = UIHostingController(rootView: contentView)
     self.window = window
     window.makeKeyAndVisible()
-}</string>
+}
+</string>
 							<key>*:imports:importSwiftUI</key>
 							<string>import SwiftUI</string>
 						</dict>
@@ -345,6 +356,48 @@ if let windowScene = scene as? UIWindowScene {
 			<key>Type</key>
 			<string>popup</string>
 		</dict>
+	</array>
+	<key>Definitions</key>
+	<dict>
+		<key>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___.xcscheme</key>
+		<dict>
+			<key>TargetIndices</key>
+			<array></array>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+			<key>Path</key>
+			<string>___PACKAGENAME___.xcscheme</string>
+		</dict>
+		<key>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___ Staging.xcscheme</key>
+		<dict>
+			<key>TargetIndices</key>
+			<array></array>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+			<key>Path</key>
+			<string>___PACKAGENAME___ Staging.xcscheme</string>
+		</dict>
+		<key>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___ UAT.xcscheme</key>
+		<dict>
+			<key>TargetIndices</key>
+			<array></array>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+			<key>Path</key>
+			<string>___PACKAGENAME___ UAT.xcscheme</string>
+		</dict>
+	</dict>
+	<key>Nodes</key>
+	<array>
+		<string>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___.xcscheme</string>
+		<string>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___ Staging.xcscheme</string>
+		<string>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___ UAT.xcscheme</string>
 	</array>
 </dict>
 </plist>
