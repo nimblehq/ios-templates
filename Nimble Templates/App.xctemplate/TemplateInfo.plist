@@ -41,6 +41,8 @@
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME) Staging</string>
+				<key>ENABLE_BITCODE</key>
+				<string>NO</string>
 			</dict>
 			<key>Staging</key>
 			<dict>
@@ -62,6 +64,8 @@
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME) Staging</string>
+				<key>ENABLE_BITCODE</key>
+				<string>NO</string>
 			</dict>
 			<key>Dev UAT</key>
 			<dict>
@@ -86,6 +90,8 @@
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME) UAT</string>
+				<key>ENABLE_BITCODE</key>
+				<string>NO</string>
 			</dict>
 			<key>UAT</key>
 			<dict>
@@ -103,6 +109,8 @@
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME) UAT</string>
+				<key>ENABLE_BITCODE</key>
+				<string>NO</string>
 			</dict>
 			<key>Dev Production</key>
 			<dict>
@@ -125,6 +133,8 @@
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME)</string>
+				<key>ENABLE_BITCODE</key>
+				<string>NO</string>
 			</dict>
 			<key>Production</key>
 			<dict>
@@ -146,6 +156,8 @@
 				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(TARGET_NAME)</string>
+				<key>ENABLE_BITCODE</key>
+				<string>YES</string>
 			</dict>
 		</dict>
 	</dict>
