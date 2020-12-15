@@ -371,6 +371,13 @@ if let windowScene = scene as? UIWindowScene {
 	</array>
 	<key>Definitions</key>
 	<dict>
+		<key>../Podfile</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+		</dict>
 		<key>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___.xcscheme</key>
 		<dict>
 			<key>TargetIndices</key>
@@ -407,6 +414,7 @@ if let windowScene = scene as? UIWindowScene {
 	</dict>
 	<key>Nodes</key>
 	<array>
+		<string>../Podfile</string>
 		<string>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___.xcscheme</string>
 		<string>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___ Staging.xcscheme</string>
 		<string>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___ UAT.xcscheme</string>
