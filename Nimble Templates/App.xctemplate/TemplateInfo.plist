@@ -377,6 +377,8 @@ if let windowScene = scene as? UIWindowScene {
 			<array>
 				<string>Removable Resources</string>
 			</array>
+			<key>Path</key>
+			<string>Podfile</string>
 		</dict>
 		<key>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___.xcscheme</key>
 		<dict>

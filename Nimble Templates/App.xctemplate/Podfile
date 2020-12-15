@@ -1,0 +1,20 @@
+platform :ios, '10.0'
+use_frameworks!
+inhibit_all_warnings!
+
+def testing_pods
+  
+end
+
+target '___PACKAGENAME___' do
+  pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
+
+  target 'UnitTests' do
+    inherit! :search_paths
+    testing_pods
+  end
+
+  target 'UITests' do
+    testing_pods
+  end
+end
