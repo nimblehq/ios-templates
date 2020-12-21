@@ -5,10 +5,10 @@
 	<key>Kind</key>
 	<string>Xcode.Xcode3.ProjectTemplateUnitKind</string>
 	<key>Identifier</key>
-	<string>co.nimble.dt.unit.cocoaTouchApplicationBase</string>
+	<string>co.nimblehq.dt.unit.cocoaTouchApplicationBase</string>
 	<key>Ancestors</key>
 	<array>
-		<string>com.apple.dt.unit.applicationBase</string>
+		<string>co.nimblehq.dt.unit.applicationBase</string>
 		<string>com.apple.dt.unit.iosBase</string>
 		<string>com.apple.dt.unit.languageChoice.app.iOS</string>
 		<string>com.apple.dt.unit.appLifecycle.iOS</string>
