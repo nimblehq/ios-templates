@@ -8,7 +8,7 @@
 	<string>co.nimblehq.dt.unit.singleViewApplication</string>
 	<key>Ancestors</key>
 	<array>
-		<string>co.nimble.dt.unit.cocoaTouchApplicationBase</string>
+		<string>co.nimblehq.dt.unit.cocoaTouchApplicationBase</string>
 	</array>
 	<key>Concrete</key>
 	<true/>
