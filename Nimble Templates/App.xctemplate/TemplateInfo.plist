@@ -21,144 +21,17 @@
 		<key>Configurations</key>
 		<dict>
 			<key>Dev Staging</key>
-			<dict>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>DEBUG=1 STAGING=1 $(inherited)</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-				<array>
-					<string>DEBUG</string>
-					<string>STAGING</string>
-				</array>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME) Staging</string>
-				<key>ENABLE_BITCODE</key>
-				<string>NO</string>
-			</dict>
+			<dict/>
 			<key>Staging</key>
-			<dict>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>STAGING=1 $(inherited)</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>SWIFT_COMPILATION_MODE</key>
-				<string>wholemodule</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-				<string>STAGING</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME) Staging</string>
-				<key>ENABLE_BITCODE</key>
-				<string>NO</string>
-			</dict>
+			<dict/>
 			<key>Dev UAT</key>
-			<dict>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>DEBUG=1 UAT=1 $(inherited)</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-				<array>
-					<string>DEBUG</string>
-					<string>UAT</string>
-				</array>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME) UAT</string>
-				<key>ENABLE_BITCODE</key>
-				<string>NO</string>
-			</dict>
+			<dict/>
 			<key>UAT</key>
-			<dict>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>UAT=1 $(inherited)</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-				<string>UAT</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME) UAT</string>
-				<key>ENABLE_BITCODE</key>
-				<string>NO</string>
-			</dict>
+			<dict/>
 			<key>Dev Production</key>
-			<dict>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>DEBUG=1 PRODUCTION=1 $(inherited)</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-				<array>
-					<string>DEBUG</string>
-					<string>PRODUCTION</string>
-				</array>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>ENABLE_BITCODE</key>
-				<string>NO</string>
-			</dict>
+			<dict/>
 			<key>Production</key>
-			<dict>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<string>PRODUCTION=1 $(inherited)</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>SWIFT_COMPILATION_MODE</key>
-				<string>wholemodule</string>
-				<key>SWIFT_OPTIMIZATION_LEVEL</key>
-				<string>-Onone</string>
-				<key>SWIFT_ACTIVE_COMPILATION_CONDITIONS</key>
-				<string>PRODUCTION</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>ENABLE_BITCODE</key>
-				<string>YES</string>
-			</dict>
+			<dict/>
 		</dict>
 	</dict>
 	<key>Targets</key>
@@ -170,6 +43,12 @@
 			<dict>
 				<key>SWIFT_VERSION</key>
 				<string>5.0</string>
+				<key>INFOPLIST_FILE</key>
+                <string>___PACKAGENAME___/Info.plist</string>
+                <key>PRODUCT_BUNDLE_IDENTIFIER</key>
+                <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+				<key>PRODUCT_NAME</key>
+				<string>$(PRODUCT_NAME)</string>
 			</dict>
 		</dict>
 	</array>
@@ -220,9 +99,177 @@
 							<string>Utilities/Utilities.swift</string>
 							<string>Views/View.swift</string>
 							<string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
+							<!-- XCConfigs -->
+							<!-- Base Configurations -->
+							<string>Configurations/XCConfigs/Base/Debug.xcconfig</string>
+							<string>Configurations/XCConfigs/Base/Debug.xcconfig:implementation</string>
+							<string>Configurations/XCConfigs/Base/Release.xcconfig</string>
+							<string>Configurations/XCConfigs/Base/Release.xcconfig:implementation</string>
+
+							<string>Configurations/XCConfigs/DevStaging.xcconfig</string>
+							<string>Configurations/XCConfigs/DevStaging.xcconfig:implementation</string>
+							<string>Configurations/XCConfigs/DevUAT.xcconfig</string>
+							<string>Configurations/XCConfigs/DevUAT.xcconfig:implementation</string>
+							<string>Configurations/XCConfigs/DevProduction.xcconfig</string>
+							<string>Configurations/XCConfigs/DevProduction.xcconfig:implementation</string>
+
+							<string>Configurations/XCConfigs/Staging.xcconfig</string>
+							<string>Configurations/XCConfigs/Staging.xcconfig:implementation</string>
+							<string>Configurations/XCConfigs/UAT.xcconfig</string>
+							<string>Configurations/XCConfigs/UAT.xcconfig:implementation</string>
+							<string>Configurations/XCConfigs/Production.xcconfig</string>
+							<string>Configurations/XCConfigs/Production.xcconfig:implementation</string>
+							<!-- End of XCConfigs -->
 						</array>
 						<key>Definitions</key>
 						<dict>
+							<!-- XCConfigs -->
+							<key>Configurations/XCConfigs/Base/Debug.xcconfig</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Configurations</string>
+									<string>XCConfigs</string>
+									<string>Base</string>
+								</array>
+							</dict>
+							<key>Configurations/XCConfigs/Base/Debug.xcconfig:implementation</key>
+							<string>BUILD_ACTIVE_RESOURCES_ONLY = YES
+DEBUG_INFORMATION_FORMAT = dwarf
+ENABLE_NS_ASSERTIONS = YES
+ENABLE_TESTABILITY = YES
+GCC_OPTIMIZATION_LEVEL = 0
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) DEBUG=1
+ONLY_ACTIVE_ARCH = YES
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
+SWIFT_OPTIMIZATION_LEVEL = "-Onone"
+							</string>
+
+							<key>Configurations/XCConfigs/Base/Release.xcconfig</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Configurations</string>
+									<string>XCConfigs</string>
+									<string>Base</string>
+								</array>
+							</dict>
+							<key>Configurations/XCConfigs/Base/Release.xcconfig:implementation</key>
+							<string>DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"
+ENABLE_NS_ASSERTIONS = NO
+GCC_OPTIMIZATION_LEVEL = s
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited)
+SWIFT_COMPILATION_MODE = wholemodule
+SWIFT_OPTIMIZATION_LEVEL = "-O"
+ENABLE_BITCODE = YES
+							</string>
+
+							<key>Configurations/XCConfigs/DevStaging.xcconfig</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Configurations</string>
+									<string>XCConfigs</string>
+								</array>
+							</dict>
+							<key>Configurations/XCConfigs/DevStaging.xcconfig:implementation</key>
+							<string>#include "Base/Debug.xcconfig"
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) STAGING=1 
+PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging
+PRODUCT_NAME = $(TARGET_NAME) Staging
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) STAGING
+							</string>
+
+							<key>Configurations/XCConfigs/DevUAT.xcconfig</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Configurations</string>
+									<string>XCConfigs</string>
+								</array>
+							</dict>
+							<key>Configurations/XCConfigs/DevUAT.xcconfig:implementation</key>
+							<string>#include "Base/Debug.xcconfig"
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) UAT=1
+PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat
+PRODUCT_NAME = $(TARGET_NAME) UAT
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) UAT
+							</string>
+
+							<key>Configurations/XCConfigs/DevProduction.xcconfig</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Configurations</string>
+									<string>XCConfigs</string>
+								</array>
+							</dict>
+							<key>Configurations/XCConfigs/DevProduction.xcconfig:implementation</key>
+							<string>#include "Base/Debug.xcconfig"
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) PRODUCTION=1
+PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___
+PRODUCT_NAME = $(TARGET_NAME)
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) PRODUCTION
+							</string>
+
+							<key>Configurations/XCConfigs/Staging.xcconfig</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Configurations</string>
+									<string>XCConfigs</string>
+								</array>
+							</dict>
+							<key>Configurations/XCConfigs/Staging.xcconfig:implementation</key>
+							<string>#include "Base/Release.xcconfig"
+
+ENABLE_BITCODE = NO
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) STAGING=1
+PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging
+PRODUCT_NAME = $(TARGET_NAME) Staging
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGING
+							</string>
+
+							<key>Configurations/XCConfigs/UAT.xcconfig</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Configurations</string>
+									<string>XCConfigs</string>
+								</array>
+							</dict>
+							<key>Configurations/XCConfigs/UAT.xcconfig:implementation</key>
+							<string>#include "Base/Release.xcconfig"
+
+ENABLE_BITCODE = NO
+ENABLE_NS_ASSERTIONS = YES
+ENABLE_TESTABILITY = YES
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) UAT=1
+PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat
+PRODUCT_NAME = $(TARGET_NAME) UAT
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = UAT
+							</string>
+
+							<key>Configurations/XCConfigs/Production.xcconfig</key>
+							<dict>
+								<key>Group</key>
+								<array>
+									<string>Configurations</string>
+									<string>XCConfigs</string>
+								</array>
+							</dict>
+							<key>Configurations/XCConfigs/Production.xcconfig:implementation</key>
+							<string>#include "Base/Release.xcconfig"
+
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) PRODUCTION=1
+PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___
+PRODUCT_NAME = $(TARGET_NAME)
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
+							</string>
+							<!-- End of XCConfigs -->
 							<key>Application/AppDelegate/Application.AppDelegate.swift</key>
 							<dict>
 								<key>Group</key>
@@ -231,6 +278,7 @@
 									<string>AppDelegate</string>
 								</array>
 							</dict>
+
 							<key>Application/Constants/Constants.swift</key>
 							<dict>
 								<key>Group</key>
@@ -239,6 +287,7 @@
 									<string>Constants</string>
 								</array>
 							</dict>
+
 							<key>Application/Entitlements/Entitlements.swift</key>
 							<dict>
 								<key>Group</key>
@@ -247,6 +296,7 @@
 									<string>Entitlements</string>
 								</array>
 							</dict>
+
 							<key>Application/Localizations/Localizations.swift</key>
 							<dict>
 								<key>Group</key>
@@ -255,6 +305,7 @@
 									<string>Localizations</string>
 								</array>
 							</dict>
+
 							<key>Application/Resources/Resource.swift</key>
 							<dict>
 								<key>Group</key>
@@ -263,36 +314,43 @@
 									<string>Resources</string>
 								</array>
 							</dict>
+
 							<key>Extensions/Extensions.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Extensions</string>
 							</dict>
+
 							<key>Models/Models.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Models</string>
 							</dict>
+
 							<key>Modules/Modules.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Modules</string>
 							</dict>
+
 							<key>Protocols/Protocols.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Protocols</string>
 							</dict>
+
 							<key>Services/Services.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Services</string>
 							</dict>
+
 							<key>Utilities/Utilities.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Utilities</string>
 							</dict>
+							
 							<key>Views/View.swift</key>
 							<dict>
 								<key>Group</key>

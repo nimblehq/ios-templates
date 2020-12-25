@@ -8,7 +8,7 @@
 	<string>co.nimblehq.dt.unit.cocoaTouchApplicationBase</string>
 	<key>Ancestors</key>
 	<array>
-		<string>co.nimblehq.dt.unit.applicationBase</string>
+		<string>com.apple.dt.unit.applicationBase</string>
 		<string>com.apple.dt.unit.iosBase</string>
 		<string>com.apple.dt.unit.languageChoice.app.iOS</string>
 		<string>com.apple.dt.unit.appLifecycle.iOS</string>
