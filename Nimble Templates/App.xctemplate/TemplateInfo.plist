@@ -309,32 +309,63 @@
 							<string>Cocoa</string>
 						</dict>
 						<key>Nodes</key>
-						<array>
-							<string>Preview Content/Preview Assets.xcassets</string>
-							<string>SceneDelegate.swift:imports:importSwiftUI</string>
-							<string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</string>
-							<string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</string>
-						</array>
-						<key>Definitions</key>
-						<dict>
-							<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</key>
-							<string>
-// Create the SwiftUI view that provides the window contents.
-let contentView = ContentView()
+                        <array>
+                            <string>Info.plist:UIApplicationSceneManifest</string>
+                            <string>AppDelegate.swift:implementation:methods:UISceneSessionLifecycleBanner</string>
+                            <string>AppDelegate.swift:implementation:methods:applicationconfigurationForConnectingSceneSession(func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions\) -> UISceneConfiguration)</string>
+                            <string>AppDelegate.swift:implementation:methods:applicationconfigurationForConnectingSceneSession:comment</string>
+                            <string>AppDelegate.swift:implementation:methods:applicationconfigurationForConnectingSceneSession:body</string>
+                            <string>AppDelegate.swift:implementation:methods:applicationdidDiscardSceneSessions(func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set&lt;UISceneSession&gt;\))</string>
+                            <string>AppDelegate.swift:implementation:methods:applicationdidDiscardSceneSessions:comment</string>
+                            <string>SceneDelegate.swift:comments</string>
+                            <string>SceneDelegate.swift:imports:importCocoa</string>
+                            <string>SceneDelegate.swift:implementation(SceneDelegate: UIResponder, UIWindowSceneDelegate)</string>
+                            <string>SceneDelegate.swift:implementation:properties:window</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession(func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions\))</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:comments</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneDidDisconnect(func sceneDidDisconnect(_ scene: UIScene\))</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneDidDisconnect:comments</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneDidBecomeActive(func sceneDidBecomeActive(_ scene: UIScene\))</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneDidBecomeActive:comments</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneWillResignActive(func sceneWillResignActive(_ scene: UIScene\))</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneWillResignActive:comments</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneWillEnterForeground(func sceneWillEnterForeground(_ scene: UIScene\))</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneWillEnterForeground:comments</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneDidEnterBackground(func sceneDidEnterBackground(_ scene: UIScene\))</string>
+                            <string>SceneDelegate.swift:implementation:methods:sceneDidEnterBackground:comments</string>
+                        </array>
+                        <key>Definitions</key>
+                        <dict>
+                            <key>AppDelegate.swift:implementation:properties:window</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:applicationWillResignActive</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:applicationWillResignActive:comments</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:applicationDidEnterBackground</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:applicationDidEnterBackground:comments</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:applicationWillEnterForeground</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:applicationWillEnterForeground:comments</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:applicationDidBecomeActive</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:applicationDidBecomeActive:comments</key>
+                            <string></string>
+                            <key>AppDelegate.swift:implementation:methods:UISceneSessionLifecycleBanner</key>
+                            <string>// MARK: UISceneSession Lifecycle
+
 </string>
-							<key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body:windowScene</key>
-							<string>
-// Use a UIHostingController as window root view controller.
-if let windowScene = scene as? UIWindowScene {
-    let window = UIWindow(windowScene: windowScene)
-    window.rootViewController = UIHostingController(rootView: contentView)
-    self.window = window
-    window.makeKeyAndVisible()
-}
-</string>
-							<key>*:imports:importSwiftUI</key>
-							<string>import SwiftUI</string>
-						</dict>
+                            <key>AppDelegate.swift:implementation:methods:applicationconfigurationForConnectingSceneSession:body</key>
+                            <string>return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)</string>
+                            <key>SceneDelegate.swift:implementation:properties:window</key>
+                            <string>var window: UIWindow?</string>
+                            <key>SceneDelegate.swift:implementation:methods:sceneWillConnectToSession:body</key>
+                            <string>guard let _ = (scene as? UIWindowScene) else { return }</string>
+                        </dict>
 						<key>Targets</key>
 						<array>
 							<dict>
@@ -342,8 +373,6 @@ if let windowScene = scene as? UIWindowScene {
 								<dict>
 									<key>ENABLE_PREVIEWS</key>
 									<string>YES</string>
-									<key>DEVELOPMENT_ASSET_PATHS</key>
-									<string>___PACKAGENAMEPREVIEWCONTENT:quoteIfNeeded___</string>
 								</dict>
 							</dict>
 						</array>
