@@ -44,9 +44,9 @@
 				<key>SWIFT_VERSION</key>
 				<string>5.0</string>
 				<key>INFOPLIST_FILE</key>
-                <string>___PACKAGENAME___/Info.plist</string>
-                <key>PRODUCT_BUNDLE_IDENTIFIER</key>
-                <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+				<string>___PACKAGENAME___/Info.plist</string>
+				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
+				<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 				<key>PRODUCT_NAME</key>
 				<string>$(PRODUCT_NAME)</string>
 			</dict>
@@ -99,31 +99,25 @@
 							<string>Utilities/Utilities.swift</string>
 							<string>Views/View.swift</string>
 							<string>Info.plist:UIApplicationSceneManifest:UISceneStoryboardFile</string>
-							<!-- XCConfigs -->
-							<!-- Base Configurations -->
 							<string>Configurations/XCConfigs/Base/Debug.xcconfig</string>
 							<string>Configurations/XCConfigs/Base/Debug.xcconfig:implementation</string>
 							<string>Configurations/XCConfigs/Base/Release.xcconfig</string>
 							<string>Configurations/XCConfigs/Base/Release.xcconfig:implementation</string>
-
 							<string>Configurations/XCConfigs/DevStaging.xcconfig</string>
 							<string>Configurations/XCConfigs/DevStaging.xcconfig:implementation</string>
 							<string>Configurations/XCConfigs/DevUAT.xcconfig</string>
 							<string>Configurations/XCConfigs/DevUAT.xcconfig:implementation</string>
 							<string>Configurations/XCConfigs/DevProduction.xcconfig</string>
 							<string>Configurations/XCConfigs/DevProduction.xcconfig:implementation</string>
-
 							<string>Configurations/XCConfigs/Staging.xcconfig</string>
 							<string>Configurations/XCConfigs/Staging.xcconfig:implementation</string>
 							<string>Configurations/XCConfigs/UAT.xcconfig</string>
 							<string>Configurations/XCConfigs/UAT.xcconfig:implementation</string>
 							<string>Configurations/XCConfigs/Production.xcconfig</string>
 							<string>Configurations/XCConfigs/Production.xcconfig:implementation</string>
-							<!-- End of XCConfigs -->
 						</array>
 						<key>Definitions</key>
 						<dict>
-							<!-- XCConfigs -->
 							<key>Configurations/XCConfigs/Base/Debug.xcconfig</key>
 							<dict>
 								<key>Group</key>
@@ -144,7 +138,6 @@ ONLY_ACTIVE_ARCH = YES
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG
 SWIFT_OPTIMIZATION_LEVEL = -Onone
 							</string>
-
 							<key>Configurations/XCConfigs/Base/Release.xcconfig</key>
 							<dict>
 								<key>Group</key>
@@ -163,7 +156,6 @@ SWIFT_COMPILATION_MODE = wholemodule
 SWIFT_OPTIMIZATION_LEVEL = -O
 ENABLE_BITCODE = YES
 							</string>
-
 							<key>Configurations/XCConfigs/DevStaging.xcconfig</key>
 							<dict>
 								<key>Group</key>
@@ -173,14 +165,13 @@ ENABLE_BITCODE = YES
 								</array>
 							</dict>
 							<key>Configurations/XCConfigs/DevStaging.xcconfig:implementation</key>
-							<string>#include "Base/Debug.xcconfig"
+							<string>#include &quot;Base/Debug.xcconfig&quot;
 
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) STAGING=1 
 PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging
 PRODUCT_NAME = $(TARGET_NAME) Staging
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) STAGING
 							</string>
-
 							<key>Configurations/XCConfigs/DevUAT.xcconfig</key>
 							<dict>
 								<key>Group</key>
@@ -190,14 +181,13 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) STAGING
 								</array>
 							</dict>
 							<key>Configurations/XCConfigs/DevUAT.xcconfig:implementation</key>
-							<string>#include "Base/Debug.xcconfig"
+							<string>#include &quot;Base/Debug.xcconfig&quot;
 
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) UAT=1
 PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.uat
 PRODUCT_NAME = $(TARGET_NAME) UAT
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) UAT
 							</string>
-
 							<key>Configurations/XCConfigs/DevProduction.xcconfig</key>
 							<dict>
 								<key>Group</key>
@@ -207,14 +197,13 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) UAT
 								</array>
 							</dict>
 							<key>Configurations/XCConfigs/DevProduction.xcconfig:implementation</key>
-							<string>#include "Base/Debug.xcconfig"
+							<string>#include &quot;Base/Debug.xcconfig&quot;
 
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) PRODUCTION=1
 PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___
 PRODUCT_NAME = $(TARGET_NAME)
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) PRODUCTION
 							</string>
-
 							<key>Configurations/XCConfigs/Staging.xcconfig</key>
 							<dict>
 								<key>Group</key>
@@ -224,7 +213,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) PRODUCTION
 								</array>
 							</dict>
 							<key>Configurations/XCConfigs/Staging.xcconfig:implementation</key>
-							<string>#include "Base/Release.xcconfig"
+							<string>#include &quot;Base/Release.xcconfig&quot;
 
 ENABLE_BITCODE = NO
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) STAGING=1
@@ -232,7 +221,6 @@ PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier_
 PRODUCT_NAME = $(TARGET_NAME) Staging
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGING
 							</string>
-
 							<key>Configurations/XCConfigs/UAT.xcconfig</key>
 							<dict>
 								<key>Group</key>
@@ -242,7 +230,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = STAGING
 								</array>
 							</dict>
 							<key>Configurations/XCConfigs/UAT.xcconfig:implementation</key>
-							<string>#include "Base/Release.xcconfig"
+							<string>#include &quot;Base/Release.xcconfig&quot;
 
 ENABLE_BITCODE = NO
 ENABLE_NS_ASSERTIONS = YES
@@ -252,7 +240,6 @@ PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier_
 PRODUCT_NAME = $(TARGET_NAME) UAT
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = UAT
 							</string>
-
 							<key>Configurations/XCConfigs/Production.xcconfig</key>
 							<dict>
 								<key>Group</key>
@@ -262,14 +249,13 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = UAT
 								</array>
 							</dict>
 							<key>Configurations/XCConfigs/Production.xcconfig:implementation</key>
-							<string>#include "Base/Release.xcconfig"
+							<string>#include &quot;Base/Release.xcconfig&quot;
 
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) PRODUCTION=1
 PRODUCT_BUNDLE_IDENTIFIER = ___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___
 PRODUCT_NAME = $(TARGET_NAME)
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 							</string>
-							<!-- End of XCConfigs -->
 							<key>Application/AppDelegate/Application.AppDelegate.swift</key>
 							<dict>
 								<key>Group</key>
@@ -278,7 +264,6 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 									<string>AppDelegate</string>
 								</array>
 							</dict>
-
 							<key>Application/Constants/Constants.swift</key>
 							<dict>
 								<key>Group</key>
@@ -287,7 +272,6 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 									<string>Constants</string>
 								</array>
 							</dict>
-
 							<key>Application/Entitlements/Entitlements.swift</key>
 							<dict>
 								<key>Group</key>
@@ -296,7 +280,6 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 									<string>Entitlements</string>
 								</array>
 							</dict>
-
 							<key>Application/Localizations/Localizations.swift</key>
 							<dict>
 								<key>Group</key>
@@ -305,7 +288,6 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 									<string>Localizations</string>
 								</array>
 							</dict>
-
 							<key>Application/Resources/Resource.swift</key>
 							<dict>
 								<key>Group</key>
@@ -314,43 +296,36 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 									<string>Resources</string>
 								</array>
 							</dict>
-
 							<key>Extensions/Extensions.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Extensions</string>
 							</dict>
-
 							<key>Models/Models.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Models</string>
 							</dict>
-
 							<key>Modules/Modules.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Modules</string>
 							</dict>
-
 							<key>Protocols/Protocols.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Protocols</string>
 							</dict>
-
 							<key>Services/Services.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Services</string>
 							</dict>
-
 							<key>Utilities/Utilities.swift</key>
 							<dict>
 								<key>Group</key>
 								<string>Utilities</string>
 							</dict>
-							
 							<key>Views/View.swift</key>
 							<dict>
 								<key>Group</key>
@@ -470,7 +445,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 		<key>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___.xcscheme</key>
 		<dict>
 			<key>TargetIndices</key>
-			<array></array>
+			<array/>
 			<key>Group</key>
 			<array>
 				<string>Removable Resources</string>
@@ -481,7 +456,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 		<key>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___ Staging.xcscheme</key>
 		<dict>
 			<key>TargetIndices</key>
-			<array></array>
+			<array/>
 			<key>Group</key>
 			<array>
 				<string>Removable Resources</string>
@@ -492,7 +467,7 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 		<key>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___ UAT.xcscheme</key>
 		<dict>
 			<key>TargetIndices</key>
-			<array></array>
+			<array/>
 			<key>Group</key>
 			<array>
 				<string>Removable Resources</string>
