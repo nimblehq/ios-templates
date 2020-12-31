@@ -433,6 +433,51 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 	</array>
 	<key>Definitions</key>
 	<dict>
+		<key>../fastlane/Managers/BuildManager.rb</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+			<key>Path</key>
+			<string>fastlane/Managers/BuildManager.rb</string>
+		</dict>
+		<key>../fastlane/Managers/CodeSigningManager.rb</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+			<key>Path</key>
+			<string>fastlane/Managers/CodeSigningManager.rb</string>
+		</dict>
+		<key>../fastlane/Managers/TestManager.rb</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+			<key>Path</key>
+			<string>fastlane/Managers/TestManager.rb</string>
+		</dict>
+		<key>../fastlane/Fastfile</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+			<key>Path</key>
+			<string>fastlane/Fastfile</string>
+		</dict>
+		<key>../fastlane/Constants/Constants.rb</key>
+		<dict>
+			<key>Group</key>
+			<array>
+				<string>Removable Resources</string>
+			</array>
+			<key>Path</key>
+			<string>fastlane/Constants/Constants.rb</string>
+		</dict>
 		<key>../Gemfile</key>
 		<dict>
 			<key>Group</key>
@@ -487,6 +532,11 @@ SWIFT_ACTIVE_COMPILATION_CONDITIONS = PRODUCTION
 	</dict>
 	<key>Nodes</key>
 	<array>
+		<string>../fastlane/Managers/BuildManager.rb</string>
+		<string>../fastlane/Managers/CodeSigningManager.rb</string>
+		<string>../fastlane/Managers/TestManager.rb</string>
+		<string>../fastlane/Constants/Constants.rb</string>
+		<string>../fastlane/Fastfile</string>
 		<string>../Gemfile</string>
 		<string>../Podfile</string>
 		<string>../___PACKAGENAME___.xcodeproj/xcshareddata/xcschemes/___PACKAGENAME___.xcscheme</string>
