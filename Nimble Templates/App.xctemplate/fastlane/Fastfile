@@ -6,7 +6,6 @@ require './Constants/Constants'
 require './Managers/TestManager'
 require './Managers/BuildManager'
 require './Managers/CodeSigningManager'
-require './Managers/OnePasswordManager'
 
 test_manager = TestManager.new(
   fastlane: self

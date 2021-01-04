@@ -67,9 +67,14 @@ class Constants
     ''
   end
 
-  # an Staging environment scheme name
+  # a Staging environment scheme name
   def self.SCHEME_NAME_STAGING
     '___PACKAGENAME___ Staging'
+  end
+
+  # a Staging environment scheme name
+  def self.SCHEME_NAME_UAT
+    '___PACKAGENAME___ UAT'
   end
 
   # a Production environment scheme name
@@ -77,9 +82,9 @@ class Constants
     '___PACKAGENAME___'
   end
 
-  # an Staging product name
-  def self.SCHEME_NAME_UAT
-    '___PACKAGENAME___ UAT'
+  # a Staging product name
+  def self.PRODUCT_NAME_STAGING
+    '___PACKAGENAME___ Staging'
   end
 
   # a Production product name
@@ -115,7 +120,7 @@ class Constants
   ### BUNDLE ID ###
   #################
 
-  # an STAGING bundle identifier
+  # a STAGING bundle identifier
   def self.BUNDLE_ID_STAGING
     '___VARIABLE_bundleIdentifierPrefix:bundleIdentifier___.___PACKAGENAMEASRFC1034IDENTIFIER___.staging'
   end
