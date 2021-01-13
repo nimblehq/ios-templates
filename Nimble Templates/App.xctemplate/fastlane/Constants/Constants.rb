@@ -87,6 +87,11 @@ class Constants
     '___PACKAGENAME___ Staging'
   end
 
+  # a UAT product name
+  def self.PRODUCT_NAME_UAT
+    '___PACKAGENAME___ UAT'
+  end
+
   # a Production product name
   def self.PRODUCT_NAME_PRODUCTION
     '___PACKAGENAME___'

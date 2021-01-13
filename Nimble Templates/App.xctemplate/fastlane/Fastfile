@@ -4,20 +4,10 @@ skip_docs
 require './Constants/Constants'
 
 require './Managers/TestManager'
-require './Managers/BuildManager'
 require './Managers/CodeSigningManager'
 
 test_manager = TestManager.new(
   fastlane: self
-)
-
-builder = BuildManager.new(
-  fastlane: self,
-  scheme_name_staging: Constants.SCHEME_NAME_STAGING,
-  scheme_name_production: Constants.SCHEME_NAME_PRODUCTION,
-  bundle_identifier_staging: Constants.BUNDLE_ID_STAGING,
-  product_name_staging: Constants.PRODUCT_NAME_STAGING,
-  product_name_production: Constants.PRODUCT_NAME_PRODUCTION
 )
 
 code_signing_manager = CodeSigningManager.new(
