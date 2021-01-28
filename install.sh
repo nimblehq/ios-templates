@@ -1,15 +1,28 @@
 #!/bin/bash
+# set -e
 
-# Copy templates
-read -r -p "Do you want to copy templates? [Y|n] " response
-if [[ $response =~ (y|yes|Y) ]];then
-  
+source scripts/helpers.sh
+
+# ----------------------------------
+# Templates
+# ----------------------------------
+section "Templates"
+confirm "Do you want to copy templates?"
+response=$?
+if [[ $response = 1 ]]; then
+
   # Backup old templates in case you have your custom templates
-  read -r -p "Do you want to backup your old templates? [Y|n] " response
+  confirm "Do you want to backup your old templates?"
+  response=$?
 
-  if [[ ! $response =~ (n|no|N) ]];then
+  if [[ ! $response == 0 ]]; then
     currentDate=`date +%s`
-    cp -R ~/Library/Developer/Xcode/Templates ~/Library/Developer/Xcode/Templates-Backup-${currentDate}
+    dest="~/Library/Developer/Xcode/Templates-Backup-${currentDate}"
+    if cp -R ~/Library/Developer/Xcode/Templates $dest; then
+      success "Successfully backup your old templates at '$dest'"
+    else
+      exit
+    fi
   fi
 
   rm -rf ~/Library/Developer/Xcode/Templates/File\ Templates
@@ -22,9 +35,14 @@ if [[ $response =~ (y|yes|Y) ]];then
   cp -R Nimble\ Templates/* ~/Library/Developer/Xcode/Templates/Project\ Templates/Nimble\ Templates
 fi
 
-# Copy code snippets
-read -r -p "Do you want to copy code snippets? [Y|n] " response
-if [[ $response =~ (y|yes|Y) ]];then
+# ----------------------------------
+# Code Snippets
+# ----------------------------------
+section "Code Snippets"
+confirm "Do you want to copy code snippets?"
+response=$?
+
+if [[ $response = 1 ]];then
 
   # Checking `CodeSnippets` directory exists
   if [ ! -d "~/Library/Developer/Xcode/UserData/CodeSnippets" ]; then
@@ -32,5 +50,10 @@ if [[ $response =~ (y|yes|Y) ]];then
   fi
 
   # Copy code snippets for Unit Test
-  cp -R Nimble\ Code\ Snippets/Unit\ Test/* ~/Library/Developer/Xcode/UserData/CodeSnippets
+  dest=~/Library/Developer/Xcode/UserData/CodeSnippets
+  if cp -R Nimble\ Code\ Snippets/Unit\ Test/* $dest; then
+    success "Successfully copied code snippets to '$dest'"
+  else
+    exit
+  fi
 fi
