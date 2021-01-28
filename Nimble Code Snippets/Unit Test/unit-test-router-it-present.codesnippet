@@ -9,7 +9,7 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>it("present &lt;#module#&gt; view") {
+	<string>it("presents &lt;#module#&gt; view") {
     expect(viewController.presentedViewController)
         .to(beAKindOf(&lt;#viewController#&gt;.self))
 }</string>
