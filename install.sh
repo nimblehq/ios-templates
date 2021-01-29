@@ -18,6 +18,8 @@ if [[ $response = 1 ]]; then
   if [[ ! $response == 0 ]]; then
     currentDate=`date +%s`
     dest="~/Library/Developer/Xcode/Templates-Backup-${currentDate}"
+    mkdir -p $dest
+    
     if cp -R ~/Library/Developer/Xcode/Templates $dest; then
       success "Successfully backup your old templates at '$dest'"
     else
