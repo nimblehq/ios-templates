@@ -9,7 +9,7 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>it("triggers output to call &lt;#func#&gt;") {
+	<string>it("calls output to trigger &lt;#func#&gt;") {
     &lt;#code#&gt;
 }</string>
 	<key>IDECodeSnippetIdentifier</key>
