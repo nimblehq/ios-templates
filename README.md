@@ -1,16 +1,22 @@
 # ios-template
+
 Our optimized iOS template used in our projects using Xcode Templates
 
 ## Requirements
 
 Xcode 12.0
 
-## Usage
+## Installation
 
-Add Nimble's templates by placing them in the folder `~/Library/Developer/Xcode/Templates/` by running this script
+**macOS**
 
+- Clone the repo into `tmp` folder
 ```sh
-$ bash install.sh
+cd /tmp && git clone https://github.com/nimblehq/ios-templates.git
+```
+- Run `install.sh` script
+```sh
+bash ios-templates/install.sh
 ```
 
 ## Wiki
@@ -18,6 +24,7 @@ $ bash install.sh
 1. [Standard File Organization](https://github.com/nimblehq/ios-templates/wiki/Standard-file-organization)
 2. [Project Configurations](https://github.com/nimblehq/ios-templates/wiki/Project-configurations)
 3. [Why having project's dependencies](https://github.com/nimblehq/ios-templates/wiki/Why-having-project%27s-dependencies)
+4. [Code Snippets](https://github.com/nimblehq/ios-templates/wiki/Code-Snippets)
 
 ## Known Issues
 
@@ -45,18 +52,18 @@ Because you will not use the default configutations (`Debug` and `Release`) any 
 
 One more thing there are some duplicated build settings stored in the file `project.pbxproj`. Some of them are automatically initialized and some are customized. For an instance, the build setting `PRODUCT_BUNDLE_IDENTIFIER` for `Dev Staging` is duplicated.
 
-| Default | Custom |
-|---|---|
+| Default                                                      | Custom                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <img src="./images/readme/configuration_default-attributes.png" width="400"> | <img src="./images/readme/configuration_custom-attributes.png" width="400"> |
 
-What we should do is to remove all duplicated settings for all build configurations. 
+What we should do is to remove all duplicated settings for all build configurations.
 
 The following list is the default initialized settings that you should remove:
 
 - `PRODUCT_BUNDLE_IDENTIFIER`
 - `PRODUCT_NAME`
 
-> Note: 
+> Note:
 >
 > - Check the `Debug`/`Release` build configurations are completely remove out of the file `project.pbxproj`
 
