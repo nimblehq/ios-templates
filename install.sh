@@ -3,6 +3,24 @@
 
 source scripts/helpers.sh
 
+cmd=$1
+if [[ $cmd ==  "githooks" ]]; then
+  projectPath=$2
+  if [[ ! -d $projectPath ]]; then
+    info "Directory doesn't exist or missing"
+    exit
+  fi
+
+  gitHooksPath="${projectPath}/.githooks"
+  if [[ ! -d $gitHooksPath ]]; then
+    mkdir -p $gitHooksPath
+  fi
+
+  if cp -R resources/git-hooks/* $gitHooksPath; then
+    success "Copied git hooks successfully"
+  fi
+  exit
+fi
 # ----------------------------------
 # Templates
 # ----------------------------------
@@ -17,11 +35,11 @@ if [[ $response = 1 ]]; then
 
   if [[ ! $response == 0 ]]; then
     currentDate=`date +%s`
-    dest="~/Library/Developer/Xcode/Templates-Backup-${currentDate}"
+    dest="${HOME}/Library/Developer/Xcode/Templates-Backup-${currentDate}"
     mkdir -p $dest
-    
+
     if cp -R ~/Library/Developer/Xcode/Templates $dest; then
-      success "Successfully backup your old templates at '$dest'"
+      success "Backup your old templates at '$dest'"
     else
       exit
     fi
@@ -34,7 +52,8 @@ if [[ $response = 1 ]]; then
   mkdir -p ~/Library/Developer/Xcode/Templates/File\ Templates
   mkdir -p ~/Library/Developer/Xcode/Templates/Project\ Templates
   mkdir -p ~/Library/Developer/Xcode/Templates/Project\ Templates/Nimble\ Templates
-  cp -R Nimble\ Templates/* ~/Library/Developer/Xcode/Templates/Project\ Templates/Nimble\ Templates
+  cp -R resources/xcode-templates/* ~/Library/Developer/Xcode/Templates/Project\ Templates/Nimble\ Templates
+  success "Copied Nimble Templates successfully"
 fi
 
 # ----------------------------------
@@ -53,8 +72,8 @@ if [[ $response = 1 ]];then
 
   # Copy code snippets for Unit Test
   dest=~/Library/Developer/Xcode/UserData/CodeSnippets
-  if cp -R Nimble\ Code\ Snippets/Unit\ Test/* $dest; then
-    success "Successfully copied code snippets to '$dest'"
+  if cp -R resources/xcode-code-snippets/unit-test/* $dest; then
+    success "Copied code snippets successfully"
   else
     exit
   fi

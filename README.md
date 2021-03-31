@@ -18,6 +18,10 @@ cd /tmp && git clone https://github.com/nimblehq/ios-templates.git
 ```sh
 bash ios-templates/install.sh
 ```
+- Setup git hooks for a project
+```
+bash install.sh githooks [path_to_project]
+```
 
 ## Wiki
 
