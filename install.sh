@@ -39,7 +39,7 @@ if [[ $response = 1 ]]; then
     mkdir -p $dest
 
     if cp -R ~/Library/Developer/Xcode/Templates $dest; then
-      success "Backup your old templates at '$dest'"
+      success "Backup your old templates at '$dest' successfully"
     else
       exit
     fi

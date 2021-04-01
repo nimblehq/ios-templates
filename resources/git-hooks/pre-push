@@ -19,7 +19,7 @@ function addFilesToLint {
 LINT="Pods/SwiftLint/swiftlint"
 
 count=0
-# Getting files which are in commit and haven't been pushed yet
+# Getting files which are in commit state and haven't been pushed yet
 targets=$(git diff --stat --cached  --name-only $(git for-each-ref --format='%(upstream:short)' $(git symbolic-ref -q HEAD)) | grep -F ".swift")
 if [ "$targets" == '' ]; then
   printf "SwiftLint Finished.\n" >&2
@@ -33,12 +33,12 @@ RESULT=$($LINT lint --quiet --use-script-input-files)
 if [ "$RESULT" == '' ]; then
   printf "SwiftLint Finished.\n" >&2
 else
-echo "" >&2
-echo "SwiftLint Failed. Please check below:" >&2
-echo "-----------------------" >&2
-echo $RESULT >&2
-echo "-----------------------" >&2
-echo "" >&2
-echo "PUSH ABORTED. Please fix them before pushing your code.\n" >&2
-exit 1
+  echo "" >&2
+  echo "SwiftLint Failed. Please check below:" >&2
+  echo "-----------------------" >&2
+  echo $RESULT >&2
+  echo "-----------------------" >&2
+  echo "" >&2
+  echo "PUSH ABORTED. Please fix them before pushing your code.\n" >&2
+  exit 1
 fi
