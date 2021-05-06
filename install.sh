@@ -57,6 +57,26 @@ if [[ $response = 1 ]]; then
 fi
 
 # ----------------------------------
+# UITest Templates
+# ----------------------------------
+section "UITest Templates"
+confirm "Do you want to copy UITest Templates?"
+response=$?
+if [[ $response = 1 ]]; then
+  # Checking `UITest Templates` directory exists
+  if [ ! -d "~/Library/Developer/Xcode/Templates/UITest\ Templates" ]; then
+    mkdir -p ~/Library/Developer/Xcode/Templates/UITest\ Templates
+  fi
+
+  # Copy code snippets for Unit Test
+  if cp -R UITest\ Templates/* ~/Library/Developer/Xcode/Templates/UITest\ Templates; then
+    success "Copied UITest Templates successfully"
+  else
+    exit
+  fi
+fi
+
+# ----------------------------------
 # Code Snippets
 # ----------------------------------
 section "Code Snippets"
