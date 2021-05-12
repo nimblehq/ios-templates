@@ -1,0 +1,3 @@
+git_url("git@github.com:nimble/github-action-match.git")
+
+storage_mode("git")
