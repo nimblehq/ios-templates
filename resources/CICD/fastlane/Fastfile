@@ -12,15 +12,6 @@ versioning_manager = VersioningManager.new(
   main_target_name: Constants.MAIN_TARGET_NAME
 )
 
-symbol_manager = SymbolManager.new(
-  fastlane: self,
-  version: versioning_manager.version_number,
-  build_number: versioning_manager.build_number,
-  build_path: Constants.BUILD_PATH,
-  gsp_directory: Constants.GSP_DIRECTORY,
-  binary_path: Constants.BINARY_PATH
-)
-
 builder = BuildManager.new(
   fastlane: self,
   scheme_name_staging: Constants.SCHEME_NAME_STAGING,
@@ -49,17 +40,17 @@ default_platform(:ios)
 platform :ios do
 
   desc "Sync development match signing"
-  lane :syncDevelopmentSigning do
+  lane :sync_development_signing do
     match(type: "development", readonly: true)
   end
 
   desc "Sync AdHoc match signing"
-  lane :syncAdhocSigning do
+  lane :sync_adhoc_signing do
     match(type: "adhoc", readonly: true)
   end
 
   desc "Sync Adhoc match signing on CI"
-  lane :syncAdhocSigningCI do
+  lane :sync_adhoc_signing_ci do
     create_ci_keychain
     match(
         type: "adhoc",
@@ -70,7 +61,7 @@ platform :ios do
   end
 
   desc "Sync AppStore match signing on CI"
-  lane :syncAppStoreSigningCI do
+  lane :sync_appstore_signing_ci do
     create_ci_keychain
     match(
         type: "appstore",
@@ -81,7 +72,7 @@ platform :ios do
   end
 
   desc "Register new devices"
-  lane :registerNewDevice do
+  lane :register_new_device do
     device_name = prompt(text: "Enter the device name: ")
     device_udid = prompt(text: "Enter the device UDID: ")
     device_hash = {}
@@ -127,6 +118,15 @@ platform :ios do
 
   desc 'upload build dsym to firebase'
   lane :upload_build_dsym_to_firebase do |options|
+    symbol_manager = SymbolManager.new(
+      fastlane: self,
+      version: versioning_manager.version_number,
+      build_number: versioning_manager.build_number,
+      build_path: Constants.BUILD_PATH,
+      gsp_Odirectory: Constants.GSP_DIRECTORY,
+      binary_path: Constants.BINARY_PATH
+    )
+    
     symbol_manager.upload_built_symbol_to_firebase(
       product_name: ENV['PRODUCT_NAME'],
       gsp_name: ENV['GSP_NAME']
