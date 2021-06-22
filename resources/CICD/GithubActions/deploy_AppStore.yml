@@ -1,4 +1,4 @@
-name: deploy_AppStore
+name: deploy_appstore
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
@@ -6,13 +6,11 @@ name: deploy_AppStore
 ### APPSTORE_CONNECT_API_KEY
 
 on:
-
   push:
     branches: [ master ]
 
 jobs:
-
-  Lint:
+  lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +24,7 @@ jobs:
       with:
         args: --strict
         
-  Build:
+  build:
     name: Build
     runs-on: macOS-latest
     steps:
@@ -35,7 +33,8 @@ jobs:
       with:
         access_token: ${{ github.token }}
 
-    - uses: actions/checkout@v2
+    - name: Checkout Repo
+      uses: actions/checkout@v2
     # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
@@ -51,7 +50,7 @@ jobs:
 
     - name: Match AppStore
       run: |
-        bundle exec fastlane syncAppStoreSigningCI
+        bundle exec fastlane sync_appstore_signing_ci
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
