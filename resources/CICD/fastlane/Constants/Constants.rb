@@ -72,7 +72,7 @@ class Constants
 
   # a firebase app ID for Staging
   def self.FIREBASE_APP_ID_STAGING
-    '{PROJECT_FIREBASE_APP_ID'
+    '{PROJECT_FIREBASE_APP_ID}'
   end
 
   def self.FIREBASE_TESTER_GROUPS
@@ -85,7 +85,7 @@ class Constants
 
    # a developer portal team id
   def self.DEV_PORTAL_TEAM_ID
-    '{PROJECT_TEAM_ID'
+    '{PROJECT_TEAM_ID}'
   end
 
   # an staging environment scheme name
