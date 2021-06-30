@@ -48,12 +48,6 @@ jobs:
       run: |
         bundle install
 
-    - name: Match AppStore
-      run: |
-        bundle exec fastlane sync_appstore_signing_ci
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
-
     - name: Cache Pods
       uses: actions/cache@v2
       id: cocoapodCache
@@ -70,6 +64,12 @@ jobs:
 
     - name: Build and Test
       run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
+
+    - name: Match AppStore
+      run: |
+        bundle exec fastlane sync_appstore_signing_ci
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distibute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app
