@@ -8,7 +8,7 @@ trigger_map:
 - push_branch: master
   workflow: deploy_appstore
 - push_branch: "*"
-  workflow: validate
+  workflow: test
 workflows:
   deploy_staging:
     steps:
@@ -16,8 +16,8 @@ workflows:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@6.0: {}
     - cache-pull@2: {}
-    - script@1:
-        title: Do anything with Script step
+    - cocoapods-install@2: {}
+    - xcode-test@2: {}
     - fastlane-match@0:
         inputs:
         - type: adhoc
@@ -26,8 +26,6 @@ workflows:
         - git_url: "$MATCH_REPO_URL"
         - decrypt_password: "$MATCH_PASSWORD"
     - certificate-and-profile-installer@1: {}
-    - cocoapods-install@2: {}
-    - xcode-test@2: {}
     - set-xcode-build-number@1:
         inputs:
         - plist_path: "$INFO_PLIST_PATH"
@@ -53,8 +51,8 @@ workflows:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@6.0: {}
     - cache-pull@2: {}
-    - script@1:
-        title: Do anything with Script step
+    - cocoapods-install@2: {}
+    - xcode-test@2: {}
     - fastlane-match@0:
         inputs:
         - type: appstore
@@ -63,8 +61,6 @@ workflows:
         - git_url: "$MATCH_REPO_URL"
         - app_id: "$BUNDLE_ID"
     - certificate-and-profile-installer@1: {}
-    - cocoapods-install@2: {}
-    - xcode-test@2: {}
     - set-xcode-build-number@1:
         inputs:
         - plist_path: "$INFO_PLIST_PATH"
@@ -93,8 +89,8 @@ workflows:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@6.0: {}
     - cache-pull@2: {}
-    - script@1:
-        title: Do anything with Script step
+    - cocoapods-install@2: {}
+    - xcode-test@2: {}
     - fastlane-match@0:
         inputs:
         - team_id: "$TEAM_ID"
@@ -102,8 +98,6 @@ workflows:
         - git_url: "$MATCH_REPO_URL"
         - app_id: "$BUNDLE_ID"
     - certificate-and-profile-installer@1: {}
-    - cocoapods-install@2: {}
-    - xcode-test@2: {}
     - set-xcode-build-number@1:
         inputs:
         - plist_path: "$INFO_PLIST_PATH"
@@ -124,14 +118,12 @@ workflows:
     - opts:
         is_expand: false
       BITRISE_SCHEME: ExampleApp UAT
-  validate:
+  test:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@6.0: {}
     - cache-pull@2: {}
-    - script@1:
-        title: Do anything with Script step
     - cocoapods-install@2: {}
     - xcode-test@2: {}
     - cache-push@2:
