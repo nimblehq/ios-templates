@@ -16,6 +16,7 @@ builder = BuildManager.new(
   fastlane: self,
   scheme_name_staging: Constants.SCHEME_NAME_STAGING,
   scheme_name_production: Constants.SCHEME_NAME_PRODUCTION,
+  scheme_name_appstore: Constants.SCHEME_NAME_APP_STORE,
   bundle_identifier_staging: Constants.BUNDLE_ID_STAGING,
   product_name_staging: Constants.PRODUCT_NAME_STAGING,
   product_name_staging_test_flight: Constants.PRODUCT_NAME_STAGING_TEST_FLIGHT,
@@ -56,6 +57,27 @@ platform :ios do
         type: "adhoc",
         keychain_name: keychain_name,
         keychain_password: keychain_password,
+        app_identifier: [Constants.BUNDLE_ID_STAGING],
+        readonly: true
+    )
+  end
+
+  desc "Sync Adhoc Production match signing on CI"
+  lane :sync_adhoc_production_signing_ci do
+    create_keychain(
+        name: keychain_name,
+        password: keychain_password,
+        default_keychain: true,
+        unlock: true,
+        timeout: 3600,
+        lock_when_sleeps: false
+    )
+
+    match(
+        type: "adhoc",
+        keychain_name: keychain_name,
+        keychain_password: keychain_password,
+        app_identifier: [Constants.BUNDLE_ID_PRODUCTION],
         readonly: true
     )
   end
@@ -99,8 +121,29 @@ platform :ios do
     set_app_version
     bump_build
     
-    builder.build_app_ad_hoc(Constants.SCHEME_NAME_STAGING, Constants.PRODUCT_NAME_STAGING)
+    builder.build_app_ad_hoc(
+      Constants.SCHEME_NAME_STAGING, 
+      Constants.PRODUCT_NAME_STAGING,
+      Constants.BUNDLE_ID_STAGING
+    )
+    upload_build_to_firebase
+    upload_build_dsym_to_firebase
+  end
 
+  desc 'Build and upload Production app to firebase'
+  lane :build_and_upload_production_app do
+    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_PRODUCTION
+    ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_PRODUCTION
+    ENV['GSP_NAME'] = Constants.GSP_PRODUCTION
+    ENV['TESTER_GROUPS'] = Constants.FIREBASE_TESTER_GROUPS
+
+    set_app_version
+    bump_build
+    builder.build_app_ad_hoc(
+      Constants.SCHEME_NAME_PRODUCTION, 
+      Constants.PRODUCT_NAME_PRODUCTION, 
+      Constants.BUNDLE_ID_PRODUCTION
+    )
     upload_build_to_firebase
     upload_build_dsym_to_firebase
   end
@@ -137,6 +180,8 @@ platform :ios do
 
   desc 'Build and upload Production app to appstore'
   lane :build_and_upload_appstore_app do
+    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_PRODUCTION
+    ENV['GSP_NAME'] = Constants.GSP_PRODUCTION
     set_app_version
     bump_build
     builder.build_appstore
@@ -144,6 +189,7 @@ platform :ios do
       set_connect_api_key
     end
     upload_build_to_appstore
+    upload_build_dsym_to_firebase
   end
 
   desc 'upload develop build to AppStore'

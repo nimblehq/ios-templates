@@ -1,13 +1,13 @@
-name: deploy_AppStore
+name: deploy_Firebase
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
-### APPSTORE_CONNECT_API_KEY
+### FIREBASE_TOKEN
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   lint:
@@ -33,8 +33,7 @@ jobs:
       with:
         access_token: ${{ github.token }}
 
-    - name: Checkout Repo
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
     # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
@@ -43,8 +42,14 @@ jobs:
       uses: webfactory/ssh-agent@v0.4.1
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Install Firebase-Tools
+      run: |
+        yarn global add firebase-tools
+        echo "$(yarn global bin)" >> $GITHUB_PATH
             
     - name: Bundle install
+      # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
 
     - name: Cache Pods
@@ -63,12 +68,12 @@ jobs:
     - name: Build and Test
       run: xcodebuild -workspace GithubActionDemo.xcworkspace -scheme 'GithubActionDemo Staging' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
 
-    - name: Match AppStore
-      run: bundle exec fastlane sync_appstore_signing_ci
+    - name: Match Ad-hoc
+      run: bundle exec fastlane sync_adhoc_signing_ci
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build App and Distibute to AppStore
-      run: bundle exec fastlane build_and_upload_appstore_app
+    - name: Build App and Distibute to Firebase
+      run: bundle exec fastlane build_and_upload_staging_app
       env:
-        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
