@@ -75,8 +75,13 @@ class Constants
     '{PROJECT_FIREBASE_APP_ID}'
   end
 
+  # a firebase app ID for Production
+  def self.FIREBASE_APP_ID_PRODUCTION
+    '{PROJECT_FIREBASE_APP_ID}'
+  end
+
   def self.FIREBASE_TESTER_GROUPS
-    "CICD"
+    "nimble-dev"
   end
 
   #################
@@ -96,6 +101,11 @@ class Constants
   # a Production environment scheme name
   def self.SCHEME_NAME_PRODUCTION
     '{PROJECT_NAME}'
+  end
+
+  # a App Store environment scheme name
+  def self.SCHEME_NAME_APP_STORE
+    '{PROJECT_NAME} APPSTORE'
   end
 
   # an staging product name
@@ -123,7 +133,7 @@ class Constants
   ##################
 
   def self.DEV_PORTAL_APPLE_ID
-    'ios@nimblehq.com'
+    '{dev@example.com}'
   end
 
   #####################
