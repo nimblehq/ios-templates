@@ -1,11 +1,8 @@
 name: test
 
-on: 
-  push:
-    branches:  
-      - '!releases/**'
-      - '!develop'
-      - '!master'
+on:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
 
 jobs:
   Lint:
