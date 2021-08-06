@@ -1,4 +1,4 @@
-name: deploy_Firebase
+name: Deploy Build To Firebase
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo

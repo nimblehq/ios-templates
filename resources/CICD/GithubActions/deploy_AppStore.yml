@@ -1,4 +1,4 @@
-name: deploy_AppStore
+name: Deploy Build To App Store
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
