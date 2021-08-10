@@ -1,0 +1,26 @@
+import ProjectDescription
+
+let project = Project.project(name: "{{ name }}")
+
+extension Project {
+
+    static func project(name: String) -> Project {
+        return Project(
+            name: name,
+            organizationName: "Nimble",
+            targets: [
+                Target(
+                    name: name,
+                    platform: .iOS,
+                    product: .app,
+                    bundleId: "co.nimblehq.\(name)",
+                    infoPlist: .default,
+                    sources: [
+                        "Sources/**"
+                    ]
+                )
+            ],
+            schemes: []
+        )
+    }
+}
