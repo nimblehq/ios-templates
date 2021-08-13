@@ -50,4 +50,4 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: xcodebuild -workspace {workspace_name}.xcworkspace -scheme '{staging_scheme_name}' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
+      run: xcodebuild -workspace {workspace_name}.xcworkspace -scheme '{staging_scheme_name}' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty && exit ${PIPESTATUS[0]}
