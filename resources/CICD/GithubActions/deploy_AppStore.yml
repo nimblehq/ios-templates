@@ -61,14 +61,14 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: xcodebuild -workspace {workspace_name}.xcworkspace -scheme '{staging_scheme_name}' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
+      run: xcodebuild -workspace {workspace_name}.xcworkspace -scheme '{staging_scheme_name}' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty && exit ${PIPESTATUS[0]}
 
     - name: Match AppStore
       run: bundle exec fastlane sync_appstore_signing_ci
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build App and Distibute to AppStore
+    - name: Build App and Distribute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}

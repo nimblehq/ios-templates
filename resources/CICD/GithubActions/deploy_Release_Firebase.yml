@@ -60,14 +60,14 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: xcodebuild -workspace {workspace_name}.xcworkspace -scheme '{staging_scheme_name}' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty
+      run: xcodebuild -workspace {workspace_name}.xcworkspace -scheme '{staging_scheme_name}' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty && exit ${PIPESTATUS[0]}
 
     - name: Match Ad-hoc
       run: bundle exec fastlane sync_adhoc_production_signing_ci
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build Production App and Distibute to Firebase
+    - name: Build Production App and Distribute to Firebase
       run: bundle exec fastlane build_and_upload_production_app
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
