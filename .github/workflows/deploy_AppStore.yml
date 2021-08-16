@@ -7,7 +7,7 @@ name: Deploy Build To App Store
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, main ]
 
 jobs:
   lint:
