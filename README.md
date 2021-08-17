@@ -37,6 +37,15 @@ Documentation : [Tuist Official Documents](https://docs.tuist.io/tutorial/get-st
 
 </br>
 
+- Change the project name at line 3 in `Project.swift` 
+
+    ```swift
+    let project = Project.project(name: "ios-template")
+    ```
+    to:
+    ```swift
+    let project = Project.project(name: "<Your Project Name>")
+    ```
 
 - Go navigate to `Tuist` directory and execute the following command:
 
