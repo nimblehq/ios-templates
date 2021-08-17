@@ -1,6 +1,6 @@
 import ProjectDescription
 
-let project = Project.project(name: "{{ name }}")
+let project = Project.project(name: "ios-template")
 
 extension Project {
 
@@ -14,10 +14,11 @@ extension Project {
                     platform: .iOS,
                     product: .app,
                     bundleId: "co.nimblehq.\(name)",
-                    infoPlist: .default,
-                    sources: [
-                        "Sources/**"
-                    ]
+                    infoPlist: .extendingDefault(with: [
+                        "UILaunchScreen": [:]
+                    ]),
+                    sources: ["Sources/**"],
+                    resources: ["Resources/**"]
                 )
             ],
             schemes: []

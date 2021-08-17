@@ -37,32 +37,8 @@ Documentation : [Tuist Official Documents](https://docs.tuist.io/tutorial/get-st
 
 </br>
 
-- Copy the whole directory `Tuist` and its content to one directory up of your project's directory.
 
-    *Assume your future project in `Projects` directory*
-
-    ```
-    Projects
-    |-- Tuist
-        |-- Templates
-            |-- mvvm
-                |-- AppDelegate.swift
-                |-- mvvm.swift
-                |-- Project.stencil
-    |-- <Your future project's directory>
-    └── ...
-    ```
-</br>
-
-- Navigate to your future project's directory and run
-
-    ```bash
-    tuist init -t mvvm --name <Name of project>    
-    ```
-
-</br>
-
-- After init command finished, run the following command
+- Go navigate to `Tuist` directory and execute the following command:
 
     ```bash
     tuist generate
