@@ -17,8 +17,30 @@ extension Project {
                     infoPlist: .extendingDefault(with: [
                         "UILaunchScreen": [:]
                     ]),
-                    sources: ["Sources/**"],
-                    resources: ["Resources/**"]
+                    sources: ["ProjectName/Sources/**"],
+                    resources: ["ProjectName/Resources/**"]
+                ),
+                Target(
+                    name: name + "Tests",
+                    platform: .iOS,
+                    product: .unitTests,
+                    bundleId: "co.nimblehq.\(name)Tests",
+                    infoPlist: .default,
+                    sources: ["ProjectNameTests/**"],
+                    dependencies: [
+                        .target(name: name)
+                    ]
+                ),
+                Target(
+                    name: name + "UITests",
+                    platform: .iOS,
+                    product: .uiTests,
+                    bundleId: "co.nimblehq.\(name)UITests",
+                    infoPlist: .default,
+                    sources: ["ProjectNameUITests/**"],
+                    dependencies: [
+                        .target(name: name)
+                    ]
                 )
             ],
             schemes: []
