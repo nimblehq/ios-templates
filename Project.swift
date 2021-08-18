@@ -1,7 +1,7 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.project(name: "ios-template")
+let project = Project.project(name: "ProjectName")
 
 extension Project {
 
@@ -10,10 +10,9 @@ extension Project {
             name: name,
             organizationName: "Nimble",
             targets: [
-                // Need to update "ProjectName" to `name` when implement script
-                Target.mainTarget(name: "ProjectName"),
-                Target.testsTarget(name: "ProjectName"),
-                Target.uiTestsTarget(name: "ProjectName")
+                Target.mainTarget(name: name),
+                Target.testsTarget(name: name),
+                Target.uiTestsTarget(name: name)
             ],
             schemes: []
         )
