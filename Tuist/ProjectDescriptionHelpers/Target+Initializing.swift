@@ -9,7 +9,7 @@ extension Target {
             product: .app,
             bundleId: "co.nimblehq.\(name)",
             infoPlist: .extendingDefault(with: [
-                "UILaunchScreen": [:]
+                "UILaunchStoryboardName": "LaunchScreen"
             ]),
             sources: ["\(name)/Sources/**"],
             resources: ["\(name)/Resources/**"]
@@ -18,7 +18,7 @@ extension Target {
     
     public static func testsTarget(name: String) -> Target {
         return Target(
-            name: name + "Tests",
+            name: "\(name)Tests",
             platform: .iOS,
             product: .unitTests,
             bundleId: "co.nimblehq.\(name)Tests",
@@ -32,7 +32,7 @@ extension Target {
 
     public static func uiTestsTarget(name: String) -> Target {
         return Target(
-            name: name + "UITests",
+            name: "\(name)UITests",
             platform: .iOS,
             product: .uiTests,
             bundleId: "co.nimblehq.\(name)UITests",
