@@ -89,6 +89,7 @@ platform :ios do
         type: "appstore",
         keychain_name: keychain_name,
         keychain_password: keychain_password,
+        app_identifier: [Constants.BUNDLE_ID_PRODUCTION],
         readonly: true
     )
   end
