@@ -3,56 +3,30 @@ format_version: '8'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: ios
 trigger_map:
-- push_branch: dev
+- push_branch: develop
   workflow: deploy_staging
 - push_branch: master
   workflow: deploy_appstore
 - push_branch: "*"
   workflow: test
 workflows:
-  deploy_staging:
-    steps:
-    - activate-ssh-key@4:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@6.0: {}
-    - cache-pull@2: {}
-    - cocoapods-install@2: {}
-    - xcode-test@2: {}
-    - fastlane-match@0:
-        inputs:
-        - type: adhoc
-        - team_id: "$TEAM_ID"
-        - app_id: "$BUNDLE_ID"
-        - git_url: "$MATCH_REPO_URL"
-        - decrypt_password: "$MATCH_PASSWORD"
-    - certificate-and-profile-installer@1: {}
-    - set-xcode-build-number@1:
-        inputs:
-        - plist_path: "$INFO_PLIST_PATH"
-    - xcode-archive@3: {}
-    - firebase-app-distribution@0:
-        inputs:
-        - firebase_token: "$FIREBASE_CI_TOKEN"
-        - app: "$FIREBASE_APP_ID"
-    - firebase-dsym-upload@2:
-        inputs:
-        - fdu_google_services_location: "$GOOGLE_SERVICE_INFO_PLIST_PATH"
-    - cache-push@2: {}
-    envs:
-    - opts:
-        is_expand: false
-      BUNDLE_ID: com.nimblehq.example.staging
-    - opts:
-        is_expand: false
-      BITRISE_SCHEME: ExampleApp Staging
   deploy_appstore:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@6.0: {}
+    - script@1:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            RBENV_DIR="`cd $(rbenv which ruby)/../..;pwd`"
+            echo "Gem cache directory: $RBENV_DIR"
+            envman add --key GEM_CACHE_PATH --value $RBENV_DIR
+        title: Set GEM_CACHE_PATH env var
+    - git-clone@6.1: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
-    - xcode-test@2: {}
+    - xcode-test@3.0: {}
     - fastlane-match@0:
         inputs:
         - type: appstore
@@ -75,7 +49,12 @@ workflows:
     - firebase-dsym-upload@2:
         inputs:
         - fdu_google_services_location: "$GOOGLE_SERVICE_INFO_PLIST_PATH"
-    - cache-push@2: {}
+    - cache-push@2:
+        inputs:
+        - cache_paths: |-
+            ./Pods -> ./Podfile.lock
+            $BITRISE_CACHE_DIR
+            $GEM_CACHE_PATH
     envs:
     - opts:
         is_expand: false
@@ -83,20 +62,30 @@ workflows:
     - opts:
         is_expand: false
       BITRISE_SCHEME: ExampleApp
-  deploy_uat:
+  deploy_staging:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@6.0: {}
+    - script@1:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            RBENV_DIR="`cd $(rbenv which ruby)/../..;pwd`"
+            echo "Gem cache directory: $RBENV_DIR"
+            envman add --key GEM_CACHE_PATH --value $RBENV_DIR
+        title: Set GEM_CACHE_PATH env var
+    - git-clone@6.1: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
-    - xcode-test@2: {}
+    - xcode-test@3.0: {}
     - fastlane-match@0:
         inputs:
+        - type: adhoc
         - team_id: "$TEAM_ID"
-        - decrypt_password: "$MATCH_PASSWORD"
-        - git_url: "$MATCH_REPO_URL"
         - app_id: "$BUNDLE_ID"
+        - git_url: "$MATCH_REPO_URL"
+        - decrypt_password: "$MATCH_PASSWORD"
     - certificate-and-profile-installer@1: {}
     - set-xcode-build-number@1:
         inputs:
@@ -104,38 +93,54 @@ workflows:
     - xcode-archive@3: {}
     - firebase-app-distribution@0:
         inputs:
-        - app: "$FIREBASE_APP_ID"
-        - app_path: "$BITRISE_IPA_PATH"
         - firebase_token: "$FIREBASE_CI_TOKEN"
+        - app: "$FIREBASE_APP_ID_STAGING"
     - firebase-dsym-upload@2:
         inputs:
         - fdu_google_services_location: "$GOOGLE_SERVICE_INFO_PLIST_PATH"
-    - cache-push@2: {}
+    - cache-push@2:
+        inputs:
+        - cache_paths: |-
+            ./Pods -> ./Podfile.lock
+            $BITRISE_CACHE_DIR
+            $GEM_CACHE_PATH
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: com.nimblehq.example.uat
+      BUNDLE_ID: com.nimblehq.example.staging
     - opts:
         is_expand: false
-      BITRISE_SCHEME: ExampleApp UAT
+      BITRISE_SCHEME: ExampleApp Staging
   test:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@6.0: {}
+    - script@1:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            RBENV_DIR="`cd $(rbenv which ruby)/../..;pwd`"
+            echo "Gem cache directory: $RBENV_DIR"
+            envman add --key GEM_CACHE_PATH --value $RBENV_DIR
+        title: Set GEM_CACHE_PATH env var
+    - git-clone@6.1: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
-    - xcode-test@2: {}
+    - xcode-test@3.0: {}
     - cache-push@2:
         inputs:
-        - cache_paths: "./Pods -> ./Podfile.lock"
+        - cache_paths: |-
+            ./Pods -> ./Podfile.lock
+            $BITRISE_CACHE_DIR
+            $GEM_CACHE_PATH
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: com.nimblehq.example.uat
+      BUNDLE_ID: com.nimblehq.example.staging
     - opts:
         is_expand: false
-      BITRISE_SCHEME: ExampleApp UAT
+      BITRISE_SCHEME: ExampleApp Staging
 app:
   envs:
   - opts:
