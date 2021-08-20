@@ -29,8 +29,8 @@ distribution_manager = DistributionManager.new(
   firebase_token: ENV['FIREBASE_CLI_TOKEN']
 )
 
-keychain_name = "github_action_keychain"
-keychain_password = "password"
+keychain_name = 'github_action_keychain'
+keychain_password = 'password'
 
 before_all do
   ensure_bundle_exec
@@ -39,22 +39,21 @@ end
 default_platform(:ios)
 
 platform :ios do
-
-  desc "Sync development match signing"
+  desc 'Sync development match signing'
   lane :sync_development_signing do
-    match(type: "development", readonly: true)
+    match(type: 'development', readonly: true)
   end
 
-  desc "Sync AdHoc match signing"
+  desc 'Sync AdHoc match signing'
   lane :sync_adhoc_signing do
-    match(type: "adhoc", readonly: true)
+    match(type: 'adhoc', readonly: true)
   end
 
-  desc "Sync Adhoc match signing on CI"
+  desc 'Sync Adhoc match signing on CI'
   lane :sync_adhoc_signing_ci do
     create_ci_keychain
     match(
-        type: "adhoc",
+        type: 'adhoc',
         keychain_name: keychain_name,
         keychain_password: keychain_password,
         app_identifier: [Constants.BUNDLE_ID_STAGING],
@@ -62,7 +61,7 @@ platform :ios do
     )
   end
 
-  desc "Sync Adhoc Production match signing on CI"
+  desc 'Sync Adhoc Production match signing on CI'
   lane :sync_adhoc_production_signing_ci do
     create_keychain(
         name: keychain_name,
@@ -74,7 +73,7 @@ platform :ios do
     )
 
     match(
-        type: "adhoc",
+        type: 'adhoc',
         keychain_name: keychain_name,
         keychain_password: keychain_password,
         app_identifier: [Constants.BUNDLE_ID_PRODUCTION],
@@ -82,11 +81,11 @@ platform :ios do
     )
   end
 
-  desc "Sync AppStore match signing on CI"
+  desc 'Sync AppStore match signing on CI'
   lane :sync_appstore_signing_ci do
     create_ci_keychain
     match(
-        type: "appstore",
+        type: 'appstore',
         keychain_name: keychain_name,
         keychain_password: keychain_password,
         app_identifier: [Constants.BUNDLE_ID_PRODUCTION],
@@ -94,10 +93,10 @@ platform :ios do
     )
   end
 
-  desc "Register new devices"
+  desc 'Register new devices'
   lane :register_new_device do
-    device_name = prompt(text: "Enter the device name: ")
-    device_udid = prompt(text: "Enter the device UDID: ")
+    device_name = prompt(text: 'Enter the device name: ')
+    device_udid = prompt(text: 'Enter the device UDID: ')
     device_hash = {}
     device_hash[device_name] = device_udid
     register_devices(devices: device_hash)
@@ -111,7 +110,7 @@ platform :ios do
     builder.build_develop
   end
 
-  #Firebase
+  # Firebase
 
   desc 'Build and upload staging app to firebase'
   lane :build_and_upload_staging_app do
@@ -123,7 +122,7 @@ platform :ios do
     bump_build
     
     builder.build_app_ad_hoc(
-      Constants.SCHEME_NAME_STAGING, 
+      Constants.SCHEME_NAME_STAGING,
       Constants.PRODUCT_NAME_STAGING,
       Constants.BUNDLE_ID_STAGING
     )
@@ -141,8 +140,8 @@ platform :ios do
     set_app_version
     bump_build
     builder.build_app_ad_hoc(
-      Constants.SCHEME_NAME_PRODUCTION, 
-      Constants.PRODUCT_NAME_PRODUCTION, 
+      Constants.SCHEME_NAME_PRODUCTION,
+      Constants.PRODUCT_NAME_PRODUCTION,
       Constants.BUNDLE_ID_PRODUCTION
     )
     upload_build_to_firebase
@@ -150,7 +149,7 @@ platform :ios do
   end
 
   desc 'upload develop build to firebase app distribution'
-  lane :upload_build_to_firebase do |options|
+  lane :upload_build_to_firebase do
     release_notes = "#{ENV['PRODUCT_NAME']} #{versioning_manager.version_and_build_number}"
     distribution_manager.upload_to_firebase(
       product_name: ENV['PRODUCT_NAME'],
@@ -161,13 +160,13 @@ platform :ios do
   end
 
   desc 'upload build dsym to firebase'
-  lane :upload_build_dsym_to_firebase do |options|
+  lane :upload_build_dsym_to_firebase do
     symbol_manager = SymbolManager.new(
       fastlane: self,
       version: versioning_manager.version_number,
       build_number: versioning_manager.build_number,
       build_path: Constants.BUILD_PATH,
-      gsp_Odirectory: Constants.GSP_DIRECTORY,
+      gsp_directory: Constants.GSP_DIRECTORY,
       binary_path: Constants.BINARY_PATH
     )
     
@@ -177,7 +176,7 @@ platform :ios do
     )
   end
 
-  #AppStore
+  # AppStore
 
   desc 'Build and upload Production app to appstore'
   lane :build_and_upload_appstore_app do
@@ -186,15 +185,13 @@ platform :ios do
     set_app_version
     bump_build
     builder.build_appstore
-    if is_ci
-      set_connect_api_key
-    end
+    set_connect_api_key if is_ci
     upload_build_to_appstore
     upload_build_dsym_to_firebase
   end
 
   desc 'upload develop build to AppStore'
-  lane :upload_build_to_appstore do |options|
+  lane :upload_build_to_appstore do
     distribution_manager.upload_to_appstore_connect(
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
       bundle_identifier: Constants.BUNDLE_ID_PRODUCTION
@@ -210,10 +207,10 @@ platform :ios do
     )
   end
 
-  #Private helper lanes
+  # Private helper lanes
 
   desc 'create keychain for CI (Github Action)'
-  private_lane :create_ci_keychain:
+  private_lane :create_ci_keychain do
     create_keychain(
       name: keychain_name,
       password: keychain_password,

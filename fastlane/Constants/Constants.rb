@@ -5,7 +5,7 @@ class Constants
   #### PROJECT ####
   #################
   
-    #Project path
+  # Project path
   def self.PROJECT_PATH
     './{PROJECT_NAME}.xcodeproj'
   end
