@@ -2,26 +2,24 @@ import ProjectDescription
 
 extension Target {
 
-    public static func mainTarget(name: String) -> Target {
+    public static func mainTarget(name: String, bundleId: String = "co.nimblehq") -> Target {
         return Target(
             name: name,
             platform: .iOS,
             product: .app,
-            bundleId: "co.nimblehq.\(name)",
-            infoPlist: .extendingDefault(with: [
-                "UILaunchStoryboardName": "LaunchScreen"
-            ]),
+            bundleId: "\(bundleId).\(name)",
+            infoPlist: .default,
             sources: ["\(name)/Sources/**"],
             resources: ["\(name)/Resources/**"]
         )
     }
     
-    public static func testsTarget(name: String) -> Target {
+    public static func testsTarget(name: String, bundleId: String = "co.nimblehq") -> Target {
         return Target(
             name: "\(name)Tests",
             platform: .iOS,
             product: .unitTests,
-            bundleId: "co.nimblehq.\(name)Tests",
+            bundleId: "\(bundleId).\(name)Tests",
             infoPlist: .default,
             sources: ["\(name)Tests/**"],
             dependencies: [
@@ -30,12 +28,12 @@ extension Target {
         )
     }
 
-    public static func uiTestsTarget(name: String) -> Target {
+    public static func uiTestsTarget(name: String, bundleId: String = "co.nimblehq") -> Target {
         return Target(
             name: "\(name)UITests",
             platform: .iOS,
             product: .uiTests,
-            bundleId: "co.nimblehq.\(name)UITests",
+            bundleId: "\(bundleId).\(name)UITests",
             infoPlist: .default,
             sources: ["\(name)UITests/**"],
             dependencies: [
