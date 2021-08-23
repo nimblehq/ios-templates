@@ -8,7 +8,7 @@ extension Target {
             platform: .iOS,
             product: .app,
             bundleId: "\(bundleId).\(name)",
-            infoPlist: .default,
+            infoPlist: "\(name)/Configurations/Plists/\(name).plist",
             sources: ["\(name)/Sources/**"],
             resources: ["\(name)/Resources/**"]
         )
