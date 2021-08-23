@@ -3,6 +3,7 @@ import ProjectDescription
 extension Scheme {
 
     public static func mainScheme(name: String) -> Scheme {
+        #warning("We should use Debug Production and Release Production instead after implement build configurations")
         return Scheme(
             name: name,
             shared: true,
@@ -19,6 +20,7 @@ extension Scheme {
     }
 
     public static func stagingScheme(name: String) -> Scheme {
+        #warning("We should use Debug Staging and Release Staging instead after implement build configurations")
         return Scheme(
             name: "\(name) Staging",
             shared: true,
