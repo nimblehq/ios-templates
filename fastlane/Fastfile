@@ -5,6 +5,7 @@ require './Managers/VersioningManager'
 require './Managers/BuildManager'
 require './Managers/SymbolManager'
 require './Managers/DistributionManager'
+require './Managers/MatchManager'
 
 versioning_manager = VersioningManager.new(
   fastlane: self,
@@ -12,16 +13,7 @@ versioning_manager = VersioningManager.new(
   main_target_name: Constants.MAIN_TARGET_NAME
 )
 
-builder = BuildManager.new(
-  fastlane: self,
-  scheme_name_staging: Constants.SCHEME_NAME_STAGING,
-  scheme_name_production: Constants.SCHEME_NAME_PRODUCTION,
-  scheme_name_appstore: Constants.SCHEME_NAME_APP_STORE,
-  bundle_identifier_staging: Constants.BUNDLE_ID_STAGING,
-  product_name_staging: Constants.PRODUCT_NAME_STAGING,
-  product_name_staging_test_flight: Constants.PRODUCT_NAME_STAGING_TEST_FLIGHT,
-  product_name_production: Constants.PRODUCT_NAME_PRODUCTION
-)
+builder = BuildManager.new(fastlane: self)
 
 distribution_manager = DistributionManager.new(
   fastlane: self,
@@ -29,8 +21,12 @@ distribution_manager = DistributionManager.new(
   firebase_token: ENV['FIREBASE_CLI_TOKEN']
 )
 
-keychain_name = 'github_action_keychain'
-keychain_password = 'password'
+match_manager = MatchManager.new(
+  fastlane: self,
+  keychain_name: Constants.KEYCHAIN_NAME,
+  keychain_password: Constants.KEYCHAIN_PASSWORD,
+  is_ci: ENV['CI']
+)
 
 before_all do
   ensure_bundle_exec
@@ -39,58 +35,19 @@ end
 default_platform(:ios)
 
 platform :ios do
-  desc 'Sync development match signing'
-  lane :sync_development_signing do
-    match(type: 'development', readonly: true)
-  end
-
-  desc 'Sync AdHoc match signing'
+  desc 'Sync Adhoc match signing'
   lane :sync_adhoc_signing do
-    match(type: 'adhoc', readonly: true)
+    match_manager.sync_adhoc_signing(app_identifier: [Constants.BUNDLE_ID_STAGING])
   end
 
-  desc 'Sync Adhoc match signing on CI'
-  lane :sync_adhoc_signing_ci do
-    create_ci_keychain
-    match(
-        type: 'adhoc',
-        keychain_name: keychain_name,
-        keychain_password: keychain_password,
-        app_identifier: [Constants.BUNDLE_ID_STAGING],
-        readonly: true
-    )
+  desc 'Sync Adhoc Production match signing'
+  lane :sync_adhoc_production_signing do
+    match_manager.sync_adhoc_signing(app_identifier: [Constants.BUNDLE_ID_PRODUCTION])
   end
 
-  desc 'Sync Adhoc Production match signing on CI'
-  lane :sync_adhoc_production_signing_ci do
-    create_keychain(
-        name: keychain_name,
-        password: keychain_password,
-        default_keychain: true,
-        unlock: true,
-        timeout: 3600,
-        lock_when_sleeps: false
-    )
-
-    match(
-        type: 'adhoc',
-        keychain_name: keychain_name,
-        keychain_password: keychain_password,
-        app_identifier: [Constants.BUNDLE_ID_PRODUCTION],
-        readonly: true
-    )
-  end
-
-  desc 'Sync AppStore match signing on CI'
-  lane :sync_appstore_signing_ci do
-    create_ci_keychain
-    match(
-        type: 'appstore',
-        keychain_name: keychain_name,
-        keychain_password: keychain_password,
-        app_identifier: [Constants.BUNDLE_ID_PRODUCTION],
-        readonly: true
-    )
+  desc 'Sync AppStore match signing'
+  lane :sync_appstore_signing do    
+    match_manager.sync_app_store_signing(app_identifier: [Constants.BUNDLE_ID_PRODUCTION])
   end
 
   desc 'Register new devices'
@@ -101,13 +58,6 @@ platform :ios do
     device_hash[device_name] = device_udid
     register_devices(devices: device_hash)
     match(force: true)
-  end
-
-  # Deploy
-
-  desc 'build develop build'
-  lane :build_develop do
-    builder.build_develop
   end
 
   # Firebase
@@ -121,46 +71,55 @@ platform :ios do
     set_app_version
     bump_build
     
-    builder.build_app_ad_hoc(
+    builder.build_ad_hoc(
       Constants.SCHEME_NAME_STAGING,
       Constants.PRODUCT_NAME_STAGING,
       Constants.BUNDLE_ID_STAGING
     )
-    upload_build_to_firebase
-    upload_build_dsym_to_firebase
+    upload_build_to_firebase(
+      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      firebase_app_id: Constants.FIREBASE_APP_ID_PRODUCTION,
+      tester_groups: Constants.FIREBASE_TESTER_GROUPS
+    )
+    upload_build_dsym_to_firebase(
+      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      gsp_name: Constants.GSP_PRODUCTION
+    )
   end
 
   desc 'Build and upload Production app to firebase'
   lane :build_and_upload_production_app do
-    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_PRODUCTION
-    ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_PRODUCTION
-    ENV['GSP_NAME'] = Constants.GSP_PRODUCTION
-    ENV['TESTER_GROUPS'] = Constants.FIREBASE_TESTER_GROUPS
-
     set_app_version
     bump_build
-    builder.build_app_ad_hoc(
+    builder.build_ad_hoc(
       Constants.SCHEME_NAME_PRODUCTION,
       Constants.PRODUCT_NAME_PRODUCTION,
       Constants.BUNDLE_ID_PRODUCTION
     )
-    upload_build_to_firebase
-    upload_build_dsym_to_firebase
+    upload_build_to_firebase(
+      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      firebase_app_id: Constants.FIREBASE_APP_ID_PRODUCTION,
+      tester_groups: Constants.FIREBASE_TESTER_GROUPS
+    )
+    upload_build_dsym_to_firebase(
+      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      gsp_name: Constants.GSP_PRODUCTION
+    )
   end
 
   desc 'upload develop build to firebase app distribution'
-  lane :upload_build_to_firebase do
-    release_notes = "#{ENV['PRODUCT_NAME']} #{versioning_manager.version_and_build_number}"
+  lane :upload_build_to_firebase do |options|
+    release_notes = "#{options[:product_name]} #{versioning_manager.version_and_build_number}"
     distribution_manager.upload_to_firebase(
-      product_name: ENV['PRODUCT_NAME'],
-      firebase_app_id: ENV['FIREBASE_APP_ID'],
-      tester_groups: Constants.FIREBASE_TESTER_GROUPS,
+      product_name: options[:product_name],
+      firebase_app_id: options[:firebase_app_id],
+      tester_groups: options[:tester_groups],
       notes: release_notes
     )
   end
 
   desc 'upload build dsym to firebase'
-  lane :upload_build_dsym_to_firebase do
+  lane :upload_build_dsym_to_firebase do |options|
     symbol_manager = SymbolManager.new(
       fastlane: self,
       version: versioning_manager.version_number,
@@ -171,8 +130,8 @@ platform :ios do
     )
     
     symbol_manager.upload_built_symbol_to_firebase(
-      product_name: ENV['PRODUCT_NAME'],
-      gsp_name: ENV['GSP_NAME']
+      product_name: options[:product_name],
+      gsp_name: options[:gsp_name]
     )
   end
 
@@ -180,14 +139,20 @@ platform :ios do
 
   desc 'Build and upload Production app to appstore'
   lane :build_and_upload_appstore_app do
-    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_PRODUCTION
-    ENV['GSP_NAME'] = Constants.GSP_PRODUCTION
     set_app_version
     bump_build
-    builder.build_appstore
+    builder.build_app_store(
+      Constants.SCHEME_NAME_PRODUCTION,
+      Constants.PRODUCT_NAME_PRODUCTION,
+      Constants.BUNDLE_ID_PRODUCTION,
+      true
+    )
     set_connect_api_key if is_ci
     upload_build_to_appstore
-    upload_build_dsym_to_firebase
+    upload_build_dsym_to_firebase(
+      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      gsp_name: Constants.GSP_PRODUCTION
+    )
   end
 
   desc 'upload develop build to AppStore'
@@ -209,18 +174,6 @@ platform :ios do
 
   # Private helper lanes
 
-  desc 'create keychain for CI (Github Action)'
-  private_lane :create_ci_keychain do
-    create_keychain(
-      name: keychain_name,
-      password: keychain_password,
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      lock_when_sleeps: false
-  )
-  end
-
   desc 'check if any specific version number in build environment'
   private_lane :set_app_version do
     # Set up env var MANUAL_VERSION if we need to override the version number
@@ -238,5 +191,4 @@ platform :ios do
       xcodeproj: Constants.PROJECT_PATH
     )
   end
-
 end

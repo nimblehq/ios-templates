@@ -11,11 +11,11 @@ class Constants
   end
 
   def self.BUNDLE_ID_STAGING
-    'com.nimblehq.{PROJECT_NAME}'
+    '{BUNDLE_ID_STAGING}'
   end
 
   def self.BUNDLE_ID_PRODUCTION
-    'com.nimblehq.{PROJECT_NAME}'
+    '{BUNDLE_ID_PRODUCTION}'
   end
 
   #################
@@ -83,6 +83,20 @@ class Constants
   def self.FIREBASE_TESTER_GROUPS
     "nimble-dev"
   end
+  
+  #################
+  #### KEYCHAIN ####
+  #################
+
+  # Keychain name
+  def self.KEYCHAIN_NAME
+    'github_action_keychain'
+  end
+
+  # a scheme name for unit testing
+  def self.KEYCHAIN_PASSWORD
+    'password'
+  end
 
   #################
   ### ARCHIVING ###
@@ -101,11 +115,6 @@ class Constants
   # a Production environment scheme name
   def self.SCHEME_NAME_PRODUCTION
     '{PROJECT_NAME}'
-  end
-
-  # a App Store environment scheme name
-  def self.SCHEME_NAME_APP_STORE
-    '{PROJECT_NAME} APPSTORE'
   end
 
   # an staging product name
