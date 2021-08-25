@@ -43,9 +43,19 @@ class Constants
     ENV.fetch('DEVICE', 'iPhone 12 Pro Max')
   end
 
-  # a scheme name for unit testing
-  def self.UNIT_TESTS_SCHEME
+  # a scheme name for testing
+  def self.TESTS_SCHEME
     '{PROJECT_NAME} Staging'
+  end
+
+  # a target name for tests
+  def self.TESTS_TARGET
+    '{PROJECT_NAME}Tests'
+  end
+
+  # a target name for UI tests
+  def self.UI_TESTS_TARGET
+    '{PROJECT_NAME}UITests'
   end
 
   ##################
