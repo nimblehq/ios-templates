@@ -15,7 +15,7 @@ extension Project {
                 Target.uiTestsTarget(name: name)
             ],
             schemes: [
-                Scheme.mainScheme(name: name),
+                Scheme.productionScheme(name: name),
                 Scheme.stagingScheme(name: name)
             ]
         )

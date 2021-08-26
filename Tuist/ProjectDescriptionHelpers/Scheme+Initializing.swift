@@ -2,7 +2,7 @@ import ProjectDescription
 
 extension Scheme {
 
-    public static func mainScheme(name: String) -> Scheme {
+    public static func productionScheme(name: String) -> Scheme {
         #warning("We should use Debug Production and Release Production instead after implement build configurations")
         return Scheme(
             name: name,
