@@ -10,21 +10,28 @@ def testing_pods
 end
 
 target '{PROJECT_NAME}' do
-  pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
+  # UI
+  pod 'SnapKit'
+  pod 'Kingfisher'
 
+  # Rx
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'RxAlamofire'
-  pod 'SnapKit'
-  pod 'SwiftLint'
-  pod 'R.swift'
+
+  # Storage
   pod 'KeychainAccess'
-  pod 'Kingfisher'
-  pod 'IQKeyboardManagerSwift'
-  pod 'Wormholy'
-  
+
+  # Tools
   pod 'Firebase/Crashlytics'
+  pod 'IQKeyboardManagerSwift'
+  pod 'R.swift'
+  pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
+
+  # Development
+  pod 'SwiftLint'
+  pod 'Wormholy', :configurations => ['Debug']
 
   target '{PROJECT_NAME}Tests' do
     inherit! :search_paths
