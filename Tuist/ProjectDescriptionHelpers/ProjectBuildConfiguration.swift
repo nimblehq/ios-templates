@@ -33,7 +33,7 @@ public enum ProjectBuildConfiguration: CaseIterable {
         let xcconfigPath = Path("\(projectName)/\(xcconfigPath)")
         switch self {
         case .debugStaging, .debugProduction:
-            return .release(name: name, xcconfig: xcconfigPath)
+            return .debug(name: name, xcconfig: xcconfigPath)
         case .releaseStaging, .releaseProduction:
             return .release(name: name, xcconfig: xcconfigPath)
         }
