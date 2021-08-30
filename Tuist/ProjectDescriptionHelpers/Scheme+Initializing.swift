@@ -26,7 +26,7 @@ extension Scheme {
             shared: true,
             buildAction: BuildAction(targets: ["\(name)"]),
             testAction: TestAction(
-                targets: ["\(name)Tests", "\(name)UITests"], 
+                targets: ["\(name)Tests", "\(name)UITests"],
                 configurationName: "Debug"
             ),
             runAction: RunAction(configurationName: "Debug"),
