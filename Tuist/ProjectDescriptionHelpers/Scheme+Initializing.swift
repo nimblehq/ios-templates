@@ -10,12 +10,12 @@ extension Scheme {
             buildAction: BuildAction(targets: ["\(name)"]),
             testAction: TestAction(
                 targets: ["\(name)Tests", "\(name)UITests"],
-                configurationName: "Debug"
+                configurationName: ProjectBuildConfiguration.debugProduction.name
             ),
-            runAction: RunAction(configurationName: "Debug"),
-            archiveAction: ArchiveAction(configurationName: "Release"),
-            profileAction: ProfileAction(configurationName: "Debug"),
-            analyzeAction: AnalyzeAction(configurationName: "Debug")
+            runAction: RunAction(configurationName: ProjectBuildConfiguration.debugProduction.name),
+            archiveAction: ArchiveAction(configurationName: ProjectBuildConfiguration.releaseProduction.name),
+            profileAction: ProfileAction(configurationName: ProjectBuildConfiguration.debugProduction.name),
+            analyzeAction: AnalyzeAction(configurationName: ProjectBuildConfiguration.debugProduction.name)
         )
     }
 
@@ -27,12 +27,12 @@ extension Scheme {
             buildAction: BuildAction(targets: ["\(name)"]),
             testAction: TestAction(
                 targets: ["\(name)Tests", "\(name)UITests"],
-                configurationName: "Debug"
+                configurationName: ProjectBuildConfiguration.debugStaging.name
             ),
-            runAction: RunAction(configurationName: "Debug"),
-            archiveAction: ArchiveAction(configurationName: "Release"),
-            profileAction: ProfileAction(configurationName: "Debug"),
-            analyzeAction: AnalyzeAction(configurationName: "Debug")
+            runAction: RunAction(configurationName: ProjectBuildConfiguration.debugStaging.name),
+            archiveAction: ArchiveAction(configurationName: ProjectBuildConfiguration.releaseStaging.name),
+            profileAction: ProfileAction(configurationName: ProjectBuildConfiguration.debugStaging.name),
+            analyzeAction: AnalyzeAction(configurationName: ProjectBuildConfiguration.debugStaging.name)
         )
     }
 }

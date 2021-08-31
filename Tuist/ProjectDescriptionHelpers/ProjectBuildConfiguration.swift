@@ -7,7 +7,7 @@ public enum ProjectBuildConfiguration: CaseIterable {
     case debugProduction
     case releaseProduction
 
-    private var name: String {
+    var name: String {
         switch self {
         case .debugStaging: return "Debug Staging"
         case .releaseStaging: return "Release Staging"
@@ -20,13 +20,13 @@ public enum ProjectBuildConfiguration: CaseIterable {
         let rootPath = "Configurations/XCConfigs/"
         switch self {
             case .debugStaging:
-                return rootPath += "DebugStaging.xcconfig"
+                return "\(rootPath)DebugStaging.xcconfig"
             case .releaseStaging:
-                return rootPath += "ReleaseStaging.xcconfig"
+                return "\(rootPath)ReleaseStaging.xcconfig"
             case .debugProduction:
-                return rootPath += "DebugProduction.xcconfig"
+                return "\(rootPath)DebugProduction.xcconfig"
             case .releaseProduction:
-                return rootPath += "ReleaseProduction.xcconfig"
+                return "\(rootPath)ReleaseProduction.xcconfig"
         }
     }
 
