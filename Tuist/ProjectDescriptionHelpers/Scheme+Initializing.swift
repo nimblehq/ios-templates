@@ -3,7 +3,6 @@ import ProjectDescription
 extension Scheme {
 
     public static func productionScheme(name: String) -> Scheme {
-        #warning("We should use Debug Production and Release Production instead after implement build configurations")
         let debugConfigName = ProjectBuildConfiguration.debugProduction.name
         let releaseConfigName = ProjectBuildConfiguration.releaseProduction.name
         return Scheme(
@@ -22,7 +21,6 @@ extension Scheme {
     }
 
     public static func stagingScheme(name: String) -> Scheme {
-        #warning("We should use Debug Staging and Release Staging instead after implement build configurations")
         let debugConfigName = ProjectBuildConfiguration.debugStaging.name
         let releaseConfigName = ProjectBuildConfiguration.releaseStaging.name
         return Scheme(
