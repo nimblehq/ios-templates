@@ -6,6 +6,7 @@ require './Managers/BuildManager'
 require './Managers/SymbolManager'
 require './Managers/DistributionManager'
 require './Managers/MatchManager'
+require './Constants/Environments'
 
 versioning_manager = VersioningManager.new(
   fastlane: self,
@@ -18,14 +19,14 @@ builder = BuildManager.new(fastlane: self)
 distribution_manager = DistributionManager.new(
   fastlane: self,
   build_path: Constants.BUILD_PATH,
-  firebase_token: ENV['FIREBASE_CLI_TOKEN']
+  firebase_token: Environments.FIREBASE_CLI_TOKEN
 )
 
 match_manager = MatchManager.new(
   fastlane: self,
   keychain_name: Constants.KEYCHAIN_NAME,
   keychain_password: Constants.KEYCHAIN_PASSWORD,
-  is_ci: ENV['CI']
+  is_ci: Environments.CI
 )
 
 before_all do
@@ -46,7 +47,7 @@ platform :ios do
   end
 
   desc 'Sync AppStore match signing'
-  lane :sync_appstore_signing do    
+  lane :sync_appstore_signing do
     match_manager.sync_app_store_signing(app_identifier: [Constants.BUNDLE_ID_PRODUCTION])
   end
 
@@ -62,32 +63,28 @@ platform :ios do
 
   # Firebase
 
-  desc 'Build and upload staging app to firebase'
+  desc 'Build and upload staging app to Firebase'
   lane :build_and_upload_staging_app do
-    ENV['PRODUCT_NAME'] = Constants.PRODUCT_NAME_STAGING
-    ENV['FIREBASE_APP_ID'] = Constants.FIREBASE_APP_ID_STAGING
-    ENV['GSP_NAME'] = Constants.GSP_STAGING
-
     set_app_version
     bump_build
-    
+
     builder.build_ad_hoc(
       Constants.SCHEME_NAME_STAGING,
       Constants.PRODUCT_NAME_STAGING,
       Constants.BUNDLE_ID_STAGING
     )
     upload_build_to_firebase(
-      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      product_name: Constants.PRODUCT_NAME_PRODUCTION,
       firebase_app_id: Constants.FIREBASE_APP_ID_PRODUCTION,
       tester_groups: Constants.FIREBASE_TESTER_GROUPS
     )
     upload_build_dsym_to_firebase(
-      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      product_name: Constants.PRODUCT_NAME_PRODUCTION,
       gsp_name: Constants.GSP_PRODUCTION
     )
   end
 
-  desc 'Build and upload Production app to firebase'
+  desc 'Build and upload Production app to Firebase'
   lane :build_and_upload_production_app do
     set_app_version
     bump_build
@@ -97,18 +94,18 @@ platform :ios do
       Constants.BUNDLE_ID_PRODUCTION
     )
     upload_build_to_firebase(
-      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      product_name: Constants.PRODUCT_NAME_PRODUCTION,
       firebase_app_id: Constants.FIREBASE_APP_ID_PRODUCTION,
       tester_groups: Constants.FIREBASE_TESTER_GROUPS
     )
     upload_build_dsym_to_firebase(
-      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      product_name: Constants.PRODUCT_NAME_PRODUCTION,
       gsp_name: Constants.GSP_PRODUCTION
     )
   end
 
-  desc 'upload develop build to firebase app distribution'
-  lane :upload_build_to_firebase do |options|
+  desc 'upload develop build to Firebase app distribution'
+  private_lane :upload_build_to_firebase do |options|
     release_notes = "#{options[:product_name]} #{versioning_manager.version_and_build_number}"
     distribution_manager.upload_to_firebase(
       product_name: options[:product_name],
@@ -118,8 +115,8 @@ platform :ios do
     )
   end
 
-  desc 'upload build dsym to firebase'
-  lane :upload_build_dsym_to_firebase do |options|
+  desc 'upload build dsym to Firebase'
+  private_lane :upload_build_dsym_to_firebase do |options|
     symbol_manager = SymbolManager.new(
       fastlane: self,
       version: versioning_manager.version_number,
@@ -128,7 +125,7 @@ platform :ios do
       gsp_directory: Constants.GSP_DIRECTORY,
       binary_path: Constants.BINARY_PATH
     )
-    
+
     symbol_manager.upload_built_symbol_to_firebase(
       product_name: options[:product_name],
       gsp_name: options[:gsp_name]
@@ -137,7 +134,7 @@ platform :ios do
 
   # AppStore
 
-  desc 'Build and upload Production app to appstore'
+  desc 'Build and upload Production app to App Store'
   lane :build_and_upload_appstore_app do
     set_app_version
     bump_build
@@ -150,14 +147,14 @@ platform :ios do
     set_connect_api_key if is_ci
     upload_build_to_appstore
     upload_build_dsym_to_firebase(
-      product_name: Constants.PRODUCT_NAME_PRODUCTION, 
+      product_name: Constants.PRODUCT_NAME_PRODUCTION,
       gsp_name: Constants.GSP_PRODUCTION
     )
   end
 
-  desc 'upload develop build to AppStore'
-  lane :upload_build_to_appstore do
-    distribution_manager.upload_to_appstore_connect(
+  desc 'upload develop build to App Store'
+  private_lane :upload_build_to_appstore do
+    distribution_manager.upload_to_app_store_connect(
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
       bundle_identifier: Constants.BUNDLE_ID_PRODUCTION
     )
@@ -168,7 +165,7 @@ platform :ios do
     app_store_connect_api_key(
       key_id: Constants.APP_STORE_KEY_ID,
       issuer_id: Constants.APP_STORE_ISSUER_ID,
-      key_content: ENV.fetch('APPSTORE_CONNECT_API_KEY', '')
+      key_content: Environments.APPSTORE_CONNECT_API_KEY || ''
     )
   end
 
@@ -177,9 +174,9 @@ platform :ios do
   desc 'check if any specific version number in build environment'
   private_lane :set_app_version do
     # Set up env var MANUAL_VERSION if we need to override the version number
-    if ENV.fetch('MANUAL_VERSION', '') != ''
+    if (Environments.MANUAL_VERSION || '') != ''
       increment_version_number(
-        version_number: ENV['MANUAL_VERSION']
+        version_number: Environments.MANUAL_VERSION
       )
     end
   end

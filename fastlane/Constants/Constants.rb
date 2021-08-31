@@ -10,10 +10,12 @@ class Constants
     './{PROJECT_NAME}.xcodeproj'
   end
 
+  # bundle ID for Staging app
   def self.BUNDLE_ID_STAGING
     '{BUNDLE_ID_STAGING}'
   end
 
+  # bundle ID for Production app
   def self.BUNDLE_ID_PRODUCTION
     '{BUNDLE_ID_PRODUCTION}'
   end
@@ -80,6 +82,7 @@ class Constants
     '{PROJECT_FIREBASE_APP_ID}'
   end
 
+  # Firebase Tester group name, seperate by comma(,) string
   def self.FIREBASE_TESTER_GROUPS
     "nimble-dev"
   end
@@ -141,6 +144,7 @@ class Constants
   ### DEV PORTAL ###
   ##################
 
+  # Apple ID for Apple Developer Portal
   def self.DEV_PORTAL_APPLE_ID
     '{dev@example.com}'
   end

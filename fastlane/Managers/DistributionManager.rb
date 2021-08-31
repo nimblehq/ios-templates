@@ -18,7 +18,7 @@ class DistributionManager
     )
   end
 
-  def upload_to_appstore_connect(product_name:, bundle_identifier:)
+  def upload_to_app_store_connect(product_name:, bundle_identifier:)
     @fastlane.deliver(
       ipa: "#{@build_path}/#{product_name}.ipa",
       app_identifier: bundle_identifier,
