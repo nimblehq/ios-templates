@@ -12,6 +12,7 @@ Xcode 12.0
 2. [Project Configurations](https://github.com/nimblehq/ios-templates/wiki/Project-configurations)
 3. [Why having project's dependencies](https://github.com/nimblehq/ios-templates/wiki/Why-having-project%27s-dependencies)
 4. [Github Actions](https://github.com/nimblehq/ios-templates/wiki/Github-Actions-Templates)
+5. [Bitrise Template](https://github.com/nimblehq/ios-templates/wiki/Bitrise-Template)
 
 
 # Tuist Installation and Documentations
