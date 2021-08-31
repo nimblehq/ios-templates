@@ -17,15 +17,16 @@ public enum ProjectBuildConfiguration: CaseIterable {
     }
 
     private var xcconfigPath: String {
+        let rootPath = "Configurations/XCConfigs/"
         switch self {
             case .debugStaging:
-                return "Configurations/XCConfigs/DebugStaging.xcconfig"
+                return rootPath += "DebugStaging.xcconfig"
             case .releaseStaging:
-                return "Configurations/XCConfigs/ReleaseStaging.xcconfig"
+                return rootPath += "ReleaseStaging.xcconfig"
             case .debugProduction:
-                return "Configurations/XCConfigs/DebugProduction.xcconfig"
+                return rootPath += "DebugProduction.xcconfig"
             case .releaseProduction:
-                return "Configurations/XCConfigs/ReleaseProduction.xcconfig"
+                return rootPath += "ReleaseProduction.xcconfig"
         }
     }
 
