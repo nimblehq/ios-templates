@@ -10,10 +10,8 @@ extension Project {
             name: name,
             organizationName: "Nimble",
             settings: Settings(
-                configurations: [
-                    .debug(name: "Debug", xcconfig: "\(name)/Configurations/XCConfigs/Debug.xcconfig"),
-                    .release(name: "Release", xcconfig: "\(name)/Configurations/XCConfigs/Release.xcconfig"),
-                ]
+                configurations: ProjectBuildConfiguration.allCases
+                    .map { $0.createConfiguration(projectName: name) }
             ),
             targets: [
                 Target.mainTarget(name: name),
