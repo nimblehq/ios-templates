@@ -2,23 +2,23 @@ platform :ios, '10.0'
 use_frameworks!
 
 def testing_pods
-  pod 'RxSwift'
   pod 'Quick'
   pod 'Nimble'
   pod 'RxNimble', subspecs: ['RxBlocking', 'RxTest']
+  pod 'RxSwift'
   pod 'Sourcery'
 end
 
 target '{PROJECT_NAME}' do
   # UI
-  pod 'SnapKit'
   pod 'Kingfisher'
+  pod 'SnapKit'
 
   # Rx
-  pod 'RxSwift'
+  pod 'RxAlamofire'
   pod 'RxCocoa'
   pod 'RxDataSources'
-  pod 'RxAlamofire'
+  pod 'RxSwift'
 
   # Storage
   pod 'KeychainAccess'
@@ -26,8 +26,8 @@ target '{PROJECT_NAME}' do
   # Tools
   pod 'Firebase/Crashlytics'
   pod 'IQKeyboardManagerSwift'
-  pod 'R.swift'
   pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
+  pod 'R.swift'
 
   # Development
   pod 'SwiftLint'
