@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require './Constants/Constants'
+require './Constants/Environments'
 require './Managers/VersioningManager'
 require './Managers/BuildManager'
 require './Managers/SymbolManager'
 require './Managers/DistributionManager'
 require './Managers/MatchManager'
-require './Constants/Environments'
 require './Managers/TestManager'
 
 test_manager = TestManager.new(
