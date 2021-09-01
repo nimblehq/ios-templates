@@ -64,7 +64,7 @@ jobs:
       run: xcodebuild -workspace {workspace_name}.xcworkspace -scheme '{staging_scheme_name}' -destination 'platform=iOS Simulator,name=iPhone 12' clean test | xcpretty && exit ${PIPESTATUS[0]}
 
     - name: Match AppStore
-      run: bundle exec fastlane sync_appstore_signing_ci
+      run: bundle exec fastlane sync_appstore_signing
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 

@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+clean(true)
+export_team_id(Constants.DEV_PORTAL_TEAM_ID)
+output_directory(Constants.BUILD_PATH) # .ipa
+build_path(Constants.BUILD_PATH) # .xcarchive is stored
+derived_data_path(Constants.DERIVED_DATA_PATH) # .app
