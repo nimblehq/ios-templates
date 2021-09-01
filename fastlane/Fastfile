@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 require './Constants/Constants'
+require './Constants/Environments'
 require './Managers/VersioningManager'
 require './Managers/BuildManager'
 require './Managers/SymbolManager'
 require './Managers/DistributionManager'
 require './Managers/MatchManager'
-require './Constants/Environments'
+require './Managers/TestManager'
+
+test_manager = TestManager.new(
+  fastlane: self
+)
 
 versioning_manager = VersioningManager.new(
   fastlane: self,
@@ -36,6 +41,32 @@ end
 default_platform(:ios)
 
 platform :ios do
+  # Testing
+
+  desc 'Build for testing'
+  lane :build_for_testing do
+    test_manager.build(scheme: Constants.TESTS_SCHEME)
+  end
+
+  desc 'Run tests'
+  lane :tests do
+    test_manager.test(scheme: Constants.TESTS_SCHEME, target: Constants.TESTS_TARGET)
+  end
+
+  desc 'Run UI tests'
+  lane :ui_tests do
+    test_manager.test(scheme: Constants.TESTS_SCHEME, target: Constants.UI_TESTS_TARGET)
+  end
+
+  desc 'Build and Test'
+  lane :build_and_test do
+    build_for_testing
+    tests
+    ui_tests
+  end
+  
+  # Code Sign
+
   desc 'Sync Adhoc match signing'
   lane :sync_adhoc_signing do
     match_manager.sync_adhoc_signing(app_identifier: [Constants.BUNDLE_ID_STAGING])
@@ -187,5 +218,12 @@ platform :ios do
       build_number: number_of_commits,
       xcodeproj: Constants.PROJECT_PATH
     )
+  end
+
+  # Utilities
+
+  desc 'Clean up derived data'
+  lane :clean_up do
+    clear_derived_data(derived_data_path: Constants.DERIVED_DATA_PATH)
   end
 end
