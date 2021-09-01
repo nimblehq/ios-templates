@@ -9,7 +9,7 @@ def testing_pods
   pod 'Sourcery'
 end
 
-target '{PROJECT_NAME}' do
+target 'ProjectName' do
   # UI
   pod 'Kingfisher'
   pod 'SnapKit'
@@ -31,14 +31,14 @@ target '{PROJECT_NAME}' do
 
   # Development
   pod 'SwiftLint'
-  pod 'Wormholy', :configurations => ['Debug']
+  pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
 
-  target '{PROJECT_NAME}Tests' do
+  target 'ProjectNameTests' do
     inherit! :search_paths
     testing_pods
   end
 
-  target '{PROJECT_NAME}UITests' do
+  target 'ProjectNameUITests' do
     testing_pods
   end
 end
