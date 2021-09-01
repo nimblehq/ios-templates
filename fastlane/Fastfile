@@ -57,6 +57,13 @@ platform :ios do
   lane :ui_tests do
     test_manager.test(scheme: Constants.TESTS_SCHEME, target: Constants.UI_TESTS_TARGET)
   end
+
+  desc 'Build and Test'
+  lane :build_and_test do
+    build_for_testing
+    tests
+    ui_tests
+  end
   
   # Code Sign
 
