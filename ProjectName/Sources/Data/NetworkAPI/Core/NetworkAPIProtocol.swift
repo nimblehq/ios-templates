@@ -40,7 +40,6 @@ extension NetworkAPIProtocol {
                 return Disposables.create()
             }
         }
-        .observe(on: MainScheduler.instance)
         .asSingle()
     }
 }

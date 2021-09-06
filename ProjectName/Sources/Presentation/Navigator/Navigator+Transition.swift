@@ -9,7 +9,7 @@ extension Navigator {
     enum Transition {
 
         case root(window: UIWindow?)
-        case navigation(transition: InteractiveTransitionProtocol? = nil)
+        case navigation
         case modal
         case alert
     }

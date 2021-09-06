@@ -16,7 +16,8 @@ protocol Navigatable: AnyObject {
 final class Navigator {
 
     private func viewController(from scene: Scene) -> UIViewController {
-        // Make view controller
+        #warning("Create view controllers here")
+        return HomeViewController()
     }
 }
 
@@ -47,10 +48,7 @@ extension Navigator: Navigatable {
         }
 
         switch transition {
-        case .navigation(let interactionTransition):
-            if var target = target as? AdoptedInteractiveTransition {
-                target.transition = interactionTransition
-            }
+        case .navigation:
             sender.navigationController?.pushViewController(target, animated: true)
         case .modal:
             let navigationController = UINavigationController(rootViewController: target)
