@@ -32,7 +32,7 @@ extension Target {
             product: .unitTests,
             bundleId: "\(bundleId).\(targetName)",
             infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
-            sources: ["\(targetName)**"],
+            sources: ["\(targetName)/**"],
             resources: ["\(targetName)/**/.gitkeep"], // To include empty folders
             dependencies: [
                 .target(name: name)
@@ -43,7 +43,7 @@ extension Target {
     public static func uiTestsTarget(name: String, bundleId: String = "co.nimblehq") -> Target {
         let targetName = "\(name)UITests"
         return Target(
-            name: "\(targetName)",
+            name: targetName,
             platform: .iOS,
             product: .uiTests,
             bundleId: "\(bundleId).\(targetName)",
