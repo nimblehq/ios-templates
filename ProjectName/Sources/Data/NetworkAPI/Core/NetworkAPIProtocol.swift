@@ -27,7 +27,6 @@ extension NetworkAPIProtocol {
             interceptor: configuration.interceptor
         )
         .responseData()
-        .observe(on: ConcurrentDispatchQueueScheduler(qos: .background))
         .flatMap { _, data -> Observable<T> in
             Observable.create { observer in
                 do {
