@@ -10,7 +10,10 @@ extension Target {
             bundleId: "\(bundleId).\(name)",
             infoPlist: "\(name)/Configurations/Plists/Info.plist",
             sources: ["\(name)/Sources/**"],
-            resources: ["\(name)/Resources/**"],
+            resources: [
+                "\(name)/Resources/**",
+                "\(name)/Sources/**/.gitkeep" // To include empty folders
+            ],
             actions: [
                 TargetAction.sourceryAction(),
                 TargetAction.rswiftAction(),
