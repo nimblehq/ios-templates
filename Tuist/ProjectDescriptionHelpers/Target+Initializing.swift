@@ -33,7 +33,10 @@ extension Target {
             bundleId: "\(bundleId).\(targetName)",
             infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
             sources: ["\(targetName)/**"],
-            resources: ["\(targetName)/**/.gitkeep"], // To include empty folders
+            resources: [
+                "\(targetName)/**/.gitkeep", // To include empty folders
+                "\(targetName)/Resources/**/*"
+            ], 
             dependencies: [
                 .target(name: name)
             ]
@@ -49,7 +52,10 @@ extension Target {
             bundleId: "\(bundleId).\(targetName)",
             infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
             sources: ["\(targetName)/**"],
-            resources: ["\(targetName)/**/.gitkeep"], // To include empty folders
+            resources: [
+                "\(targetName)/**/.gitkeep", // To include empty folders
+                "\(targetName)/Resources/**/*"
+            ], 
             dependencies: [
                 .target(name: name)
             ]
