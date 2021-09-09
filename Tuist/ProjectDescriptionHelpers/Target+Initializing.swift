@@ -2,13 +2,15 @@ import ProjectDescription
 
 extension Target {
 
+    private static let plistsPath: String = "Configurations/Plists"
+
     public static func mainTarget(name: String, bundleId: String = "co.nimblehq") -> Target {
         return Target(
             name: name,
             platform: .iOS,
             product: .app,
             bundleId: "\(bundleId).\(name)",
-            infoPlist: "\(name)/Configurations/Plists/Info.plist",
+            infoPlist: "\(name)/\(plistsPath)/Info.plist",
             sources: ["\(name)/Sources/**"],
             resources: [
                 "\(name)/Resources/**",
@@ -23,13 +25,18 @@ extension Target {
     }
     
     public static func testsTarget(name: String, bundleId: String = "co.nimblehq") -> Target {
+        let targetName = "\(name)Tests"
         return Target(
-            name: "\(name)Tests",
+            name: targetName,
             platform: .iOS,
             product: .unitTests,
-            bundleId: "\(bundleId).\(name)Tests",
-            infoPlist: .default,
-            sources: ["\(name)Tests/**"],
+            bundleId: "\(bundleId).\(targetName)",
+            infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
+            sources: ["\(targetName)/**"],
+            resources: [
+                "\(targetName)/**/.gitkeep", // To include empty folders
+                "\(targetName)/Resources/**/*"
+            ], 
             dependencies: [
                 .target(name: name)
             ]
@@ -37,13 +44,18 @@ extension Target {
     }
 
     public static func uiTestsTarget(name: String, bundleId: String = "co.nimblehq") -> Target {
+        let targetName = "\(name)UITests"
         return Target(
-            name: "\(name)UITests",
+            name: targetName,
             platform: .iOS,
             product: .uiTests,
-            bundleId: "\(bundleId).\(name)UITests",
-            infoPlist: .default,
-            sources: ["\(name)UITests/**"],
+            bundleId: "\(bundleId).\(targetName)",
+            infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
+            sources: ["\(targetName)/**"],
+            resources: [
+                "\(targetName)/**/.gitkeep", // To include empty folders
+                "\(targetName)/Resources/**/*"
+            ], 
             dependencies: [
                 .target(name: name)
             ]
