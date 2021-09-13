@@ -1,4 +1,4 @@
-https://github.com/nimbl3/ios-templates/issues/
+https://github.com/nimblehq/ios-templates/issues/
 
 ## What happened
 
