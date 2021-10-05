@@ -133,7 +133,6 @@ BUNDLE_ID_PRODUCTION_ESCAPED="${bundleidproduction//./\.}"
 OLD_BUNDLE_ID_PRODUCTION_ESCAPED="${OLD_BUNDLE_PRODUCTION//./\.}"
 BUNDLE_ID_STAGING_ESCAPED="${bundleidstaging//./\.}"
 OLD_BUNDLE_ID_STAGING_ESCAPED="${OLD_BUNDLE_STAGING//./\.}"
-echo "${OLD_APPNAME}"
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$OLD_BUNDLE_ID_PRODUCTION_ESCAPED/$BUNDLE_ID_PRODUCTION_ESCAPED/g" {} +
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$OLD_BUNDLE_ID_STAGING_ESCAPED/$BUNDLE_ID_STAGING_ESCAPED/g" {} +
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_PRODUCTION/$BUNDLE_ID_PRODUCTION_ESCAPED/g" {} +
@@ -156,9 +155,9 @@ tuist generate
 echo "✅  Completed"
 
 # remove Tuist files
-# rm -rf tuist
-# rm -rf Project.swift
-# rm -rf make.sh
+rm -rf tuist
+rm -rf Project.swift
+rm -rf make.sh
 
 # Done!
 echo "=> 🚀 Done! App is ready to be tested 🙌"
