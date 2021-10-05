@@ -30,7 +30,16 @@ Documentation : [Tuist Official Documents](https://docs.tuist.io/tutorial/get-st
 
 ## How to use
 
+There are two ways to use this template:
 
+### Install Script
+
+Execute the following command
+```
+sh make.sh --bundle-id [BUNDLE_ID_PRODUCTION] --bundle-id-staging [BUNDLE_ID_STAGING] --app-name [PROJECT_NAME]
+```
+
+### Manually
 1. Change the project name at line 3 in `Project.swift` 
 
     ```swift
