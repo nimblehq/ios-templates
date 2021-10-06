@@ -31,12 +31,12 @@ public enum ProjectBuildConfiguration: CaseIterable {
     }
 
     public func createConfiguration(projectName: String) -> CustomConfiguration {
-        let xcconfigPath = Path("\(projectName)/\(xcconfigPath)")
+        let resultXcconfigPath = Path("\(projectName)/\(xcconfigPath)")
         switch self {
         case .debugStaging, .debugProduction:
-            return .debug(name: name, xcconfig: xcconfigPath)
+            return .debug(name: name, xcconfig: resultXcconfigPath)
         case .releaseStaging, .releaseProduction:
-            return .release(name: name, xcconfig: xcconfigPath)
+            return .release(name: name, xcconfig: resultXcconfigPath)
         }
     }
 }

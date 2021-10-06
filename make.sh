@@ -119,9 +119,15 @@ echo "✅  Completed"
 echo "=> 🔎 Replacing package and package name within files..."
 BUNDLE_ID_PRODUCTION_ESCAPED="${bundle_id_production//./\.}"
 BUNDLE_ID_STAGING_ESCAPED="${bundle_id_staging//./\.}"
-LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_PRODUCTION/$BUNDLE_ID_PRODUCTION_ESCAPED/g" {} +
+echo "$CONSTANT_PROJECT_NAME"
+echo "$CONSTANT_BUNDLE_PRODUCTION"
+echo "$CONSTANT_BUNDLE_STAGING"
+echo "$BUNDLE_ID_PRODUCTION_ESCAPED"
+echo "$BUNDLE_ID_STAGING_ESCAPED"
+echo "$NAME_NO_SPACES"
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_STAGING/$BUNDLE_ID_STAGING_ESCAPED/g" {} +
-LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_project_name/$NAME_NO_SPACES/g" {} +
+LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_PRODUCTION/$BUNDLE_ID_PRODUCTION_ESCAPED/g" {} +
+LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_PROJECT_NAME/$NAME_NO_SPACES/g" {} +
 echo "✅  Completed"
 
 # check for tuist and install
@@ -130,6 +136,7 @@ then
     echo "Tuist could not be found"
     echo "Installing tuist"
     curl -Ls https://install.tuist.io | bash
+    tuist install 1.48.1
 fi
 
 # Generate with tuist
@@ -140,6 +147,11 @@ echo "✅  Completed"
 # Generate with tuist
 echo "Install pod dependency"
 pod install
+echo "✅  Completed"
+
+# remove gitkeep files
+echo "Remove gitkeep files from project"
+sed -i "" "s/.*\(gitkeep\).*,//" $NAME_NO_SPACES.xcodeproj/project.pbxproj
 echo "✅  Completed"
 
 # remove Tuist files

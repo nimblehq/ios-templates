@@ -22,9 +22,6 @@ jobs:
     - name: Bundle install
       run: bundle install
             
-    - name: Start Install Script for Template App
-      run: sh make.sh --bundle-id co.nomblehq.template --bundle-id-staging co.nomblehq.template.staging --app-name TemplateApp
-
     - name: Cache Pods
       uses: actions/cache@v2
       id: cocoapodCache
@@ -33,6 +30,9 @@ jobs:
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
+            
+    - name: Start Install Script for Template App
+      run: sh make.sh --bundle-id co.nomblehq.template --bundle-id-staging co.nomblehq.template.staging --app-name TemplateApp
 
     - name: Build and Test
       run: bundle exec fastlane build_and_test
