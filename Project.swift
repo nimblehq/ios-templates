@@ -1,7 +1,7 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.project(name: "ProjectName")
+let project = Project.project(name: "{PROJECT_NAME}")
 
 extension Project {
 
