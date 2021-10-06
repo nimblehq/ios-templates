@@ -28,9 +28,9 @@ EOF
     exit 1
 }
 
-local bundle_id_production=""
-local bundle_id_staging=""
-local project_name=""
+bundle_id_production=""
+bundle_id_staging=""
+project_name=""
 
 readonly CONSTANT_PROJECT_NAME="{PROJECT_NAME}"
 readonly CONSTANT_BUNDLE_PRODUCTION="{BUNDLE_ID_PRODUCTION}"
@@ -147,6 +147,7 @@ echo "Remove tuist files"
 rm -rf tuist
 rm -rf Project.swift
 rm -rf make.sh
+rm -rf .github/workflows/test_install_script.yml
 echo "✅  Completed"
 
 # Done!
