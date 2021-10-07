@@ -1,0 +1,38 @@
+name: Test Install Script
+
+on:
+  push:
+    branches: [ feature/**, bug/**, chore/** ]
+
+jobs:
+  Test:
+    name: Test
+    runs-on: macOS-latest
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.5.0
+      with:
+        access_token: ${{ github.token }}
+
+    - uses: actions/checkout@v2
+    # Set fetch-depth (default: 1) to get whole tree
+      with:
+        fetch-depth: 0
+
+    - name: Bundle install
+      run: bundle install
+            
+    - name: Cache Pods
+      uses: actions/cache@v2
+      id: cocoapodCache
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Start Install Script for Template App
+      run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp
+
+    - name: Build and Test
+      run: bundle exec fastlane build_and_test

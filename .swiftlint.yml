@@ -1,6 +1,6 @@
 excluded:
-  - ProjectNameTests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
-  - ProjectName/Sources/Supports/Helpers/R.swift/R.generated.swift
+  - {PROJECT_NAME}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
+  - {PROJECT_NAME}/Sources/Supports/Helpers/R.swift/R.generated.swift
   - Pods
   - Derived
   - DerivedData
