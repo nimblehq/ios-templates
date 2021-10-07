@@ -8,9 +8,17 @@ require './Managers/SymbolManager'
 require './Managers/DistributionManager'
 require './Managers/MatchManager'
 require './Managers/TestManager'
+require './Managers/ReportManager'
 
 test_manager = TestManager.new(
-  fastlane: self
+  fastlane: self,
+  device: Constants.DEVICE,
+  output_directory: Constants.TEST_OUTPUT_DIRECTORY_PATH
+)
+
+report_manager = ReportManager.new(
+  fastlane: self,
+  output_directory: Constants.XCOV_OUTPUT_DIRECTORY_PATH
 )
 
 versioning_manager = VersioningManager.new(
@@ -50,19 +58,26 @@ platform :ios do
 
   desc 'Run tests'
   lane :tests do
-    test_manager.test(scheme: Constants.TESTS_SCHEME, target: Constants.TESTS_TARGET)
+    test_manager.test(
+      scheme: Constants.TESTS_SCHEME, 
+      targets: [Constants.TESTS_TARGET, Constants.UI_TESTS_TARGET]
+    )
   end
 
-  desc 'Run UI tests'
-  lane :ui_tests do
-    test_manager.test(scheme: Constants.TESTS_SCHEME, target: Constants.UI_TESTS_TARGET)
+  desc 'Run xcov'
+  lane :run_xcov do
+    clear_derived_data(derived_data_path: Constants.XCOV_OUTPUT_DIRECTORY_PATH)
+    report_manager.produce_report(
+      scheme: Constants.TESTS_SCHEME, 
+      workspace: Constants.WORKSPACE_PATH, 
+      test_output_directory: Constants.TEST_OUTPUT_DIRECTORY_PATH
+    )
   end
 
   desc 'Build and Test'
   lane :build_and_test do
     build_for_testing
     tests
-    ui_tests
   end
   
   # Code Sign

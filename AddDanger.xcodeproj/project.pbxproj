@@ -19,6 +19,7 @@
 		88C0E0C402AA75DDEF169DA8 /* Pods_AddDanger_AddDangerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7475004D67E396DB6CAA193A /* Pods_AddDanger_AddDangerUITests.framework */; };
 		8955BB4C93ECBACDF3EF5253 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054A03E206138D6453F61E6D /* HomeViewController.swift */; };
 		8E5E2B8E198020D775A94C92 /* Color+Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48FD14BF17D24241E8D3E63 /* Color+Application.swift */; };
+		90D96EE7270FFF7200D4CE5D /* OptionalUnwrapSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D96EE6270FFF7200D4CE5D /* OptionalUnwrapSpec.swift */; };
 		91E2B7EC5ED93AC3FC15DFF3 /* UIView+Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144931FA13DCF808106B8B5A /* UIView+Subviews.swift */; };
 		93E64E0D59372DF962EF6F82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D32B2B8F7587E09752C852 /* Constants.swift */; };
 		9548B8425B8EA29FCA2AF028 /* Bundle+AddDangerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B108C3E9768001A53A4696F8 /* Bundle+AddDangerUITests.swift */; };
@@ -116,6 +117,7 @@
 		8BF5B4CE33A277D2107B5BD4 /* Pods_AddDanger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AddDanger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C9DFB87BDE727511D2DD4C2 /* Pods-AddDanger-AddDangerUITests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddDanger-AddDangerUITests.release production.xcconfig"; path = "Target Support Files/Pods-AddDanger-AddDangerUITests/Pods-AddDanger-AddDangerUITests.release production.xcconfig"; sourceTree = "<group>"; };
 		8CC719B3B2793999AF2EE043 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		90D96EE6270FFF7200D4CE5D /* OptionalUnwrapSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalUnwrapSpec.swift; sourceTree = "<group>"; };
 		9358D5444F31BDAB9184BBDE /* Pods-AddDanger.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddDanger.debug production.xcconfig"; path = "Target Support Files/Pods-AddDanger/Pods-AddDanger.debug production.xcconfig"; sourceTree = "<group>"; };
 		93CF509B1F5A9DFF0DADEE2A /* Pods-AddDangerTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AddDangerTests.release production.xcconfig"; path = "Target Support Files/Pods-AddDangerTests/Pods-AddDangerTests.release production.xcconfig"; sourceTree = "<group>"; };
 		948604B91B5C665369DE2BBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -386,6 +388,30 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		90D96EE3270FFF2000D4CE5D /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				90D96EE4270FFF3600D4CE5D /* Extensions */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		90D96EE4270FFF3600D4CE5D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				90D96EE5270FFF4100D4CE5D /* Foundation */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		90D96EE5270FFF4100D4CE5D /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				90D96EE6270FFF7200D4CE5D /* OptionalUnwrapSpec.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
 		95A017EFF53277DE16869CB1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +630,7 @@
 		F7059025D6E0125B6EFC9397 /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				90D96EE3270FFF2000D4CE5D /* Support */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -804,7 +831,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"";
+			shellScript = "if [ -z \"$CI\" ]; then\n  \"${PODS_ROOT}/SwiftLint/swiftlint\"\nfi\n";
 		};
 		48A5E2612EA9EE402F8B393D /* R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -997,6 +1024,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E84A13BE6E894E268EF76419 /* Bundle+AddDangerTests.swift in Sources */,
+				90D96EE7270FFF7200D4CE5D /* OptionalUnwrapSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1032,6 +1060,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AddDanger/Configurations/Plists/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1040,6 +1070,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.danger;
 				PRODUCT_NAME = AddDanger;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1056,6 +1087,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AddDanger/Configurations/Plists/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1064,6 +1097,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.danger;
 				PRODUCT_NAME = AddDanger;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1394,6 +1428,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AddDanger/Configurations/Plists/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1402,6 +1438,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.danger;
 				PRODUCT_NAME = AddDanger;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1519,6 +1556,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AddDanger/Configurations/Plists/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1527,6 +1566,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.danger;
 				PRODUCT_NAME = AddDanger;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_COMPILATION_MODE = wholemodule;
