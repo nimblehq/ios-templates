@@ -34,18 +34,11 @@ extension TargetAction {
     }
 
     public static func swiftFormatAction() -> TargetAction {
-        let swiftFormatPath = "BuildTools"
         let runSwiftFormat = """
-        SDKROOT=(xcrun --sdk macosx --show-sdk-path)
-        #swift package update #Uncomment this line temporarily to update the version used to the latest matching your BuildTools/Package.swift file
-        swift run -c release swiftformat \"$SRCROOT\"
-        """
-        let script = """
-        cd \(swiftFormatPath)
-        \(runSwiftFormat)
+        "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT"
         """
         return .pre(
-            script: script,
+            script: runSwiftFormat,
             name: "SwiftFormat",
             basedOnDependencyAnalysis: true
         )
