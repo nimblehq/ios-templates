@@ -66,5 +66,3 @@ fastlane/test_output
 
 # Sourcery
 *.generated.swift
-
-BuildTools/.build/

@@ -4,8 +4,6 @@ excluded:
   - Pods
   - Derived
   - DerivedData
-  - BuildTools
-  - Tuist
 
 opt_in_rules:
   - anyobject_protocol
