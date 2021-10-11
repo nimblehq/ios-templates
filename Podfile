@@ -10,9 +10,9 @@ def testing_pods
   pod 'SwiftFormat/CLI'
 end
 
-target '{PROJECT_NAME}' do
+target 'AddDanger' do
   # UI
-  pod 'Kingfisher'
+  # pod 'Kingfisher'
   pod 'SnapKit'
 
   # Rx
@@ -22,7 +22,7 @@ target '{PROJECT_NAME}' do
   pod 'RxSwift'
 
   # Storage
-  pod 'KeychainAccess'
+  # pod 'KeychainAccess'
 
   # Tools
   pod 'Firebase/Crashlytics'
@@ -34,12 +34,12 @@ target '{PROJECT_NAME}' do
   pod 'SwiftLint'
   pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
 
-  target '{PROJECT_NAME}Tests' do
+  target 'AddDangerTests' do
     inherit! :search_paths
     testing_pods
   end
 
-  target '{PROJECT_NAME}UITests' do
+  target 'AddDangerUITests' do
     testing_pods
   end
 end
