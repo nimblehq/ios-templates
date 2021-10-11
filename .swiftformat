@@ -1,2 +1,10 @@
 # file options
 --exclude Pods, Generated
+
+# rules
+--disable fileHeader
+--disable initCoderUnavailable
+--disable trailingCommas
+--disable wrapEnumCases
+--disable wrapMultilineStatementBraces
+--disable wrapSwitchCases
