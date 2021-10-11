@@ -25,9 +25,13 @@ extension TargetAction {
     }
 
     public static func swiftLintAction() -> TargetAction {
-        let swiftLintPath = "${PODS_ROOT}/SwiftLint/swiftlint"
+        let swiftLintPath = """
+        if [ -z "$CI" ]; then
+            ${PODS_ROOT}/SwiftLint/swiftlint
+        fi
+        """
         return .pre(
-            script: "\"\(swiftLintPath)\"",
+            script: swiftLintPath,
             name: "SwiftLint",
             basedOnDependencyAnalysis: true
         )
@@ -35,7 +39,9 @@ extension TargetAction {
 
     public static func swiftFormatAction() -> TargetAction {
         let runSwiftFormat = """
-        "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT"
+        if [ -z "$CI" ]; then
+            "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT"
+        fi
         """
         return .pre(
             script: runSwiftFormat,
