@@ -19,11 +19,12 @@ extension Target {
             actions: [
                 TargetAction.sourceryAction(),
                 TargetAction.rswiftAction(),
-                TargetAction.swiftLintAction()
+                TargetAction.swiftLintAction(),
+                TargetAction.firebaseAction()
             ]
         )
     }
-    
+
     public static func testsTarget(name: String, bundleId: String) -> Target {
         let targetName = "\(name)Tests"
         return Target(

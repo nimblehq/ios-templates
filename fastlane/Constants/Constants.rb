@@ -69,12 +69,12 @@ class Constants
 
   # a gsp file name for staging
   def self.GSP_STAGING
-    './GoogleService-Info.plist'
+    './{PROJECT_NAME}/Configurations/GoogleService/Staging/GoogleService-Info.plist'
   end
 
   # a gsp file name for production
   def self.GSP_PRODUCTION
-    './GoogleService-Info.plist'
+    './{PROJECT_NAME}/Configurations/GoogleService/Production/GoogleService-Info.plist'
   end
 
   # The path to the upload-symbols file of the Fabric app
