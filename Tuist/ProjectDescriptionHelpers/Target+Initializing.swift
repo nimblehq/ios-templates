@@ -36,7 +36,10 @@ extension Target {
             resources: [
                 "\(targetName)/**/.gitkeep", // To include empty folders
                 "\(targetName)/Resources/**/*"
-            ], 
+            ],
+            actions: [
+                TargetAction.swiftFormatAction()
+            ],
             dependencies: [
                 .target(name: name)
             ]

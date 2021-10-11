@@ -21,15 +21,6 @@ jobs:
 
     - name: Bundle install
       run: bundle install
-            
-    - name: Cache Pods
-      uses: actions/cache@v2
-      id: cocoapodCache
-      with:
-        path: Pods
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pods-
 
     - name: Start Install Script for Template App
       run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp

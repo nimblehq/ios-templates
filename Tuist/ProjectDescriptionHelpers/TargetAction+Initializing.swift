@@ -32,4 +32,15 @@ extension TargetAction {
             basedOnDependencyAnalysis: true
         )
     }
+
+    public static func swiftFormatAction() -> TargetAction {
+        let runSwiftFormat = """
+        "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT"
+        """
+        return .pre(
+            script: runSwiftFormat,
+            name: "SwiftFormat",
+            basedOnDependencyAnalysis: true
+        )
+    }
 }

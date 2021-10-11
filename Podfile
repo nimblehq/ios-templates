@@ -7,6 +7,7 @@ def testing_pods
   pod 'RxNimble', subspecs: ['RxBlocking', 'RxTest']
   pod 'RxSwift'
   pod 'Sourcery'
+  pod 'SwiftFormat/CLI'
 end
 
 target '{PROJECT_NAME}' do
