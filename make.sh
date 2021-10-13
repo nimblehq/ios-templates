@@ -150,6 +150,11 @@ echo "Remove gitkeep files from project"
 sed -i "" "s/.*\(gitkeep\).*,//" $PROJECT_NAME_NO_SPACES.xcodeproj/project.pbxproj
 echo "✅  Completed"
 
+# remove swiftlint files
+echo "Remove swiftlint files from project"
+sed -i "" "s/.*\(swiftlint\).*,//" $PROJECT_NAME_NO_SPACES.xcodeproj/project.pbxproj
+echo "✅  Completed"
+
 # remove Tuist files
 echo "Remove tuist files"
 rm -rf tuist

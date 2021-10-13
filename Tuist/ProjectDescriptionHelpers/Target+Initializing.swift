@@ -14,7 +14,8 @@ extension Target {
             sources: ["\(name)/Sources/**"],
             resources: [
                 "\(name)/Resources/**",
-                "\(name)/Sources/**/.gitkeep" // To include empty folders
+                "\(name)/Sources/**/.gitkeep", // To include empty folders
+                "\(name)/Sources/**/.swiftlint.yml" // To include SwiftLint rules in sub-folders
             ],
             actions: [
                 TargetAction.sourceryAction(),
@@ -59,7 +60,7 @@ extension Target {
             resources: [
                 "\(targetName)/**/.gitkeep", // To include empty folders
                 "\(targetName)/Resources/**/*"
-            ], 
+            ],
             dependencies: [
                 .target(name: name)
             ]
