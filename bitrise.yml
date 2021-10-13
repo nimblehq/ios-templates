@@ -123,7 +123,15 @@ workflows:
     - git-clone@6.1: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
-    - xcode-test@3.0: {}
+    - fastlane@3:
+        inputs:
+        - lane: build_and_test
+    - fastlane@3:
+        inputs:
+        - lane: run_xcov
+    - danger@2:
+        inputs:
+        - github_api_token: $DANGER_GITHUB_API_TOKEN
     - cache-push@2:
         inputs:
         - cache_paths: |-
