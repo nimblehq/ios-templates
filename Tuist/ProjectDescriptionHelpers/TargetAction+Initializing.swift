@@ -43,4 +43,27 @@ extension TargetAction {
             basedOnDependencyAnalysis: true
         )
     }
+
+    public static func firebaseAction() -> TargetAction {
+        let script = """
+        PATH_TO_GOOGLE_PLISTS="$SRCROOT/$PROJECT_NAME/Configurations/Plists/GoogleService"
+
+        case "${CONFIGURATION}" in
+        "\(ProjectBuildConfiguration.debugStaging.name)" | "\(ProjectBuildConfiguration.releaseStaging.name)" )
+        cp -r "$PATH_TO_GOOGLE_PLISTS/Staging/GoogleService-Info.plist" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist"
+        ;;
+        "\(ProjectBuildConfiguration.debugProduction.name)" | "\(ProjectBuildConfiguration.releaseProduction.name)" )
+        cp -r "$PATH_TO_GOOGLE_PLISTS/Production/GoogleService-Info.plist" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist"
+        ;;
+        *)
+        ;;
+        esac
+        """
+        
+        return .post(
+            script: script,
+            name: "Copy GoogleService-Info.plist",
+            basedOnDependencyAnalysis: true
+        )
+    }
 }

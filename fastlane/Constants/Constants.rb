@@ -4,7 +4,7 @@ class Constants
   #################
   #### PROJECT ####
   #################
-  
+
   # Project path
   def self.PROJECT_PATH
     './{PROJECT_NAME}.xcodeproj'
@@ -33,7 +33,7 @@ class Constants
   def self.BUILD_PATH
     './Build'
   end
-  
+
   #################
   #### TESTING ####
   #################
@@ -69,12 +69,12 @@ class Constants
 
   # a gsp file name for staging
   def self.GSP_STAGING
-    './GoogleService-Info.plist'
+    './{PROJECT_NAME}/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist'
   end
 
   # a gsp file name for production
   def self.GSP_PRODUCTION
-    './GoogleService-Info.plist'
+    './{PROJECT_NAME}/Configurations/Plists/GoogleService/Production/GoogleService-Info.plist'
   end
 
   # The path to the upload-symbols file of the Fabric app
@@ -96,7 +96,7 @@ class Constants
   def self.FIREBASE_TESTER_GROUPS
     "nimble-dev"
   end
-  
+
   #################
   #### KEYCHAIN ####
   #################
