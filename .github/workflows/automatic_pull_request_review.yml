@@ -1,26 +1,12 @@
-name: test
+name: Automatic pull request review
 
 on:
   pull_request:
-    types: [assigned, opened, synchronize, reopened]
+    types: [opened, reopened, edited, synchronize]
 
 jobs:
-  Lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-
-    - name: Run SwiftLint
-      uses: norio-nomura/action-swiftlint@3.1.0
-      with:
-        args: --strict
-        
-  Test:
-    name: Test
+  review_pull_request:
+    name: Pull request review by Danger
     runs-on: macOS-latest
     steps:
     - name: Cancel Previous Runs
@@ -29,12 +15,19 @@ jobs:
         access_token: ${{ github.token }}
 
     - uses: actions/checkout@v2
-    # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
-            
+
+    - uses: actions/cache@v2
+      id: bunlderCache
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
     - name: Bundle install
-      run: bundle install
+      run: bundle install --path vendor/bundle
 
     - name: Cache Pods
       uses: actions/cache@v2
@@ -47,7 +40,16 @@ jobs:
 
     - name: Install Pods Dependencies
       run: bundle exec pod install
-      shell: bash
 
     - name: Build and Test
       run: bundle exec fastlane build_and_test
+      env:
+        CI: true
+
+    - name: Export code coverage report
+      run: bundle exec fastlane run_xcov
+    
+    - name: Review pull request by Danger
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: bundle exec danger
