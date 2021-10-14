@@ -113,6 +113,10 @@ rename_folder "${CONSTANT_PROJECT_NAME}UITests" "${PROJECT_NAME_NO_SPACES}UITest
 # Rename app folder structure
 rename_folder "${CONSTANT_PROJECT_NAME}" "${PROJECT_NAME_NO_SPACES}"
 
+# Add AutoMockable.generated.swift file
+mkdir -p "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery"
+touch "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift"
+
 echo "✅  Completed"
 
 # Search and replace in files
