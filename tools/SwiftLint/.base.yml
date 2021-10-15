@@ -1,5 +1,3 @@
-parent_config: custom_rules.yml
-
 opt_in_rules:
   - anyobject_protocol
   - array_init

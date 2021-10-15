@@ -1,4 +1,5 @@
-parent_config: tools/SwiftLint/base.yml
+child_config: tools/SwiftLint/.base.yml
+parent_config: tools/SwiftLint/.custom_rules.yml
 
 included:
   - {PROJECT_NAME}
@@ -7,7 +8,7 @@ included:
 
 excluded:
   - {PROJECT_NAME}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
-  - {PROJECT_NAME}/Sources/Supports/Helpers/Rswift/R.generated.swift
+  - **/*/*.generated.swift
   - Pods
   - Derived
   - DerivedData

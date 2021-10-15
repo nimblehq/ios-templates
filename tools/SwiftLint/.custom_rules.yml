@@ -1,0 +1,65 @@
+custom_rules:
+  # // Bad
+  # let width: CGFloat = 320
+  #
+  #  // Good
+  # let width: CGFloat = 320.0
+  double_decimal_point:
+    included: ".*\\.swift"
+    name: "Double Decimal Point"
+    regex: "(CGFloat|Double) = (.[0-9]*)\n"
+    capture_group: 0
+    message: "For non-integer types use decimal point explicitly."
+
+  # // Bad
+  # class User {
+  #     let name: String
+  #     let age: Int
+  # }
+  #
+  # // Good
+  # class User {
+  #
+  #     let name: String
+  #     let age: Int
+  # }
+  declaration_vertical_whitespace:
+    included: ".*\\.swift"
+    name: "Declaration Vertical whitespace"
+    regex: '(class|struct|enum|extension)[^\n]*\{\n[^\S\r\n]*.\w'
+    message: "A blank line is required after the opening brace"
+
+  # // Bad
+  # switch value {
+  # case .caseA:
+  #     print("A")
+  #     doA()
+  #
+  # case .caseB:
+  #     print("B")
+  #     doB()
+  #
+  # case .caseC:
+  #     print("C")
+  #     doC()
+  #
+  # }
+  #
+  # // Good
+  # switch value {
+  # case .caseA:
+  #     print("A")
+  #     doA()
+  # case .caseB:
+  #     print("B")
+  #     doB()
+  # case .caseC:
+  #     print("C")
+  #     doC()
+  # }
+  newline_between_switch_case:
+    included: ".*\\.swift"
+    name: "Newline Between Switch Case"
+    regex: '(case|default)[^\n:]*:[\s\n]*.[^\n]*\n\n\s*(case|default)[^\n:]*:'
+    capture_group: 2
+    message: "Do not add a blank line between each case within switch"
