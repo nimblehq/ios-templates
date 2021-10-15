@@ -1,0 +1,137 @@
+custom_rules:
+  # // Bad
+  # let width: CGFloat = 320
+  #
+  #  // Good
+  # let width: CGFloat = 320.0
+  decimal_point:
+    included: ".*\\.swift"
+    name: "Decimal Point"
+    regex: "(CGFloat|Double) = (.[0-9]*)\n"
+    capture_group: 0
+    message: "For non-integer types use decimal point explicitly."
+
+  # // Bad
+  # class User {
+  #     let name: String
+  #     let age: Int
+  # }
+  #
+  # // Good
+  # class User {
+  #
+  #     let name: String
+  #     let age: Int
+  # }
+  vertical_whitespace_types:
+    included: ".*\\.swift"
+    name: "Vertical whitespace"
+    regex: '(class|struct|enum|extension)[^\n]*\{\n[^\S\r\n]*.\w'
+    message: "A blank line is required after the opening brace"
+
+  # // Bad
+  # func viewDidLoad()
+  # {
+  #     super.viewDidLoad()
+  # }
+  #
+  # // Good
+  # func viewDidLoad() {
+  #     super.viewDidLoad()
+  # }
+  trailing_newline_func_opening_brace:
+    included: ".*\\.swift"
+    name: "Trailing Newline Function Opening Brace"
+    regex: 'func[^\n]*\{\n\s*\n'
+    message: "Curly braces open on the same line with the method signature"
+
+  # // Bad
+  # func doSomething() {
+  #
+  #     print("done")
+  # }
+  #
+  # // Good
+  # func doSomething() {
+  #     print("done")
+  # }
+  leading_newline_func_opening_brace:
+    included: ".*\\.swift"
+    name: "Leading Newline Function Opening Brace"
+    regex: 'func[^\n]*\{\n\n'
+    message: "Do not add a blank line after opening brace within func"
+
+  # // Bad
+  # switch value {
+  # case .caseA:
+  #     print("A")
+  #     doA()
+  #
+  # case .caseB:
+  #     print("B")
+  #     doB()
+  #
+  # case .caseC:
+  #     print("C")
+  #     doC()
+  #
+  # }
+  #
+  # // Good
+  # switch value {
+  # case .caseA:
+  #     print("A")
+  #     doA()
+  # case .caseB:
+  #     print("B")
+  #     doB()
+  # case .caseC:
+  #     print("C")
+  #     doC()
+  # }
+  newline_between_switch_case:
+    included: ".*\\.swift"
+    name: "Newline Between Switch Case"
+    regex: '(case|default)[^\n:]*:[\s\n]*.[^\n]*\n\n\s*(case|default)[^\n:]*:'
+    capture_group: 2
+    message: "Do not add a blank line between each case within switch"
+
+  # // Bad
+  # var a: Bool {
+  #
+  #     print("x")
+  #     return true
+  # }
+  #
+  # // Good
+  # var a: Bool {
+  #     print("x")
+  #     return true
+  # }
+  traling_newline_computed_property_opening_brace:
+    included: ".*\\.swift"
+    name: "Trailing Newline Computed Property Opening Brace"
+    regex: 'var[^\n]*\{\n\s*\n'
+    message: "Do not add a blank line after opening brace within computed property"
+
+  # // Bad
+  # "OK" = "OK";
+  #
+  # // Good
+  # "general.button.ok" = "OK";
+  three_level_domain_localizable_key:
+    included: ".*\\.swift"
+    name: "Three Level Domain Localizable Key"
+    regex: 'NSLocalizedString\("[^."]*\.{0,2}[^."]*",'
+    message: "Localizable string key should use 3-level domain naming scheme: feature.use_case.description."
+
+  # // Bad
+  # "Expiry date" = "Expiry date";
+  #
+  # // Good
+  # "booking.confirmation.expiryDate" = "Expiry date";
+  snake_case_localizable_key:
+    included: ".*\\.swift"
+    name: "Snake Case Localizable Key"
+    regex: 'NSLocalizedString\("[^"]*_+[^"]*",'
+    message: "Localizable string key should be in camel case"
