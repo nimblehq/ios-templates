@@ -1,5 +1,5 @@
 # file options
---exclude Pods, Generated
+--exclude Pods, Generated, **/*.generated.swift
 
 # rules
 --disable fileHeader
@@ -8,3 +8,4 @@
 --disable wrapEnumCases
 --disable wrapMultilineStatementBraces
 --disable wrapSwitchCases
+--disable blankLinesAtStartOfScope

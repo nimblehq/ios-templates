@@ -50,6 +50,19 @@ extension TargetAction {
         )
     }
 
+    public static func swiftFormatLintAction() -> TargetAction {
+        let runSwiftFormat = """
+        if [ -z "$CI" ]; then
+            "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT" --lint --lenient
+        fi
+        """
+        return .pre(
+            script: runSwiftFormat,
+            name: "SwiftFormat Lint",
+            basedOnDependencyAnalysis: true
+        )
+    }
+
     public static func firebaseAction() -> TargetAction {
         let script = """
         PATH_TO_GOOGLE_PLISTS="$SRCROOT/$PROJECT_NAME/Configurations/Plists/GoogleService"
