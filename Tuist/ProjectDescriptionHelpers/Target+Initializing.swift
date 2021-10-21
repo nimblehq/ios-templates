@@ -20,6 +20,7 @@ extension Target {
                 TargetAction.sourceryAction(),
                 TargetAction.rswiftAction(),
                 TargetAction.swiftLintAction(),
+                TargetAction.swiftFormatLintAction(),
                 TargetAction.firebaseAction()
             ]
         )
