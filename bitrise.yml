@@ -92,7 +92,7 @@ workflows:
     - firebase-app-distribution@0:
         inputs:
         - firebase_token: "$FIREBASE_CI_TOKEN"
-        - app: "$FIREBASE_APP_ID_STAGING"
+        - app: "$FIREBASE_APP_ID_PRD"
     - firebase-dsym-upload@2:
         inputs:
         - fdu_google_services_location: "$GOOGLE_SERVICE_INFO_PLIST_PATH"
