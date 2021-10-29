@@ -30,20 +30,9 @@ Documentation : [Tuist Official Documents](https://docs.tuist.io/tutorial/get-st
 
 ## How to use
 
+### Install Script
 
-1. Change the project name at line 3 in `Project.swift` 
-
-    ```swift
-    let project = Project.project(name: "ios-template")
-    ```
-    to:
-    ```swift
-    let project = Project.project(name: "<Your Project Name>")
-    ```
-
-2. Execute the following command:
-
-    ```bash
-    tuist generate
-    ```
-    The command `tuist generate` will generate your project files, folders and two important files `*.xcodeproj` and `*.xcworkspace`.
+Execute the following command
+```
+sh make.sh --bundle-id [BUNDLE_ID_PRODUCTION] --bundle-id-staging [BUNDLE_ID_STAGING] --project-name [PROJECT_NAME]
+```

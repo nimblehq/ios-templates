@@ -1,4 +1,4 @@
-platform :ios, '10.0'
+platform :ios, '11.0'
 use_frameworks!
 
 def testing_pods
@@ -7,9 +7,10 @@ def testing_pods
   pod 'RxNimble', subspecs: ['RxBlocking', 'RxTest']
   pod 'RxSwift'
   pod 'Sourcery'
+  pod 'SwiftFormat/CLI'
 end
 
-target 'ProjectName' do
+target '{PROJECT_NAME}' do
   # UI
   pod 'Kingfisher'
   pod 'SnapKit'
@@ -28,17 +29,18 @@ target 'ProjectName' do
   pod 'IQKeyboardManagerSwift'
   pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
   pod 'R.swift'
+  pod 'Resolver' # Needs Cocoapods on iOS 11 to support Resolver
 
   # Development
   pod 'SwiftLint'
   pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
 
-  target 'ProjectNameTests' do
+  target '{PROJECT_NAME}Tests' do
     inherit! :search_paths
     testing_pods
   end
 
-  target 'ProjectNameUITests' do
+  target '{PROJECT_NAME}UITests' do
     testing_pods
   end
 end

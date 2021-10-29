@@ -63,6 +63,13 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+fastlane/xcov_output
 
 # Sourcery
 *.generated.swift
+
+# Derived Data folder
+DerivedData
+
+# Tuist
+.tuist-generated
