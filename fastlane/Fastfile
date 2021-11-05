@@ -51,19 +51,6 @@ default_platform(:ios)
 platform :ios do
   # Testing
 
-  desc 'Build for testing'
-  lane :build_for_testing do
-    test_manager.build(scheme: Constants.TESTS_SCHEME)
-  end
-
-  desc 'Run tests'
-  lane :tests do
-    test_manager.test(
-      scheme: Constants.TESTS_SCHEME, 
-      targets: [Constants.TESTS_TARGET, Constants.UI_TESTS_TARGET]
-    )
-  end
-
   desc 'Run xcov'
   lane :run_xcov do
     clear_derived_data(derived_data_path: Constants.XCOV_OUTPUT_DIRECTORY_PATH)
@@ -76,8 +63,10 @@ platform :ios do
 
   desc 'Build and Test'
   lane :build_and_test do
-    build_for_testing
-    tests
+    test_manager.build_and_test(
+      scheme: Constants.TESTS_SCHEME, 
+      targets: [Constants.TESTS_TARGET, Constants.UI_TESTS_TARGET]
+    )
   end
   
   # Code Sign
