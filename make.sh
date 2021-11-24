@@ -117,6 +117,9 @@ rename_folder "${CONSTANT_PROJECT_NAME}" "${PROJECT_NAME_NO_SPACES}"
 mkdir -p "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery"
 touch "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift"
 
+# Add R.generated.swift file
+touch "${PROJECT_NAME_NO_SPACES}/Sources/Supports/Helpers/Rswift/R.generated.swift"
+
 echo "✅  Completed"
 
 # Search and replace in files
