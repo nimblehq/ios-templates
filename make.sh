@@ -118,6 +118,7 @@ mkdir -p "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery"
 touch "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift"
 
 # Add R.generated.swift file
+mkdir -p "${PROJECT_NAME_NO_SPACES}/Sources/Supports/Helpers/Rswift"
 touch "${PROJECT_NAME_NO_SPACES}/Sources/Supports/Helpers/Rswift/R.generated.swift"
 
 echo "✅  Completed"
