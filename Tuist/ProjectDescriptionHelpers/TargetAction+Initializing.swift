@@ -18,9 +18,8 @@ extension TargetAction {
         return .pre(
             script: "\"\(rswiftPath)\" generate \"\(outputPath)\"",
             name: "R.swift",
-            inputPaths: ["\(inputPath)"],
             outputPaths: ["\(outputPath)"],
-            basedOnDependencyAnalysis: true
+            basedOnDependencyAnalysis: false
         )
     }
 
@@ -78,7 +77,7 @@ extension TargetAction {
         ;;
         esac
         """
-        
+
         return .post(
             script: script,
             name: "Copy GoogleService-Info.plist",

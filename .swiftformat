@@ -9,3 +9,5 @@
 --disable wrapMultilineStatementBraces
 --disable wrapSwitchCases
 --disable blankLinesAtStartOfScope
+--disable unusedArguments
+--disable hoistPatternLet

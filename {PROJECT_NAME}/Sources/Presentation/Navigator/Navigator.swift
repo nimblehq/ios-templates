@@ -16,8 +16,10 @@ protocol Navigatable: AnyObject {
 final class Navigator {
 
     private func viewController(from scene: Scene) -> UIViewController {
-        #warning("Create view controllers here")
-        return HomeViewController()
+        switch scene {
+        case .home:
+            return HomeViewController()
+        }
     }
 }
 
