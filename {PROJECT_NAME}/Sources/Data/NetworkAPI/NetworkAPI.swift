@@ -2,8 +2,8 @@
 //  NetworkAPI.swift
 //
 
-import Foundation
 import Alamofire
+import Foundation
 import RxSwift
 
 final class NetworkAPI: NetworkAPIProtocol {

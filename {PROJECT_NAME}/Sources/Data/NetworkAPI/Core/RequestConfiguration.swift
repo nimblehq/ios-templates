@@ -2,8 +2,8 @@
 //  RequestConfiguration.swift
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 protocol RequestConfiguration {
 

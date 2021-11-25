@@ -3,4 +3,4 @@
 //  Constants+API.swift
 //
 
-extension Constants.API { }
+extension Constants.API {}

@@ -4,5 +4,5 @@
 
 enum Constants {
 
-    enum API { }
+    enum API {}
 }

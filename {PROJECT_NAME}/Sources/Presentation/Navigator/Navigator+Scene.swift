@@ -8,5 +8,6 @@ extension Navigator {
 
     enum Scene {
         // Define scene
+        case home
     }
 }
