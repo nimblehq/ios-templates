@@ -14,13 +14,12 @@ extension TargetAction {
     public static func rswiftAction() -> TargetAction {
         let rswiftPath = "$PODS_ROOT/R.swift/rswift"
         let inputPath = "$TEMP_DIR/rswift-lastrun"
-        let outputPath = "$SRCROOT/$PROJECT_NAME/Sources/Supports/Helpers/R.swift/R.generated.swift"
+        let outputPath = "$SRCROOT/$PROJECT_NAME/Sources/Supports/Helpers/Rswift/R.generated.swift"
         return .pre(
             script: "\"\(rswiftPath)\" generate \"\(outputPath)\"",
             name: "R.swift",
-            inputPaths: ["\(inputPath)"],
             outputPaths: ["\(outputPath)"],
-            basedOnDependencyAnalysis: true
+            basedOnDependencyAnalysis: false
         )
     }
 
@@ -78,7 +77,7 @@ extension TargetAction {
         ;;
         esac
         """
-        
+
         return .post(
             script: script,
             name: "Copy GoogleService-Info.plist",

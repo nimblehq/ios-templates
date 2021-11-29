@@ -2,9 +2,9 @@
 //  NetworkAPIProtocol.swift
 //
 
-import RxSwift
 import Alamofire
 import RxAlamofire
+import RxSwift
 
 protocol NetworkAPIProtocol {
 

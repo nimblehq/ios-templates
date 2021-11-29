@@ -9,3 +9,4 @@
 --disable wrapMultilineStatementBraces
 --disable wrapSwitchCases
 --disable blankLinesAtStartOfScope
+--stripunusedargs closure-only
