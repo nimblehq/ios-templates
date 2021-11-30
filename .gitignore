@@ -73,3 +73,7 @@ DerivedData
 
 # Tuist
 .tuist-generated
+
+# JetBrains IDEs
+
+.idea

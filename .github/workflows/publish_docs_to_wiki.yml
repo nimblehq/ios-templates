@@ -6,6 +6,7 @@ on:
       - docs/**
     branches:
       - main
+      - master
 
 env:
   USER_TOKEN: ${{ secrets.NIMBLE_DEV_TOKEN }}
