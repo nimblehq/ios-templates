@@ -154,18 +154,22 @@ echo "Installing pod dependencies"
 bundle exec pod install --repo-update
 echo "✅  Completed"
 
-# remove gitkeep files
+# Remove gitkeep files
 echo "Remove gitkeep files from project"
 sed -i "" "s/.*\(gitkeep\).*,//" $PROJECT_NAME_NO_SPACES.xcodeproj/project.pbxproj
 echo "✅  Completed"
 
-# remove Tuist files
+# Remove Tuist files
 echo "Remove tuist files"
 rm -rf .tuist-version
 rm -rf tuist
 rm -rf Project.swift
+
+# Remove script files and git/index
+echo "Remove script files and git/index"
 rm -rf make.sh
 rm -rf .github/workflows/test_install_script.yml
+rm -f .git/index
 echo "✅  Completed"
 
 # Done!
