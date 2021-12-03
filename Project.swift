@@ -9,9 +9,8 @@ extension Project {
         return Project(
             name: name,
             organizationName: "Nimble",
-            settings: Settings(
-                configurations: ProjectBuildConfiguration.allCases
-                    .map { $0.createConfiguration(projectName: name) }
+            settings: Settings.settings(
+                configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) }
             ),
             targets: [
                 Target.mainTarget(name: name, bundleId: bundleId),

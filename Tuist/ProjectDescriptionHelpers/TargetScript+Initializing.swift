@@ -1,8 +1,8 @@
 import ProjectDescription
 
-extension TargetAction {
+extension TargetScript {
 
-    public static func sourceryAction() -> TargetAction {
+    public static func sourceryAction() -> TargetScript {
         let sourceryPath = "$PODS_ROOT/Sourcery/bin/sourcery"
         return .pre(
             script: "\"\(sourceryPath)\"",
@@ -11,9 +11,8 @@ extension TargetAction {
         )
     }
 
-    public static func rswiftAction() -> TargetAction {
+    public static func rswiftAction() -> TargetScript {
         let rswiftPath = "$PODS_ROOT/R.swift/rswift"
-        let inputPath = "$TEMP_DIR/rswift-lastrun"
         let outputPath = "$SRCROOT/$PROJECT_NAME/Sources/Supports/Helpers/Rswift/R.generated.swift"
         return .pre(
             script: "\"\(rswiftPath)\" generate \"\(outputPath)\"",
@@ -23,7 +22,7 @@ extension TargetAction {
         )
     }
 
-    public static func swiftLintAction() -> TargetAction {
+    public static func swiftLintAction() -> TargetScript {
         let swiftLintPath = """
         if [ -z "$CI" ]; then
             ${PODS_ROOT}/SwiftLint/swiftlint
@@ -36,7 +35,7 @@ extension TargetAction {
         )
     }
 
-    public static func swiftFormatAction() -> TargetAction {
+    public static func swiftFormatAction() -> TargetScript {
         let runSwiftFormat = """
         if [ -z "$CI" ]; then
             "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT"
@@ -49,7 +48,7 @@ extension TargetAction {
         )
     }
 
-    public static func swiftFormatLintAction() -> TargetAction {
+    public static func swiftFormatLintAction() -> TargetScript {
         let runSwiftFormat = """
         if [ -z "$CI" ]; then
             "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT" --lint --lenient
@@ -62,15 +61,15 @@ extension TargetAction {
         )
     }
 
-    public static func firebaseAction() -> TargetAction {
+    public static func firebaseAction() -> TargetScript {
         let script = """
         PATH_TO_GOOGLE_PLISTS="$SRCROOT/$PROJECT_NAME/Configurations/Plists/GoogleService"
 
         case "${CONFIGURATION}" in
-        "\(ProjectBuildConfiguration.debugStaging.name)" | "\(ProjectBuildConfiguration.releaseStaging.name)" )
+        "\(BuildConfiguration.debugStaging.name)" | "\(BuildConfiguration.releaseStaging.name)" )
         cp -r "$PATH_TO_GOOGLE_PLISTS/Staging/GoogleService-Info.plist" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist"
         ;;
-        "\(ProjectBuildConfiguration.debugProduction.name)" | "\(ProjectBuildConfiguration.releaseProduction.name)" )
+        "\(BuildConfiguration.debugProduction.name)" | "\(BuildConfiguration.releaseProduction.name)" )
         cp -r "$PATH_TO_GOOGLE_PLISTS/Production/GoogleService-Info.plist" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist"
         ;;
         *)

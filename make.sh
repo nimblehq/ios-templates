@@ -137,8 +137,9 @@ if ! command -v tuist &> /dev/null
 then
     echo "Tuist could not be found"
     echo "Installing tuist"
+    readonly TUIST_VERSION=`cat .tuist-version`
     curl -Ls https://install.tuist.io | bash
-    tuist install 1.48.1
+    tuist install ${TUIST_VERSION}
 fi
 
 # Generate with tuist
@@ -160,6 +161,7 @@ echo "✅  Completed"
 
 # remove Tuist files
 echo "Remove tuist files"
+rm -rf .tuist-version
 rm -rf tuist
 rm -rf Project.swift
 rm -rf make.sh
