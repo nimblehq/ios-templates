@@ -18,8 +18,8 @@ swiftlint.binary_path = './Pods/SwiftLint/swiftlint'
 swiftlint.config_file = '.swiftlint.yml'
 swiftlint.max_num_violations = 20
 swiftlint.lint_files(
-  inline_mode: true, 
-  fail_on_error: true, 
+  inline_mode: true,
+  fail_on_error: true,
   additional_swiftlint_args: '--strict'
 )
 
@@ -30,5 +30,16 @@ xcode_summary.ignored_files = 'Pods/**'
 xcode_summary.inline_mode = true
 xcode_summary.report xcresultPath
 
+# Xcov
+xcov.report(
+  scheme: Constants.TESTS_SCHEME,
+  workspace: Constants.WORKSPACE_PATH,
+  output_directory: Constants.XCOV_OUTPUT_DIRECTORY_PATH,
+  xccov_file_direct_path: xcresultPath,
+  only_project_targets: true,
+  markdown_report: true,
+  html_report: false
+)
+
 # Upload the report of the code coverage of the files changed in a pull request
-markdown File.read("#{Constants.XCOV_OUTPUT_DIRECTORY_PATH}/report.md")
+# markdown File.read("#{Constants.XCOV_OUTPUT_DIRECTORY_PATH}/report.md")

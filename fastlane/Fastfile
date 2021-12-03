@@ -8,17 +8,11 @@ require './Managers/SymbolManager'
 require './Managers/DistributionManager'
 require './Managers/MatchManager'
 require './Managers/TestManager'
-require './Managers/ReportManager'
 
 test_manager = TestManager.new(
   fastlane: self,
   device: Constants.DEVICE,
   output_directory: Constants.TEST_OUTPUT_DIRECTORY_PATH
-)
-
-report_manager = ReportManager.new(
-  fastlane: self,
-  output_directory: Constants.XCOV_OUTPUT_DIRECTORY_PATH
 )
 
 versioning_manager = VersioningManager.new(
@@ -49,26 +43,17 @@ end
 default_platform(:ios)
 
 platform :ios do
-  # Testing
 
-  desc 'Run xcov'
-  lane :run_xcov do
-    clear_derived_data(derived_data_path: Constants.XCOV_OUTPUT_DIRECTORY_PATH)
-    report_manager.produce_report(
-      scheme: Constants.TESTS_SCHEME, 
-      workspace: Constants.WORKSPACE_PATH, 
-      test_output_directory: Constants.TEST_OUTPUT_DIRECTORY_PATH
-    )
-  end
+  # Testing
 
   desc 'Build and Test'
   lane :build_and_test do
     test_manager.build_and_test(
-      scheme: Constants.TESTS_SCHEME, 
+      scheme: Constants.TESTS_SCHEME,
       targets: [Constants.TESTS_TARGET, Constants.UI_TESTS_TARGET]
     )
   end
-  
+
   # Code Sign
 
   desc 'Sync Adhoc match signing'
@@ -229,5 +214,10 @@ platform :ios do
   desc 'Clean up derived data'
   lane :clean_up do
     clear_derived_data(derived_data_path: Constants.DERIVED_DATA_PATH)
+  end
+
+  desc 'Clean up xcov output'
+  lane :clean_up_xcov do
+    clear_derived_data(derived_data_path: Constants.XCOV_OUTPUT_DIRECTORY_PATH)
   end
 end
