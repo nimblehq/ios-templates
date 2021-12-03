@@ -9,17 +9,17 @@ extension Project {
         return Project(
             name: name,
             organizationName: "Nimble",
-            settings: Settings.settings(
+            settings: .settings(
                 configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) }
             ),
             targets: [
-                Target.mainTarget(name: name, bundleId: bundleId),
-                Target.testsTarget(name: name, bundleId: bundleId),
-                Target.uiTestsTarget(name: name, bundleId: bundleId)
+                .mainTarget(name: name, bundleId: bundleId),
+                .testsTarget(name: name, bundleId: bundleId),
+                .uiTestsTarget(name: name, bundleId: bundleId)
             ],
             schemes: [
-                Scheme.productionScheme(name: name),
-                Scheme.stagingScheme(name: name)
+                .productionScheme(name: name),
+                .stagingScheme(name: name)
             ]
         )
     }

@@ -17,11 +17,11 @@ extension Target {
                 "\(name)/Sources/**/.gitkeep" // To include empty folders
             ],
             scripts: [
-                TargetScript.sourceryScript(),
-                TargetScript.rswiftScript(),
-                TargetScript.swiftLintScript(),
-                TargetScript.swiftFormatLintScript(),
-                TargetScript.firebaseScript()
+                .sourceryScript(),
+                .rswiftScript(),
+                .swiftLintScript(),
+                .swiftFormatLintScript(),
+                .firebaseScript()
             ]
         )
     }
@@ -39,12 +39,8 @@ extension Target {
                 "\(targetName)/**/.gitkeep", // To include empty folders
                 "\(targetName)/Resources/**/*"
             ],
-            scripts: [
-                TargetScript.swiftFormatScript()
-            ],
-            dependencies: [
-                .target(name: name)
-            ]
+            scripts: [.swiftFormatScript()],
+            dependencies: [.target(name: name)]
         )
     }
 
@@ -61,9 +57,7 @@ extension Target {
                 "\(targetName)/**/.gitkeep", // To include empty folders
                 "\(targetName)/Resources/**/*"
             ], 
-            dependencies: [
-                .target(name: name)
-            ]
+            dependencies: [.target(name: name)]
         )
     }
 }

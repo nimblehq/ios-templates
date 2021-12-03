@@ -9,10 +9,10 @@ public enum BuildConfiguration: CaseIterable {
 
     var name: ConfigurationName {
         switch self {
-        case .debugStaging: return ConfigurationName.configuration("Debug Staging")
-        case .releaseStaging: return ConfigurationName.configuration("Release Staging")
-        case .debugProduction: return ConfigurationName.configuration("Debug Production")
-        case .releaseProduction: return ConfigurationName.configuration("Release Production")
+        case .debugStaging: return .configuration("Debug Staging")
+        case .releaseStaging: return .configuration("Release Staging")
+        case .debugProduction: return .configuration("Debug Production")
+        case .releaseProduction: return .configuration("Release Production")
         }
     }
 
