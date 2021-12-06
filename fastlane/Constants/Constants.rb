@@ -7,22 +7,22 @@ class Constants
 
   # Workspace path
   def self.WORKSPACE_PATH
-    './{PROJECT_NAME}.xcworkspace'
+    './TestDanger.xcworkspace'
   end
 
   # Project path
   def self.PROJECT_PATH
-    './{PROJECT_NAME}.xcodeproj'
+    './TestDanger.xcodeproj'
   end
 
   # bundle ID for Staging app
   def self.BUNDLE_ID_STAGING
-    '{BUNDLE_ID_STAGING}'
+    'co.nimblehq.testdanger.staging'
   end
 
   # bundle ID for Production app
   def self.BUNDLE_ID_PRODUCTION
-    '{BUNDLE_ID_PRODUCTION}'
+    'co.nimblehq.testdanger'
   end
 
   #################
@@ -50,17 +50,17 @@ class Constants
 
   # a scheme name for testing
   def self.TESTS_SCHEME
-    '{PROJECT_NAME} Staging'
+    'TestDanger Staging'
   end
 
   # a target name for tests
   def self.TESTS_TARGET
-    '{PROJECT_NAME}Tests'
+    'TestDangerTests'
   end
 
   # a target name for UI tests
   def self.UI_TESTS_TARGET
-    '{PROJECT_NAME}UITests'
+    'TestDangerUITests'
   end
 
   # xcov output directory path
@@ -84,12 +84,12 @@ class Constants
 
   # a gsp file name for staging
   def self.GSP_STAGING
-    './{PROJECT_NAME}/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist'
+    './TestDanger/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist'
   end
 
   # a gsp file name for production
   def self.GSP_PRODUCTION
-    './{PROJECT_NAME}/Configurations/Plists/GoogleService/Production/GoogleService-Info.plist'
+    './TestDanger/Configurations/Plists/GoogleService/Production/GoogleService-Info.plist'
   end
 
   # The path to the upload-symbols file of the Fabric app
@@ -137,32 +137,32 @@ class Constants
 
   # an staging environment scheme name
   def self.SCHEME_NAME_STAGING
-    '{PROJECT_NAME} Staging'
+    'TestDanger Staging'
   end
 
   # a Production environment scheme name
   def self.SCHEME_NAME_PRODUCTION
-    '{PROJECT_NAME}'
+    'TestDanger'
   end
 
   # an staging product name
   def self.PRODUCT_NAME_STAGING
-    '{PROJECT_NAME} Staging'
+    'TestDanger Staging'
   end
 
   # a staging TestFlight product name
   def self.PRODUCT_NAME_STAGING_TEST_FLIGHT
-    '{PROJECT_NAME} TestFlight'
+    'TestDanger TestFlight'
   end
 
   # a Production product name
   def self.PRODUCT_NAME_PRODUCTION
-    '{PROJECT_NAME}'
+    'TestDanger'
   end
 
   # a main target name
   def self.MAIN_TARGET_NAME
-    '{PROJECT_NAME}'
+    'TestDanger'
   end
 
   ##################

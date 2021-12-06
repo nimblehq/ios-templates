@@ -8,7 +8,7 @@ final class ApplicationSpec: QuickSpec {
 
         var app: XCUIApplication!
 
-        describe("a {PROJECT_NAME} app") {
+        describe("a TestDanger app") {
 
             beforeEach {
                 app = XCUIApplication()
