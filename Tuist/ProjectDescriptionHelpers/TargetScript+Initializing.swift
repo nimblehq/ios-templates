@@ -1,8 +1,8 @@
 import ProjectDescription
 
-extension TargetAction {
+extension TargetScript {
 
-    public static func sourceryAction() -> TargetAction {
+    public static func sourceryScript() -> TargetScript {
         let sourceryPath = "$PODS_ROOT/Sourcery/bin/sourcery"
         return .pre(
             script: "\"\(sourceryPath)\"",
@@ -11,9 +11,8 @@ extension TargetAction {
         )
     }
 
-    public static func rswiftAction() -> TargetAction {
+    public static func rswiftScript() -> TargetScript {
         let rswiftPath = "$PODS_ROOT/R.swift/rswift"
-        let inputPath = "$TEMP_DIR/rswift-lastrun"
         let outputPath = "$SRCROOT/$PROJECT_NAME/Sources/Supports/Helpers/Rswift/R.generated.swift"
         return .pre(
             script: "\"\(rswiftPath)\" generate \"\(outputPath)\"",
@@ -23,7 +22,7 @@ extension TargetAction {
         )
     }
 
-    public static func swiftLintAction() -> TargetAction {
+    public static func swiftLintScript() -> TargetScript {
         let swiftLintPath = """
         if [ -z "$CI" ]; then
             ${PODS_ROOT}/SwiftLint/swiftlint
@@ -36,7 +35,7 @@ extension TargetAction {
         )
     }
 
-    public static func swiftFormatAction() -> TargetAction {
+    public static func swiftFormatScript() -> TargetScript {
         let runSwiftFormat = """
         if [ -z "$CI" ]; then
             "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT"
@@ -49,7 +48,7 @@ extension TargetAction {
         )
     }
 
-    public static func swiftFormatLintAction() -> TargetAction {
+    public static func swiftFormatLintScript() -> TargetScript {
         let runSwiftFormat = """
         if [ -z "$CI" ]; then
             "${PODS_ROOT}/SwiftFormat/CommandLineTool/swiftformat" "$SRCROOT" --lint --lenient
@@ -62,16 +61,25 @@ extension TargetAction {
         )
     }
 
-    public static func firebaseAction() -> TargetAction {
+    public static func firebaseScript() -> TargetScript {
+        let debugStagingName = BuildConfiguration.debugStaging.name.rawValue
+        let releaseStagingName = BuildConfiguration.releaseStaging.name.rawValue
+        let debugProductionName = BuildConfiguration.debugProduction.name.rawValue
+        let releaseProductionName = BuildConfiguration.releaseProduction.name.rawValue
+        let googleServicePath = "$SRCROOT/$PROJECT_NAME/Configurations/Plists/GoogleService"
+        let stagingPlistPath = "$PATH_TO_GOOGLE_PLISTS/Staging/GoogleService-Info.plist"
+        let productionPlistPath = "$PATH_TO_GOOGLE_PLISTS/Production/GoogleService-Info.plist"
+        let appPlistPath = "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist"
+
         let script = """
-        PATH_TO_GOOGLE_PLISTS="$SRCROOT/$PROJECT_NAME/Configurations/Plists/GoogleService"
+        PATH_TO_GOOGLE_PLISTS="\(googleServicePath)"
 
         case "${CONFIGURATION}" in
-        "\(ProjectBuildConfiguration.debugStaging.name)" | "\(ProjectBuildConfiguration.releaseStaging.name)" )
-        cp -r "$PATH_TO_GOOGLE_PLISTS/Staging/GoogleService-Info.plist" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist"
+        "\(debugStagingName)" | "\(releaseStagingName)" )
+        cp -r "\(stagingPlistPath)" "\(appPlistPath)"
         ;;
-        "\(ProjectBuildConfiguration.debugProduction.name)" | "\(ProjectBuildConfiguration.releaseProduction.name)" )
-        cp -r "$PATH_TO_GOOGLE_PLISTS/Production/GoogleService-Info.plist" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist"
+        "\(debugProductionName)" | "\(releaseProductionName)" )
+        cp -r "\(productionPlistPath)" "\(appPlistPath)"
         ;;
         *)
         ;;
