@@ -43,6 +43,12 @@ extension Navigator: Navigatable {
                     snapshotOverlayView.removeFromSuperview()
                 }
             )
+
+
+
+
+
+            
             return
         }
         guard let sender = sender else {
