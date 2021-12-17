@@ -46,9 +46,9 @@ jobs:
       env:
         CI: true
 
-    - name: Export code coverage report
-      run: bundle exec fastlane run_xcov
-    
+    - name: Clean up previous code coverage report
+      run: bundle exec fastlane clean_up_xcov
+
     - name: Review pull request by Danger
       env:
         DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
