@@ -137,8 +137,9 @@ if ! command -v tuist &> /dev/null
 then
     echo "Tuist could not be found"
     echo "Installing tuist"
+    readonly TUIST_VERSION=`cat .tuist-version`
     curl -Ls https://install.tuist.io | bash
-    tuist install 1.48.1
+    tuist install ${TUIST_VERSION}
 fi
 
 # Generate with tuist
@@ -153,17 +154,22 @@ echo "Installing pod dependencies"
 bundle exec pod install --repo-update
 echo "✅  Completed"
 
-# remove gitkeep files
+# Remove gitkeep files
 echo "Remove gitkeep files from project"
 sed -i "" "s/.*\(gitkeep\).*,//" $PROJECT_NAME_NO_SPACES.xcodeproj/project.pbxproj
 echo "✅  Completed"
 
-# remove Tuist files
+# Remove Tuist files
 echo "Remove tuist files"
+rm -rf .tuist-version
 rm -rf tuist
 rm -rf Project.swift
+
+# Remove script files and git/index
+echo "Remove script files and git/index"
 rm -rf make.sh
 rm -rf .github/workflows/test_install_script.yml
+rm -f .git/index
 echo "✅  Completed"
 
 # Done!

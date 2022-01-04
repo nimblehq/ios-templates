@@ -3,38 +3,32 @@ import ProjectDescription
 extension Scheme {
 
     public static func productionScheme(name: String) -> Scheme {
-        let debugConfigName = ProjectBuildConfiguration.debugProduction.name
-        let releaseConfigName = ProjectBuildConfiguration.releaseProduction.name
+        let debugConfigName = BuildConfiguration.debugProduction.name
+        let releaseConfigName = BuildConfiguration.releaseProduction.name
         return Scheme(
             name: name,
             shared: true,
-            buildAction: BuildAction(targets: ["\(name)"]),
-            testAction: TestAction(
-                targets: ["\(name)Tests", "\(name)UITests"],
-                configurationName: debugConfigName
-            ),
-            runAction: RunAction(configurationName: debugConfigName),
-            archiveAction: ArchiveAction(configurationName: releaseConfigName),
-            profileAction: ProfileAction(configurationName: debugConfigName),
-            analyzeAction: AnalyzeAction(configurationName: debugConfigName)
+            buildAction: .buildAction(targets: ["\(name)"]),
+            testAction: .targets(["\(name)Tests", "\(name)UITests"], configuration: debugConfigName),
+            runAction: .runAction(configuration: debugConfigName),
+            archiveAction: .archiveAction(configuration: releaseConfigName),
+            profileAction: .profileAction(configuration: debugConfigName),
+            analyzeAction: .analyzeAction(configuration: debugConfigName)
         )
     }
 
     public static func stagingScheme(name: String) -> Scheme {
-        let debugConfigName = ProjectBuildConfiguration.debugStaging.name
-        let releaseConfigName = ProjectBuildConfiguration.releaseStaging.name
+        let debugConfigName = BuildConfiguration.debugStaging.name
+        let releaseConfigName = BuildConfiguration.releaseStaging.name
         return Scheme(
             name: "\(name) Staging",
             shared: true,
-            buildAction: BuildAction(targets: ["\(name)"]),
-            testAction: TestAction(
-                targets: ["\(name)Tests", "\(name)UITests"],
-                configurationName: debugConfigName
-            ),
-            runAction: RunAction(configurationName: debugConfigName),
-            archiveAction: ArchiveAction(configurationName: releaseConfigName),
-            profileAction: ProfileAction(configurationName: debugConfigName),
-            analyzeAction: AnalyzeAction(configurationName: debugConfigName)
+            buildAction: .buildAction(targets: ["\(name)"]),
+            testAction: .targets(["\(name)Tests", "\(name)UITests"], configuration: debugConfigName),
+            runAction: .runAction(configuration: debugConfigName),
+            archiveAction: .archiveAction(configuration: releaseConfigName),
+            profileAction: .profileAction(configuration: debugConfigName),
+            analyzeAction: .analyzeAction(configuration: debugConfigName)
         )
     }
 }
