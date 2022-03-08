@@ -58,7 +58,12 @@ platform :ios do
 
   desc 'Sync Development match signing'
   lane :sync_development_signing do
-    match_manager.sync_development_signing(app_identifier: [Constants.BUNDLE_ID_STAGING])
+      match_manager.sync_development_signing(
+        app_identifier: [
+          Constants.BUNDLE_ID_STAGING,
+          Constants.BUNDLE_ID_PRODUCTION
+        ]
+      )
   end
 
   desc 'Sync Adhoc match signing'
@@ -83,7 +88,7 @@ platform :ios do
     device_hash = {}
     device_hash[device_name] = device_udid
     register_devices(devices: device_hash)
-    
+
     match(type: "development", force: true)
     match(type: "adhoc", force: true)
   end
