@@ -13,7 +13,7 @@ class MatchManager
     @is_ci = is_ci
   end
 
-  def sync_development_signing(app_identifier:)
+  def sync_development_signing(app_identifier:, force: false)
     if @is_ci
       create_ci_keychain
       @fastlane.match(
@@ -21,14 +21,15 @@ class MatchManager
         keychain_name: @keychain_name,
         keychain_password: @keychain_password,
         app_identifier: app_identifier,
-        readonly: true
+        readonly: !force,
+        force: force
       )
     else
-      @fastlane.match(type: 'development', app_identifier: app_identifier, readonly: true)
+      @fastlane.match(type: 'development', app_identifier: app_identifier, readonly: !force, force: force)
     end
   end
-  
-  def sync_adhoc_signing(app_identifier:)
+
+  def sync_adhoc_signing(app_identifier:, force: false)
     if @is_ci
       create_ci_keychain
       @fastlane.match(
@@ -36,10 +37,11 @@ class MatchManager
         keychain_name: @keychain_name,
         keychain_password: @keychain_password,
         app_identifier: app_identifier,
-        readonly: true
+        readonly: !force,
+        force: force
       )
     else
-      @fastlane.match(type: 'adhoc', app_identifier: app_identifier, readonly: true)
+      @fastlane.match(type: 'adhoc', app_identifier: app_identifier, readonly: !force, force: force)
     end
   end
 

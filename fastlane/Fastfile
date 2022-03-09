@@ -89,8 +89,8 @@ platform :ios do
     device_hash[device_name] = device_udid
     register_devices(devices: device_hash)
 
-    match(type: "development", force: true)
-    match(type: "adhoc", force: true)
+    match_manager.sync_development_signing(app_identifier: nil, force: true)
+    match_manager.sync_adhoc_signing(app_identifier: nil, force: true)
   end
 
   # Firebase
