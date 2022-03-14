@@ -56,6 +56,16 @@ platform :ios do
 
   # Code Sign
 
+  desc 'Sync Development match signing'
+  lane :sync_development_signing do
+      match_manager.sync_development_signing(
+        app_identifier: [
+          Constants.BUNDLE_ID_STAGING,
+          Constants.BUNDLE_ID_PRODUCTION
+        ]
+      )
+  end
+
   desc 'Sync Adhoc match signing'
   lane :sync_adhoc_signing do
     match_manager.sync_adhoc_signing(app_identifier: [Constants.BUNDLE_ID_STAGING])
@@ -78,7 +88,9 @@ platform :ios do
     device_hash = {}
     device_hash[device_name] = device_udid
     register_devices(devices: device_hash)
-    match(force: true)
+
+    match_manager.sync_development_signing(app_identifier: nil, force: true)
+    match_manager.sync_adhoc_signing(app_identifier: nil, force: true)
   end
 
   # Firebase
