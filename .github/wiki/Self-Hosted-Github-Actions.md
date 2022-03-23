@@ -2,13 +2,13 @@
 
 ## Problem
 
-While Github Actions is being used on some iOS projects, the CI pipeline is not running on all pull requests because of the high pricing of runner minutes for iOS. To support running the CI pipeline on all pull requests, we decided to use self-hosted runners with Github Actions.
+While Github Actions is being used on some iOS projects, the CI pipeline is not running on all pull requests because of the high pricing of runner minutes for iOS. So to support running the CI pipeline on all pull requests, we decide to use self-hosted runners with Github Actions.
 
 ## Host
 
 ### Self-Hosted Runner
 
-GitHub Actions allow the developer to set up a self-hosted runner in place of a Github-provided runner. A self-hosted runner can be a local device or a cloud device.
+GitHub Actions allows developers to set up a self-hosted runner in place of a Github-provided runner. A self-hosted runner can be either a local or cloud device.
 
 ### Local Hosted Runner
 
@@ -16,7 +16,7 @@ Existing macOS devices can be used to run Github Actions Workflow by installing 
 
 ### Remote/Rental Hosted Runner
 
-These are remote machines available to use as infrastructure-as-a-service or platform-as-a-service. They are more suitable to host the Github Actions runner as they are guaranteed to be online (as per the service’s terms). Covered in this guide is as [MacStadium](http://macstadium.com/). Other services include:
+These are remote computers, available to use as infrastructure-as-a-service or platform-as-a-service. They are more suitable to host the Github Actions runner as they are guaranteed to be online (as per the service’s terms). Covered in this guide is as [MacStadium](http://macstadium.com/). Other services include:
 
 - [https://aws.amazon.com/ec2/instance-types/mac/](https://aws.amazon.com/ec2/instance-types/mac/)
 - [http://www.macincloud.com/](http://www.macincloud.com/)
@@ -51,11 +51,11 @@ The general steps are:
 
 ## Add More Runners
 
-To add more runners to the same or a new host, simplify follow the instruction from repository’s settings `Settings > Actions > Runners > New self-hosted runner`. Make sure the new runner is downloaded to a different folder than the one before.
+To add more runners to the same or a new host, simply follow the instruction from the repository’s settings `Settings > Actions > Runners > New self-hosted runner`. Make sure the new runner is downloaded onto a separate folder.
 
 ## Restarting Runner
 
-In the case that the machine is shut down or the terminal running the script was an exit, the runner script can be relaunched by `cd` to the script folder and run `./run.sh`.
+In the case that the machine is shut down or the terminal running the script was exited, the runner script can be relaunched by `cd` to the script folder and run `./run.sh`.
 
 ## Result
 
