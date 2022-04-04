@@ -1,5 +1,5 @@
 ---
-format_version: '8'
+format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: ios
 trigger_map:
@@ -109,7 +109,7 @@ workflows:
     - opts:
         is_expand: false
       BITRISE_SCHEME: {PROJECT_NAME}
-deploy_staging:
+  deploy_staging:
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
@@ -154,10 +154,10 @@ deploy_staging:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_STAGING}
+      BUNDLE_ID: BUNDLE_ID_STAGING
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME} Staging
+      BITRISE_SCHEME: PROJECT_NAME Staging
   test:
     steps:
     - activate-ssh-key@4:
@@ -192,15 +192,15 @@ deploy_staging:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_STAGING}
+      BUNDLE_ID: BUNDLE_ID_STAGING
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME} Staging
+      BITRISE_SCHEME: PROJECT_NAME Staging
 app:
   envs:
   - opts:
       is_expand: false
-    BITRISE_PROJECT_PATH: {PROJECT_NAME}.xcworkspace
+    BITRISE_PROJECT_PATH: PROJECT_NAME.xcworkspace
   - opts:
       is_expand: false
     TEAM_ID: TEAMID
@@ -209,7 +209,7 @@ app:
     MATCH_REPO_URL: https://github.com/nimblehq/fastlane-match.git
   - opts:
       is_expand: false
-    INFO_PLIST_PATH: "./{PROJECT_NAME}/Info.plist"
+    INFO_PLIST_PATH: "./PROJECT_NAME/Info.plist"
   - opts:
       is_expand: false
-    GOOGLE_SERVICE_INFO_PLIST_PATH: "./{PROJECT_NAME}/GoogleService-Info.plist"
+    GOOGLE_SERVICE_INFO_PLIST_PATH: "./PROJECT_NAME/GoogleService-Info.plist"
