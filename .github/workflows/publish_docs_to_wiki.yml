@@ -8,35 +8,12 @@ on:
       - main
       - master
 
-env:
-  USER_TOKEN: ${{ secrets.NIMBLE_DEV_TOKEN }}
-  USER_NAME: team-nimblehq
-  USER_EMAIL: dev@nimblehq.co
-  OWNER: ${{ github.event.repository.owner.name }}
-  REPOSITORY_NAME: ${{ github.event.repository.name }}
-
 jobs:
   publish_docs_to_wiki:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Pull wiki
-        run: |
-          mkdir tmp_wiki
-          cd tmp_wiki
-          git init
-          git config user.name $USER_NAME
-          git config user.email $USER_EMAIL
-          git pull https://$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.wiki.git
-
-      - name: Push wiki
-        run: |
-          rsync -av --delete docs/ tmp_wiki/ --exclude .git
-          cd tmp_wiki
-          git add .
-          git commit -m "Update Wiki content"
-          git push -f --set-upstream https://$USER_TOKEN@github.com/$OWNER/$REPOSITORY_NAME.wiki.git master
+    name: Publish Wiki
+    uses: nimblehq/github-actions-workflows/.github/workflows/publish_wiki.yml@0.1.0
+    with:
+      USER_NAME: team-nimblehq
+      USER_EMAIL: dev@nimblehq.co
+    secrets:
+      USER_TOKEN: ${{ secrets.NIMBLE_DEV_TOKEN }} 
