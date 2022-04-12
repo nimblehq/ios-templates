@@ -20,11 +20,10 @@ usage() {
 Usage: $PROGNAME --bundle-id [BUNDLE_ID_PRODUCTION] --bundle-id-staging [BUNDLE_ID_STAGING] --project-name [PROJECT_NAME]
 Set up an iOS app from tuist template.
 Options:
--h, --help                                            display this usage message and exit
--b, --bundle-id [BUNDLE_ID_PRODUCTION]                the production id (i.e. com.example.package)
--s, --bundle-id-staging [BUNDLE_ID_STAGING]           the staging id (i.e. com.example.package.staging)
--n, --project-name [PROJECT_NAME]                     the project name (i.e. MyApp)
--c, --compile-time-warning [COMPILE_TIME_WARNING]     the compile time warning (i.e. 200,300)
+-h, --help                                   display this usage message and exit
+-b, --bundle-id [BUNDLE_ID_PRODUCTION]       the production id (i.e. com.example.package)
+-s, --bundle-id-staging [BUNDLE_ID_STAGING]  the staging id (i.e. com.example.package.staging)
+-n, --project-name [PROJECT_NAME]            the project name (i.e. MyApp)
 EOF
     exit 1
 }
@@ -32,12 +31,10 @@ EOF
 bundle_id_production=""
 bundle_id_staging=""
 project_name=""
-compile_time_warning=""
 
 readonly CONSTANT_PROJECT_NAME="{PROJECT_NAME}"
 readonly CONSTANT_BUNDLE_PRODUCTION="{BUNDLE_ID_PRODUCTION}"
 readonly CONSTANT_BUNDLE_STAGING="{BUNDLE_ID_STAGING}"
-readonly CONSTANT_COMPILE_TIME_WARNING="{COMPILE_TIME_WARNING}"
 
 while [ $# -gt 0 ] ; do
     case "$1" in
@@ -54,10 +51,6 @@ while [ $# -gt 0 ] ; do
         ;;
     -n|--project-name)
         project_name="$2"
-        shift
-        ;;
-		-c|--compile-time-warning)
-        compile_time_warning="$2"
         shift
         ;;
     -*)
@@ -82,10 +75,6 @@ if [ -z "$project_name" ] ; then
     read -p "PROJECT NAME (i.e. NewProject):" project_name
 fi
 
-if [ -z "$compile_time_warning" ] ; then
-    read -p "Show Xcode warning when compile time >= (ms) (i.e. 200, 300):" compile_time_warning
-fi
-
 if [ -z "$bundle_id_production" ] || [ -z "$bundle_id_staging" ] || [ -z "$project_name" ] ; then
     usage "Input cannot be blank."
 fi
@@ -94,15 +83,6 @@ fi
 regex='^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$'
 if ! [[ $bundle_id_production =~ $regex ]]; then
     die "Invalid Package Name: $bundle_id_production (needs to follow standard pattern {com.example.package})"
-fi
-
-if [ -z "$compile_time_warning" ] ; then
-    compile_time_warning="nil"
-else
-		regex='^(.[0-9]*)$'
-		if ! [[ $compile_time_warning =~ $regex ]]; then
-	    	die "Invalid Compile Time value: $compile_time_warning (needs to be integer)"
-		fi
 fi
 
 echo "=> 🐢 Starting init $project_name ..."
@@ -147,11 +127,9 @@ echo "✅  Completed"
 echo "=> 🔎 Replacing package and package name within files..."
 BUNDLE_ID_PRODUCTION_ESCAPED="${bundle_id_production//./\.}"
 BUNDLE_ID_STAGING_ESCAPED="${bundle_id_staging//./\.}"
-
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_STAGING/$BUNDLE_ID_STAGING_ESCAPED/g" {} +
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_PRODUCTION/$BUNDLE_ID_PRODUCTION_ESCAPED/g" {} +
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_PROJECT_NAME/$PROJECT_NAME_NO_SPACES/g" {} +
-LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_COMPILE_TIME_WARNING/$compile_time_warning/g" {} +
 echo "✅  Completed"
 
 # check for tuist and install

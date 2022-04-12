@@ -30,18 +30,13 @@ public enum BuildConfiguration: CaseIterable {
         }
     }
 
-    public func createConfiguration(projectName: String, compileTimeWarning: Int?) -> Configuration {
-        var settings: [String: SettingValue] = [:]
-				if let compileTimeWarning = compileTimeWarning {
-						settings["OTHER_SWIFT_FLAGS"] = "-Xfrontend -warn-long-expression-type-checking=\(compileTimeWarning) -Xfrontend -warn-long-function-bodies=\(compileTimeWarning)";
-				}
-
+    public func createConfiguration(projectName: String) -> Configuration {
         let xcconfig = Path("\(projectName)/\(path)")
         switch self {
         case .debugStaging, .debugProduction:
-            return .debug(name: name, settings: settings, xcconfig: xcconfig)
+            return .debug(name: name, xcconfig: xcconfig)
         case .releaseStaging, .releaseProduction:
-            return .release(name: name, settings: settings, xcconfig: xcconfig)
+            return .release(name: name, xcconfig: xcconfig)
         }
     }
 }
