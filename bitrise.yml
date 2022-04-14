@@ -49,12 +49,10 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID:
-        BUNDLE_ID_PRODUCTION:
+      BUNDLE_ID: {BUNDLE_ID_PRODUCTION}
     - opts:
         is_expand: false
-      BITRISE_SCHEME:
-        PROJECT_NAME:
+      BITRISE_SCHEME: {PROJECT_NAME}
   deploy_release_firebase:
     steps:
     - activate-ssh-key@4:
