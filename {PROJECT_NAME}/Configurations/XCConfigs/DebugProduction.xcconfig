@@ -10,4 +10,4 @@ GCC_PREPROCESSOR_DEFINITIONS = $(inherited) DEBUG=1 PRODUCTION=1
 PRODUCT_NAME = $(TARGET_NAME)
 PRODUCT_BUNDLE_IDENTIFIER = {BUNDLE_ID_PRODUCTION}
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG PRODUCTION
-OTHER_SWIFT_FLAGS = -Xfrontend -warn-long-expression-type-checking=300 -Xfrontend -warn-long-function-bodies=300
+OTHER_SWIFT_FLAGS = $(inherited) -Xfrontend -warn-long-expression-type-checking=300 -Xfrontend -warn-long-function-bodies=300
