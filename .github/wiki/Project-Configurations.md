@@ -1,15 +1,15 @@
 ## Project Configurations
 
-This document presents in detail the set of configurations used in the iOS projects developed at Nimble. Included in this document:
+This document presents in detail the set of configurations used in the iOS projects developed at Nimble. Included in this document are:
 
 - Terminologies and topics related to project configurations.
 - Basic targets, schemes, build settings options, etc., for building a project.
 
-### **Targets**
+### Targets
 
 A target specifies a product to build, such as an iOS, watchOS, or macOS app.
 
-When creating a project from a template, a default target will be added automatically for the main application
+When creating a project from a template, a default target will be added automatically for the main application.
 
 There are 3 default targets in a project:
 
@@ -57,7 +57,7 @@ In our iOS template project, there are three custom conditional compilation flag
 | Debug Production | ✔︎ |  | ✔︎ |
 | Release Production |  |  | ✔︎ |
 
-The huge advantage when using custom flags is customizable specific features based on a particular environment.
+The major advantage of custom flags is to allow customizable specific features based on a particular environment.
 
 Example: 
 
@@ -76,7 +76,7 @@ enum Environment {
 }
 ```
 
-During the development process, all functionalities and frameworks are available in the application. However, there can be situations when the developer turns on some features for a particular environment without creating separate modules for the application. In these cases, taking advantage of `Active Compilation Conditions` by declaring a condition to include or exclude code is the recommended solution.
+During the development process, all functionalities and frameworks are available in the application. However, there can be situations when the developers just want to turn on some features for a particular environment without creating separate modules for the application. In these cases, declaring a condition to include or exclude code using `Active Compilation Conditions` is the recommended solution.
 
 ```swift
 #if DEBUG
@@ -86,15 +86,15 @@ During the development process, all functionalities and frameworks are available
 #endif
 ```
 
-### Xcode Configuration **File**
+### Xcode Configuration File
 
-A Configuration Settings File (`*.xcconfig`), also known as a build configuration file, is a plain text file that defines and overrides the build settings for a particular build configuration of a project or target. This type of file can be edited outside of Xcode and integrates well with source control systems.
+A Configuration Settings File (`*.xcconfig`), also known as a build configuration file, is a plain text file that defines and overrides the default build settings for a particular build configuration of a project or target. This type of file can be edited outside of Xcode and integrates well with source control systems.
 
 Because of different settings for each environment (such as bundle identifiers, endpoints, etc.), the developers also define them in different *.xcconfig files.
 
-### **Settings Bundle**
+### Settings Bundle
 
-To support multiple levels of testing, the `Settings Bundle` is usually integrated along with the dev configurations. In addition, the Settings Bundle facilitates the testing process. It creates a shortcut to change environment values without using any third-party API or server.
+To support multiple levels of testing, the `Settings Bundle` is usually integrated along with the dev configurations (a **.plist** file). In addition, the Settings Bundle facilitates the testing process. It creates a shortcut to change environment values without using any third-party API or server.
 
 Settings Bundle works well when developing:
 
@@ -109,7 +109,7 @@ The Settings Bundle is only enabled on Dev environments. It is optional for Beta
 
 Basically, the debug Symbol file (`dSYM` file) is used to de-obfuscate stack traces from crashes happening on the production app. The dSYM files store the debug symbols for the application. Then services (like Crashlytics) use the dSYM files to replace the symbols in the crash reports with the originating locations in the source code. Hence, the crash reports will be more readable and understandable.
 
-Go to **Build Setting** → **Debug Information Format**. The debug symbols with a dSYM file (DWARF with dSYM file) are enabled for the release build by default.
+Go to **Build Settings** → **Debug Information Format**. The debug symbols with a dSYM file (DWARF with dSYM file) are enabled for the release build by default.
 
 A benefit of using the dSYM is reducing the binary size when building an application. Read more about it in the technical note [TN2151](https://developer.apple.com/library/archive/technotes/tn2151/_index.html).
 
@@ -122,7 +122,7 @@ Only include the dSYM file for release builds.
 | Debug Production |  |
 | Release Production | ✔︎ |
 
-### **Enable Bitcode**
+### Enable Bitcode
 
 Bitcode is a technology that enables recompiling applications to reduce their size. The recompilation happens when the application is uploaded to the App Store Connect or exported for Ad Hoc, Development, or Enterprise distribution.
 
