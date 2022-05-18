@@ -1,4 +1,6 @@
 * [[Home]]
+* [[Getting Started]]
+* [[Automating Wiki]]
 
 **Technical document**
 * [[Standard File Organization]]
