@@ -1,28 +1,28 @@
-To simplify setup for developers new to the application, as well as having a reliable build system that is also able to run past builds again in a reproducible fashion. The creation and set up of a new project will be faster and safer requiring only the language runtime (`Ruby`) and dependency manager installed as prerequisites.
+To simplify setup for developers new to the application, as well as having a reliable build system that is also able to run in a reproducible fashion. The creation and set up of a new project will be faster and safer. It will require only the language runtime (`Ruby`) and dependency manager installed as prerequisites.
 
- The project normally contains:
+The project normally contains:
 
-- Fastlane: is the easiest way to automate beta deployments and releases for the `iOS` (also `Android`) applications. 🚀 It handles all tedious tasks, like generating screenshots, dealing with code signing, and releasing the application.
-- Cocoapods: manages dependencies for Xcode projects. Cocoapods aims to improve the engagement with, and discoverability of, third-party open-source Cocoa libraries. Developers need to specify the dependencies in a file named `Podfile` only. Cocoapods recursively resolves dependencies between libraries, fetches source code for all dependencies, and creates and maintains an Xcode workspace to build the project.
-- Swift Package Manager: This is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
+- Fastlane: is the easiest way to automate beta deployments and releases for the `iOS` (also `Android`) applications. 🚀 It handles all tedious tasks, such as generating screenshots, dealing with code signing, and releasing the application.
+- Cocoapods: manages dependencies for Xcode projects. Cocoapods aims to improve the engagement with, and discoverability of, third-party open-source Cocoa libraries. Developers only need to specify the dependencies in a file named `Podfile`. Cocoapods recursively resolves dependencies between libraries, fetches source code for all dependencies, and creates and maintains an Xcode workspace to build the project.
+- Swift Package Manager: a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
 
 ## Dependencies
 
 ### Bundler
 
-Bundler is a Ruby package manager, think of it as a Cocoapods for ruby plugins that will be used for the project. Keeping package versions the same on all development machines and Continuous Development machines reduces unnoticed bugs from occurring. Noteworthy packages include `Fastlane`, `Firebase-cli`, and `Cocoapods`.
+[Bundler](https://bundler.io/) is a Ruby package manager, think of it as a Cocoapods for ruby plugins that will be used for the project. Keeping package versions the same on all development machines and Continuous Development machines reduces unnoticed bugs from occurring. Noteworthy packages include `Fastlane`, `Firebase-cli`, and `Cocoapods`.
 
 ### Cocoapods
 
-Cocoapods manages iOS packages to keep consistency throughout development machines.
+[Cocoapods](https://cocoapods.org/) manages iOS packages to keep consistency throughout development machines.
 
 ### Fastlane
 
-Fastlane automates test, build, and most importantly: certificates and profiles which are a core part of the App Store ecosystem.
+[Fastlane](https://fastlane.tools/) automates test, build, and most importantly: certificates and profiles which are a core part of the App Store ecosystem.
 
 ### Firebase
 
-The main usage of Firebase for our team is `Firebase Crashlytics` and `Firebase Distribution`. `Firebase Crashlytics` is used to track, prioritize, and fix stability issues that erode the app quality. `Firebase Distribution` is the primary method for QA and Client to download applications for testing and presenting purposes. In some projects, `Firebase Analytics` is being used to track and analyze users' behavior for marketing purposes.
+The main usage of [Firebase](https://firebase.google.com/) for our team is `Firebase Crashlytics` and `Firebase Distribution`. `Firebase Crashlytics` is used to track, prioritize, and fix stability issues that erode the app quality. `Firebase Distribution` is the primary method for QA and Client to download applications for testing and presenting purposes. In some projects, `Firebase Analytics` is being used to track and analyze users' behavior for marketing purposes.
 
 ## Libraries
 
