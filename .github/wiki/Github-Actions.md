@@ -1,6 +1,6 @@
 # Github Actions
 
-Use GitHub Actions template to start a new project with GitHub Actions as the CICD tool.
+Use the GitHub Actions template to start a new project with GitHub Actions as the CI/CD tool.
 
 Out of the box, the template contains the following workflows:
 
