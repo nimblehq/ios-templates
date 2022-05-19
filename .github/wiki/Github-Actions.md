@@ -57,7 +57,7 @@ Make sure the following secrets are set up.
 
 ## Installation
 
-1. Following the setup instruction in `Readme.md`.
+1. Following the setup instruction in `README.md`.
 2. Modify the files with project's values:
     - fastlane/Matchfile
     - fastlane/Constants/Constants.rb
