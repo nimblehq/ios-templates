@@ -80,7 +80,7 @@ if [ -z "$bundle_id_production" ] || [ -z "$bundle_id_staging" ] || [ -z "$proje
 fi
 
 # Enforce package name
-regex='^[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$'
+regex='^[a-z][a-z0-9_]*(\.[a-z0-9_-]+)+[0-9a-z_-]$'
 if ! [[ $bundle_id_production =~ $regex ]]; then
     die "Invalid Package Name: $bundle_id_production (needs to follow standard pattern {com.example.package})"
 fi
