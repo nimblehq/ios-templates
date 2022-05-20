@@ -10,3 +10,4 @@
 --disable wrapSwitchCases
 --disable blankLinesAtStartOfScope
 --stripunusedargs closure-only
+--extensionacl on-declarations
