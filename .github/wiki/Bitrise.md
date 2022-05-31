@@ -48,7 +48,7 @@ All four workflows have their own following variables:
 > This is an encryption password for the Match Repo
 
 ## Installation
-1. Following the setup instruction in `README.md`.
+1. Following the setup instruction in [`README.md`](https://github.com/nimblehq/ios-templates#readme).
 2. To connect your repository to Bitrise please following the instruction in this page: [Adding a new app](https://devcenter.bitrise.io/en/getting-started/adding-your-first-app.html).
 3. Make sure the option where the `bitrise.yml` locate is set to `Store in-app repository`.
 ![bitrise.yml location](assets/images/bitrise/Bitrise-YML-Storage-Location.png)
