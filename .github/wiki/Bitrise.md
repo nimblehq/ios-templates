@@ -35,7 +35,7 @@ Out of the box, the Bitrise Template has the following workflows and steps:
 > Link to a repository that contains your Fastlane Match it can be either HTTPS or SSH link (e.g., https://github.com/nimblehq/fastlane-match.git)
 
 ### Workflow Environment Variables
-All four workflows have their own following variables:
+All four workflows have their own variables:
 
 - BUNDLE_ID
 > e.g., com.nimblehq.exampleApp
@@ -48,8 +48,8 @@ All four workflows have their own following variables:
 > This is an encryption password for the Match Repo
 
 ## Installation
-1. Following the setup instruction in [`README.md`](https://github.com/nimblehq/ios-templates#readme).
-2. To connect your repository to Bitrise please following the instruction in this page: [Adding a new app](https://devcenter.bitrise.io/en/getting-started/adding-your-first-app.html).
+1. Follow the setup instruction in [`README.md`](https://github.com/nimblehq/ios-templates#readme).
+2. To connect your repository to Bitrise please follow the instruction in this page: [Adding a new app](https://devcenter.bitrise.io/en/getting-started/adding-your-first-app.html).
 3. Make sure the option where the `bitrise.yml` locate is set to `Store in-app repository`.
 <p align="center">
   <img src="assets/images/bitrise/Bitrise-YML-Storage-Location.png" alt="Bitrise Store in-app repository" width="600"/>
