@@ -126,7 +126,7 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
             └── TestError.swift
 ```
 
-## **README.md**
+## README.md
 
 `README.md` introduces the overview of the project, for example:
 
