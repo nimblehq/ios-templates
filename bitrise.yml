@@ -7,6 +7,8 @@ trigger_map:
   workflow: deploy_staging
 - push_branch: master
   workflow: deploy_app_store
+- push_branch: main
+  workflow: deploy_app_store
 - push_branch: release
   workflow: deploy_release_firebase
 - push_branch: "*"
@@ -184,9 +186,3 @@ app:
   - opts:
       is_expand: false
     MATCH_REPO_URL: https://github.com/nimblehq/fastlane-match.git
-  - opts:
-      is_expand: false
-    INFO_PLIST_PATH: "./{PROJECT_NAME}/Info.plist"
-  - opts:
-      is_expand: false
-    GOOGLE_SERVICE_INFO_PLIST_PATH: "./{PROJECT_NAME}/GoogleService-Info.plist"
