@@ -21,7 +21,7 @@ Out of the box, the Bitrise Template has the following workflows and steps:
 | test                    | Create or Update a PR   |
 | deploy_staging          | Push branch `develop`   |
 | deploy_release_firebase | Push branch `release/*` |
-| deploy_app_store        | Push branch `master`    |
+| deploy_app_store        | Push branch `master`/`main`    |
 
 ## Environment and Secrets
 ### App Environtment Variables
@@ -39,6 +39,9 @@ All four workflows have their own variables:
 
 - BUNDLE_ID
 > e.g., com.nimblehq.exampleApp
+
+- BITRISE_SCHEME
+> Your build scheme in Xcode (e.g., ExampleApp UAT, ExampleApp Staging, or ExampleApp)
 
 *Depending on which workflow, the value of those variables may differ from other workflows.*
 
