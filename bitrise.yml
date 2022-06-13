@@ -156,6 +156,9 @@ workflows:
     - fastlane@3:
         inputs:
         - lane: build_and_test
+    - fastlane@3:
+        inputs:
+        - lane: clean_up_xcov
     - danger@2:
         inputs:
         - github_api_token: "$DANGER_GITHUB_API_TOKEN"
