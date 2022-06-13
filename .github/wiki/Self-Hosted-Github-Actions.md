@@ -29,7 +29,7 @@ To install all the dependencies, follow these required steps:
 
 1. Download Xcode and Xcode Command Line Tool from [https://developer.apple.com/xcode/](https://developer.apple.com/xcode/)
     
-    ![Download Xcode](assets/images/self-hosted-github-actions/download-xcode.png)
+    ![Download Xcode](assets/images/operations/self-hosted-github-actions/download-xcode.png)
     
 2. Launch `Terminal` to install Ruby with `gem update --system`. The current version used for writing this document is `gem install bundler:2.2.15`.
 3. Connect Github Actions Runner to the machine.
@@ -40,9 +40,9 @@ To install all the dependencies, follow these required steps:
 
 The instruction for connecting Github Actions to the hosting machine should follow the instruction found in `Settings > Actions > Runners > New self-hosted runner` in the projects repository page.
 
-![New Self Hosted Runner](assets/images/self-hosted-github-actions/new-self-hosted-runner.png)
+![New Self Hosted Runner](assets/images/operations/self-hosted-github-actions/new-self-hosted-runner.png)
 
-![New Self Hosted Runner Script](assets/images/self-hosted-github-actions/new-self-hosted-runner-script.png)
+![New Self Hosted Runner Script](assets/images/operations/self-hosted-github-actions/new-self-hosted-runner-script.png)
 
 The general steps are:
 
@@ -61,4 +61,4 @@ In the case that the machine is shut down or the terminal running the script was
 
 When setting up successfully.
 
-![Result](assets/images/self-hosted-github-actions/result.png)
+![Result](assets/images/operations/self-hosted-github-actions/result.png)

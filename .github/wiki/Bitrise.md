@@ -55,7 +55,7 @@ All four workflows have their own variables:
 2. To connect your repository to Bitrise please follow the instruction in this page: [Adding a new app](https://devcenter.bitrise.io/en/getting-started/adding-your-first-app.html).
 3. Make sure the option where the `bitrise.yml` locate is set to `Store in-app repository`.
 <p align="center">
-  <img src="assets/images/bitrise/Bitrise-YML-Storage-Location.png" alt="Bitrise Store in-app repository" width="600"/>
+  <img src="assets/images/operations/bitrise/Bitrise-YML-Storage-Location.png" alt="Bitrise Store in-app repository" width="600"/>
 </p>
 
 4. Provide all the required variables and secrets.
