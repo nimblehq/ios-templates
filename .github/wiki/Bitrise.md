@@ -11,8 +11,8 @@ Out of the box, the Bitrise Template has the following workflows and steps:
 | Bitrise.io Cache:Pull     | Bitrise.io Cache:Pull                                   | Bitrise.io Cache:Pull                   | Bitrise.io Cache:Pull                     |
 | Run CocoaPods install     | Run CocoaPods install                                   | Run CocoaPods install                   | Run CocoaPods install                     |
 | Fastlane - Build and Test | Xcode Test for iOS                                      | Xcode Test for iOS                      | Xcode Test for iOS                        |
-| Fastlane - Run XCov       | Fastlane Match                                          | Fastlane Match                          | Fastlane Match                            |
-| Danger                    | Fastlane - Build and Upload Production App to App Store | Fastlane - Build and Upload Staging App | Fastlane: Build and Upload Production App |
+| Danger                    | Fastlane Match                                          | Fastlane Match                          | Fastlane Match                            |
+|                           | Fastlane - Build and Upload Production App to App Store | Fastlane - Build and Upload Staging App | Fastlane: Build and Upload Production App |
 
 ## Trigger Map
 
