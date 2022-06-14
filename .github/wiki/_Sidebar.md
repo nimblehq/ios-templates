@@ -13,6 +13,7 @@
 - [[Github Actions]]
 - [[Self Hosted Github Actions]]
 - [[Bitrise]]
+- [[Fastlane]]
 
 ## Operations
 
