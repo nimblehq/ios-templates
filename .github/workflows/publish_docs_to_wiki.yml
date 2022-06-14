@@ -3,7 +3,7 @@ name: Publish docs to Wiki
 on:
   push:
     paths:
-      - docs/**
+      - .github/wiki/**
     branches:
       - main
       - master
