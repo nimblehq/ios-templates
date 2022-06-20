@@ -5,11 +5,12 @@
 
 ## Architecture
 
-## Infrastructure
-
 - [[Standard File Organization]]
 - [[Project Configurations]]
 - [[Project Dependencies]]
+
+## Infrastructure
+
 - [[Github Actions]]
 - [[Self Hosted Github Actions]]
 - [[Bitrise]]
