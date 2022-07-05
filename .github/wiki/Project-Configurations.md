@@ -1,9 +1,9 @@
-## Project Configurations
-
 This document presents in detail the set of configurations used in the iOS projects developed at Nimble. Included in this document are:
 
 - Terminologies and topics related to project configurations.
 - Basic targets, schemes, build settings options, etc., for building a project.
+
+## Project Terminology
 
 ### Targets
 
@@ -41,6 +41,8 @@ The recommended set of configurations to have is:
 - Release Staging
 - Debug Production
 - Release Production
+
+## Predefined Build Options
 
 ### Active Compilation Conditions
 

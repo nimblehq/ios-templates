@@ -11,7 +11,7 @@ Out of the box, the Bitrise Template has the following workflows and steps:
 | Bitrise.io Cache:Pull     | Bitrise.io Cache:Pull                                   | Bitrise.io Cache:Pull                   | Bitrise.io Cache:Pull                     |
 | Run CocoaPods install     | Run CocoaPods install                                   | Run CocoaPods install                   | Run CocoaPods install                     |
 | Fastlane - Build and Test | Xcode Test for iOS                                      | Xcode Test for iOS                      | Xcode Test for iOS                        |
-| Fastlane - Run XCov       | Fastlane Match                                          | Fastlane Match                          | Fastlane Match                            |
+| Fastlane - Clean Up Xcov  | Fastlane Match                                          | Fastlane Match                          | Fastlane Match                            |
 | Danger                    | Fastlane - Build and Upload Production App to App Store | Fastlane - Build and Upload Staging App | Fastlane: Build and Upload Production App |
 
 ## Trigger Map
@@ -21,7 +21,7 @@ Out of the box, the Bitrise Template has the following workflows and steps:
 | test                    | Create or Update a PR   |
 | deploy_staging          | Push branch `develop`   |
 | deploy_release_firebase | Push branch `release/*` |
-| deploy_app_store        | Push branch `master`    |
+| deploy_app_store        | Push branch `master`/`main`    |
 
 ## Environment and Secrets
 ### App Environtment Variables
@@ -40,6 +40,9 @@ All four workflows have their own variables:
 - BUNDLE_ID
 > e.g., com.nimblehq.exampleApp
 
+- BITRISE_SCHEME
+> Your build scheme in Xcode (e.g., ExampleApp UAT, ExampleApp Staging, or ExampleApp)
+
 *Depending on which workflow, the value of those variables may differ from other workflows.*
 
 ### Secrets
@@ -52,7 +55,7 @@ All four workflows have their own variables:
 2. To connect your repository to Bitrise please follow the instruction in this page: [Adding a new app](https://devcenter.bitrise.io/en/getting-started/adding-your-first-app.html).
 3. Make sure the option where the `bitrise.yml` locate is set to `Store in-app repository`.
 <p align="center">
-  <img src="assets/images/bitrise/Bitrise-YML-Storage-Location.png" alt="Bitrise Store in-app repository" width="600"/>
+  <img src="assets/images/operations/bitrise/Bitrise-YML-Storage-Location.png" alt="Bitrise Store in-app repository" width="600"/>
 </p>
 
 4. Provide all the required variables and secrets.

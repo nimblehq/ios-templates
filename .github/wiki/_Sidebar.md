@@ -1,11 +1,21 @@
-* [[Home]]
-* [[Getting Started]]
-* [[Automating Wiki]]
+## Table of contents
 
-**Technical document**
-* [[Standard File Organization]]
-* [[Project Configurations]]
-* [[Project Dependencies]]
-* [[Github Actions]]
-* [[Self Hosted Github Actions]]
-* [[Bitrise]]
+- [[Home]]
+- [[Getting Started]]
+
+## Architecture
+
+- [[Standard File Organization]]
+- [[Project Configurations]]
+- [[Project Dependencies]]
+
+## Infrastructure
+
+- [[Github Actions]]
+- [[Self Hosted Github Actions]]
+- [[Bitrise]]
+- [[Fastlane]]
+
+## Operations
+
+- [[Automating Wiki]]
