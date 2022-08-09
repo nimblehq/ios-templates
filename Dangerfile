@@ -26,6 +26,14 @@ swiftlint.lint_files(
 xcresultPath = "#{Constants.TEST_OUTPUT_DIRECTORY_PATH}/#{Constants.TESTS_SCHEME}.xcresult"
 
 # Xcode summary
+changed_files = (git.modified_files - git.deleted_files) + git.added_files
+xcode_summary.ignored_results { |result|
+  if result.location
+    not changed_files.include?(result.location.file_path)
+  else
+    true
+  end
+}
 xcode_summary.ignored_files = 'Pods/**'
 xcode_summary.inline_mode = true
 xcode_summary.report xcresultPath
