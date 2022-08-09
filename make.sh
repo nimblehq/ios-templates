@@ -170,6 +170,8 @@ echo "Remove script files and git/index"
 rm -rf make.sh
 rm -rf .github/workflows/test_install_script.yml
 rm -f .git/index
+git reset
+
 echo "✅  Completed"
 
 # Done!
