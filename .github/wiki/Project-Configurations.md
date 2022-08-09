@@ -123,16 +123,3 @@ Only include the dSYM file for release builds.
 | Release Staging | ✔︎ |
 | Debug Production |  |
 | Release Production | ✔︎ |
-
-### Enable Bitcode
-
-Bitcode is a technology that enables recompiling applications to reduce their size. The recompilation happens when the application is uploaded to the App Store Connect or exported for Ad Hoc, Development, or Enterprise distribution.
-
-Enable build with bitcode for Production only.
-
-| Build configurations | Enable Bitcode |
-|---|---|
-| Debug Staging |  |
-| Release Staging |  |
-| Debug Production |  |
-| Release Production | ✔︎ |
