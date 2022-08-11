@@ -123,3 +123,6 @@ Only include the dSYM file for release builds.
 | Release Staging | ✔︎ |
 | Debug Production |  |
 | Release Production | ✔︎ |
+
+### Disable Bitcode
+- Acording to [Xcode 14 release notes](https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes): Starting with Xcode 14, bitcode is no longer required for watchOS and tvOS applications, and the App Store no longer accepts bitcode submissions from Xcode 14.  The capability to build with bitcode will be removed in a future Xcode release. IPAs that contain bitcode will have the bitcode stripped before being submitted to the App Store.
