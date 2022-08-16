@@ -172,6 +172,10 @@ rm -rf .github/workflows/test_install_script.yml
 rm -f .git/index
 git reset
 
+if [[ -z "${CI}" ]]; then
+    sh deliverable_setup.sh
+fi
+
 echo "✅  Completed"
 
 # Done!
