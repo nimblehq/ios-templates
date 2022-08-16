@@ -2,6 +2,7 @@
 
 - [[Home]]
 - [[Getting Started]]
+- [[Deliverable Configurations]]
 
 ## Architecture
 
