@@ -14,7 +14,7 @@ echo "✅  Completed"
 
 read -n1 -p "Do you want to set up Deliverable Constants values? (Can be edited later) [Y/n]:" confirm
 if ! echo $confirm | grep '^[Yy]\?$'; then
-  exit 1
+    break
+else
+    open -a Xcode fastlane/Constants/DeliverableConstants.rb
 fi
-
-open -a Xcode fastlane/Constants/DeliverableConstants.rb

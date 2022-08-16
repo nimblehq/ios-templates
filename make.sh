@@ -31,10 +31,12 @@ EOF
 bundle_id_production=""
 bundle_id_staging=""
 project_name=""
+minimum_version=""
 
 readonly CONSTANT_PROJECT_NAME="{PROJECT_NAME}"
 readonly CONSTANT_BUNDLE_PRODUCTION="{BUNDLE_ID_PRODUCTION}"
 readonly CONSTANT_BUNDLE_STAGING="{BUNDLE_ID_STAGING}"
+readonly CONSTANT_MINIMUM_VERSION="{TARGET_VERSION}"
 
 while [ $# -gt 0 ] ; do
     case "$1" in
@@ -73,6 +75,13 @@ fi
 
 if [ -z "$project_name" ] ; then
     read -p "PROJECT NAME (i.e. NewProject):" project_name
+fi
+
+if [[ -z "${CI}" ]]; then
+    read -p "iOS Minimum Version (i.e. 14.0):" minimum_version
+fi
+if [ -z "$minimum_version" ]; then
+    minimum_version="14.0"
 fi
 
 if [ -z "$bundle_id_production" ] || [ -z "$bundle_id_staging" ] || [ -z "$project_name" ] ; then
@@ -130,6 +139,7 @@ BUNDLE_ID_STAGING_ESCAPED="${bundle_id_staging//./\.}"
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_STAGING/$BUNDLE_ID_STAGING_ESCAPED/g" {} +
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_PRODUCTION/$BUNDLE_ID_PRODUCTION_ESCAPED/g" {} +
 LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_PROJECT_NAME/$PROJECT_NAME_NO_SPACES/g" {} +
+LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_MINIMUM_VERSION/$minimum_version/g" {} +
 echo "✅  Completed"
 
 # check for tuist and install
