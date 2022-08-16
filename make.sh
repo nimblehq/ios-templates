@@ -154,7 +154,7 @@ fi
 
 # Generate with tuist
 echo "Tuist found"
-tuist generate
+tuist generate --no-open
 echo "✅  Completed"
 
 # Install dependencies
@@ -190,3 +190,8 @@ echo "✅  Completed"
 
 # Done!
 echo "=> 🚀 Done! App is ready to be tested 🙌"
+
+if [[ -z "${CI}" ]]; then
+    echo "=> 🛠 Opening the project."
+    open -a Xcode $PROJECT_NAME_NO_SPACES.xcworkspace
+fi
