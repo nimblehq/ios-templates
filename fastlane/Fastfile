@@ -109,11 +109,11 @@ platform :ios do
     upload_build_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
       firebase_app_id: DeliverableConstants.FIREBASE_APP_ID_STAGING,
-      tester_groups: Constants.FIREBASE_TESTER_GROUPS
+      tester_groups: DeliverableConstants.FIREBASE_TESTER_GROUPS
     )
     upload_build_dsym_to_firebase(
-      product_name: Constants.PRODUCT_NAME_PRODUCTION,
-      gsp_name: DeliverableConstants.GSP_PRODUCTION
+      product_name: Constants.PRODUCT_NAME_STAGING,
+      gsp_name: DeliverableConstants.GSP_STAGING
     )
   end
 
