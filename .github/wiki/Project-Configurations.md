@@ -124,15 +124,6 @@ Only include the dSYM file for release builds.
 | Debug Production |  |
 | Release Production | ✔︎ |
 
-### Enable Bitcode
+### Disable Bitcode
 
-Bitcode is a technology that enables recompiling applications to reduce their size. The recompilation happens when the application is uploaded to the App Store Connect or exported for Ad Hoc, Development, or Enterprise distribution.
-
-Enable build with bitcode for Production only.
-
-| Build configurations | Enable Bitcode |
-|---|---|
-| Debug Staging |  |
-| Release Staging |  |
-| Debug Production |  |
-| Release Production | ✔︎ |
+- According to [Xcode 14 release notes](https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes): Starting with Xcode 14, bitcode is no longer required for watchOS and tvOS applications, and the App Store no longer accepts bitcode submissions from Xcode 14. The capability to build with bitcode will be removed in a future Xcode release. IPAs that contain bitcode will have the bitcode stripped before being submitted to the App Store.
