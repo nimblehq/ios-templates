@@ -10,6 +10,7 @@ The file [DeliverableConstants.rb](https://github.com/nimblehq/ios-templates/blo
 2. When confirming with the prompt, the template will launch Xcode to modify the `DeliverableConstants` file.
 
 ## Configure later
+
 - Developer can modify the `DeliverableConstants` at any time.
 - Use the command `sh deliverable_setup.sh` to open `DeliverableConstants` with Xcode.
 - Open the file at `fastlane/Constants/DeliverableConstants.rb` manually with any IDE.

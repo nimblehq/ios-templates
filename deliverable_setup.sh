@@ -1,5 +1,5 @@
 #!/bin/sh
-read -p "Which CICD service do you use (Can be edited later) [(g)ithub/(b)itrise]: " ciService
+read -p "Which CICD service do you use (Can be edited later) [(g)ithub/(b)itrise/(l)ater]: " ciService
 
 if [ "$ciService" = "g" -o "$ciService" = "github" ]; then
     echo "Setting template for Github Actions"
@@ -14,7 +14,7 @@ echo "✅  Completed"
 
 read -n1 -p "Do you want to set up Deliverable Constants values? (Can be edited later) [Y/n]:" confirm
 if ! echo $confirm | grep '^[Yy]\?$'; then
-    break
+    echo "✅  Completed"
 else
     open -a Xcode fastlane/Constants/DeliverableConstants.rb
 fi
