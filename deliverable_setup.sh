@@ -1,5 +1,5 @@
 #!/bin/sh
-read -p "Which CICD service do you use (Can be edited later) [(g)ithub/(b)itrise/(l)ater]: " ciService
+read -p "Which CI/CD service do you use (Can be edited later) [(g)ithub/(b)itrise/(l)ater]: " ciService
 
 if [ "$ciService" = "g" -o "$ciService" = "github" ]; then
     echo "Setting template for Github Actions"
