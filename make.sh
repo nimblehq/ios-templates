@@ -84,6 +84,13 @@ if [ -z "$minimum_version" ]; then
     minimum_version="14.0"
 fi
 
+# Enforce minimum version
+version_regex='^[0-9_]+(\.[0-9]+)+$'
+if ! [[ $minimum_version =~ $version_regex ]]; then
+    echo "=> Minimum version incorrect. Reverting to default version."
+    minimum_version="14.0"
+fi
+
 if [ -z "$bundle_id_production" ] || [ -z "$bundle_id_staging" ] || [ -z "$project_name" ] ; then
     usage "Input cannot be blank."
 fi
