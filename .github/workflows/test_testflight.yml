@@ -1,4 +1,4 @@
-name: Deploy Build To App Store
+name: Test Upload Build to TestFlight
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
@@ -28,7 +28,7 @@ jobs:
         fetch-depth: 0
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.4.1
+      uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
             
