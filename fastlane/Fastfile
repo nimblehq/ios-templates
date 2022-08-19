@@ -2,6 +2,7 @@
 
 require './Constants/Constants'
 require './Constants/Environments'
+require './Constants/DeliverableConstants'
 require './Managers/VersioningManager'
 require './Managers/BuildManager'
 require './Managers/SymbolManager'
@@ -107,12 +108,12 @@ platform :ios do
     )
     upload_build_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
-      firebase_app_id: Constants.FIREBASE_APP_ID_PRODUCTION,
-      tester_groups: Constants.FIREBASE_TESTER_GROUPS
+      firebase_app_id: DeliverableConstants.FIREBASE_APP_ID_STAGING,
+      tester_groups: DeliverableConstants.FIREBASE_TESTER_GROUPS
     )
     upload_build_dsym_to_firebase(
-      product_name: Constants.PRODUCT_NAME_PRODUCTION,
-      gsp_name: Constants.GSP_PRODUCTION
+      product_name: Constants.PRODUCT_NAME_STAGING,
+      gsp_name: DeliverableConstants.GSP_STAGING
     )
   end
 
@@ -127,12 +128,12 @@ platform :ios do
     )
     upload_build_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
-      firebase_app_id: Constants.FIREBASE_APP_ID_PRODUCTION,
-      tester_groups: Constants.FIREBASE_TESTER_GROUPS
+      firebase_app_id: DeliverableConstants.FIREBASE_APP_ID_PRODUCTION,
+      tester_groups: DeliverableConstants.FIREBASE_TESTER_GROUPS
     )
     upload_build_dsym_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
-      gsp_name: Constants.GSP_PRODUCTION
+      gsp_name: DeliverableConstants.GSP_PRODUCTION
     )
   end
 
@@ -154,8 +155,8 @@ platform :ios do
       version: versioning_manager.version_number,
       build_number: versioning_manager.build_number,
       build_path: Constants.BUILD_PATH,
-      gsp_directory: Constants.GSP_DIRECTORY,
-      binary_path: Constants.BINARY_PATH
+      gsp_directory: DeliverableConstants.GSP_DIRECTORY,
+      binary_path: DeliverableConstants.BINARY_PATH
     )
 
     symbol_manager.upload_built_symbol_to_firebase(
@@ -180,7 +181,7 @@ platform :ios do
     upload_build_to_appstore
     upload_build_dsym_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
-      gsp_name: Constants.GSP_PRODUCTION
+      gsp_name: DeliverableConstants.GSP_PRODUCTION
     )
   end
 
@@ -195,8 +196,8 @@ platform :ios do
   desc 'set App Store Connect API Key'
   private_lane :set_connect_api_key do
     app_store_connect_api_key(
-      key_id: Constants.APP_STORE_KEY_ID,
-      issuer_id: Constants.APP_STORE_ISSUER_ID,
+      key_id: DeliverableConstants.APP_STORE_KEY_ID,
+      issuer_id: DeliverableConstants.APP_STORE_ISSUER_ID,
       key_content: Environments.APPSTORE_CONNECT_API_KEY || ''
     )
   end

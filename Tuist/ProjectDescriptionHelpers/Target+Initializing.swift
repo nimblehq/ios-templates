@@ -10,6 +10,10 @@ extension Target {
             platform: .iOS,
             product: .app,
             bundleId: bundleId,
+            deploymentTarget: .iOS(
+                targetVersion: "{TARGET_VERSION}", 
+                devices: [.iphone]
+            ),
             infoPlist: "\(name)/\(plistsPath)/Info.plist",
             sources: ["\(name)/Sources/**"],
             resources: [
