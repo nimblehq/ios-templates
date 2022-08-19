@@ -28,10 +28,10 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.4.1
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    # - name: Install SSH key
+    #   uses: webfactory/ssh-agent@v0.4.1
+    #   with:
+    #     ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
             
     - name: Bundle install
       run: bundle install
