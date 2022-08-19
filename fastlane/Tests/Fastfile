@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+lane :app_icon do
+  appicon(
+    appicon_image_file: 'fastlane/Tests/appicon.png',
+    appicon_devices: %i[iphone ios_marketing],
+    appicon_path: '{PROJECT_NAME}/Resources/Assets/Assets.xcassets'
+  )
+end
+
+lane :disable_exempt_encryption do
+  set_info_plist_value(path: "{PROJECT_NAME}/Configurations/Plists/Info.plist", key: "ITSAppUsesNonExemptEncryption", value: false)
+end
+
+lane :increment_test_build_number do
+  increment_build_number({
+    build_number: latest_testflight_build_number + 1
+  })
+end

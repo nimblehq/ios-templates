@@ -1,0 +1,70 @@
+name: Deploy Build To App Store
+
+# SECRETS needed:
+### SSH_PRIVATE_KEY for Match Repo
+### MATCH_REPO
+### MATCH_PASS
+### API_KEY_ID
+### ISSUER_ID
+### APPSTORE_CONNECT_API_KEY
+
+on:
+  push:
+    branches: [ feature/**, bug/**, chore/** ]
+
+jobs:    
+  build:
+    name: Build
+    runs-on: macOS-latest
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.5.0
+      with:
+        access_token: ${{ github.token }}
+
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+    # Set fetch-depth (default: 1) to get whole tree
+      with:
+        fetch-depth: 0
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+            
+    - name: Bundle install
+      run: bundle install
+
+    - name: Start Install Script for Template App
+      run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
+
+    - name: Start Setup Script for Template App TestFlight Upload
+      run: sh setup_test_testflight.sh
+      env:
+        MATCH_REPO: ${{ secrets.MATCH_REPO }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
+
+    - name: Cache Pods
+      uses: actions/cache@v2
+      id: cocoapodCache
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Install Pods Dependencies
+      run: bundle exec pod install
+      shell: bash
+
+    - name: Match AppStore
+      run: bundle exec fastlane sync_appstore_signing
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+    - name: Build App and Distribute to AppStore
+      run: bundle exec fastlane build_and_upload_appstore_app
+      env:
+        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
