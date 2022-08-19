@@ -190,6 +190,8 @@ rm -f .git/index
 git reset
 
 if [[ -z "${CI}" ]]; then
+    rm -rf fastlane/Tests
+    rm -f set_up_test_testflight.sh
     sh deliverable_setup.sh
 fi
 
