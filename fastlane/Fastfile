@@ -34,7 +34,8 @@ match_manager = MatchManager.new(
   fastlane: self,
   keychain_name: Constants.KEYCHAIN_NAME,
   keychain_password: Constants.KEYCHAIN_PASSWORD,
-  is_ci: Environments.CI
+  is_ci: Environments.CI,
+  username: DeliverableConstants.DEV_PORTAL_APPLE_ID
 )
 
 before_all do
@@ -88,7 +89,10 @@ platform :ios do
     device_udid = prompt(text: 'Enter the device UDID: ')
     device_hash = {}
     device_hash[device_name] = device_udid
-    register_devices(devices: device_hash)
+    register_devices(
+      devices: device_hash,
+      username: DeliverableConstants.DEV_PORTAL_APPLE_ID
+    )
 
     match_manager.sync_development_signing(app_identifier: nil, force: true)
     match_manager.sync_adhoc_signing(app_identifier: nil, force: true)
