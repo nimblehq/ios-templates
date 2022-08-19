@@ -36,16 +36,6 @@ jobs:
     - name: Bundle install
       run: bundle install
 
-    - name: Start Install Script for Template App
-      run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
-
-    - name: Start Setup Script for Template App TestFlight Upload
-      run: sh setup_test_testflight.sh
-      env:
-        MATCH_REPO: ${{ secrets.MATCH_REPO }}
-        API_KEY_ID: ${{ secrets.API_KEY_ID }}
-        ISSUER_ID: ${{ secrets.ISSUER_ID }}
-
     - name: Cache Pods
       uses: actions/cache@v2
       id: cocoapodCache
@@ -54,10 +44,16 @@ jobs:
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
+          
+    - name: Start Install Script for Template App
+      run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
 
-    - name: Install Pods Dependencies
-      run: bundle exec pod install
-      shell: bash
+    - name: Start Setup Script for Template App TestFlight Upload
+      run: sh set_up_test_testflight.sh
+      env:
+        MATCH_REPO: ${{ secrets.MATCH_REPO }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
 
     - name: Match AppStore
       run: bundle exec fastlane sync_appstore_signing
