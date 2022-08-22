@@ -68,8 +68,8 @@ jobs:
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
      
-    - name: Set Up Test Project for App Store
-      run: bundle exec fastlane run update_project_provisioning
+    - name: Update Provision Profile
+      run: bundle exec fastlane update_provision_settings
    
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app

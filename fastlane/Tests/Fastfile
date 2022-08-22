@@ -16,3 +16,9 @@ lane :set_up_test_project do
   template_app_icon
   disable_exempt_encryption
 end
+
+lane :update_provision_settings do
+  update_project_provisioning(
+    profile: ENV['sigh_co.nimblehq.ios.templates_appstore_profile-path']
+  )
+end
