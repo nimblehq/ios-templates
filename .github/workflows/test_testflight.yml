@@ -54,12 +54,17 @@ jobs:
         API_KEY_ID: ${{ secrets.API_KEY_ID }}
         ISSUER_ID: ${{ secrets.ISSUER_ID }}
 
-    - name: Setup Secret  
+    - name: Set Up App Store API Secret  
       env:
         APP_STORE_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
       run: |
         echo "$APP_STORE_KEY" > appstorekey.p8
         
+    - name: Disable Xcode Automatic Signing
+        run: bundle exec fastlane run update_code_signing_settings use_automatic_signing:false
+        env:
+          APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+
     - name: Set Up Test Project for App Store
       run: bundle exec fastlane set_up_test_project
 
