@@ -2,6 +2,7 @@
 
 require '././Constants/Environments'
 require '././Constants/DeliverableConstants'
+require '././Constants/Constants'
 
 private_lane :template_app_icon do
   appicon(
@@ -22,7 +23,7 @@ private_lane :increment_test_build_number do
     key_filepath: "appstorekey.p8"
   )
   increment_build_number({
-    build_number: latest_testflight_build_number + 1
+    build_number: latest_testflight_build_number(app_identifier: Constants.BUNDLE_ID_PRODUCTION) + 1
   })
 end
 
