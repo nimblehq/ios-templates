@@ -59,11 +59,6 @@ jobs:
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
 
-    - name: Match AppStore
-      run: bundle exec fastlane sync_appstore_signing
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
-
     - name: Setup Secret  
       env:
         APP_STORE_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
@@ -72,6 +67,11 @@ jobs:
         
     - name: Set Up Test Project for App Store
       run: bundle exec fastlane set_up_test_project
+
+    - name: Match AppStore
+      run: bundle exec fastlane sync_appstore_signing
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app
