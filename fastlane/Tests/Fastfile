@@ -34,7 +34,6 @@ lane :update_provision_settings do
   update_code_signing_settings(
     use_automatic_signing: false,
     team_id: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_team-id'],
-    code_sign_identity,
     profile_name: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_profile-path'],
     code_signing_identity: 'iPhone Distribution'
   )
