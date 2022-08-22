@@ -35,4 +35,7 @@ lane :update_provision_settings do
     profile: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_profile-path']
   )
   update_code_signing_settings(use_automatic_signing: false)
+  update_project_team(
+    teamid: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_team-id']
+  )
 end
