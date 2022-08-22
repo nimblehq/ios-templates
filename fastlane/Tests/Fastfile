@@ -19,6 +19,6 @@ end
 
 lane :update_provision_settings do
   update_project_provisioning(
-    profile: ENV['sigh_co.nimblehq.ios.templates_appstore_profile-path']
+    profile: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_profile-path']
   )
 end
