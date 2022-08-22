@@ -31,11 +31,11 @@ end
 desc 'Sync AppStore match signing'
 lane :update_provision_settings do
   match_manager.sync_app_store_signing(app_identifier: [Constants.BUNDLE_ID_PRODUCTION])
-  update_project_provisioning(
-    profile: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_profile-path']
-  )
-  update_code_signing_settings(use_automatic_signing: false)
-  update_project_team(
-    teamid: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_team-id']
+  update_code_signing_settings(
+    use_automatic_signing: false,
+    team_id: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_team-id'],
+    code_sign_identity,
+    profile_name: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_profile-path'],
+    code_signing_identity: "iPhone Distribution"
   )
 end
