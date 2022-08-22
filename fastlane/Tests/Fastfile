@@ -1,5 +1,16 @@
 # frozen_string_literal: true
 
+require './Constants/Constants'
+require './Constants/Environments'
+require './Managers/MatchManager'
+
+match_manager = MatchManager.new(
+  fastlane: self,
+  keychain_name: Constants.KEYCHAIN_NAME,
+  keychain_password: Constants.KEYCHAIN_PASSWORD,
+  is_ci: Environments.CI
+)
+
 private_lane :template_app_icon do
   appicon(
     appicon_image_file: 'fastlane/Tests/appicon.png',
@@ -17,7 +28,9 @@ lane :set_up_test_project do
   disable_exempt_encryption
 end
 
+desc 'Sync AppStore match signing'
 lane :update_provision_settings do
+  match_manager.sync_app_store_signing(app_identifier: [Constants.BUNDLE_ID_PRODUCTION])
   update_project_provisioning(
     profile: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_profile-path']
   )
