@@ -65,6 +65,7 @@ jobs:
 
     - name: Update Provision Profile
       run: bundle exec fastlane update_provision_settings
+      env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
    
     - name: Build App and Distribute to AppStore
