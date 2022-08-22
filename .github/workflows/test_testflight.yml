@@ -67,6 +67,9 @@ jobs:
       run: bundle exec fastlane sync_appstore_signing
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+     
+    - name: Set Up Test Project for App Store
+      run: bundle exec fastlane update_project_provisioning
    
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app
