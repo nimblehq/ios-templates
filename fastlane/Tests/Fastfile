@@ -19,7 +19,7 @@ private_lane :increment_test_build_number do
   app_store_connect_api_key(
     key_id: DeliverableConstants.APP_STORE_KEY_ID,
     issuer_id: DeliverableConstants.APP_STORE_ISSUER_ID,
-    key_path: "appstorekey.p8"
+    key_filepath: "appstorekey.p8"
   )
   increment_build_number({
     build_number: latest_testflight_build_number + 1
