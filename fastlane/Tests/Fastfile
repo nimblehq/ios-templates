@@ -36,6 +36,6 @@ lane :update_provision_settings do
     team_id: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_team-id'],
     code_sign_identity,
     profile_name: ENV['sigh_{BUNDLE_ID_PRODUCTION}_appstore_profile-path'],
-    code_signing_identity: "iPhone Distribution"
+    code_signing_identity: 'iPhone Distribution'
   )
 end
