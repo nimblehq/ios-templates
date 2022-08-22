@@ -68,7 +68,7 @@ jobs:
       env:
         APP_STORE_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
       run: |
-        echo "$APP_STORE_KEY" | base64 -d > appstorekey.p12
+        echo "$APP_STORE_KEY" > appstorekey.p8
         
     - name: Set Up Test Project for App Store
       run: bundle exec fastlane set_up_test_project
