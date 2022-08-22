@@ -56,6 +56,8 @@ jobs:
 
     - name: Disable Xcode Automatic Signing
       run: bundle exec fastlane run update_code_signing_settings use_automatic_signing:false
+      env:
+        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
 
     - name: Match AppStore
       run: bundle exec fastlane sync_appstore_signing
