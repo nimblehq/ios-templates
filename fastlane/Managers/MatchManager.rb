@@ -40,6 +40,7 @@ class MatchManager
         readonly: !force,
         force: force
       )
+      update_code_signing_settings(use_automatic_signing: false)
     else
       @fastlane.match(type: 'adhoc', app_identifier: app_identifier, readonly: !force, force: force)
     end
@@ -55,6 +56,7 @@ class MatchManager
         app_identifier: app_identifier,
         readonly: true
       )
+      update_code_signing_settings(use_automatic_signing: false)
     else
       @fastlane.match(type: 'appstore', app_identifier: app_identifier, readonly: true)
     end

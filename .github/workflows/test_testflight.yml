@@ -68,9 +68,6 @@ jobs:
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
    
-    - name: Disable Xcode Automatic Signing
-      run: bundle exec fastlane run update_code_signing_settings use_automatic_signing:false
-
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app
       env:
