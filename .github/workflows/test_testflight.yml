@@ -54,12 +54,27 @@ jobs:
         API_KEY_ID: ${{ secrets.API_KEY_ID }}
         ISSUER_ID: ${{ secrets.ISSUER_ID }}
 
-    - name: Match AppStore
-      run: bundle exec fastlane sync_appstore_signing
+    - name: Set Up App Store API Secret  
+      env:
+        APP_STORE_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+      run: |
+        echo "$APP_STORE_KEY" > appstorekey.p8
+     
+    - name: Set Up Test Project for App Store
+      run: bundle exec fastlane set_up_test_project
+
+    - name: Update Provision Profile
+      run: bundle exec fastlane update_provision_settings
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
-
+   
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        SKIP_FIREBASE_DSYM: "true"
+        BUMP_APP_STORE_BUILD_NUMBER: "true"
+
+    - name: Teardown
+      run: |
+        rm -f appstorekey.p8

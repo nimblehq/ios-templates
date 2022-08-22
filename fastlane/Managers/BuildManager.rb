@@ -11,7 +11,7 @@ class BuildManager
       export_method: 'ad-hoc',
       export_options: {
         provisioningProfiles: {
-          @bundle_identifier.to_s => "match AdHoc #{bundle_identifier}"
+          bundle_identifier => "match AdHoc #{bundle_identifier}"
         }
       },
       include_bitcode: false,
@@ -26,7 +26,7 @@ class BuildManager
       export_method: 'app-store',
       export_options: {
         provisioningProfiles: {
-          @bundle_identifier_staging.to_s => "match AppStore #{bundle_identifier}"
+          bundle_identifier => "match AppStore #{bundle_identifier}"
         }
       },
       include_bitcode: include_bitcode,
