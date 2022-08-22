@@ -24,11 +24,16 @@ class MatchManager
         keychain_password: @keychain_password,
         app_identifier: app_identifier,
         readonly: !force,
+        force: force
+      )
+    else
+      @fastlane.match(
+        type: 'development',
+        app_identifier: app_identifier,
+        readonly: !force,
         force: force,
         username: @username
       )
-    else
-      @fastlane.match(type: 'development', app_identifier: app_identifier, readonly: !force, force: force)
     end
   end
 
@@ -41,11 +46,16 @@ class MatchManager
         keychain_password: @keychain_password,
         app_identifier: app_identifier,
         readonly: !force,
+        force: force
+      )
+    else
+      @fastlane.match(
+        type: 'adhoc',
+        app_identifier: app_identifier,
+        readonly: !force,
         force: force,
         username: @username
       )
-    else
-      @fastlane.match(type: 'adhoc', app_identifier: app_identifier, readonly: !force, force: force)
     end
   end
 
@@ -57,11 +67,15 @@ class MatchManager
         keychain_name: @keychain_name,
         keychain_password: @keychain_password,
         app_identifier: app_identifier,
+        readonly: true
+      )
+    else
+      @fastlane.match(
+        type: 'appstore',
+        app_identifier: app_identifier,
         readonly: true,
         username: @username
       )
-    else
-      @fastlane.match(type: 'appstore', app_identifier: app_identifier, readonly: true)
     end
   end
 
