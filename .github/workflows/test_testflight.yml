@@ -54,11 +54,6 @@ jobs:
         API_KEY_ID: ${{ secrets.API_KEY_ID }}
         ISSUER_ID: ${{ secrets.ISSUER_ID }}
 
-    - name: Disable Xcode Automatic Signing
-      run: bundle exec fastlane run update_code_signing_settings use_automatic_signing:false
-      env:
-        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
-
     - name: Setup Secret  
       env:
         APP_STORE_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
