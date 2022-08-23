@@ -130,7 +130,7 @@ platform :ios do
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
       firebase_app_id: DeliverableConstants.FIREBASE_APP_ID_PRODUCTION,
       tester_groups: DeliverableConstants.FIREBASE_TESTER_GROUPS
-  )
+    )
     upload_build_dsym_to_firebase(
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
       gsp_name: DeliverableConstants.GSP_PRODUCTION
@@ -201,7 +201,7 @@ platform :ios do
       key_id: DeliverableConstants.APP_STORE_KEY_ID,
       issuer_id: DeliverableConstants.APP_STORE_ISSUER_ID,
       key_filepath: "appstorekey.p8"
-      )
+    )
   end
 
   # Private helper lanes

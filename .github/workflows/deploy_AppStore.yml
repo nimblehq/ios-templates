@@ -41,7 +41,7 @@ jobs:
         fetch-depth: 0
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.4.1
+      uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
             
@@ -68,6 +68,13 @@ jobs:
       run: bundle exec fastlane sync_appstore_signing
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+    # Fix issue with https://github.com/fastlane/fastlane/issues/20553.
+    - name: Set Up App Store API Secret  
+      env:
+        APP_STORE_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+      run: |
+        echo "$APP_STORE_KEY" > appstorekey.p8
 
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app

@@ -10,7 +10,7 @@ name: Test Upload Build to TestFlight
 
 on:
   push:
-    branches: [ develop, feature/**, bug/**, chore/** ]
+    branches: [ feature/**, bug/**, chore/** ]
 
 jobs:    
   build:
