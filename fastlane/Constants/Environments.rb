@@ -19,4 +19,8 @@ class Environments
   def self.MANUAL_VERSION
     ENV['MANUAL_VERSION']
   end
+
+  def self.SKIP_FIREBASE_DSYM
+    ENV['SKIP_FIREBASE_DSYM']
+  end
 end
