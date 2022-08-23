@@ -136,6 +136,7 @@ platform :ios do
         product_name: Constants.PRODUCT_NAME_PRODUCTION,
         gsp_name: DeliverableConstants.GSP_PRODUCTION
       )
+    end
   end
 
   desc 'upload develop build to Firebase app distribution'
