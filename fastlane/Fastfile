@@ -179,7 +179,7 @@ platform :ios do
     )
     set_connect_api_key if is_ci
     upload_build_to_appstore
-    if (Environments.SKIP_FIREBASE_DSYM || true)
+    if (Environments.SKIP_FIREBASE_DSYM || false) == false
       upload_build_dsym_to_firebase(
         product_name: Constants.PRODUCT_NAME_PRODUCTION,
         gsp_name: DeliverableConstants.GSP_PRODUCTION
