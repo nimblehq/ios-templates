@@ -72,4 +72,4 @@ jobs:
       run: bundle exec fastlane build_and_upload_appstore_app
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
-        SKIP_FIREBASE_DSYM: true
+        SKIP_FIREBASE_DSYM: "true"
