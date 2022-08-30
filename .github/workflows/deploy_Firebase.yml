@@ -8,6 +8,7 @@ name: Deploy Build To Firebase
 on:
   push:
     branches: [ develop ]
+  workflow_dispatch:
 
 jobs:
   lint:

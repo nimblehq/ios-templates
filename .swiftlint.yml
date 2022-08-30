@@ -106,3 +106,15 @@ implicit_return:
   included:
     - closure
     - getter
+
+custom_rules:
+  multiline_collection_one_per_line:
+    name: 'Multiline Collection One Per Line'
+    message: 'Collection should be either on the same line, or one per line.'
+    regex: '\[\n([^\[\(])*(,([^\n\r])*[\w]+)([^\[])*\n(\s)*]'
+    severity: warning
+  multiline_arguments_one_per_line:
+    name: 'Multiline Arguments One Per Line'
+    message: 'Arguments should be either on the same line, or one per line.'
+    regex: '[^\n\r]\(\n([^\(])*([^\n\r],([^\n\r])*[\w]+)([^\)])*\n(\s)*\)'
+    severity: warning

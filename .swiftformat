@@ -11,3 +11,7 @@
 --disable blankLinesAtStartOfScope
 --stripunusedargs closure-only
 --extensionacl on-declarations
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--maxwidth 120

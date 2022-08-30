@@ -5,12 +5,14 @@ class MatchManager
       fastlane:,
       keychain_name:,
       keychain_password:,
-      is_ci:
+      is_ci:,
+      username:
   )
     @fastlane = fastlane
     @keychain_name = keychain_name
     @keychain_password = keychain_password
     @is_ci = is_ci
+    @username = username
   end
 
   def sync_development_signing(app_identifier:, force: false)
@@ -25,7 +27,13 @@ class MatchManager
         force: force
       )
     else
-      @fastlane.match(type: 'development', app_identifier: app_identifier, readonly: !force, force: force)
+      @fastlane.match(
+        type: 'development',
+        app_identifier: app_identifier,
+        readonly: !force,
+        force: force,
+        username: @username
+      )
     end
   end
 
@@ -41,7 +49,13 @@ class MatchManager
         force: force
       )
     else
-      @fastlane.match(type: 'adhoc', app_identifier: app_identifier, readonly: !force, force: force)
+      @fastlane.match(
+        type: 'adhoc',
+        app_identifier: app_identifier,
+        readonly: !force,
+        force: force,
+        username: @username
+      )
     end
   end
 
@@ -56,7 +70,12 @@ class MatchManager
         readonly: true
       )
     else
-      @fastlane.match(type: 'appstore', app_identifier: app_identifier, readonly: true)
+      @fastlane.match(
+        type: 'appstore',
+        app_identifier: app_identifier,
+        readonly: true,
+        username: @username
+      )
     end
   end
 
