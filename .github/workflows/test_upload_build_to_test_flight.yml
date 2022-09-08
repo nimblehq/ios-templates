@@ -9,8 +9,7 @@ name: Test Upload Build to TestFlight
 ### APPSTORE_CONNECT_API_KEY
 
 on:
-  push:
-    branches: [ feature/**, bug/**, chore/** ]
+  pull_request
 
 jobs:    
   build:
@@ -54,12 +53,6 @@ jobs:
         API_KEY_ID: ${{ secrets.API_KEY_ID }}
         ISSUER_ID: ${{ secrets.ISSUER_ID }}
 
-    - name: Set Up App Store API Secret  
-      env:
-        APP_STORE_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
-      run: |
-        echo "$APP_STORE_KEY" > appstorekey.p8
-     
     - name: Set Up Test Project for App Store
       run: bundle exec fastlane set_up_test_project
 

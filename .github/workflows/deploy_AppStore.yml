@@ -69,13 +69,6 @@ jobs:
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    # Fix issue with https://github.com/fastlane/fastlane/issues/20553.
-    - name: Set Up App Store API Secret  
-      env:
-        APP_STORE_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
-      run: |
-        echo "$APP_STORE_KEY" > appstorekey.p8
-
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane build_and_upload_appstore_app
       env:

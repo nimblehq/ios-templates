@@ -208,7 +208,8 @@ platform :ios do
     app_store_connect_api_key(
       key_id: DeliverableConstants.APP_STORE_KEY_ID,
       issuer_id: DeliverableConstants.APP_STORE_ISSUER_ID,
-      key_filepath: "appstorekey.p8"
+      key_content: Environments.APPSTORE_CONNECT_API_KEY || '',
+      is_key_content_base64: true
     )
   end
 
