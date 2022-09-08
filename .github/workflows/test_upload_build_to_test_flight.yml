@@ -67,7 +67,3 @@ jobs:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
         SKIP_FIREBASE_DSYM: "true"
         BUMP_APP_STORE_BUILD_NUMBER: "true"
-
-    - name: Teardown
-      run: |
-        rm -f appstorekey.p8
