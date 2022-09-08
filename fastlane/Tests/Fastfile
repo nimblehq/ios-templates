@@ -8,7 +8,8 @@ match_manager = MatchManager.new(
   fastlane: self,
   keychain_name: Constants.KEYCHAIN_NAME,
   keychain_password: Constants.KEYCHAIN_PASSWORD,
-  is_ci: Environments.CI
+  is_ci: Environments.CI,
+  username: ''
 )
 
 private_lane :template_app_icon do
