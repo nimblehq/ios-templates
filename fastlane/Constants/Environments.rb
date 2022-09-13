@@ -19,4 +19,12 @@ class Environments
   def self.MANUAL_VERSION
     ENV['MANUAL_VERSION']
   end
+
+  def self.SKIP_FIREBASE_DSYM
+    ENV['SKIP_FIREBASE_DSYM']
+  end
+
+  def self.BUMP_APP_STORE_BUILD_NUMBER
+    ENV['BUMP_APP_STORE_BUILD_NUMBER']
+  end
 end

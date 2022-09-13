@@ -1,0 +1,41 @@
+# frozen_string_literal: true
+
+require './Constants/Constants'
+require './Constants/Environments'
+require './Managers/MatchManager'
+
+match_manager = MatchManager.new(
+  fastlane: self,
+  keychain_name: Constants.KEYCHAIN_NAME,
+  keychain_password: Constants.KEYCHAIN_PASSWORD,
+  is_ci: Environments.CI,
+  username: ''
+)
+
+private_lane :template_app_icon do
+  appicon(
+    appicon_image_file: 'fastlane/Tests/appicon.png',
+    appicon_devices: %i[iphone ios_marketing],
+    appicon_path: '{PROJECT_NAME}/Resources/Assets/Assets.xcassets'
+  )
+end
+
+private_lane :disable_exempt_encryption do
+  set_info_plist_value(path: "{PROJECT_NAME}/Configurations/Plists/Info.plist", key: "ITSAppUsesNonExemptEncryption", value: false)
+end
+
+lane :set_up_test_project do
+  template_app_icon
+  disable_exempt_encryption
+end
+
+desc 'Sync AppStore match signing'
+lane :update_provision_settings do
+  match_manager.sync_app_store_signing(app_identifier: [Constants.BUNDLE_ID_PRODUCTION])
+  update_code_signing_settings(
+    use_automatic_signing: false,
+    team_id: ENV["sigh_#{Constants.BUNDLE_ID_PRODUCTION}_appstore_team-id"],
+    profile_name: ENV["sigh_#{Constants.BUNDLE_ID_PRODUCTION}_appstore_profile-name"],
+    code_sign_identity: 'iPhone Distribution'
+  )
+end
