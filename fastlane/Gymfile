@@ -1,6 +1,0 @@
-# frozen_string_literal: true
-
-clean(true)
-output_directory(Constants.BUILD_PATH) # .ipa
-build_path(Constants.BUILD_PATH) # .xcarchive is stored
-derived_data_path(Constants.DERIVED_DATA_PATH) # .app
