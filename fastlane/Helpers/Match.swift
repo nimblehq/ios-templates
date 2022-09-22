@@ -3,7 +3,7 @@
 //  FastlaneRunner
 //
 //  Created by Su Ho on 22/09/2022.
-//  Copyright © 2022 Joshua Liebowitz. All rights reserved.
+//  Copyright © 2022 Nimble. All rights reserved.
 //
 
 final class Match {
