@@ -9,8 +9,11 @@
 import Foundation
 
 class Fastfile: LaneFile {
-	func customLane() {
-	desc("Description of what the lane does")
-		// add actions here: https://docs.fastlane.tools/actions
+
+	func syncCodeSigningLane() {
+        desc("This lane is for development purpose, will be removed after the migration")
+        Match.syncCodeSigning(type: .development, appIdentifier: ["co.nimblehq.ios.templates"])
+        Match.syncCodeSigning(type: .adHoc, appIdentifier: ["co.nimblehq.ios.templates"])
+        Match.syncCodeSigning(type: .appStore, appIdentifier: ["co.nimblehq.ios.templates"])
 	}
 }
