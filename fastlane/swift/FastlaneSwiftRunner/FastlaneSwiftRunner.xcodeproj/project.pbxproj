@@ -245,7 +245,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 1300;
-				ORGANIZATIONNAME = "Joshua Liebowitz";
+				ORGANIZATIONNAME = Nimble;
 				TargetAttributes = {
 					B33BAF561F51F8D90001A751 = {
 						CreatedOnToolsVersion = 8.3.3;

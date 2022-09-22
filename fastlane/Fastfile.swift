@@ -10,10 +10,10 @@ import Foundation
 
 class Fastfile: LaneFile {
 
-	func syncCodeSigningLane() {
+    func syncCodeSigningLane() {
         desc("This lane is for development purpose, will be removed after the migration")
         Match.syncCodeSigning(type: .development, appIdentifier: ["co.nimblehq.ios.templates"])
         Match.syncCodeSigning(type: .adHoc, appIdentifier: ["co.nimblehq.ios.templates"])
         Match.syncCodeSigning(type: .appStore, appIdentifier: ["co.nimblehq.ios.templates"])
-	}
+    }
 }
