@@ -16,4 +16,19 @@ class Fastfile: LaneFile {
         Match.syncCodeSigning(type: .adHoc, appIdentifier: ["co.nimblehq.ios.templates"])
         Match.syncCodeSigning(type: .appStore, appIdentifier: ["co.nimblehq.ios.templates"])
     }
+
+    func buildAdHocStagingLane() {
+        desc("Build ad-hoc staging")
+        Build.adHoc(env: .staging)
+    }
+
+    func buildAdHocProductionLane() {
+        desc("Build ad-hoc production")
+        Build.adHoc(env: .production)
+    }
+
+    func buildAppStoreLane() {
+        desc("Build app store")
+        Build.appStore()
+    }
 }
