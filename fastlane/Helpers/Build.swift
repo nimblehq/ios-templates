@@ -8,22 +8,22 @@
 
 final class Build {
 
-    static func adHoc(env: Environment) {
-        build(env: env, type: .adHoc)
+    static func adHoc(environment: Environment) {
+        build(environment: environment, type: .adHoc)
     }
 
     static func appStore() {
-        build(env: .production, type: .appStore)
+        build(environment: .production, type: .appStore)
     }
 
     static private func build(
-        env: Environment,
+        environment: Environment,
         type: BuildType
     ) {
         buildApp(
-            scheme: .userDefined(env.scheme),
+            scheme: .userDefined(environment.scheme),
             clean: .userDefined(true),
-            outputName: .userDefined(env.productName),
+            outputName: .userDefined(environment.productName),
             includeSymbols: .userDefined(true),
             includeBitcode: .userDefined(type == .appStore),
             exportMethod: .userDefined(type.value),
@@ -31,7 +31,7 @@ final class Build {
                 // NOTE: bundleId should be `env.bundleId` instead of `Constant.bundleId`
                 // To test ios-template, uncomment right below
 //                Constant.bundleId: "match \(type.method) \(Constant.bundleId)"
-                env.bundleId: "match \(type.method) \(env.bundleId)"
+                environment.bundleId: "match \(type.method) \(environment.bundleId)"
             ]),
             buildPath: .userDefined(Constant.buildPath),
             derivedDataPath: .userDefined(Constant.derivedDataPath),

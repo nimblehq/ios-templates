@@ -19,12 +19,12 @@ class Fastfile: LaneFile {
 
     func buildAdHocStagingLane() {
         desc("Build ad-hoc staging")
-        Build.adHoc(env: .staging)
+        Build.adHoc(environment: .staging)
     }
 
     func buildAdHocProductionLane() {
         desc("Build ad-hoc production")
-        Build.adHoc(env: .production)
+        Build.adHoc(environment: .production)
     }
 
     func buildAppStoreLane() {
