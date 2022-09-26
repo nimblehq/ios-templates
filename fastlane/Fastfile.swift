@@ -10,12 +10,16 @@ import Foundation
 
 class Fastfile: LaneFile {
 
+    // MARK: - Code signing
+
     func syncCodeSigningLane() {
         desc("This lane is for development purpose, will be removed after the migration")
         Match.syncCodeSigning(type: .development, appIdentifier: ["co.nimblehq.ios.templates"])
         Match.syncCodeSigning(type: .adHoc, appIdentifier: ["co.nimblehq.ios.templates"])
         Match.syncCodeSigning(type: .appStore, appIdentifier: ["co.nimblehq.ios.templates"])
     }
+
+    // MARK: - Build
 
     func buildAdHocStagingLane() {
         desc("Build ad-hoc staging")
@@ -30,5 +34,23 @@ class Fastfile: LaneFile {
     func buildAppStoreLane() {
         desc("Build app store")
         Build.appStore()
+    }
+
+    // MARK: - Upload to Firebase
+
+    func buildStagingAndUploadToFirebase() {
+        desc("Build Staging app and upload to Firebase")
+
+        buildAdHocStagingLane()
+        // TODO: - Make release notes
+        Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
+    }
+
+    func buildProductionAndUploadToFirebase() {
+        desc("Build Staging app and upload to Firebase")
+
+        buildAdHocProductionLane()
+        // TODO: - Make release notes
+        Distribution.uploadToFirebase(environment: .production, releaseNotes: "")
     }
 }
