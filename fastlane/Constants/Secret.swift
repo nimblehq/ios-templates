@@ -10,4 +10,6 @@
 enum Secret {
 
     static let keychainPassword: String = "<#keychainPassword#>"
+
+    static let firebaseCLIToken: String = "<#firebaseCLIToken#>"
 }
