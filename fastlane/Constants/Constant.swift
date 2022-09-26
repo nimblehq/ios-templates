@@ -17,7 +17,8 @@ enum Constant {
 
     // MARK: - Project
 
-    static let bundleId: String = "<#bundleId#>"
+    static let stagingBundleId: String = "<#stagingBundleId#>"
+    static let productionBundleId: String = "<#productionBundleId#>"
     static let productName: String = "<#productName#>"
     static let scheme: String = "<#scheme#>"
 
@@ -28,8 +29,8 @@ enum Constant {
 
     // MARK: - Firebase
 
-    static let firebaseAppIdStaging: String = "<#firebaseAppIdStaging#>"
-    static let firebaseAppIdProduction: String = "<#firebaseAppIdProduction#>"
+    static let stagingFirebaseAppId: String = "<#stagingFirebaseAppId#>"
+    static let productionFirebaseAppId: String = "<#productionFirebaseAppId#>"
     static let firebaseTesterGroups: String = "<#group1#>, <#group2#>"
 }
 
@@ -45,17 +46,16 @@ extension Constant {
         var scheme: String { "\(Constant.scheme) \(rawValue)".trimmed }
 
         var bundleId: String {
-            let bundleId = Constant.bundleId
             switch self {
-            case .staging: return "\(Constant.bundleId).\(rawValue.lowercased())"
-            case .production: return bundleId
+            case .staging: return Constant.stagingBundleId
+            case .production: return Constant.productionBundleId
             }
         }
 
         var firebaseAppId: String {
             switch self {
-            case .staging: return Constant.firebaseAppIdStaging
-            case .production: return Constant.firebaseAppIdProduction
+            case .staging: return Constant.stagingFirebaseAppId
+            case .production: return Constant.productionFirebaseAppId
             }
         }
     }
