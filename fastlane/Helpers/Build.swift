@@ -8,7 +8,7 @@
 
 final class Build {
 
-    static func adHoc(environment: Environment) {
+    static func adHoc(environment: Constant.Environment) {
         build(environment: environment, type: .adHoc)
     }
 
@@ -17,8 +17,8 @@ final class Build {
     }
 
     static private func build(
-        environment: Environment,
-        type: BuildType
+        environment: Constant.Environment,
+        type: Constant.BuildType
     ) {
         buildApp(
             scheme: .userDefined(environment.scheme),
@@ -38,45 +38,4 @@ final class Build {
             xcodebuildFormatter: "xcpretty" // Default `xcbeautify` will never work
         )
     }
-}
-
-extension Build {
-
-    enum Environment: String {
-
-        case staging = "Staging"
-        case production = ""
-
-        var productName: String { "\(Constant.productName) \(rawValue)".trimmed }
-
-        var scheme: String { "\(Constant.scheme) \(rawValue)".trimmed }
-
-        var bundleId: String {
-            let bundleId = Constant.bundleId
-            switch self {
-            case .staging: return "\(Constant.bundleId).\(rawValue.lowercased())"
-            case .production: return bundleId
-            }
-        }
-    }
-
-    private enum BuildType: String {
-
-        case adHoc = "ad-hoc"
-        case appStore = "app-store"
-
-        var value: String { return rawValue }
-
-        var method: String {
-            switch self {
-            case .adHoc: return "AdHoc"
-            case .appStore: return "AppStore"
-            }
-        }
-    }
-}
-
-extension String {
-
-    fileprivate var trimmed: String { trimmingCharacters(in: .whitespacesAndNewlines) }
 }
