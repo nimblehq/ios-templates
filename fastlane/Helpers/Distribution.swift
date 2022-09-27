@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class Distribution {
+enum Distribution {
 
     static func uploadToFirebase(
         environment: Constant.Environment,

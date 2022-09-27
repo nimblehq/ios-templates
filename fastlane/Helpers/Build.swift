@@ -6,7 +6,7 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
-final class Build {
+enum Build {
 
     static func adHoc(environment: Constant.Environment) {
         build(environment: environment, type: .adHoc)

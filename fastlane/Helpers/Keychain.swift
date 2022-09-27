@@ -6,7 +6,7 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
-final class Keychain {
+enum Keychain {
 
     static func create() {
         createKeychain(
