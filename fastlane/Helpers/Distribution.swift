@@ -15,13 +15,14 @@ final class Distribution {
         groups: String = Constant.firebaseTesterGroups,
         releaseNotes: String
     ) {
-        let ipaPath = "./\(environment.productName).ipa"
+        let ipaPath = "\(Constant.outputPath)/\(environment.productName).ipa"
         firebaseAppDistribution(
             ipaPath: .userDefined(ipaPath),
             app: .userDefined(environment.firebaseAppId),
             groups: .userDefined(groups),
             releaseNotes: .userDefined(releaseNotes),
-            firebaseCliToken: .userDefined(Secret.firebaseCLIToken)
+            firebaseCliToken: .userDefined(Secret.firebaseCLIToken),
+            debug: .userDefined(true)
         )
     }
 }
