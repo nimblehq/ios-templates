@@ -8,6 +8,17 @@
 
 enum Constant {
 
+    // MARK: - App Store
+
+    static let appStoreKeyId: String = "<#appStoreKeyId#>"
+    static let appStoreIssuerId: String = "<#appStoreIssuerId#>"
+
+    // MARK: - Firebase
+
+    static let stagingFirebaseAppId: String = "<#stagingFirebaseAppId#>"
+    static let productionFirebaseAppId: String = "<#productionFirebaseAppId#>"
+    static let firebaseTesterGroups: String = "<#group1#>, <#group2#>"
+
     // MARK: - Match
 
     static let userName: String = "<#userName#>"
@@ -15,23 +26,19 @@ enum Constant {
     static let keychainName: String = "<#keychainName#>"
     static let matchURL: String = "<#matchURL#>"
 
-    // MARK: - Project
-
-    static let stagingBundleId: String = "{BUNDLE_ID_STAGING}"
-    static let productionBundleId: String = "{BUNDLE_ID_PRODUCTION}"
-    static let projectName: String = "{PROJECT_NAME}"
-
     // MARK: - Path
 
     static let outputPath: String = "./Output"
     static let buildPath: String = "\(outputPath)/Build"
     static let derivedDataPath: String = "\(outputPath)/DerivedData"
 
-    // MARK: - Firebase
+    // MARK: - Project
 
-    static let stagingFirebaseAppId: String = "<#stagingFirebaseAppId#>"
-    static let productionFirebaseAppId: String = "<#productionFirebaseAppId#>"
-    static let firebaseTesterGroups: String = "<#group1#>, <#group2#>"
+    static let stagingBundleId: String = "{BUNDLE_ID_STAGING}"
+    static let productionBundleId: String = "{BUNDLE_ID_PRODUCTION}"
+    static let projectName: String = "{PROJECT_NAME}"
+
+    // MARK: - Symbol
 
     static let uploadSymbolsBinaryPath: String = "./Pods/FirebaseCrashlytics/upload-symbols"
 }
