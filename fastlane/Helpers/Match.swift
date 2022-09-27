@@ -6,7 +6,7 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
-final class Match {
+enum Match {
 
     static func syncCodeSigning(type: MatchType, appIdentifier: [String], isForce: Bool = false) {
         if isCi() {
