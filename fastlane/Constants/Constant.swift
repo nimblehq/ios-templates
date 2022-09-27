@@ -17,10 +17,9 @@ enum Constant {
 
     // MARK: - Project
 
-    static let stagingBundleId: String = "<#stagingBundleId#>"
-    static let productionBundleId: String = "<#productionBundleId#>"
-    static let productName: String = "<#productName#>"
-    static let scheme: String = "<#scheme#>"
+    static let stagingBundleId: String = "{BUNDLE_ID_STAGING}"
+    static let productionBundleId: String = "{BUNDLE_ID_PRODUCTION}"
+    static let projectName: String = "{PROJECT_NAME}"
 
     // MARK: - Path
 
@@ -33,6 +32,8 @@ enum Constant {
     static let stagingFirebaseAppId: String = "<#stagingFirebaseAppId#>"
     static let productionFirebaseAppId: String = "<#productionFirebaseAppId#>"
     static let firebaseTesterGroups: String = "<#group1#>, <#group2#>"
+
+    static let uploadSymbolsBinaryPath: String = "./Pods/FirebaseCrashlytics/upload-symbols"
 }
 
 extension Constant {
@@ -42,9 +43,9 @@ extension Constant {
         case staging = "Staging"
         case production = ""
 
-        var productName: String { "\(Constant.productName) \(rawValue)".trimmed }
+        var productName: String { "\(Constant.projectName) \(rawValue)".trimmed }
 
-        var scheme: String { "\(Constant.scheme) \(rawValue)".trimmed }
+        var scheme: String { "\(Constant.projectName) \(rawValue)".trimmed }
 
         var bundleId: String {
             switch self {
@@ -57,6 +58,15 @@ extension Constant {
             switch self {
             case .staging: return Constant.stagingFirebaseAppId
             case .production: return Constant.productionFirebaseAppId
+            }
+        }
+
+        var gspPath: String {
+            let infoName = "GoogleService-Info.plist"
+            let googleServiceFolder = "./\(Constant.projectName)/Configurations/Plists/GoogleService"
+            switch self {
+            case .staging: return "\(googleServiceFolder)/Staging/\(infoName)"
+            case .production: return "\(googleServiceFolder)/Production/\(infoName)"
             }
         }
     }

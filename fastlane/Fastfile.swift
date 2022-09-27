@@ -42,6 +42,7 @@ class Fastfile: LaneFile {
         desc("Build Staging app and upload to Firebase")
 
         buildAdHocStagingLane()
+        Symbol.uploadToCrashlytics(environment: .staging)
         // TODO: - Make release notes
         Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
     }
@@ -50,6 +51,7 @@ class Fastfile: LaneFile {
         desc("Build Staging app and upload to Firebase")
 
         buildAdHocProductionLane()
+        Symbol.uploadToCrashlytics(environment: .production)
         // TODO: - Make release notes
         Distribution.uploadToFirebase(environment: .production, releaseNotes: "")
     }
