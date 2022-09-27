@@ -38,7 +38,7 @@ class Fastfile: LaneFile {
 
     // MARK: - Upload to Firebase
 
-    func buildStagingAndUploadToFirebase() {
+    func buildStagingAndUploadToFirebaseLane() {
         desc("Build Staging app and upload to Firebase")
 
         buildAdHocStagingLane()
@@ -46,7 +46,7 @@ class Fastfile: LaneFile {
         Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
     }
 
-    func buildProductionAndUploadToFirebase() {
+    func buildProductionAndUploadToFirebaseLane() {
         desc("Build Staging app and upload to Firebase")
 
         buildAdHocProductionLane()

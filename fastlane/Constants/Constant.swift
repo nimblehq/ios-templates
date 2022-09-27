@@ -24,8 +24,9 @@ enum Constant {
 
     // MARK: - Path
 
-    static let derivedDataPath: String = "./DerivedData"
-    static let buildPath: String = "./Build"
+    static let outputPath: String = "./Output"
+    static let buildPath: String = "\(outputPath)/Build"
+    static let derivedDataPath: String = "\(outputPath)/DerivedData"
 
     // MARK: - Firebase
 
