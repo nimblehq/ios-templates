@@ -23,6 +23,7 @@ final class Build {
         buildApp(
             scheme: .userDefined(environment.scheme),
             clean: .userDefined(true),
+            outputDirectory: Constant.outputPath,
             outputName: .userDefined(environment.productName),
             includeSymbols: .userDefined(true),
             includeBitcode: .userDefined(type == .appStore),
