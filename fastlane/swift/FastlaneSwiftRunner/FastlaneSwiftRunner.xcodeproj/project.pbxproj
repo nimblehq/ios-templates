@@ -12,6 +12,7 @@
 		1257253924B7992C00E04FA3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1257253824B7992B00E04FA3 /* main.swift */; };
 		1267C3F42773A43E004DE48A /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1267C3F32773A43E004DE48A /* Atomic.swift */; };
 		12D2EB8D2620D83C00844013 /* OptionalConfigValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D2EB8C2620D83B00844013 /* OptionalConfigValue.swift */; };
+		1C2D0FA528E4512E0059FF5A /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D0FA428E4512E0059FF5A /* Version.swift */; };
 		8B92CD0428DC62D200A3FF05 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92CD0328DC62D200A3FF05 /* Match.swift */; };
 		8B92CD0728DC638800A3FF05 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92CD0628DC638800A3FF05 /* Constant.swift */; };
 		8B92CD0928DC63A700A3FF05 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92CD0828DC63A700A3FF05 /* Secret.swift */; };
@@ -69,6 +70,7 @@
 		1257253824B7992B00E04FA3 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = ../main.swift; sourceTree = "<group>"; };
 		1267C3F32773A43E004DE48A /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Atomic.swift; path = ../Atomic.swift; sourceTree = "<group>"; };
 		12D2EB8C2620D83B00844013 /* OptionalConfigValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalConfigValue.swift; path = ../OptionalConfigValue.swift; sourceTree = "<group>"; };
+		1C2D0FA428E4512E0059FF5A /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Version.swift; path = ../../Helpers/Version.swift; sourceTree = "<group>"; };
 		8B92CD0328DC62D200A3FF05 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Match.swift; path = ../../Helpers/Match.swift; sourceTree = "<group>"; };
 		8B92CD0628DC638800A3FF05 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = ../../Constants/Constant.swift; sourceTree = "<group>"; };
 		8B92CD0828DC63A700A3FF05 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Secret.swift; path = ../../Constants/Secret.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				90F4F4CA28E4455C008BDAE5 /* AppStoreAuthentication.swift */,
+				1C2D0FA428E4512E0059FF5A /* Version.swift */,
 				90C4D77A28DDC86800E06274 /* Build.swift */,
 				90C4D77C28E0AB2A00E06274 /* Distribution.swift */,
 				8B92CD0A28DC63E000A3FF05 /* Keychain.swift */,
@@ -295,6 +298,7 @@
 				D5D1DE991FFEE8EA00502A00 /* RubyCommandable.swift in Sources */,
 				D55B28C41F6C588300DC42C5 /* Gymfile.swift in Sources */,
 				8B9386D728E2A8630045D709 /* Symbol.swift in Sources */,
+				1C2D0FA528E4512E0059FF5A /* Version.swift in Sources */,
 				8B92CD0B28DC63E000A3FF05 /* Keychain.swift in Sources */,
 				B302067D1F5E3E9000DE6EBD /* MatchfileProtocol.swift in Sources */,
 				1267C3F42773A43E004DE48A /* Atomic.swift in Sources */,
