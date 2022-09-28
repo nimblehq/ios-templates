@@ -42,7 +42,7 @@ class Fastfile: LaneFile {
         desc("Build Staging app and upload to Firebase")
 
         buildAdHocStagingLane()
-        Symbol.uploadToCrashlytics(environment: .staging)
+        Symbol.uploadAdhocToCrashlytics(environment: .staging)
         // TODO: - Make release notes
         Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
     }
@@ -51,7 +51,7 @@ class Fastfile: LaneFile {
         desc("Build Staging app and upload to Firebase")
 
         buildAdHocProductionLane()
-        Symbol.uploadToCrashlytics(environment: .production)
+        Symbol.uploadAdhocToCrashlytics(environment: .production)
         // TODO: - Make release notes
         Distribution.uploadToFirebase(environment: .production, releaseNotes: "")
     }
@@ -61,5 +61,10 @@ class Fastfile: LaneFile {
 
         buildAppStoreLane()
         Distribution.uploadToAppStore()
+        // TODO: - Use our Version helpers instead
+        let versionNumber = getVersionNumber()
+        let buildNumber = getBuildNumber()
+        Symbol.downloadFromAppStore(versionNumber: versionNumber, buildNumber: buildNumber)
+        Symbol.uploadAppStoreToCrashlytics(versionNumber: versionNumber, buildNumber: buildNumber)
     }
 }

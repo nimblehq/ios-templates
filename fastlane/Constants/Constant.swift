@@ -6,6 +6,8 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
+import Foundation
+
 enum Constant {
 
     // MARK: - App Store
@@ -75,6 +77,11 @@ extension Constant {
             case .staging: return "\(googleServiceFolder)/Staging/\(infoName)"
             case .production: return "\(googleServiceFolder)/Production/\(infoName)"
             }
+        }
+
+        var dsymPath: String {
+            let outputDirectoryURL = URL(fileURLWithPath: Constant.outputPath)
+            return outputDirectoryURL.appendingPathComponent(productName + ".app.dSYM.zip").relativePath
         }
     }
 
