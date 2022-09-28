@@ -60,6 +60,7 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to App Store")
 
         buildAppStoreLane()
+        AppStoreAuthentication.connectAPIKey()
         Distribution.uploadToAppStore()
     }
 }

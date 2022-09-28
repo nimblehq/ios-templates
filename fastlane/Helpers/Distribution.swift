@@ -15,7 +15,7 @@ enum Distribution {
         groups: String = Constant.firebaseTesterGroups,
         releaseNotes: String
     ) {
-        let ipaPath = makeIpaPath(environment: environment)
+        let ipaPath = makeIPAPath(environment: environment)
         firebaseAppDistribution(
             ipaPath: .userDefined(ipaPath),
             app: .userDefined(environment.firebaseAppId),
@@ -26,16 +26,9 @@ enum Distribution {
         )
     }
 
-    static func uploadToAppStore() {
-        let environment: Constant.Environment = .production
-        let ipaPath = makeIpaPath(environment: environment)
-        appStoreConnectApiKey(
-            keyId: Constant.appStoreKeyId,
-            issuerId: Constant.appStoreIssuerId,
-            keyContent: .userDefined(Secret.appstoreConnectAPIKey),
-            isKeyContentBase64: .userDefined(true) // Check if the AppStore Connect API Key is base64
-        )
-        deliver(
+    static func uploadToAppStore(environment: Constant.Environment = .production) {
+        let ipaPath = makeIPAPath(environment: environment)
+        appstore(
             appIdentifier: .userDefined(environment.bundleId),
             ipa: .userDefined(ipaPath),
             skipScreenshots: .userDefined(true),
@@ -45,7 +38,7 @@ enum Distribution {
         )
     }
 
-    static private func makeIpaPath(environment: Constant.Environment) -> String {
+    private static func makeIPAPath(environment: Constant.Environment) -> String {
         "\(Constant.outputPath)/\(environment.productName).ipa"
     }
 }
