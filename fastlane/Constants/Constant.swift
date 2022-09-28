@@ -10,33 +10,33 @@ enum Constant {
 
     // MARK: - App Store
 
-    static let appStoreKeyId: String = "<#appStoreKeyId#>"
-    static let appStoreIssuerId: String = "<#appStoreIssuerId#>"
+    static let appStoreKeyId = "<#appStoreKeyId#>"
+    static let appStoreIssuerId = "<#appStoreIssuerId#>"
 
     // MARK: - Firebase
 
-    static let stagingFirebaseAppId: String = "<#stagingFirebaseAppId#>"
-    static let productionFirebaseAppId: String = "<#productionFirebaseAppId#>"
-    static let firebaseTesterGroups: String = "<#group1#>, <#group2#>"
+    static let stagingFirebaseAppId = "<#stagingFirebaseAppId#>"
+    static let productionFirebaseAppId = "<#productionFirebaseAppId#>"
+    static let firebaseTesterGroups = "<#group1#>, <#group2#>"
 
     // MARK: - Match
 
-    static let userName: String = "<#userName#>"
-    static let teamId: String = "<#teamId#>"
-    static let keychainName: String = "<#keychainName#>"
-    static let matchURL: String = "<#matchURL#>"
+    static let userName = "<#userName#>"
+    static let teamId = "<#teamId#>"
+    static let keychainName = "<#keychainName#>"
+    static let matchURL = "<#matchURL#>"
 
     // MARK: - Path
 
-    static let outputPath: String = "./Output"
-    static let buildPath: String = "\(outputPath)/Build"
-    static let derivedDataPath: String = "\(outputPath)/DerivedData"
+    static let outputPath = "./Output"
+    static let buildPath = "\(outputPath)/Build"
+    static let derivedDataPath = "\(outputPath)/DerivedData"
 
     // MARK: - Project
 
-    static let stagingBundleId: String = "{BUNDLE_ID_STAGING}"
-    static let productionBundleId: String = "{BUNDLE_ID_PRODUCTION}"
-    static let projectName: String = "{PROJECT_NAME}"
+    static let stagingBundleId = "{BUNDLE_ID_STAGING}"
+    static let productionBundleId = "{BUNDLE_ID_PRODUCTION}"
+    static let projectName = "{PROJECT_NAME}"
 
     // MARK: - Symbol
 
