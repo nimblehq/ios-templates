@@ -30,7 +30,7 @@ enum Symbol {
     ) {
         // This file name from download_dsyms action
         // https://github.com/fastlane/fastlane/blob/master/fastlane/lib/fastlane/actions/download_dsyms.rb#L183
-        let dsymFileName = "\(environment.bundleId)-\(versionNumber)-\(buildNumber).dSYM.zip"
+        let dsymFileName = "\(environment.bundleId)-\(versionNumber)-\(buildNumber)\(Constant.dsymSuffix)"
         let outputDirectoryURL = URL(fileURLWithPath: Constant.outputPath)
         let dsymPath = outputDirectoryURL.appendingPathComponent(dsymFileName).relativePath
         guard FileManager.default.fileExists(atPath: dsymPath) else {
@@ -52,7 +52,11 @@ enum Symbol {
     ) {
         // Create output directory if needed
         let outputDirectoryURL = URL(fileURLWithPath: Constant.outputPath)
-        try? FileManager.default.createDirectory(atPath: outputDirectoryURL.relativePath, withIntermediateDirectories: true)
+        do {
+            try FileManager.default.createDirectory(atPath: outputDirectoryURL.relativePath, withIntermediateDirectories: true)
+        } catch {
+            log(message: "Having issues \(error.localizedDescription) when creating directory \(Constant.outputPath)")
+        }
 
         downloadDsyms(
             username: Constant.userName,
