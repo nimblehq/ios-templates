@@ -102,4 +102,13 @@ class Fastfile: LaneFile {
             buildNumber: .userDefined(String(buildNumber)),
             xcodeproj: .userDefined(Constant.projectPath))
     }
+    // MARK: - Test
+
+    func buildAndTestLane() {
+        desc("Build and Test project")
+        Test.buildAndTest(
+            environment: .staging,
+            targets: [Constant.testTarget, Constant.uiTestTarget]
+        )
+    }
 }

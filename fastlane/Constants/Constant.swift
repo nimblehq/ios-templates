@@ -35,6 +35,7 @@ enum Constant {
     static let buildPath = "\(outputPath)/Build"
     static let derivedDataPath = "\(outputPath)/DerivedData"
     static let projectPath: String = "./\(projectName).xcodeproj"
+    static let testOutputDirectoryPath = "./fastlane/test_output"
 
     // MARK: - Project
 
@@ -50,6 +51,15 @@ enum Constant {
     // MARK: - Build and Version
 
     static let manualVersion: String = ""
+
+    // MARK: - Device
+
+    static let device: String = "iPhone 12 Pro Max"
+    
+    // MARK: - Test
+
+    static let testTarget: String = "{PROJECT_NAME}Tests"
+    static let uiTestTarget: String = "{PROJECT_NAME}UITests"
 }
 
 extension Constant {
