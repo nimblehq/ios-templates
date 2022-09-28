@@ -76,4 +76,22 @@ class Fastfile: LaneFile {
         AppStoreAuthentication.connectAPIKey()
         Distribution.uploadToTestFlight()
     }
+
+    // MARK: - Private Helper
+
+    private func setAppVersion() {
+        desc("check if any specific version number in build environment")
+        if !Constant.manualVersion.isEmpty {
+            incrementVersionNumber(
+                versionNumber: .userDefined(Constant.manualVersion)
+            )
+        }
+    }
+
+    private func bumpBuild() {
+        desc("set build number with number of commits")
+        incrementBuildNumber(
+            buildNumber: .userDefined(String(numberOfCommits())),
+            xcodeproj: .userDefined(Constant.projectPath))
+    }
 }
