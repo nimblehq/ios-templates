@@ -9,9 +9,9 @@
 // This file will be added manually from CI platform (Github Actions / Bitrise / ...)
 enum Secret {
 
-    static let keychainPassword: String = "<#keychainPassword#>"
+    static let keychainPassword = "<#keychainPassword#>"
 
-    static let firebaseCLIToken: String = "<#firebaseCLIToken#>"
+    static let firebaseCLIToken = "<#firebaseCLIToken#>"
 
     static let appstoreConnectAPIKey = "<#appstoreConnectAPIKey#>"
 }
