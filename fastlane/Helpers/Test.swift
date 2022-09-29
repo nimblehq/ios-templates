@@ -10,11 +10,12 @@ enum Test {
 
     static func buildAndTest(
         environment: Constant.Environment,
-        targets: [String]
+        targets: [String],
+        devices: [String]
     ) {
         scan(
             scheme: .userDefined(environment.scheme),
-            device: .userDefined(Constant.device),
+            devices: .userDefined(devices),
             onlyTesting: targets,
             codeCoverage: .userDefined(true),
             outputDirectory: Constant.testOutputDirectoryPath,
