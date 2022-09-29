@@ -81,17 +81,16 @@ class Fastfile: LaneFile {
 
     private func setAppVersion() {
         desc("check if any specific version number in build environment")
-        if !Constant.manualVersion.isEmpty {
-            incrementVersionNumber(
-                versionNumber: .userDefined(Constant.manualVersion)
-            )
-        }
+        guard !Constant.manualVersion.isEmpty else { return }
+        incrementVersionNumber(
+            versionNumber: .userDefined(Constant.manualVersion)
+        )
     }
 
-    private func bumpBuild() {
+    private func bumpBuild(buildNumber: Int = numberOfCommits()) {
         desc("set build number with number of commits")
         incrementBuildNumber(
-            buildNumber: .userDefined(String(numberOfCommits())),
+            buildNumber: .userDefined(String(buildNumber)),
             xcodeproj: .userDefined(Constant.projectPath))
     }
 }
