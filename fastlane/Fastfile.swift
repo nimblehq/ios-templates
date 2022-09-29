@@ -69,7 +69,7 @@ class Fastfile: LaneFile {
         Symbol.uploadAppStoreToCrashlytics(versionNumber: versionNumber, buildNumber: buildNumber)
     }
 
-    func buidAnhUploadToTestFlightLane() {
+    func buildAndUploadToTestFlightLane() {
         desc("Build Production app and upload to TestFlight")
 
         buildAppStoreLane()
