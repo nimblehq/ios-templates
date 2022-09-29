@@ -91,11 +91,6 @@ class Constants
   ### ARCHIVING ###
   #################
 
-   # a developer portal team id
-  def self.DEV_PORTAL_TEAM_ID
-    '{PROJECT_TEAM_ID}'
-  end
-
   # an staging environment scheme name
   def self.SCHEME_NAME_STAGING
     '{PROJECT_NAME} Staging'

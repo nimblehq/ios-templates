@@ -52,7 +52,7 @@ Make sure the following secrets are set up.
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------|----|---------------|-----------------------|-----------------------------------|
 |SSH_PRIVATE_KEY         |SSH key connected to a user with access to the match repo for check out the match repo.                                             |-   |✅              |✅                      |✅                                  |
 |MATCH_PASS              |Fastlane Match Passphrase for decrypting a match repository.                                                                        |-   |✅              |✅                      |✅                                  |
-|APPSTORE_CONNECT_API_KEY|App Store Connect API https://docs.fastlane.tools/actions/app_store_connect_api_key/ for uploading build to TestFlight or App Store.|-   |-              |-                      |✅                                  |
+|APPSTORE_CONNECT_API_KEY|App Store Connect API https://docs.fastlane.tools/actions/app_store_connect_api_key/ for uploading build to TestFlight or App Store. Should be `base64` encoded.|-   |-              |-                      |✅                                  |
 |FIREBASE_TOKEN          |Firebase token https://firebase.google.com/docs/cli#cli-ci-systems for uploading build to Firebase Distributions and Analytics.     |-   |✅              |✅                      |✅ For uploading dSYM to Crashlytics|
 
 ## Installation
@@ -61,5 +61,6 @@ Make sure the following secrets are set up.
 2. Modify the files with project's values:
     - fastlane/Matchfile
     - fastlane/Constants/Constants.rb
-3. Provide SECRETS noted in `yml` file in [Github Project's Setting](https://docs.github.com/en/actions/reference/encrypted-secrets)
+3. Get APPSTORE_CONNECT_API_KEY base64 from AuthKey file (.p8) with `cat AuthKey_ABCDEFGH.p8 | base64`.
+4. Provide SECRETS noted in `yml` file in [Github Project's Setting](https://docs.github.com/en/actions/reference/encrypted-secrets)
 4. Push changes to Github
