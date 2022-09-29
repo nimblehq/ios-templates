@@ -43,7 +43,7 @@ enum Constant {
     // MARK: - Symbol
 
     static let uploadSymbolsBinaryPath: String = "./Pods/FirebaseCrashlytics/upload-symbols"
-    static let dsymSuffix: String = ".dSYM.zip"
+    static let dSYMSuffix: String = ".dSYM.zip"
 }
 
 extension Constant {
@@ -82,7 +82,7 @@ extension Constant {
 
         var dsymPath: String {
             let outputDirectoryURL = URL(fileURLWithPath: Constant.outputPath)
-            return outputDirectoryURL.appendingPathComponent(productName + ".app" + Constant.dsymSuffix).relativePath
+            return outputDirectoryURL.appendingPathComponent(productName + ".app" + Constant.dSYMSuffix).relativePath
         }
     }
 
