@@ -54,7 +54,7 @@ enum Constant {
 
     // MARK: - Device
 
-    static let device: String = "iPhone 12 Pro Max"
+    static let devices = ["iPhone 12 Pro Max"]
     
     // MARK: - Test
 
