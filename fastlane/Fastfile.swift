@@ -55,4 +55,12 @@ class Fastfile: LaneFile {
         // TODO: - Make release notes
         Distribution.uploadToFirebase(environment: .production, releaseNotes: "")
     }
+
+    func buildAndUploadToAppStoreLane() {
+        desc("Build Production app and upload to App Store")
+
+        buildAppStoreLane()
+        AppStoreAuthentication.connectAPIKey()
+        Distribution.uploadToAppStore()
+    }
 }
