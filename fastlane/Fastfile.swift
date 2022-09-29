@@ -112,4 +112,20 @@ class Fastfile: LaneFile {
             devices: Constant.devices
         )
     }
+
+    // MARK: - Register device
+
+    func registerNewDeviceLane() {
+        let deviceName = prompt(text: "Enter the device name")
+        let deviceUDID = prompt(text: "Enter the device UDID:")
+
+        registerDevice(
+            name: deviceName,
+            udid: deviceUDID,
+            teamId: .userDefined(Constant.teamId)
+        )
+
+        Match.syncCodeSigning(type: .development, appIdentifier: [], isForce: true)
+        Match.syncCodeSigning(type: .adHoc, appIdentifier: [], isForce: true)
+    }
 }
