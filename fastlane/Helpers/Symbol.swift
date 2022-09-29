@@ -30,7 +30,7 @@ enum Symbol {
     ) {
         // This file name from download_dsyms action
         // https://github.com/fastlane/fastlane/blob/master/fastlane/lib/fastlane/actions/download_dsyms.rb#L183
-        let dsymFileName = "\(environment.bundleId)-\(versionNumber)-\(buildNumber)\(Constant.dsymSuffix)"
+        let dsymFileName = "\(environment.bundleId)-\(versionNumber)-\(buildNumber)\(Constant.dSYMSuffix)"
         let outputDirectoryURL = URL(fileURLWithPath: Constant.outputPath)
         let dsymPath = outputDirectoryURL.appendingPathComponent(dsymFileName).relativePath
         guard FileManager.default.fileExists(atPath: dsymPath) else {
