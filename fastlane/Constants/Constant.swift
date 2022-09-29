@@ -34,7 +34,7 @@ enum Constant {
     static let outputPath = "./Output"
     static let buildPath = "\(outputPath)/Build"
     static let derivedDataPath = "\(outputPath)/DerivedData"
-    static let projectPath: String = "./{PROJECT_NAME}.xcodeproj"
+    static let projectPath: String = "./\(projectName).xcodeproj"
 
     // MARK: - Project
 

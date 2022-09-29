@@ -9,18 +9,34 @@
 enum Version {
     
     // MARK: - Getting
-
-    static func getVersionNumber() -> String {
-        FastlaneRunner.getVersionNumber(
-            xcodeproj: .userDefined(Constant.projectPath),
-            target: .userDefined(Constant.projectName)
-        )
+    
+    static var versionNumber: String {
+        get {
+            FastlaneRunner.getVersionNumber(
+                xcodeproj: .userDefined(Constant.projectPath),
+                target: .userDefined(Constant.projectName)
+            )
+        }
+        
+        set {
+            incrementVersionNumber(
+                versionNumber: .userDefined(newValue),
+                xcodeproj: .userDefined(Constant.projectPath)
+            )
+        }
     }
+    
+    static var buildNumber: String {
+        get {
+            FastlaneRunner.getBuildNumber(xcodeproj: .userDefined(Constant.projectPath))
+        }
 
-    static func getBuildNumber() -> String {
-        FastlaneRunner.getBuildNumber(
-            xcodeproj: .userDefined(Constant.projectPath)
-        )
+        set {
+            incrementBuildNumber(
+                buildNumber: .userDefined(newValue),
+                xcodeproj: .userDefined(Constant.projectPath)
+            )
+        }
     }
 
     static func getVersionAndBuildNumber() -> String {
@@ -28,21 +44,6 @@ enum Version {
     }
 
     static var releaseTag: String {
-        "release/\(getVersionNumber())/\(numberOfCommits())"
-    }
-
-    // MARK: - Setting
-    static func setVersionNumber() {
-        incrementVersionNumber(
-            versionNumber: .userDefined(getVersionNumber()),
-            xcodeproj: .userDefined(Constant.projectPath)
-        )
-    }
-
-    static func setBuildNumber() {
-        incrementBuildNumber(
-            buildNumber: .userDefined(getBuildNumber()),
-            xcodeproj: .userDefined(Constant.projectPath)
-        )
+        "release/\(versionNumber)"
     }
 }
