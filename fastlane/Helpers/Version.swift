@@ -40,7 +40,7 @@ enum Version {
     }
 
     static func getVersionAndBuildNumber() -> String {
-        "\(getVersionNumber()) (Build: \(getBuildNumber())"
+        "\(versionNumber) (Build: \(buildNumber)"
     }
 
     static var releaseTag: String {
