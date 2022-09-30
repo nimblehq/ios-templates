@@ -131,7 +131,7 @@ class Fastfile: LaneFile {
 
     // MARK: - Utilities
 
-    func cleanUpOutput() {
+    func cleanUpOutputLane() {
         desc("Clean up Output")
         clearDerivedData(derivedDataPath: Constant.outputPath)
     }
