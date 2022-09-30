@@ -131,13 +131,8 @@ class Fastfile: LaneFile {
 
     // MARK: - Utilities
 
-    func cleanUpDerivedData() {
-        desc("Clean up derived data")
-        clearDerivedData(derivedDataPath: Constant.derivedDataPath)
-    }
-
-    func cleanUpXcov() {
-        desc("Clean up xcov output")
-        clearDerivedData(derivedDataPath: Constant.xcovOutputDirectoryPath)
+    func cleanUpOutput() {
+        desc("Clean up Output")
+        clearDerivedData(derivedDataPath: Constant.outputPath)
     }
 }
