@@ -128,12 +128,12 @@
 			isa = PBXGroup;
 			children = (
 				90F4F4CA28E4455C008BDAE5 /* AppStoreAuthentication.swift */,
-				1C2D0FA428E4512E0059FF5A /* Version.swift */,
 				90C4D77A28DDC86800E06274 /* Build.swift */,
 				90C4D77C28E0AB2A00E06274 /* Distribution.swift */,
 				8B92CD0A28DC63E000A3FF05 /* Keychain.swift */,
 				8B92CD0328DC62D200A3FF05 /* Match.swift */,
 				8B9386D628E2A8630045D709 /* Symbol.swift */,
+				1C2D0FA428E4512E0059FF5A /* Version.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
