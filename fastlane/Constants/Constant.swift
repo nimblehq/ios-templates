@@ -36,7 +36,6 @@ enum Constant {
     static let derivedDataPath = "\(outputPath)/DerivedData"
     static let projectPath: String = "./\(projectName).xcodeproj"
     static let testOutputDirectoryPath = "./fastlane/test_output"
-    static let xcovOutputDirectoryPath: String = "./fastlane/xcov_output"
 
     // MARK: - Project
 
