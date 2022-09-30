@@ -116,7 +116,7 @@ class Fastfile: LaneFile {
     // MARK: - Register device
 
     func registerNewDeviceLane() {
-        let deviceName = prompt(text: "Enter the device name")
+        let deviceName = prompt(text: "Enter the device name:")
         let deviceUDID = prompt(text: "Enter the device UDID:")
 
         registerDevice(
