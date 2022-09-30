@@ -38,6 +38,24 @@ enum Distribution {
         )
     }
 
+    static func uploadToTestFlight(
+        environment: Constant.Environment = .production,
+        changeLog: String = "",
+        betaAppReviewInfo: [String: Any] = [:],
+        groups: [String] = Constant.testFlightTesterGroups
+    ) {
+        let ipaPath = makeIPAPath(environment: environment)
+        testflight(
+            appIdentifier: .userDefined(environment.bundleId),
+            ipa: .userDefined(ipaPath),
+            demoAccountRequired: .userDefined(betaAppReviewInfo.isEmpty),
+            betaAppReviewInfo: .userDefined(betaAppReviewInfo),
+            changelog: .userDefined(changeLog),
+            skipWaitingForBuildProcessing: .userDefined(true),
+            groups: .userDefined(groups)
+        )
+    }
+
     private static func makeIPAPath(environment: Constant.Environment) -> String {
         "\(Constant.outputPath)/\(environment.productName).ipa"
     }

@@ -14,6 +14,7 @@ enum Constant {
 
     static let appStoreKeyId = "<#appStoreKeyId#>"
     static let appStoreIssuerId = "<#appStoreIssuerId#>"
+    static let testFlightTesterGroups = ["<#group1#>", "<#group2#>"]
 
     // MARK: - Firebase
 
