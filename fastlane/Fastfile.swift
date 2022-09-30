@@ -12,11 +12,36 @@ class Fastfile: LaneFile {
 
     // MARK: - Code signing
 
-    func syncCodeSigningLane() {
-        desc("This lane is for development purpose, will be removed after the migration")
-        Match.syncCodeSigning(type: .development, appIdentifier: ["co.nimblehq.ios.templates"])
-        Match.syncCodeSigning(type: .adHoc, appIdentifier: ["co.nimblehq.ios.templates"])
-        Match.syncCodeSigning(type: .appStore, appIdentifier: ["co.nimblehq.ios.templates"])
+    func syncDevelopmentCodeSigningLane() {
+        desc("Sync the development match signing for the staging build")
+        Match.syncCodeSigning(
+            type: .development,
+            appIdentifier: [Constant.stagingBundleId]
+        )
+    }
+
+    func syncAdHocStagingCodeSigningLane() {
+        desc("Sync the ad hoc match signing for the staging build")
+        Match.syncCodeSigning(
+            type: .adHoc,
+            appIdentifier: [Constant.stagingBundleId]
+        )
+    }
+
+    func syncAdHocProductionCodeSigningLane() {
+        desc("Sync the ad hoc match signing for the production build")
+        Match.syncCodeSigning(
+            type: .adHoc,
+            appIdentifier: [Constant.productionBundleId]
+        )
+    }
+
+    func syncAppStoreCodeSigningLane() {
+        desc("Sync the app store match signing for the production build")
+        Match.syncCodeSigning(
+            type: .appStore,
+            appIdentifier: [Constant.productionBundleId]
+        )
     }
 
     // MARK: - Build
