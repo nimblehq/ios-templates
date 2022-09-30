@@ -128,4 +128,16 @@ class Fastfile: LaneFile {
         Match.syncCodeSigning(type: .development, appIdentifier: [], isForce: true)
         Match.syncCodeSigning(type: .adHoc, appIdentifier: [], isForce: true)
     }
+
+    // MARK: - Utilities
+
+    func cleanUpDerivedData() {
+        desc("Clean up derived data")
+        clearDerivedData(derivedDataPath: Constant.derivedDataPath)
+    }
+
+    func cleanUpXcov() {
+        desc("Clean up xcov output")
+        clearDerivedData(derivedDataPath: Constant.xcovOutputDirectoryPath)
+    }
 }
