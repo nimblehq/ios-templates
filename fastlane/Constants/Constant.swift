@@ -34,6 +34,7 @@ enum Constant {
     static let outputPath = "./Output"
     static let buildPath = "\(outputPath)/Build"
     static let derivedDataPath = "\(outputPath)/DerivedData"
+    static let projectPath: String = "./\(projectName).xcodeproj"
 
     // MARK: - Project
 
@@ -45,6 +46,10 @@ enum Constant {
 
     static let uploadSymbolsBinaryPath: String = "./Pods/FirebaseCrashlytics/upload-symbols"
     static let dSYMSuffix: String = ".dSYM.zip"
+    
+    // MARK: - Build and Version
+
+    static let manualVersion: String = ""
 }
 
 extension Constant {

@@ -41,6 +41,9 @@ class Fastfile: LaneFile {
     func buildStagingAndUploadToFirebaseLane() {
         desc("Build Staging app and upload to Firebase")
 
+        setAppVersion()
+        bumpBuild()
+
         buildAdHocStagingLane()
         Symbol.uploadAdhocToCrashlytics(environment: .staging)
         // TODO: - Make release notes
@@ -50,6 +53,9 @@ class Fastfile: LaneFile {
     func buildProductionAndUploadToFirebaseLane() {
         desc("Build Staging app and upload to Firebase")
 
+        setAppVersion()
+        bumpBuild()
+
         buildAdHocProductionLane()
         Symbol.uploadAdhocToCrashlytics(environment: .production)
         // TODO: - Make release notes
@@ -58,6 +64,9 @@ class Fastfile: LaneFile {
 
     func buildAndUploadToAppStoreLane() {
         desc("Build Production app and upload to App Store")
+
+        setAppVersion()
+        bumpBuild()
 
         buildAppStoreLane()
         AppStoreAuthentication.connectAPIKey()
@@ -75,5 +84,22 @@ class Fastfile: LaneFile {
         buildAppStoreLane()
         AppStoreAuthentication.connectAPIKey()
         Distribution.uploadToTestFlight()
+    }
+
+    // MARK: - Private Helper
+
+    private func setAppVersion() {
+        desc("Check if any specific version number in build environment")
+        guard !Constant.manualVersion.isEmpty else { return }
+        incrementVersionNumber(
+            versionNumber: .userDefined(Constant.manualVersion)
+        )
+    }
+
+    private func bumpBuild(buildNumber: Int = numberOfCommits()) {
+        desc("Set build number with number of commits")
+        incrementBuildNumber(
+            buildNumber: .userDefined(String(buildNumber)),
+            xcodeproj: .userDefined(Constant.projectPath))
     }
 }
