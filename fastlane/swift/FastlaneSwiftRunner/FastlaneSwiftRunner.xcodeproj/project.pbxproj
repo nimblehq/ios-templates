@@ -13,6 +13,7 @@
 		1267C3F42773A43E004DE48A /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1267C3F32773A43E004DE48A /* Atomic.swift */; };
 		12D2EB8D2620D83C00844013 /* OptionalConfigValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D2EB8C2620D83B00844013 /* OptionalConfigValue.swift */; };
 		1C2D0FA528E4512E0059FF5A /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D0FA428E4512E0059FF5A /* Version.swift */; };
+		1C2D0FA728E457D10059FF5A /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2D0FA628E457D10059FF5A /* Test.swift */; };
 		8B92CD0428DC62D200A3FF05 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92CD0328DC62D200A3FF05 /* Match.swift */; };
 		8B92CD0728DC638800A3FF05 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92CD0628DC638800A3FF05 /* Constant.swift */; };
 		8B92CD0928DC63A700A3FF05 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B92CD0828DC63A700A3FF05 /* Secret.swift */; };
@@ -71,6 +72,7 @@
 		1267C3F32773A43E004DE48A /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Atomic.swift; path = ../Atomic.swift; sourceTree = "<group>"; };
 		12D2EB8C2620D83B00844013 /* OptionalConfigValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OptionalConfigValue.swift; path = ../OptionalConfigValue.swift; sourceTree = "<group>"; };
 		1C2D0FA428E4512E0059FF5A /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Version.swift; path = ../../Helpers/Version.swift; sourceTree = "<group>"; };
+		1C2D0FA628E457D10059FF5A /* Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Test.swift; path = ../../Helpers/Test.swift; sourceTree = "<group>"; };
 		8B92CD0328DC62D200A3FF05 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Match.swift; path = ../../Helpers/Match.swift; sourceTree = "<group>"; };
 		8B92CD0628DC638800A3FF05 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = ../../Constants/Constant.swift; sourceTree = "<group>"; };
 		8B92CD0828DC63A700A3FF05 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Secret.swift; path = ../../Constants/Secret.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				90F4F4CA28E4455C008BDAE5 /* AppStoreAuthentication.swift */,
+				1C2D0FA628E457D10059FF5A /* Test.swift */,
 				90C4D77A28DDC86800E06274 /* Build.swift */,
 				90C4D77C28E0AB2A00E06274 /* Distribution.swift */,
 				8B92CD0A28DC63E000A3FF05 /* Keychain.swift */,
@@ -331,6 +334,7 @@
 				0311E387230AC1B20060BB5C /* Plugins.swift in Sources */,
 				D55B28C91F6C588300DC42C5 /* Snapshotfile.swift in Sources */,
 				B3BA65A61F5A269100B34850 /* Fastlane.swift in Sources */,
+				1C2D0FA728E457D10059FF5A /* Test.swift in Sources */,
 				D55B28C81F6C588300DC42C5 /* Screengrabfile.swift in Sources */,
 				12D2EB8D2620D83C00844013 /* OptionalConfigValue.swift in Sources */,
 			);
