@@ -58,8 +58,8 @@ enum Constant {
     
     // MARK: - Test
 
-    static let testTarget: String = "{PROJECT_NAME}Tests"
-    static let uiTestTarget: String = "{PROJECT_NAME}UITests"
+    static let testTarget: String = "\(projectName)Tests"
+    static let uiTestTarget: String = "\(projectName)UITests"
 }
 
 extension Constant {
