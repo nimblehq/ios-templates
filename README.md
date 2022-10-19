@@ -1,5 +1,8 @@
 <p align="center">
-  <img alt="Nimble logo" src="https://assets.nimblehq.co/logo/light/logo-light-text-320.png" />
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://assets.nimblehq.co/logo/dark/logo-dark-text-320.png">
+      <img alt="Nimble logo" src="https://assets.nimblehq.co/logo/light/logo-light-text-320.png">
+    </picture>
 </p>
 
 <p align="center">
@@ -39,7 +42,10 @@ and may be redistributed under the terms specified in the [LICENSE] file.
 
 ## About
 
-![Nimble](https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png)
+<picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://assets.nimblehq.co/logo/dark/logo-dark-text-160.png">
+      <img alt="Nimble logo" src="https://assets.nimblehq.co/logo/light/logo-light-text-160.png">
+</picture>
 
 This project is maintained and funded by Nimble.
 
