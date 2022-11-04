@@ -74,11 +74,11 @@ jobs:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
     - name: Upload Artifacts
-      uses: softprops/action-gh-release@v1
+      uses: actions/upload-artifact@v3
       with:
-        files: |
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
+        path: |
           ${{ env.IPA_OUTPUT_PATH }}
           ${{ env.DSYM_OUTPUT_PATH }}
-        tag_name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
       env:
         TAG_TYPE: Production_Firebase
