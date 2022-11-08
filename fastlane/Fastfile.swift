@@ -61,7 +61,7 @@ class Fastfile: LaneFile {
         Build.appStore()
     }
 
-    // MARK: - Upload to Firebase
+    // MARK: - Upload builds to Firebase and AppStore
 
     func buildStagingAndUploadToFirebaseLane() {
         desc("Build Staging app and upload to Firebase")
@@ -70,9 +70,11 @@ class Fastfile: LaneFile {
         bumpBuild()
 
         buildAdHocStagingLane()
-        Symbol.uploadAdhocToCrashlytics(environment: .staging)
+
         // TODO: - Make release notes
         Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
+
+        Symbol.uploadToCrashlytics(environment: .staging)
     }
 
     func buildProductionAndUploadToFirebaseLane() {
@@ -82,9 +84,11 @@ class Fastfile: LaneFile {
         bumpBuild()
 
         buildAdHocProductionLane()
-        Symbol.uploadAdhocToCrashlytics(environment: .production)
+
         // TODO: - Make release notes
         Distribution.uploadToFirebase(environment: .production, releaseNotes: "")
+
+        Symbol.uploadToCrashlytics(environment: .production)
     }
 
     func buildAndUploadToAppStoreLane() {
@@ -94,39 +98,28 @@ class Fastfile: LaneFile {
         bumpBuild()
 
         buildAppStoreLane()
+
         AppStoreAuthentication.connectAPIKey()
         Distribution.uploadToAppStore()
-        // TODO: - Use our Version helpers instead
-        let versionNumber = getVersionNumber()
-        let buildNumber = getBuildNumber()
-        Symbol.downloadFromAppStore(versionNumber: versionNumber, buildNumber: buildNumber)
-        Symbol.uploadAppStoreToCrashlytics(versionNumber: versionNumber, buildNumber: buildNumber)
+
+        Symbol.uploadToCrashlytics(environment: .production)
     }
 
     func buildAndUploadToTestFlightLane() {
         desc("Build Production app and upload to TestFlight")
 
+        setAppVersion()
+        bumpBuild()
+
         buildAppStoreLane()
+
         AppStoreAuthentication.connectAPIKey()
         Distribution.uploadToTestFlight()
+
+        Symbol.uploadToCrashlytics(environment: .production)
     }
 
-    // MARK: - Private Helper
 
-    private func setAppVersion() {
-        desc("Check if any specific version number in build environment")
-        guard !Constant.manualVersion.isEmpty else { return }
-        incrementVersionNumber(
-            versionNumber: .userDefined(Constant.manualVersion)
-        )
-    }
-
-    private func bumpBuild(buildNumber: Int = numberOfCommits()) {
-        desc("Set build number with number of commits")
-        incrementBuildNumber(
-            buildNumber: .userDefined(String(buildNumber)),
-            xcodeproj: .userDefined(Constant.projectPath))
-    }
     // MARK: - Test
 
     func buildAndTestLane() {
@@ -159,5 +152,22 @@ class Fastfile: LaneFile {
     func cleanUpOutputLane() {
         desc("Clean up Output")
         clearDerivedData(derivedDataPath: Constant.outputPath)
+    }
+
+    // MARK: - Private Helper
+
+    private func setAppVersion() {
+        desc("Check if any specific version number in build environment")
+        guard !Constant.manualVersion.isEmpty else { return }
+        incrementVersionNumber(
+            versionNumber: .userDefined(Constant.manualVersion)
+        )
+    }
+
+    private func bumpBuild(buildNumber: Int = numberOfCommits()) {
+        desc("Set build number with number of commits")
+        incrementBuildNumber(
+            buildNumber: .userDefined(String(buildNumber)),
+            xcodeproj: .userDefined(Constant.projectPath))
     }
 }
