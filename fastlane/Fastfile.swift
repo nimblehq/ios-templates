@@ -13,7 +13,7 @@ class Fastfile: LaneFile {
     // MARK: - Code signing
 
     func syncDevelopmentCodeSigningLane() {
-        desc("Sync the development match signing for the staging build")
+        desc("Sync the Development match signing for the Staging build")
         Match.syncCodeSigning(
             type: .development,
             appIdentifier: [Constant.stagingBundleId]
@@ -21,7 +21,7 @@ class Fastfile: LaneFile {
     }
 
     func syncAdHocStagingCodeSigningLane() {
-        desc("Sync the ad hoc match signing for the staging build")
+        desc("Sync the Ad Hoc match signing for the Staging build")
         Match.syncCodeSigning(
             type: .adHoc,
             appIdentifier: [Constant.stagingBundleId]
@@ -29,7 +29,7 @@ class Fastfile: LaneFile {
     }
 
     func syncAdHocProductionCodeSigningLane() {
-        desc("Sync the ad hoc match signing for the production build")
+        desc("Sync the Ad Hoc match signing for the Production build")
         Match.syncCodeSigning(
             type: .adHoc,
             appIdentifier: [Constant.productionBundleId]
@@ -37,7 +37,7 @@ class Fastfile: LaneFile {
     }
 
     func syncAppStoreCodeSigningLane() {
-        desc("Sync the app store match signing for the production build")
+        desc("Sync the App Store match signing for the Production build")
         Match.syncCodeSigning(
             type: .appStore,
             appIdentifier: [Constant.productionBundleId]
