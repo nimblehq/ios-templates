@@ -14,13 +14,12 @@ class BuildManager
           bundle_identifier => "match AdHoc #{bundle_identifier}"
         }
       },
-      include_bitcode: false,
       output_name: product_name,
       disable_xcpretty: true
     )
   end
 
-  def build_app_store(scheme, product_name, bundle_identifier, include_bitcode)
+  def build_app_store(scheme, product_name, bundle_identifier)
     @fastlane.gym(
       scheme: scheme,
       export_method: 'app-store',
@@ -29,7 +28,6 @@ class BuildManager
           bundle_identifier => "match AppStore #{bundle_identifier}"
         }
       },
-      include_bitcode: include_bitcode,
       output_name: product_name
     )
   end
