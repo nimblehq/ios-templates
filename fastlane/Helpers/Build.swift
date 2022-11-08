@@ -26,7 +26,7 @@ enum Build {
             outputDirectory: Constant.outputPath,
             outputName: .userDefined(environment.productName),
             includeSymbols: .userDefined(true),
-            includeBitcode: .userDefined(type == .appStore),
+            includeBitcode: .userDefined(false),
             exportMethod: .userDefined(type.value),
             exportOptions: .userDefined([
                 // NOTE: bundleId should be `env.bundleId` instead of `Constant.bundleId`
