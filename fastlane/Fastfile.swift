@@ -143,6 +143,7 @@ class Fastfile: LaneFile {
         desc("Set build number with number of commits")
         incrementBuildNumber(
             buildNumber: .userDefined(String(buildNumber)),
-            xcodeproj: .userDefined(Constant.projectPath))
+            xcodeproj: .userDefined(Constant.projectPath)
+        )
     }
 }
