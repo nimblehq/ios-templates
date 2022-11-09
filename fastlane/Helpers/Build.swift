@@ -8,6 +8,23 @@
 
 enum Build {
 
+    static func saveBuildContextToCI() {
+        switch Constant.platform {
+        case .bitriseIO:
+            let ipaPath = laneContext()["IPA_OUTPUT_PATH"]
+            let dsymPath = laneContext()["DSYM_OUTPUT_PATH"]
+            let buildNumber = laneContext()["BUILD_NUMBER"]
+
+            sh(command: "echo IPA_OUTPUT_PATH=\(ipaPath ?? "") >> $GITHUB_ENV")
+            sh(command: "echo DSYM_OUTPUT_PATH=\(dsymPath ?? "") >> $GITHUB_ENV")
+            sh(command: "echo BUILD_NUMBER=\(buildNumber ?? "") >> $GITHUB_ENV")
+            sh(command: "echo VERSION_NUMBER=\(Version.versionNumber) >> $GITHUB_ENV")
+        case .gitHubAction:
+            sh(command: "envman add --key BUILD_PATH --value '\(Constant.outputPath)'")
+        default: break
+        }
+    }
+
     static func adHoc(environment: Constant.Environment) {
         build(environment: environment, type: .adHoc)
     }

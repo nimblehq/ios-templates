@@ -75,6 +75,8 @@ class Fastfile: LaneFile {
         Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
 
         Symbol.uploadToCrashlytics(environment: .staging)
+
+        Build.saveBuildContextToCI()
     }
 
     func buildProductionAndUploadToFirebaseLane() {
@@ -89,6 +91,8 @@ class Fastfile: LaneFile {
         Distribution.uploadToFirebase(environment: .production, releaseNotes: "")
 
         Symbol.uploadToCrashlytics(environment: .production)
+
+        Build.saveBuildContextToCI()
     }
 
     func buildAndUploadToAppStoreLane() {
@@ -103,6 +107,8 @@ class Fastfile: LaneFile {
         Distribution.uploadToAppStore()
 
         Symbol.uploadToCrashlytics(environment: .production)
+
+        Build.saveBuildContextToCI()
     }
 
     func buildAndUploadToTestFlightLane() {
@@ -117,6 +123,8 @@ class Fastfile: LaneFile {
         Distribution.uploadToTestFlight()
 
         Symbol.uploadToCrashlytics(environment: .production)
+
+        Build.saveBuildContextToCI()
     }
 
 
