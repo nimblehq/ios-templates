@@ -21,6 +21,7 @@
 		8B9386D728E2A8630045D709 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9386D628E2A8630045D709 /* Symbol.swift */; };
 		90C4D77B28DDC86800E06274 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C4D77A28DDC86800E06274 /* Build.swift */; };
 		90C4D77D28E0AB2A00E06274 /* Distribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C4D77C28E0AB2A00E06274 /* Distribution.swift */; };
+		90DA64BD291BC7F400BABF4D /* EnvironmentParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DA64BC291BC7F400BABF4D /* EnvironmentParser.swift */; };
 		90F4F4CB28E4455C008BDAE5 /* AppStoreAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F4F4CA28E4455C008BDAE5 /* AppStoreAuthentication.swift */; };
 		B302067B1F5E3E9000DE6EBD /* SnapshotfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30206741F5E3E9000DE6EBD /* SnapshotfileProtocol.swift */; };
 		B302067C1F5E3E9000DE6EBD /* GymfileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30206751F5E3E9000DE6EBD /* GymfileProtocol.swift */; };
@@ -80,6 +81,7 @@
 		8B9386D628E2A8630045D709 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Symbol.swift; path = ../../Helpers/Symbol.swift; sourceTree = "<group>"; };
 		90C4D77A28DDC86800E06274 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Build.swift; path = ../../Helpers/Build.swift; sourceTree = "<group>"; };
 		90C4D77C28E0AB2A00E06274 /* Distribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Distribution.swift; path = ../../Helpers/Distribution.swift; sourceTree = "<group>"; };
+		90DA64BC291BC7F400BABF4D /* EnvironmentParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EnvironmentParser.swift; path = ../../Helpers/EnvironmentParser.swift; sourceTree = "<group>"; };
 		90F4F4CA28E4455C008BDAE5 /* AppStoreAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppStoreAuthentication.swift; path = ../../Helpers/AppStoreAuthentication.swift; sourceTree = "<group>"; };
 		B30206741F5E3E9000DE6EBD /* SnapshotfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotfileProtocol.swift; path = ../SnapshotfileProtocol.swift; sourceTree = "<group>"; };
 		B30206751F5E3E9000DE6EBD /* GymfileProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GymfileProtocol.swift; path = ../GymfileProtocol.swift; sourceTree = "<group>"; };
@@ -130,12 +132,13 @@
 			isa = PBXGroup;
 			children = (
 				90F4F4CA28E4455C008BDAE5 /* AppStoreAuthentication.swift */,
-				1C2D0FA628E457D10059FF5A /* Test.swift */,
 				90C4D77A28DDC86800E06274 /* Build.swift */,
 				90C4D77C28E0AB2A00E06274 /* Distribution.swift */,
+				90DA64BC291BC7F400BABF4D /* EnvironmentParser.swift */,
 				8B92CD0A28DC63E000A3FF05 /* Keychain.swift */,
 				8B92CD0328DC62D200A3FF05 /* Match.swift */,
 				8B9386D628E2A8630045D709 /* Symbol.swift */,
+				1C2D0FA628E457D10059FF5A /* Test.swift */,
 				1C2D0FA428E4512E0059FF5A /* Version.swift */,
 			);
 			name = Helpers;
@@ -315,6 +318,7 @@
 				D5BAFD121F7DAAFC0030B324 /* ArgumentProcessor.swift in Sources */,
 				B302067C1F5E3E9000DE6EBD /* GymfileProtocol.swift in Sources */,
 				B302067B1F5E3E9000DE6EBD /* SnapshotfileProtocol.swift in Sources */,
+				90DA64BD291BC7F400BABF4D /* EnvironmentParser.swift in Sources */,
 				D55B28C31F6C588300DC42C5 /* Deliverfile.swift in Sources */,
 				90C4D77D28E0AB2A00E06274 /* Distribution.swift in Sources */,
 				D5A7C4901F7C4DAF00A91DE6 /* Fastfile.swift in Sources */,
