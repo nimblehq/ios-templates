@@ -26,13 +26,11 @@ enum Build {
             outputDirectory: Constant.outputPath,
             outputName: .userDefined(environment.productName),
             includeSymbols: .userDefined(true),
-            includeBitcode: .userDefined(type == .appStore),
             exportMethod: .userDefined(type.value),
             exportOptions: .userDefined([
-                // NOTE: bundleId should be `env.bundleId` instead of `Constant.bundleId`
-                // To test ios-template, uncomment right below
-//                Constant.bundleId: "match \(type.method) \(Constant.bundleId)"
-                environment.bundleId: "match \(type.method) \(environment.bundleId)"
+                "provisioningProfiles": [
+                    environment.bundleId: "match \(type.method) \(environment.bundleId)"
+                ]
             ]),
             buildPath: .userDefined(Constant.buildPath),
             derivedDataPath: .userDefined(Constant.derivedDataPath),
