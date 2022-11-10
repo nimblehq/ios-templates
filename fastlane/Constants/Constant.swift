@@ -41,9 +41,9 @@ enum Constant {
 
     static var platform: PlatformType {
         if EnvironmentParser.bool(key: "BITRISE_IO") {
-            return .bitriseIO
+            return .bitrise
         } else if EnvironmentParser.bool(key: "GITHUB_ACTIONS") {
-            return .gitHubAction
+            return .gitHubActions
         }
         return .unknown
     }
@@ -130,7 +130,7 @@ extension Constant {
 
     enum PlatformType {
 
-        case gitHubAction, bitriseIO, unknown
+        case gitHubActions, bitrise, unknown
     }
 }
 
