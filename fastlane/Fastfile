@@ -193,8 +193,7 @@ platform :ios do
     builder.build_app_store(
       Constants.SCHEME_NAME_PRODUCTION,
       Constants.PRODUCT_NAME_PRODUCTION,
-      Constants.BUNDLE_ID_PRODUCTION,
-      true
+      Constants.BUNDLE_ID_PRODUCTION
     )
     upload_build_to_appstore
     if (Environments.SKIP_FIREBASE_DSYM || '') == ''
