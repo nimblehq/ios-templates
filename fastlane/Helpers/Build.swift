@@ -10,7 +10,7 @@ enum Build {
 
     static func saveBuildContextToCI() {
         switch Constant.platform {
-        case .bitriseIO:
+        case .gitHubAction:
             let ipaPath = laneContext()["IPA_OUTPUT_PATH"]
             let dsymPath = laneContext()["DSYM_OUTPUT_PATH"]
             let buildNumber = laneContext()["BUILD_NUMBER"]
@@ -19,7 +19,7 @@ enum Build {
             sh(command: "echo DSYM_OUTPUT_PATH=\(dsymPath ?? "") >> $GITHUB_ENV")
             sh(command: "echo BUILD_NUMBER=\(buildNumber ?? "") >> $GITHUB_ENV")
             sh(command: "echo VERSION_NUMBER=\(Version.versionNumber) >> $GITHUB_ENV")
-        case .gitHubAction:
+        case .bitriseIO:
             sh(command: "envman add --key BUILD_PATH --value '\(Constant.outputPath)'")
         default: break
         }
