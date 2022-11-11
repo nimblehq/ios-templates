@@ -37,6 +37,17 @@ enum Constant {
     static let projectPath: String = "./\(projectName).xcodeproj"
     static let testOutputDirectoryPath = "./fastlane/test_output"
 
+    // MARK: Platform
+
+    static var platform: PlatformType {
+        if EnvironmentParser.bool(key: "BITRISE_IO") {
+            return .bitrise
+        } else if EnvironmentParser.bool(key: "GITHUB_ACTIONS") {
+            return .gitHubActions
+        }
+        return .unknown
+    }
+
     // MARK: - Project
 
     static let stagingBundleId = "{BUNDLE_ID_STAGING}"
@@ -115,6 +126,11 @@ extension Constant {
             case .appStore: return "AppStore"
             }
         }
+    }
+
+    enum PlatformType {
+
+        case gitHubActions, bitrise, unknown
     }
 }
 
