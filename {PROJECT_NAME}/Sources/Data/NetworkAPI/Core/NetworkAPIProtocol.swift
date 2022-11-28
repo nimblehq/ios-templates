@@ -2,8 +2,7 @@
 //  NetworkAPIProtocol.swift
 //
 
-import Alamofire
-import RxAlamofire
+import Moya
 import RxSwift
 
 protocol NetworkAPIProtocol {
@@ -12,33 +11,12 @@ protocol NetworkAPIProtocol {
 }
 
 extension NetworkAPIProtocol {
-
     func request<T: Decodable>(
-        session: Session,
-        configuration: RequestConfiguration,
-        decoder: JSONDecoder
+        provider: MoyaProvider<RequestConfiguration>,
+        configuration: RequestConfiguration
     ) -> Single<T> {
-        return session.rx.request(
-            configuration.method,
-            configuration.url,
-            parameters: configuration.parameters,
-            encoding: configuration.encoding,
-            headers: configuration.headers,
-            interceptor: configuration.interceptor
-        )
-        .responseData()
-        .flatMap { _, data -> Observable<T> in
-            Observable.create { observer in
-                do {
-                    let decodable = try decoder.decode(T.self, from: data)
-                    observer.on(.next(decodable))
-                } catch {
-                    observer.on(.error(error))
-                }
-                observer.on(.completed)
-                return Disposables.create()
-            }
-        }
-        .asSingle()
+        provider.rx.request(configuration)
+            .filterSuccessfulStatusAndRedirectCodes()
+            .map(T.self)
     }
 }

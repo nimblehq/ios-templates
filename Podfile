@@ -19,7 +19,7 @@ target '{PROJECT_NAME}' do
   pod 'SnapKit'
 
   # Rx
-  pod 'RxAlamofire'
+  pod 'Moya/RxSwift'
   pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'RxSwift'

@@ -2,23 +2,19 @@
 //  NetworkAPI.swift
 //
 
-import Alamofire
 import Foundation
+import Moya
 import RxSwift
 
 final class NetworkAPI: NetworkAPIProtocol {
 
-    private let decoder: JSONDecoder
+    private let provider: MoyaProvider<RequestConfiguration>
 
-    init(decoder: JSONDecoder = JSONDecoder()) {
-        self.decoder = decoder
+    init(provider: MoyaProvider<RequestConfiguration> = MoyaProvider<RequestConfiguration>()) {
+        self.provider = provider
     }
 
     func performRequest<T: Decodable>(_ configuration: RequestConfiguration, for type: T.Type) -> Single<T> {
-        request(
-            session: Session(),
-            configuration: configuration,
-            decoder: decoder
-        )
+        request(provider: provider, configuration: configuration)
     }
 }
