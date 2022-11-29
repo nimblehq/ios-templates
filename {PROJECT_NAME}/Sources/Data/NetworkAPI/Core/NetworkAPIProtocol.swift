@@ -16,7 +16,6 @@ extension NetworkAPIProtocol {
         configuration: RequestConfiguration
     ) -> Single<T> {
         provider.rx.request(configuration)
-            .filterSuccessfulStatusAndRedirectCodes()
             .map(T.self)
     }
 }
