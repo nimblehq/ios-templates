@@ -41,7 +41,7 @@ workflows:
     - fastlane@3:
         title: Build and upload Production app to App Store
         inputs:
-        - lane: build_and_upload_appstore_app
+        - lane: buildAndUploadToAppStoreLane
     - cache-push@2:
         inputs:
         - cache_paths: |-
@@ -82,7 +82,7 @@ workflows:
     - fastlane@3:
         title: Build and Upload Production App
         inputs:
-        - lane: build_and_upload_production_app
+        - lane: buildProductionAndUploadToFirebaseLane
     - cache-push@2:
         inputs:
         - cache_paths: |-
@@ -123,7 +123,7 @@ workflows:
     - fastlane@3:
         title: Build and Upload Staging App
         inputs:
-        - lane: build_and_upload_staging_app
+        - lane: buildStagingAndUploadToFirebaseLane
     - cache-push@2:
         inputs:
         - cache_paths: |-
@@ -155,10 +155,10 @@ workflows:
     - cocoapods-install@2: {}
     - fastlane@3:
         inputs:
-        - lane: build_and_test
+        - lane: buildAndTestLane
     - fastlane@3:
         inputs:
-        - lane: clean_up_xcov
+        - lane: cleanUpOutputLane
     - danger@2:
         inputs:
         - github_api_token: "$DANGER_GITHUB_API_TOKEN"
