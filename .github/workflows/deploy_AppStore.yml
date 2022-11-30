@@ -73,3 +73,13 @@ jobs:
       run: bundle exec fastlane build_and_upload_appstore_app
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
+        path: |
+          ${{ env.IPA_OUTPUT_PATH }}
+          ${{ env.DSYM_OUTPUT_PATH }}
+      env:
+        TAG_TYPE: App_Store

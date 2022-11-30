@@ -9,6 +9,7 @@ require './Managers/SymbolManager'
 require './Managers/DistributionManager'
 require './Managers/MatchManager'
 require './Managers/TestManager'
+require './Managers/EnvironmentManager'
 
 test_manager = TestManager.new(
   fastlane: self,
@@ -36,6 +37,13 @@ match_manager = MatchManager.new(
   keychain_password: Constants.KEYCHAIN_PASSWORD,
   is_ci: Environments.CI,
   username: DeliverableConstants.DEV_PORTAL_APPLE_ID
+)
+
+environment_manager = EnvironmentManager.new(
+  fastlane: self,
+  is_github_actions: Environments.GITHUB_ACTIONS,
+  is_bitrise: Environments.BITRISE_IO,
+  build_path: Constants.BUILD_PATH
 )
 
 before_all do
@@ -119,6 +127,7 @@ platform :ios do
       product_name: Constants.PRODUCT_NAME_STAGING,
       gsp_name: DeliverableConstants.GSP_STAGING
     )
+    environment_manager.save_build_context_to_ci(version_number: versioning_manager.version_number)
   end
 
   desc 'Build and upload Production app to Firebase'
@@ -139,6 +148,7 @@ platform :ios do
       product_name: Constants.PRODUCT_NAME_PRODUCTION,
       gsp_name: DeliverableConstants.GSP_PRODUCTION
     )
+    environment_manager.save_build_context_to_ci(version_number: versioning_manager.version_number)
   end
 
   desc 'upload develop build to Firebase app distribution'
@@ -183,8 +193,7 @@ platform :ios do
     builder.build_app_store(
       Constants.SCHEME_NAME_PRODUCTION,
       Constants.PRODUCT_NAME_PRODUCTION,
-      Constants.BUNDLE_ID_PRODUCTION,
-      true
+      Constants.BUNDLE_ID_PRODUCTION
     )
     upload_build_to_appstore
     if (Environments.SKIP_FIREBASE_DSYM || '') == ''
@@ -193,6 +202,7 @@ platform :ios do
         gsp_name: DeliverableConstants.GSP_PRODUCTION
       )
     end
+    environment_manager.save_build_context_to_ci(version_number: versioning_manager.version_number)
   end
 
   desc 'upload develop build to App Store'

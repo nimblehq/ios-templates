@@ -1,7 +1,7 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.project(name: "{PROJECT_NAME}", bundleId: "{BUNDLE_ID_PRODUCTION}")
+let project = Project.project(name: "{PROJECT_NAME}", bundleId: "${PRODUCT_BUNDLE_IDENTIFIER}")
 
 extension Project {
 
