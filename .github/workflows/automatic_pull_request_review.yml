@@ -42,12 +42,12 @@ jobs:
       run: bundle exec pod install
 
     - name: Build and Test
-      run: bundle exec fastlane buildAndTestLane --disable_runner_upgrades
+      run: bundle exec fastlane buildAndTestLane
       env:
         CI: true
 
     - name: Clean up previous code coverage report
-      run: bundle exec fastlane cleanUpOutputLane --disable_runner_upgrades
+      run: bundle exec fastlane cleanUpOutputLane
 
     - name: Review pull request by Danger
       env:
