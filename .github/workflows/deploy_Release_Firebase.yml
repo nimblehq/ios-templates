@@ -24,7 +24,7 @@ jobs:
       uses: norio-nomura/action-swiftlint@3.1.0
       with:
         args: --strict
-        
+
   build:
     name: Build
     runs-on: macOS-latest
@@ -43,7 +43,7 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            
+
     - name: Bundle install
       run: bundle install
 
