@@ -61,15 +61,15 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: bundle exec fastlane buildAndTestLane --disable_runner_upgrades
+      run: bundle exec fastlane buildAndTestLane
 
     - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdHocProductionCodeSigningLane --disable_runner_upgrades
+      run: bundle exec fastlane syncAdHocProductionCodeSigningLane
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build Production App and Distribute to Firebase
-      run: bundle exec fastlane buildProductionAndUploadToFirebaseLane --disable_runner_upgrades
+      run: bundle exec fastlane buildProductionAndUploadToFirebaseLane
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
