@@ -7,15 +7,15 @@ import RxSwift
 
 protocol NetworkAPIProtocol {
 
-    func performRequest<T: Decodable>(_ configuration: RequestConfiguration, for type: T.Type) -> Single<T>
+    func performRequest<T: Decodable>(_ configuration: TargetType, for type: T.Type) -> Single<T>
 }
 
 extension NetworkAPIProtocol {
     func request<T: Decodable>(
-        provider: MoyaProvider<RequestConfiguration>,
-        configuration: RequestConfiguration
+        provider: MoyaProvider<MultiTarget>,
+        configuration: TargetType
     ) -> Single<T> {
-        provider.rx.request(configuration)
+        provider.rx.request(MultiTarget(configuration))
             .map(T.self)
     }
 }

@@ -8,13 +8,13 @@ import RxSwift
 
 final class NetworkAPI: NetworkAPIProtocol {
 
-    private let provider: MoyaProvider<RequestConfiguration>
+    private let provider: MoyaProvider<MultiTarget>
 
-    init(provider: MoyaProvider<RequestConfiguration> = MoyaProvider<RequestConfiguration>()) {
+    init(provider: MoyaProvider<MultiTarget> = MoyaProvider<MultiTarget>()) {
         self.provider = provider
     }
 
-    func performRequest<T: Decodable>(_ configuration: RequestConfiguration, for type: T.Type) -> Single<T> {
+    func performRequest<T: Decodable>(_ configuration: TargetType, for type: T.Type) -> Single<T> {
         request(provider: provider, configuration: configuration)
     }
 }
