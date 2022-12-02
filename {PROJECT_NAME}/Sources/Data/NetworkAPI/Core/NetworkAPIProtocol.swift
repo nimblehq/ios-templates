@@ -13,9 +13,12 @@ protocol NetworkAPIProtocol {
 extension NetworkAPIProtocol {
     func request<T: Decodable>(
         provider: MoyaProvider<MultiTarget>,
-        configuration: TargetType
+        configuration: TargetType,
+        decoder: JSONDecoder
     ) -> Single<T> {
-        provider.rx.request(MultiTarget(configuration))
-            .map(T.self)
+        provider
+            .rx
+            .request(MultiTarget(configuration))
+            .map(T.self, using: decoder)
     }
 }
