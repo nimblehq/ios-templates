@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './fastlane/Constants/Constant'
+require './Constants'
 
 # Warn when there is a big PR
 warn("This pull request is quite big (#{git.lines_of_code} lines changed), please consider splitting it into multiple pull requests.") if git.lines_of_code > 500
