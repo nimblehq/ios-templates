@@ -42,7 +42,7 @@ jobs:
       run: bundle exec pod install
 
     - name: Build and Test
-      run: bundle exec fastlane build_and_test
+      run: bundle exec fastlane buildAndTest
       env:
         CI: true
 
