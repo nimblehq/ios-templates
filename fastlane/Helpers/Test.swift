@@ -16,12 +16,12 @@ enum Test {
         scan(
             scheme: .userDefined(environment.scheme),
             devices: .userDefined(devices),
-            onlyTesting: targets,
+            outputDirectory: Constant.xcovOutputDirectoryPath,
             codeCoverage: .userDefined(true),
-            outputDirectory: Constant.testOutputDirectoryPath,
-            xcodebuildFormatter: "xcpretty",
             resultBundle: .userDefined(true),
-            failBuild: .userDefined(false)
+            onlyTesting: targets,
+            failBuild: .userDefined(false),
+            xcodebuildFormatter: "xcpretty",
         )
     }
 }
