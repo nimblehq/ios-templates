@@ -47,7 +47,7 @@ jobs:
         CI: true
 
     - name: Clean up previous code coverage report
-      run: bundle exec fastlane clean_up_xcov
+      run: bundle exec fastlane cleanUpOutput
 
     - name: Review pull request by Danger
       env:
