@@ -21,7 +21,7 @@ enum Test {
             resultBundle: .userDefined(true),
             onlyTesting: targets,
             failBuild: .userDefined(false),
-            xcodebuildFormatter: "xcpretty",
+            xcodebuildFormatter: "xcpretty"
         )
     }
 }
