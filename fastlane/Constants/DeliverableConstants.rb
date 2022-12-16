@@ -13,12 +13,12 @@ class DeliverableConstants
 
   # a gsp file name for staging
   def self.GSP_STAGING
-    './{PROJECT_NAME}/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist'
+    './SurveyTests/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist'
   end
 
   # a gsp file name for production
   def self.GSP_PRODUCTION
-    './{PROJECT_NAME}/Configurations/Plists/GoogleService/Production/GoogleService-Info.plist'
+    './SurveyTests/Configurations/Plists/GoogleService/Production/GoogleService-Info.plist'
   end
 
   # The path to the upload-symbols file of the Fabric app

@@ -13,7 +13,7 @@ def testing_pods
   pod 'SwiftFormat/CLI'
 end
 
-target '{PROJECT_NAME}' do
+target 'SurveyTests' do
   # UI
   pod 'Kingfisher'
   pod 'SnapKit'
@@ -38,12 +38,12 @@ target '{PROJECT_NAME}' do
   pod 'SwiftLint'
   pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
 
-  target '{PROJECT_NAME}Tests' do
+  target 'SurveyTestsTests' do
     inherit! :search_paths
     testing_pods
   end
 
-  target '{PROJECT_NAME}UITests' do
+  target 'SurveyTestsUITests' do
     testing_pods
   end
 end
