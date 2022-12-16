@@ -1,6 +1,6 @@
 import ProjectDescription
 
-let workspace = Workspace.workspace(name: "{PROJECT_NAME}")
+let workspace = Workspace.workspace(name: "SurveyTests")
 
 extension Workspace {
 
