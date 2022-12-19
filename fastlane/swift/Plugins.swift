@@ -1,5 +1,89 @@
 import Foundation
 /**
+ Generate required icon sizes from a master application icon
+
+ - parameters:
+   - appiconImageFile: Path to a square image file, at least 512x512
+   - appiconIconTypes: Array of device types to generate icons for
+   - appiconPath: Path to res subfolder
+   - appiconFilename: The output filename of each image
+   - appiconCustomSizes: Hash of custom sizes - {'path/icon.png' => '256x256'}
+   - generateRounded: Generate round icons?
+   - minimagickCli: Set MiniMagick CLI (auto picked by default). Values are: graphicsmagick, imagemagick
+*/
+public func androidAppicon(appiconImageFile: String,
+                           appiconIconTypes: [String] = [],
+                           appiconPath: String = "app/res/mipmap",
+                           appiconFilename: String = "ic_launcher",
+                           appiconCustomSizes: [String : Any] = [:],
+                           generateRounded: OptionalConfigValue<Bool> = .fastlaneDefault(false),
+                           minimagickCli: OptionalConfigValue<String?> = .fastlaneDefault(nil)) {
+let appiconImageFileArg = RubyCommand.Argument(name: "appicon_image_file", value: appiconImageFile, type: nil)
+let appiconIconTypesArg = RubyCommand.Argument(name: "appicon_icon_types", value: appiconIconTypes, type: nil)
+let appiconPathArg = RubyCommand.Argument(name: "appicon_path", value: appiconPath, type: nil)
+let appiconFilenameArg = RubyCommand.Argument(name: "appicon_filename", value: appiconFilename, type: nil)
+let appiconCustomSizesArg = RubyCommand.Argument(name: "appicon_custom_sizes", value: appiconCustomSizes, type: nil)
+let generateRoundedArg = generateRounded.asRubyArgument(name: "generate_rounded", type: nil)
+let minimagickCliArg = minimagickCli.asRubyArgument(name: "minimagick_cli", type: nil)
+let array: [RubyCommand.Argument?] = [appiconImageFileArg,
+appiconIconTypesArg,
+appiconPathArg,
+appiconFilenameArg,
+appiconCustomSizesArg,
+generateRoundedArg,
+minimagickCliArg]
+let args: [RubyCommand.Argument] = array
+.filter { $0?.value != nil }
+.compactMap { $0 }
+let command = RubyCommand(commandID: "", methodName: "android_appicon", className: nil, args: args)
+  _ = runner.executeCommand(command)
+}
+
+/**
+ Generate required icon sizes and iconset from a master application icon
+
+ - parameters:
+   - appiconImageFile: Path to a square image file, at least 1024x1024
+   - appiconDevices: Array of device idioms to generate icons for
+   - appiconPath: Path to the Asset catalogue for the generated iconset
+   - appiconName: Name of the appiconset inside the asset catalogue
+   - appiconMessagesName: Name of the appiconset inside the asset catalogue
+   - removeAlpha: Remove the alpha channel from generated PNG
+   - messagesExtension: App icon is generated for Messages extension
+   - minimagickCli: Set MiniMagick CLI (auto picked by default). Values are: graphicsmagick, imagemagick
+*/
+public func appicon(appiconImageFile: String,
+                    appiconDevices: [String] = [],
+                    appiconPath: String = "Assets.xcassets",
+                    appiconName: String = "AppIcon.appiconset",
+                    appiconMessagesName: String = "AppIcon.stickersiconset",
+                    removeAlpha: OptionalConfigValue<Bool> = .fastlaneDefault(false),
+                    messagesExtension: OptionalConfigValue<Bool> = .fastlaneDefault(false),
+                    minimagickCli: OptionalConfigValue<String?> = .fastlaneDefault(nil)) {
+let appiconImageFileArg = RubyCommand.Argument(name: "appicon_image_file", value: appiconImageFile, type: nil)
+let appiconDevicesArg = RubyCommand.Argument(name: "appicon_devices", value: appiconDevices, type: nil)
+let appiconPathArg = RubyCommand.Argument(name: "appicon_path", value: appiconPath, type: nil)
+let appiconNameArg = RubyCommand.Argument(name: "appicon_name", value: appiconName, type: nil)
+let appiconMessagesNameArg = RubyCommand.Argument(name: "appicon_messages_name", value: appiconMessagesName, type: nil)
+let removeAlphaArg = removeAlpha.asRubyArgument(name: "remove_alpha", type: nil)
+let messagesExtensionArg = messagesExtension.asRubyArgument(name: "messages_extension", type: nil)
+let minimagickCliArg = minimagickCli.asRubyArgument(name: "minimagick_cli", type: nil)
+let array: [RubyCommand.Argument?] = [appiconImageFileArg,
+appiconDevicesArg,
+appiconPathArg,
+appiconNameArg,
+appiconMessagesNameArg,
+removeAlphaArg,
+messagesExtensionArg,
+minimagickCliArg]
+let args: [RubyCommand.Argument] = array
+.filter { $0?.value != nil }
+.compactMap { $0 }
+let command = RubyCommand(commandID: "", methodName: "appicon", className: nil, args: args)
+  _ = runner.executeCommand(command)
+}
+
+/**
  Release your beta builds with Firebase App Distribution
 
  - parameters:
@@ -19,6 +103,7 @@ import Foundation
    - firebaseCliToken: Auth token generated using 'fastlane run firebase_app_distribution_login', or the Firebase CLI's login:ci command
    - debug: Print verbose debug output
    - serviceCredentialsFile: Path to Google service account json
+   - uploadTimeout: The amount of seconds before the upload will timeout, if not completed
 
  Release your beta builds with Firebase App Distribution
 */
@@ -37,7 +122,8 @@ public func firebaseAppDistribution(ipaPath: OptionalConfigValue<String?> = .fas
                                     releaseNotesFile: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     firebaseCliToken: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     debug: OptionalConfigValue<Bool> = .fastlaneDefault(false),
-                                    serviceCredentialsFile: OptionalConfigValue<String?> = .fastlaneDefault(nil)) {
+                                    serviceCredentialsFile: OptionalConfigValue<String?> = .fastlaneDefault(nil),
+                                    uploadTimeout: Int = 300) {
 let ipaPathArg = ipaPath.asRubyArgument(name: "ipa_path", type: nil)
 let googleserviceInfoPlistPathArg = RubyCommand.Argument(name: "googleservice_info_plist_path", value: googleserviceInfoPlistPath, type: nil)
 let apkPathArg = apkPath.asRubyArgument(name: "apk_path", type: nil)
@@ -54,6 +140,7 @@ let releaseNotesFileArg = releaseNotesFile.asRubyArgument(name: "release_notes_f
 let firebaseCliTokenArg = firebaseCliToken.asRubyArgument(name: "firebase_cli_token", type: nil)
 let debugArg = debug.asRubyArgument(name: "debug", type: nil)
 let serviceCredentialsFileArg = serviceCredentialsFile.asRubyArgument(name: "service_credentials_file", type: nil)
+let uploadTimeoutArg = RubyCommand.Argument(name: "upload_timeout", value: uploadTimeout, type: nil)
 let array: [RubyCommand.Argument?] = [ipaPathArg,
 googleserviceInfoPlistPathArg,
 apkPathArg,
@@ -69,7 +156,8 @@ releaseNotesArg,
 releaseNotesFileArg,
 firebaseCliTokenArg,
 debugArg,
-serviceCredentialsFileArg]
+serviceCredentialsFileArg,
+uploadTimeoutArg]
 let args: [RubyCommand.Argument] = array
 .filter { $0?.value != nil }
 .compactMap { $0 }
