@@ -61,14 +61,14 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: bundle exec fastlane buildAndTestLane
+      run: bundle exec fastlane buildAndTest
 
     - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdHocProductionCodeSigningLane
+      run: bundle exec fastlane syncAdHocProductionCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build Production App and Distribute to Firebase
-      run: bundle exec fastlane buildProductionAndUploadToFirebaseLane
+      run: bundle exec fastlane buildProductionAndUploadToFirebase
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
