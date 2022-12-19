@@ -24,4 +24,21 @@ enum Test {
             failBuild: .userDefined(false)
         )
     }
+    
+    static func setAppIcon() {
+        appicon(
+            appiconImageFile: "fastlane/Icon/appicon.png",
+            appiconDevices: ["iphone"],
+            appiconPath: "\(Constant.projectName)/Resources/Assets/Assets.xcassets"
+        )
+        disableExemptEncryption()
+    }
+
+    static private func disableExemptEncryption() {
+        setInfoPlistValue(
+            key: "ITSAppUsesNonExemptEncryption",
+            value: "false",
+            path: "\(Constant.projectName)/Configurations/Plists/Info.plist"
+        )
+    }
 }
