@@ -24,7 +24,7 @@ enum Test {
             failBuild: .userDefined(false)
         )
     }
-    
+
     static func setAppIcon() {
         appicon(
             appiconImageFile: "fastlane/Icon/appicon.png",
