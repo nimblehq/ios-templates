@@ -139,6 +139,35 @@ class Fastfile: LaneFile {
         )
     }
 
+    func updateProvisionSettingsLane() {
+        desc("Update Provision Profile")
+        syncAppStoreCodeSigningLane()
+        updateCodeSigningSettings(
+            path: Constant.projectPath,
+            useAutomaticSigning: .userDefined(false),
+            teamId: .userDefined("sigh_#\(Constant.productionBundleId)_appstore_team-id"),
+            codeSignIdentity: .userDefined("iPhone Distribution"),
+            profileName: .userDefined("sigh_#\(Constant.productionBundleId)_appstore_profile-name")
+        )
+    }
+    
+    func setUpTestProjectLane() {
+        appicon(
+            appiconImageFile: "fastlane/Icon/appicon.png",
+            appiconDevices: ["iphone"],
+            appiconPath: "\(Constant.projectName)/Resources/Assets/Assets.xcassets"
+        )
+        disableExemptEncryptionLane()
+    }
+    
+    func disableExemptEncryptionLane() {
+        setInfoPlistValue(
+            key: "ITSAppUsesNonExemptEncryption",
+            value: "false",
+            path: "\(Constant.projectName)/Configurations/Plists/Info.plist"
+        )
+    }
+
     // MARK: - Register device
 
     func registerNewDeviceLane() {
