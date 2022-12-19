@@ -10,7 +10,7 @@ name: Test Upload Build to TestFlight
 
 on:
   pull_request:
-    types: []
+    types: [opened, reopened, edited, synchronize]  
 
 jobs:
   build:

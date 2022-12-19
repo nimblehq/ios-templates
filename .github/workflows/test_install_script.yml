@@ -1,8 +1,9 @@
 name: Test Install Script
 
 on:
-  pull_request:
-    types: [opened, reopened, edited, synchronize]
+  push:
+    branches: [ master, main ]
+  workflow_dispatch:
 
 jobs:
   Test:
