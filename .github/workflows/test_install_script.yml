@@ -1,13 +1,13 @@
 name: Test Install Script
 
- on:
-   push:
-     branches: [ feature/**, bug/**, chore/** ]
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
 
- jobs:
-   Test:
+jobs:
+  Test:
      name: Test
-     runs-on: macOS-latest
+     runs-on: macOS-12
      steps:
      - name: Cancel Previous Runs
        uses: styfle/cancel-workflow-action@0.5.0

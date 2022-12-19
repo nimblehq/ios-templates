@@ -26,11 +26,6 @@ enum Test {
     }
 
     static func setAppIcon() {
-        appicon(
-            appiconImageFile: "fastlane/Icon/appicon.png",
-            appiconDevices: ["iphone"],
-            appiconPath: "\(Constant.projectName)/Resources/Assets/Assets.xcassets"
-        )
         disableExemptEncryption()
     }
 

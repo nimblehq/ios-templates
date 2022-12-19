@@ -190,9 +190,6 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
-    fastlane-plugin-appicon (0.16.0)
-      json
-      mini_magick (>= 4.9.4, < 5.0.0)
     fastlane-plugin-firebase_app_distribution (0.3.8)
     ffi (1.15.5)
     fourflusher (2.3.1)
@@ -349,7 +346,6 @@ DEPENDENCIES
   danger-xcode_summary
   danger-xcov
   fastlane
-  fastlane-plugin-appicon
   fastlane-plugin-firebase_app_distribution
   xcov
 

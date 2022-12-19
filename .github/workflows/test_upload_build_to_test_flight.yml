@@ -8,62 +8,63 @@ name: Test Upload Build to TestFlight
 ### ISSUER_ID
 ### APPSTORE_CONNECT_API_KEY
 
- on:
-   pull_request
+on:
+  pull_request:
+    types: []
 
- jobs:
-   build:
-     name: Build
-     runs-on: macOS-latest
-     steps:
-     - name: Cancel Previous Runs
-       uses: styfle/cancel-workflow-action@0.5.0
-       with:
-         access_token: ${{ github.token }}
+jobs:
+  build:
+    name: Build
+    runs-on: macOS-12
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.5.0
+      with:
+        access_token: ${{ github.token }}
 
-     - name: Checkout Repo
-       uses: actions/checkout@v2
-       with:
-         fetch-depth: 0
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-     - name: Install SSH key
-       uses: webfactory/ssh-agent@v0.5.4
-       with:
-         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
             
-     - name: Bundle install
-       run: bundle install
+    - name: Bundle install
+      run: bundle install
 
-     - name: Cache Pods
-       uses: actions/cache@v2
-       id: cocoapodCache
-       with:
-         path: Pods
-         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-         restore-keys: |
-           ${{ runner.os }}-pods-
+    - name: Cache Pods
+      uses: actions/cache@v2
+      id: cocoapodCache
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
           
-     - name: Start Install Script for Template App
-       run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
+    - name: Start Install Script for Template App
+      run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
 
-     - name: Start Setup Script for Template App TestFlight Upload
-       run: sh set_up_test_testflight.sh
-       env:
-         MATCH_REPO: ${{ secrets.MATCH_REPO }}
-         API_KEY_ID: ${{ secrets.API_KEY_ID }}
-         ISSUER_ID: ${{ secrets.ISSUER_ID }}
+    - name: Start Setup Script for Template App TestFlight Upload
+      run: sh set_up_test_testflight.sh
+      env:
+        MATCH_REPO: ${{ secrets.MATCH_REPO }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
 
-     - name: Set Up Test Project for App Store
-       run: bundle exec fastlane setUpTestProject
+    - name: Set Up Test Project for App Store
+      run: bundle exec fastlane setUpTestProject
 
-     - name: Update Provision Profile
-       run: bundle exec fastlane updateProvisionSettings
-       env:
-         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+    - name: Update Provision Profile
+      run: bundle exec fastlane updateProvisionSettings
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
    
-     - name: Build App and Distribute to AppStore
-       run: bundle exec fastlane buildAndUploadToAppStore
-       env:
-         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
-         SKIP_FIREBASE_DSYM: "true"
-         BUMP_APP_STORE_BUILD_NUMBER: "true"
+    - name: Build App and Distribute to AppStore
+      run: bundle exec fastlane buildAndUploadToAppStore
+      env:
+        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        SKIP_FIREBASE_DSYM: "true"
+        BUMP_APP_STORE_BUILD_NUMBER: "true"
