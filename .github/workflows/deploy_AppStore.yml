@@ -62,14 +62,14 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: bundle exec fastlane buildAndTestLane
+      run: bundle exec fastlane buildAndTest
 
     - name: Match AppStore
-      run: bundle exec fastlane syncAppStoreCodeSigningLane
+      run: bundle exec fastlane syncAppStoreCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distribute to AppStore
-      run: bundle exec fastlane buildAndUploadToAppStoreLane
+      run: bundle exec fastlane buildAndUploadToAppStore
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
