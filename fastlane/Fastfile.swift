@@ -127,7 +127,6 @@ class Fastfile: LaneFile {
         Build.saveBuildContextToCI()
     }
 
-
     // MARK: - Test
 
     func buildAndTestLane() {
@@ -152,20 +151,8 @@ class Fastfile: LaneFile {
     }
     
     func setUpTestProjectLane() {
-        appicon(
-            appiconImageFile: "fastlane/Icon/appicon.png",
-            appiconDevices: ["iphone"],
-            appiconPath: "\(Constant.projectName)/Resources/Assets/Assets.xcassets"
-        )
-        disableExemptEncryptionLane()
-    }
-    
-    func disableExemptEncryptionLane() {
-        setInfoPlistValue(
-            key: "ITSAppUsesNonExemptEncryption",
-            value: "false",
-            path: "\(Constant.projectName)/Configurations/Plists/Info.plist"
-        )
+        desc("Set App Icon")
+        Test.setAppIcon()
     }
 
     // MARK: - Register device
