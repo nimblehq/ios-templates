@@ -54,10 +54,10 @@ name: Test Upload Build to TestFlight
          ISSUER_ID: ${{ secrets.ISSUER_ID }}
 
      - name: Set Up Test Project for App Store
-       run: bundle exec fastlane setUpTestProjectLane
+       run: bundle exec fastlane setUpTestProject
 
      - name: Update Provision Profile
-       run: bundle exec fastlane updateProvisionSettingsLane
+       run: bundle exec fastlane updateProvisionSettings
        env:
          MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
    
