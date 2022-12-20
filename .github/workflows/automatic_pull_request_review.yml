@@ -7,7 +7,7 @@ on:
 jobs:
   review_pull_request:
     name: Pull request review by Danger
-    runs-on: macOS-latest
+    runs-on: macos-12
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.5.0
@@ -42,12 +42,12 @@ jobs:
       run: bundle exec pod install
 
     - name: Build and Test
-      run: bundle exec fastlane build_and_test
+      run: bundle exec fastlane buildAndTestLane
       env:
         CI: true
 
     - name: Clean up previous code coverage report
-      run: bundle exec fastlane clean_up_xcov
+      run: bundle exec fastlane cleanUpOutputLane
 
     - name: Review pull request by Danger
       env:
