@@ -14,7 +14,7 @@ enum AppStoreAuthentication {
         appStoreConnectApiKey(
             keyId: Constant.appStoreKeyId,
             issuerId: Constant.appStoreIssuerId,
-            keyContent: .userDefined(Secret.appstoreConnectAPIKey),
+            keyContent: .userDefined(nil),
             isKeyContentBase64: .userDefined(true) // Check if the AppStore Connect API Key is base64
         )
     }

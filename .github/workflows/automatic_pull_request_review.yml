@@ -1,8 +1,9 @@
 name: Automatic pull request review
 
 on:
-  pull_request:
-    types: [opened, reopened, edited, synchronize]
+  push:
+    branches: [ master, main ]
+  workflow_dispatch:
 
 jobs:
   review_pull_request:

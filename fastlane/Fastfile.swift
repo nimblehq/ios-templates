@@ -144,9 +144,9 @@ class Fastfile: LaneFile {
         updateCodeSigningSettings(
             path: Constant.projectPath,
             useAutomaticSigning: .userDefined(false),
-            teamId: .userDefined("sigh_#\(Constant.productionBundleId)_appstore_team-id"),
+            teamId: .userDefined(EnvironmentParser.string(key: "sigh_\(Constant.productionBundleId)_appstore_team-id")),
             codeSignIdentity: .userDefined("iPhone Distribution"),
-            profileName: .userDefined("sigh_#\(Constant.productionBundleId)_appstore_profile-name")
+            profileName: .userDefined(EnvironmentParser.string(key: "sigh_\(Constant.productionBundleId)_appstore_profile-name"))
         )
     }
     
