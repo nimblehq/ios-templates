@@ -1,7 +1,5 @@
 echo "import('./Tests/Fastfile')" | cat - fastlane/Fastfile | tee fastlane/Fastfile &> /dev/null
 
-bundle exec fastlane add_plugin appicon
-
 readonly CONSTANT_API_KEY_ID="<#API_KEY_ID#>"
 readonly CONSTANT_ISSUER_ID="<#ISSUER_ID#>"
 readonly CONSTANT_MATCH_REPO="git@github.com:{organization}\/{repo}.git"
