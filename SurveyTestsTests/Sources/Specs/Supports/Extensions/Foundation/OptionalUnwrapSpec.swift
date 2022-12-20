@@ -1,7 +1,7 @@
 import Nimble
 import Quick
 
-@testable import {PROJECT_NAME}
+@testable import SurveyTests
 
 final class OptionalUnwrapSpec: QuickSpec {
 

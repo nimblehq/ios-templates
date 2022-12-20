@@ -51,10 +51,10 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_PRODUCTION}
+      BUNDLE_ID: co.nimblehq.david.ic-survey
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME}
+      BITRISE_SCHEME: SurveyTests
   deploy_release_firebase:
     steps:
     - activate-ssh-key@4:
@@ -92,10 +92,10 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_PRODUCTION}
+      BUNDLE_ID: co.nimblehq.david.ic-survey
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME}
+      BITRISE_SCHEME: SurveyTests
   deploy_staging:
     steps:
     - activate-ssh-key@4:
@@ -133,10 +133,10 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_STAGING}
+      BUNDLE_ID: co.nimblehq.david.ic-survey.staging
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME} Staging
+      BITRISE_SCHEME: SurveyTests Staging
   test:
     steps:
     - activate-ssh-key@4:
@@ -171,15 +171,15 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_STAGING}
+      BUNDLE_ID: co.nimblehq.david.ic-survey.staging
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME} Staging
+      BITRISE_SCHEME: SurveyTests Staging
 app:
   envs:
   - opts:
       is_expand: false
-    BITRISE_PROJECT_PATH: {PROJECT_NAME}.xcworkspace
+    BITRISE_PROJECT_PATH: SurveyTests.xcworkspace
   - opts:
       is_expand: false
     TEAM_ID: TEAMID
