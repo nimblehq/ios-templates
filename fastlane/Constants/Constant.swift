@@ -25,7 +25,7 @@ enum Constant {
     // MARK: - Match
 
     static let userName = "<#userName#>"
-    static let teamId = "4TWS7E2EPE"
+    static let teamId = "<#teamId#>"
     static let keychainName = "github_action_keychain"
     static let matchURL = "git@github.com:{organization}/{repo}.git"
 

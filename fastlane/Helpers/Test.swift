@@ -25,11 +25,7 @@ enum Test {
         )
     }
 
-    static func setAppIcon() {
-        disableExemptEncryption()
-    }
-
-    static private func disableExemptEncryption() {
+    static func disableExemptEncryption() {
         setInfoPlistValue(
             key: "ITSAppUsesNonExemptEncryption",
             value: "false",

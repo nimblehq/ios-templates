@@ -63,7 +63,7 @@ jobs:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
    
     - name: Build App and Distribute to AppStore
-      run: bundle exec fastlane buildAndUploadToAppStore
+      run: bundle exec fastlane buildAndUploadToAppStoreLane --verbose
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
         SKIP_FIREBASE_DSYM: "true"

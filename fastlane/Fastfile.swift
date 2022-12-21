@@ -151,8 +151,8 @@ class Fastfile: LaneFile {
     }
     
     func setUpTestProjectLane() {
-        desc("Set App Icon")
-        Test.setAppIcon()
+        desc("Disable Exempt Encryption")
+        Test.disableExemptEncryption()
     }
 
     // MARK: - Register device

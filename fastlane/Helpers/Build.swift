@@ -43,8 +43,6 @@ enum Build {
         environment: Constant.Environment,
         type: Constant.BuildType
     ) {
-        xcodeSelect()
-//        xcode_select("/Applications/Xcode_13.4.1.app")
 
         buildApp(
             scheme: .userDefined(environment.scheme),
@@ -53,7 +51,7 @@ enum Build {
             outputName: .userDefined(environment.productName),
             includeSymbols: .userDefined(true),
             exportMethod: .userDefined(type.value),
-            exportOptions: type == .appStore ? .userDefined(nil) : .userDefined([
+            exportOptions: .userDefined([
                 "provisioningProfiles": [
                     environment.bundleId: "match \(type.method) \(environment.bundleId)"
                 ]
