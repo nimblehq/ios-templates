@@ -26,7 +26,7 @@ swiftlint.lint_files(
 xcresultPath = "./fastlane/test_output/{PROJECT_NAME} Staging.xcresult"
 scheme = "'{PROJECT_NAME} Staging'"
 workspace = "./{PROJECT_NAME}.xcworkspace"
-xcovOutputDirectory = "./fastlane/xcov_output"
+outputDirectory = "./fastlane/xcov_output"
 
 # Xcode summary
 changed_files = (git.modified_files - git.deleted_files) + git.added_files
@@ -45,7 +45,7 @@ xcode_summary.report xcresultPath
 xcov.report(
   scheme: scheme,
   workspace: workspace,
-  output_directory: xcovOutputDirectory,
+  output_directory: outputDirectory,
   xccov_file_direct_path: xcresultPath,
   only_project_targets: true,
   markdown_report: true,
