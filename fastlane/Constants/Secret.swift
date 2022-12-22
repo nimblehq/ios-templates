@@ -14,4 +14,12 @@ enum Secret {
     static let firebaseCLIToken = EnvironmentParser.string(key: "FIREBASE_CLI_TOKEN")
 
     static let appstoreConnectAPIKey = EnvironmentParser.string(key: "APPSTORE_CONNECT_API_KEY")
+
+    static let appStoreKeyIdKey = EnvironmentParser.string(key: "API_KEY_ID")
+
+    static let appStoreIssuerIdKey = EnvironmentParser.string(key: "ISSUER_ID")
+
+    static let bumpAppStoreBuildNumber = EnvironmentParser.bool(key: "BUMP_APP_STORE_BUILD_NUMBER")
+    
+    static let productionFirebaseAppId = EnvironmentParser.bool(key: "BUMP_APP_STORE_BUILD_NUMBER")
 }

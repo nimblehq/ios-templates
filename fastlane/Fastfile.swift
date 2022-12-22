@@ -99,11 +99,14 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to App Store")
 
         setAppVersion()
-        bumpBuild()
-
+        AppStoreAuthentication.connectAPIKey()
+        if Secret.bumpAppStoreBuildNumber {
+            bumpAppstoreBuild()
+        } else {
+            bumpBuild()
+        }
         buildAppStoreLane()
 
-        AppStoreAuthentication.connectAPIKey()
         Distribution.uploadToAppStore()
 
         Symbol.uploadToCrashlytics(environment: .production)
@@ -193,6 +196,16 @@ class Fastfile: LaneFile {
         incrementBuildNumber(
             buildNumber: .userDefined(String(buildNumber)),
             xcodeproj: .userDefined(Constant.projectPath)
+        )
+    }
+
+    private func bumpAppstoreBuild() {
+        desc("Set build number with App Store latest build")
+        let theLatestBuildNumber = latestTestflightBuildNumber(
+            appIdentifier: Constant.productionBundleId
+        ) + 1
+        incrementBuildNumber(
+            buildNumber: .userDefined("\(theLatestBuildNumber)")
         )
     }
 }

@@ -66,5 +66,7 @@ jobs:
       run: bundle exec fastlane buildAndUploadToAppStoreLane --verbose
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
         SKIP_FIREBASE_DSYM: "true"
         BUMP_APP_STORE_BUILD_NUMBER: "true"

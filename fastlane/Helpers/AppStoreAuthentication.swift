@@ -12,10 +12,11 @@ enum AppStoreAuthentication {
 
     static func connectAPIKey() {
         appStoreConnectApiKey(
-            keyId: Constant.appStoreKeyId,
-            issuerId: Constant.appStoreIssuerId,
+            keyId: Secret.appStoreKeyIdKey,
+            issuerId: Secret.appStoreIssuerIdKey,
             keyContent: .userDefined(Secret.appstoreConnectAPIKey),
-            isKeyContentBase64: .userDefined(true) // Check if the AppStore Connect API Key is base64
+            isKeyContentBase64: .userDefined(true), // Check if the AppStore Connect API Key is base64
+            duration: 500
         )
     }
 }
