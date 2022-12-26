@@ -21,5 +21,5 @@ enum Secret {
 
     static let bumpAppStoreBuildNumber = EnvironmentParser.bool(key: "BUMP_APP_STORE_BUILD_NUMBER")
     
-    static let productionFirebaseAppId = EnvironmentParser.bool(key: "BUMP_APP_STORE_BUILD_NUMBER")
+    static let productionFirebaseAppId = EnvironmentParser.string(key: "PROJECT_FIREBASE_APP_ID")
 }

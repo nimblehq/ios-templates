@@ -92,7 +92,7 @@ extension Constant {
         var firebaseAppId: String {
             switch self {
             case .staging: return Constant.stagingFirebaseAppId
-            case .production: return Constant.productionFirebaseAppId
+            case .production: return Secret.productionFirebaseAppId
             }
         }
 
