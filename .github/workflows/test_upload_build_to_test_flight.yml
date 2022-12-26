@@ -9,8 +9,9 @@ name: Test Upload Build to TestFlight
 ### APPSTORE_CONNECT_API_KEY
 
 on:
-  pull_request:
-    types: [opened, reopened, edited, synchronize]  
+  push:
+    branches: [ master, main ]
+  workflow_dispatch:
 
 jobs:
   build:
