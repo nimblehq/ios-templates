@@ -99,11 +99,15 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to App Store")
 
         setAppVersion()
-        bumpBuild()
+        AppStoreAuthentication.connectAPIKey()
+        if Secret.bumpAppStoreBuildNumber {
+            bumpAppstoreBuild()
+        } else {
+            bumpBuild()
+        }
 
         buildAppStoreLane()
 
-        AppStoreAuthentication.connectAPIKey()
         Distribution.uploadToAppStore()
 
         Symbol.uploadToCrashlytics(environment: .production)
@@ -127,7 +131,6 @@ class Fastfile: LaneFile {
         Build.saveBuildContextToCI()
     }
 
-
     // MARK: - Test
 
     func buildAndTestLane() {
@@ -137,6 +140,23 @@ class Fastfile: LaneFile {
             targets: [Constant.testTarget, Constant.uiTestTarget],
             devices: Constant.devices
         )
+    }
+
+    func updateProvisionSettingsLane() {
+        desc("Update Provision Profile")
+        syncAppStoreCodeSigningLane()
+        updateCodeSigningSettings(
+            path: Constant.projectPath,
+            useAutomaticSigning: .userDefined(false),
+            teamId: .userDefined(EnvironmentParser.string(key: "sigh_\(Constant.productionBundleId)_appstore_team-id")),
+            codeSignIdentity: .userDefined("iPhone Distribution"),
+            profileName: .userDefined(EnvironmentParser.string(key: "sigh_\(Constant.productionBundleId)_appstore_profile-name"))
+        )
+    }
+    
+    func setUpTestProjectLane() {
+        desc("Disable Exempt Encryption")
+        Test.disableExemptEncryption()
     }
 
     // MARK: - Register device
@@ -177,6 +197,16 @@ class Fastfile: LaneFile {
         incrementBuildNumber(
             buildNumber: .userDefined(String(buildNumber)),
             xcodeproj: .userDefined(Constant.projectPath)
+        )
+    }
+
+    private func bumpAppstoreBuild() {
+        desc("Set build number with App Store latest build")
+        let theLatestBuildNumber = latestTestflightBuildNumber(
+            appIdentifier: Constant.productionBundleId
+        ) + 1
+        incrementBuildNumber(
+            buildNumber: .userDefined("\(theLatestBuildNumber)")
         )
     }
 }

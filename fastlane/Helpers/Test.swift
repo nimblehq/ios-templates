@@ -24,4 +24,12 @@ enum Test {
             failBuild: .userDefined(false)
         )
     }
+
+    static func disableExemptEncryption() {
+        setInfoPlistValue(
+            key: "ITSAppUsesNonExemptEncryption",
+            value: "false",
+            path: "\(Constant.projectName)/Configurations/Plists/Info.plist"
+        )
+    }
 }

@@ -12,8 +12,6 @@ enum Constant {
 
     // MARK: - App Store
 
-    static let appStoreKeyId = "<#appStoreKeyId#>"
-    static let appStoreIssuerId = "<#appStoreIssuerId#>"
     static let testFlightTesterGroups = ["<#group1#>", "<#group2#>"]
 
     // MARK: - Firebase
@@ -26,8 +24,8 @@ enum Constant {
 
     static let userName = "<#userName#>"
     static let teamId = "<#teamId#>"
-    static let keychainName = "<#keychainName#>"
-    static let matchURL = "<#matchURL#>"
+    static let keychainName = "github_action_keychain"
+    static let matchURL = "git@github.com:{organization}/{repo}.git"
 
     // MARK: - Path
 
@@ -36,6 +34,7 @@ enum Constant {
     static let derivedDataPath = "\(outputPath)/DerivedData"
     static let projectPath: String = "./\(projectName).xcodeproj"
     static let testOutputDirectoryPath = "./fastlane/test_output"
+    static let infoPlistPath = "\(projectName)/Configurations/Plists/Info.plist"
 
     // MARK: Platform
 

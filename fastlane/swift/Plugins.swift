@@ -19,6 +19,7 @@ import Foundation
    - firebaseCliToken: Auth token generated using 'fastlane run firebase_app_distribution_login', or the Firebase CLI's login:ci command
    - debug: Print verbose debug output
    - serviceCredentialsFile: Path to Google service account json
+   - uploadTimeout: The amount of seconds before the upload will timeout, if not completed
 
  Release your beta builds with Firebase App Distribution
 */
@@ -37,7 +38,8 @@ public func firebaseAppDistribution(ipaPath: OptionalConfigValue<String?> = .fas
                                     releaseNotesFile: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     firebaseCliToken: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     debug: OptionalConfigValue<Bool> = .fastlaneDefault(false),
-                                    serviceCredentialsFile: OptionalConfigValue<String?> = .fastlaneDefault(nil)) {
+                                    serviceCredentialsFile: OptionalConfigValue<String?> = .fastlaneDefault(nil),
+                                    uploadTimeout: Int = 300) {
 let ipaPathArg = ipaPath.asRubyArgument(name: "ipa_path", type: nil)
 let googleserviceInfoPlistPathArg = RubyCommand.Argument(name: "googleservice_info_plist_path", value: googleserviceInfoPlistPath, type: nil)
 let apkPathArg = apkPath.asRubyArgument(name: "apk_path", type: nil)
@@ -54,6 +56,7 @@ let releaseNotesFileArg = releaseNotesFile.asRubyArgument(name: "release_notes_f
 let firebaseCliTokenArg = firebaseCliToken.asRubyArgument(name: "firebase_cli_token", type: nil)
 let debugArg = debug.asRubyArgument(name: "debug", type: nil)
 let serviceCredentialsFileArg = serviceCredentialsFile.asRubyArgument(name: "service_credentials_file", type: nil)
+let uploadTimeoutArg = RubyCommand.Argument(name: "upload_timeout", value: uploadTimeout, type: nil)
 let array: [RubyCommand.Argument?] = [ipaPathArg,
 googleserviceInfoPlistPathArg,
 apkPathArg,
@@ -69,7 +72,8 @@ releaseNotesArg,
 releaseNotesFileArg,
 firebaseCliTokenArg,
 debugArg,
-serviceCredentialsFileArg]
+serviceCredentialsFileArg,
+uploadTimeoutArg]
 let args: [RubyCommand.Argument] = array
 .filter { $0?.value != nil }
 .compactMap { $0 }
