@@ -1,13 +1,13 @@
-name: Deploy Build To Firebase
+name: Deploy Build To App Store
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
-### FIREBASE_TOKEN
+### APPSTORE_CONNECT_API_KEY
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master, main ]
   workflow_dispatch:
 
 jobs:
@@ -34,7 +34,8 @@ jobs:
       with:
         access_token: ${{ github.token }}
 
-    - uses: actions/checkout@v2
+    - name: Checkout Repo
+      uses: actions/checkout@v2
     # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
@@ -44,13 +45,7 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Install Firebase-Tools
-      run: |
-        yarn global add firebase-tools
-        echo "$(yarn global bin)" >> $GITHUB_PATH
-
     - name: Bundle install
-      # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
 
     - name: Cache Pods
@@ -69,15 +64,15 @@ jobs:
     - name: Build and Test
       run: bundle exec fastlane buildAndTest
 
-    - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdHocStagingCodeSigning
+    - name: Match AppStore
+      run: bundle exec fastlane syncAppStoreCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build App and Distribute to Firebase
-      run: bundle exec fastlane buildStagingAndUploadToFirebase
+    - name: Build App and Distribute to AppStore
+      run: bundle exec fastlane buildAndUploadToAppStore
       env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
@@ -87,4 +82,4 @@ jobs:
           ${{ env.IPA_OUTPUT_PATH }}
           ${{ env.DSYM_OUTPUT_PATH }}
       env:
-        TAG_TYPE: Staging_Firebase
+        TAG_TYPE: App_Store

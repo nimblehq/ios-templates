@@ -1,3 +1,0 @@
-git_url("git@github.com:{organization}/{repo}.git")
-
-storage_mode("git")

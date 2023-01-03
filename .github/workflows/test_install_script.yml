@@ -7,7 +7,7 @@ on:
 jobs:
   Test:
     name: Test
-    runs-on: macOS-latest
+    runs-on: macOS-12
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.5.0
@@ -25,6 +25,6 @@ jobs:
       run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp
 
     - name: Build and Test
-      run: bundle exec fastlane build_and_test
+      run: bundle exec fastlane buildAndTest
       env:
         CI: true
