@@ -24,7 +24,7 @@ jobs:
       uses: norio-nomura/action-swiftlint@3.1.0
       with:
         args: --strict
-        
+
   build:
     name: Build
     runs-on: macOS-latest
@@ -48,7 +48,7 @@ jobs:
       run: |
         yarn global add firebase-tools
         echo "$(yarn global bin)" >> $GITHUB_PATH
-            
+
     - name: Bundle install
       # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
@@ -67,15 +67,15 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: bundle exec fastlane build_and_test
+      run: bundle exec fastlane buildAndTest
 
     - name: Match Ad-hoc
-      run: bundle exec fastlane sync_adhoc_signing
+      run: bundle exec fastlane syncAdHocStagingCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distribute to Firebase
-      run: bundle exec fastlane build_and_upload_staging_app
+      run: bundle exec fastlane buildStagingAndUploadToFirebase
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 

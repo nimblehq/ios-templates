@@ -24,7 +24,7 @@ jobs:
       uses: norio-nomura/action-swiftlint@3.1.0
       with:
         args: --strict
-        
+
   build:
     name: Build
     runs-on: macOS-latest
@@ -43,7 +43,7 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            
+
     - name: Bundle install
       run: bundle install
 
@@ -61,15 +61,15 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: bundle exec fastlane build_and_test
+      run: bundle exec fastlane buildAndTest
 
     - name: Match Ad-hoc
-      run: bundle exec fastlane sync_adhoc_production_signing
+      run: bundle exec fastlane syncAdHocProductionCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build Production App and Distribute to Firebase
-      run: bundle exec fastlane build_and_upload_production_app
+      run: bundle exec fastlane buildProductionAndUploadToFirebase
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
