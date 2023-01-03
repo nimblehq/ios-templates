@@ -42,6 +42,10 @@ workflows:
         title: Build and upload Production app to App Store
         inputs:
         - lane: buildAndUploadToAppStoreLane
+    - deploy-to-bitrise-io:
+        inputs:
+        - deploy_path: $BUILD_PATH
+        is_always_run: false
     - cache-push@2:
         inputs:
         - cache_paths: |-
@@ -83,6 +87,10 @@ workflows:
         title: Build and Upload Production App
         inputs:
         - lane: buildProductionAndUploadToFirebaseLane
+    - deploy-to-bitrise-io:
+        inputs:
+        - deploy_path: $BUILD_PATH
+        is_always_run: false
     - cache-push@2:
         inputs:
         - cache_paths: |-
@@ -124,6 +132,10 @@ workflows:
         title: Build and Upload Staging App
         inputs:
         - lane: buildStagingAndUploadToFirebaseLane
+    - deploy-to-bitrise-io:
+        inputs:
+        - deploy_path: $BUILD_PATH
+        is_always_run: false
     - cache-push@2:
         inputs:
         - cache_paths: |-

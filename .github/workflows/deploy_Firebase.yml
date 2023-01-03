@@ -24,7 +24,7 @@ jobs:
       uses: norio-nomura/action-swiftlint@3.1.0
       with:
         args: --strict
-        
+
   build:
     name: Build
     runs-on: macOS-latest
@@ -48,7 +48,7 @@ jobs:
       run: |
         yarn global add firebase-tools
         echo "$(yarn global bin)" >> $GITHUB_PATH
-            
+
     - name: Bundle install
       # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
@@ -78,3 +78,13 @@ jobs:
       run: bundle exec fastlane buildStagingAndUploadToFirebase
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
+        path: |
+          ${{ env.IPA_OUTPUT_PATH }}
+          ${{ env.DSYM_OUTPUT_PATH }}
+      env:
+        TAG_TYPE: Staging_Firebase

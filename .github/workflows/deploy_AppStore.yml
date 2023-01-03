@@ -24,7 +24,7 @@ jobs:
       uses: norio-nomura/action-swiftlint@3.1.0
       with:
         args: --strict
-        
+
   build:
     name: Build
     runs-on: macOS-latest
@@ -44,7 +44,7 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            
+
     - name: Bundle install
       run: bundle install
 
@@ -73,3 +73,13 @@ jobs:
       run: bundle exec fastlane buildAndUploadToAppStore
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
+        path: |
+          ${{ env.IPA_OUTPUT_PATH }}
+          ${{ env.DSYM_OUTPUT_PATH }}
+      env:
+        TAG_TYPE: App_Store
