@@ -6,25 +6,25 @@ on:
 
 jobs:
   Test:
-     name: Test
-     runs-on: macOS-12
-     steps:
-     - name: Cancel Previous Runs
-       uses: styfle/cancel-workflow-action@0.5.0
-       with:
-         access_token: ${{ github.token }}
+    name: Test
+    runs-on: macOS-12
+    steps:
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.5.0
+      with:
+        access_token: ${{ github.token }}
 
-     - uses: actions/checkout@v2
-       with:
-         fetch-depth: 0
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-     - name: Bundle install
-       run: bundle install
+    - name: Bundle install
+      run: bundle install
 
-     - name: Start Install Script for Template App
-       run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp
+    - name: Start Install Script for Template App
+      run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp
 
-     - name: Build and Test
-       run: bundle exec fastlane buildAndTest
-       env:
-         CI: true
+    - name: Build and Test
+      run: bundle exec fastlane buildAndTest
+      env:
+        CI: true
