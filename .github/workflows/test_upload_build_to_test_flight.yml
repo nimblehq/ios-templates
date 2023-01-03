@@ -30,7 +30,7 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            
+
     - name: Bundle install
       run: bundle install
 
@@ -42,7 +42,7 @@ jobs:
         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-
-          
+
     - name: Start Install Script for Template App
       run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
 
@@ -60,7 +60,7 @@ jobs:
       run: bundle exec fastlane updateProvisionSettings
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
-   
+
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane buildAndUploadToAppStore
       env:
