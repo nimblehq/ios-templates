@@ -14,7 +14,7 @@ Example:
 $ bundle exec fastlane buildAndTest
 ```
 
-After running this lane, it can generate the code coverage report.
+After running this lane successfully, it will generate the code coverage report.
 
 > See more:
 > 
@@ -26,7 +26,7 @@ As the developer team has many developers, it is recommended to synchronize the 
 
 The `fastlane match` is here for sharing one code signing identity across the development team to simplify the codesigning setup and prevent code signing issues.
 
-To synchronize the machine with the certificate and profiles, which are stored in a match repository, please use the following lanes:
+To synchronize the machine with the certificates and profiles, which are stored in a match repository, please use the following lanes:
 
 | `syncDevelopmentCodeSigning` | `syncAdHocStagingCodeSigning` | `syncAdHocProductionCodeSigning` | `syncAppStoreCodeSigning` |
 |---|---|---|---|
@@ -54,7 +54,7 @@ $ bundle exec fastlane registerNewDevice
 
 ### Build and upload the application
 
-To build and upload the application to distribution tools, like Firebase or App Store Connect, please use these lanes:
+To build and upload the application to distribution platforms, like Firebase or App Store Connect, please use these lanes:
 
 | `buildStagingAndUploadToFirebase` | `buildProductionAndUploadToFirebase` | `buildAndUploadToAppStore` | `buildAndUploadToTestFlight` |
 |---|---|---|---|
@@ -110,7 +110,7 @@ The `Build` helps build and sign the application. There are two main functions:
 
 ### Distribution.swift
 
-The `Distribution` is in charge of distributing the build to the distribution tools, such as Firebase, App Store Connect, and Testflight.
+The `Distribution` is in charge of distributing the build to the distribution platforms, such as Firebase, App Store Connect, and Testflight.
 
 > See more:
 >
