@@ -1,4 +1,4 @@
-Fastlane is a part of the automation tool for the development and release process of the project. By converting to Fastlane.swift, we can now write our configuration using Xcode in Swift - the language we know and love from the world of iOS development. This document will mention some crucial parts of the pipeline. 
+Fastlane is a part of the automation tool for the development and release process of the project. By converting to Fastlane.swift, we can now write our configuration using Xcode in Swift - the language we know and love from the world of iOS development. This document will mention some crucial parts of the pipeline.
 
 <img src="assets/images/infrastructure/fastlane/fastlane.png" width=300>
 
@@ -6,12 +6,12 @@ Fastlane is a part of the automation tool for the development and release proces
 
 ### Build and test
 
-The lane `buildAndTestLane` helps build and test the application with the configuration of the test scheme and test target defined in the `Constant.swift` file.
+The lane `buildAndTest` helps build and test the application with the configuration of the test scheme and test target defined in the `Constant.swift` file.
 
 Example:
 
 ```
-$ bundle exec fastlane buildAndTestLane
+$ bundle exec fastlane buildAndTest
 ```
 
 After running this lane, it can generate the code coverage report.
@@ -28,7 +28,7 @@ The `fastlane match` is here for sharing one code signing identity across the de
 
 To synchronize the machine with the certificate and profiles, which are stored in a match repository, please use the following lanes:
 
-| `syncDevelopmentCodeSigningLane` | `syncAdHocStagingCodeSigningLane` | `syncAdHocProductionCodeSigningLane` | `syncAppStoreCodeSigningLane` |
+| `syncDevelopmentCodeSigning` | `syncAdHocStagingCodeSigning` | `syncAdHocProductionCodeSigning` | `syncAppStoreCodeSigning` |
 |---|---|---|---|
 | Synchronize the Development match signing for the Staging build. | Synchronize the Ad Hoc match signing for the Staging build. | Synchronize the Ad Hoc match signing for the Production build. | Synchronize the App Store match signing for the Production build. |
 
@@ -36,37 +36,37 @@ To synchronize the machine with the certificate and profiles, which are stored i
 Example:
 
 ```
-$ bundle exec fastlane syncDevelopmentCodeSigningLane
-$ bundle exec fastlane syncAdHocStagingCodeSigningLane
-$ bundle exec fastlane syncAdHocProductionCodeSigningLane
-$ bundle exec fastlane syncAppStoreCodeSigningLane
+$ bundle exec fastlane syncDevelopmentCodeSigning
+$ bundle exec fastlane syncAdHocStagingCodeSigning
+$ bundle exec fastlane syncAdHocProductionCodeSigning
+$ bundle exec fastlane syncAppStoreCodeSigning
 ```
 
 ### Register a new device
 
-To register a new device and synchronize the new device across the development team, use the lane `registerNewDeviceLane` and provide the device UDID along with the device name:
+To register a new device and synchronize the new device across the development team, use the lane `registerNewDevice` and provide the device UDID along with the device name:
 
 Example:
 
 ```
-$ bundle exec fastlane registerNewDeviceLane
+$ bundle exec fastlane registerNewDevice
 ```
 
 ### Build and upload the application
 
 To build and upload the application to distribution tools, like Firebase or App Store Connect, please use these lanes:
 
-| `buildStagingAndUploadToFirebaseLane` | `buildProductionAndUploadToFirebaseLane` | `buildAndUploadToAppStoreLane` | `buildAndUploadToTestFlightLane` |
+| `buildStagingAndUploadToFirebase` | `buildProductionAndUploadToFirebase` | `buildAndUploadToAppStore` | `buildAndUploadToTestFlight` |
 |---|---|---|---|
 | To upload the Staging build and Staging dSYM file to Firebase. | To upload the Production build and Production dSYM file to Firebase. | To upload the Production build to App Store. | To upload the Production build to TestFlight. |
 
 Example: 
 
 ```
-$ bundle exec fastlane buildStagingAndUploadToFirebaseLane
-$ bundle exec fastlane buildProductionAndUploadToFirebaseLane
-$ bundle exec fastlane buildAndUploadToAppStoreLane
-$ bundle exec fastlane buildAndUploadToTestFlightLane
+$ bundle exec fastlane buildStagingAndUploadToFirebase
+$ bundle exec fastlane buildProductionAndUploadToFirebase
+$ bundle exec fastlane buildAndUploadToAppStore
+$ bundle exec fastlane buildAndUploadToTestFlight
 ```
 
 > See more:
@@ -133,7 +133,7 @@ The `SymbolManager` helps process and upload dSYM file to Firebase. There is onl
 
 | `uploadToCrashlytics` |
 |---|
-| Directly upload the built dSYM file to Crashlytics with the environment parameter  (`staging` or `production`). |
+| Directly upload the built dSYM file to Crashlytics with the environment parameter (`staging` or `production`). |
 | It is recommended to use this function when the build configuration is `Release Staging` or `Release Production`. |
 | See more: [Debug Symbol File](Project-Configurations.md#debug-symbol-file) |
 
