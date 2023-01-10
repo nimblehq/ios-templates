@@ -103,6 +103,24 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │           ├── Data+Decode.swift
 │           ├── String+Data.swift
 │           └── TestError.swift
+└── {ProjectName}KIFUITests
+    ├── Configurations
+    │   └── Plists
+    └── Sources
+        ├── AccessibilityIdentifiers
+        │   ├── Login
+        │   └── Home
+        ├── Flows
+        │   ├── Login
+        │   └── Home
+        ├── Screens
+        │   ├── Login
+        │   └── Home
+        ├── Specs
+        │   ├── Login
+        │   └── Home
+        └── Utilities
+            └── KIF+Swift.swift
 └── {ProjectName}UITests
     ├── Configurations
     │   └── Plists
@@ -145,6 +163,10 @@ This folder contains the main sources of the project. There are three sub-folder
 ## {ProjectName}Tests
 
 This folder contains the unit testing and integration testing of the main project.
+
+## {ProjectName}KIFUITests
+
+This folder contains the KIF UI testing of the main project. Use KIF instead of UITests for speed and reliability.
 
 ## {ProjectName}UITests
 
