@@ -129,7 +129,7 @@ The responsibility of `Match` is to synchronize the teams' certificates and prof
 
 Technically, the debug Symbol file (dSYM file) is used to de-obfuscate stack traces from crashes on the production app. The dSYM files store the debug symbols for the application. Then services (like Crashlytics) use the dSYM files to replace the symbols in the crash reports with the originating locations in the source code. Hence, the crash reports will be more readable and understandable.
 
-The `SymbolManager` helps process and upload dSYM file to Firebase. There is only one primary function:
+The `Symbol` helps process and upload dSYM file to Firebase. There is only one primary function:
 
 | `uploadToCrashlytics` |
 |---|
