@@ -37,4 +37,14 @@ extension Scheme {
             analyzeAction: .analyzeAction(configuration: debugConfigName)
         )
     }
+
+    public static func kifUITestsScheme(name: String) -> Scheme {
+        let debugConfigName = BuildConfiguration.debugStaging.name
+        let releaseConfigName = BuildConfiguration.releaseStaging.name
+        return Scheme(
+            name: "\(name)KIFUITests",
+            shared: false,
+            hidden: true
+        )
+    }
 }
