@@ -11,10 +11,11 @@ A target specifies a product to build, such as an iOS, watchOS, or macOS app.
 
 When creating a project from a template, a default target will be added automatically for the main application.
 
-There are 3 default targets in a project:
+There are 4 default targets in a project:
 
 - {ProjectName}
 - {ProjectName}Tests
+- {ProjectName}KIFUITests
 - {ProjectName}UITests
 
 ### Schemes

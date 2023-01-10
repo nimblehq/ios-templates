@@ -72,6 +72,7 @@ enum Constant {
 
     static let testTarget: String = "\(projectName)Tests"
     static let uiTestTarget: String = "\(projectName)UITests"
+    static let kifUITestTarget: String = "\(projectName)KIFUITests"
 }
 
 extension Constant {

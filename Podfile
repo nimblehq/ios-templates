@@ -42,6 +42,12 @@ target '{PROJECT_NAME}' do
     testing_pods
   end
 
+  target '{PROJECT_NAME}KIFUITests' do
+    testing_pods
+    pod 'KIF', :configurations => ['Debug Staging', 'Debug Production']
+    pod 'KIF/IdentifierTests', :configurations => ['Debug Staging', 'Debug Production']
+  end
+
   target '{PROJECT_NAME}UITests' do
     testing_pods
   end

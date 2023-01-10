@@ -19,6 +19,7 @@ extension Project {
             targets: [
                 .mainTarget(name: name, bundleId: bundleId),
                 .testsTarget(name: name, bundleId: bundleId),
+                .kifUITestsTarget(name: name, bundleId: bundleId),
                 .uiTestsTarget(name: name, bundleId: bundleId)
             ],
             schemes: [

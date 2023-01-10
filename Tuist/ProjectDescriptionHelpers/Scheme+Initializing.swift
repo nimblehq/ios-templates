@@ -9,7 +9,10 @@ extension Scheme {
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: .targets(["\(name)Tests", "\(name)UITests"], configuration: debugConfigName),
+            testAction: .targets(
+                ["\(name)Tests", "\(name)KIFUITests", "\(name)UITests"],
+                configuration: debugConfigName
+            ),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName),
             profileAction: .profileAction(configuration: debugConfigName),
@@ -24,7 +27,10 @@ extension Scheme {
             name: "\(name) Staging",
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: .targets(["\(name)Tests", "\(name)UITests"], configuration: debugConfigName),
+            testAction: .targets(
+                ["\(name)Tests", "\(name)KIFUITests", "\(name)UITests"],
+                configuration: debugConfigName
+            ),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName),
             profileAction: .profileAction(configuration: debugConfigName),

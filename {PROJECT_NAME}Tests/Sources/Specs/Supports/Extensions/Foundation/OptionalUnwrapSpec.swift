@@ -1,3 +1,7 @@
+//
+//  OptionalUnwrapSpec.swift
+//
+
 import Nimble
 import Quick
 
@@ -26,7 +30,7 @@ final class OptionalUnwrapSpec: QuickSpec {
                 }
 
                 it("returns empty string") {
-                    expect(value.string) == ""
+                    expect(value.string.isEmpty) == true
                 }
             }
         }
