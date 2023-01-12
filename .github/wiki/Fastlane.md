@@ -88,17 +88,17 @@ Define the essential information to synchronize the certificates and profiles ac
 
 ### Constant.swift
 
-It contains the key/value pairs of constants used during the development and release process.
+Contains the key/value pairs of constants used during the development and release process.
 
 ### Secret.swift
 
-It contains the key/value pairs of environment variables used during the development and release process.
+Contains the key/value pairs of environment variables used during the development and release process.
 
 ## Managers folder
 
 ### Build.swift
 
-The `Build` helps build and sign the application. There are two main functions:
+`Build.swift` helps build and sign the application. There are two main functions:
 
 | `adHoc` | `appStore` |
 |---|---|
@@ -110,7 +110,7 @@ The `Build` helps build and sign the application. There are two main functions:
 
 ### Distribution.swift
 
-The `Distribution` is in charge of distributing the build to the distribution platforms, such as Firebase, App Store Connect, and Testflight.
+`Distribution.swift` is in charge of distributing the build to the distribution platforms, such as Firebase, App Store Connect, and Testflight.
 
 > See more:
 >
