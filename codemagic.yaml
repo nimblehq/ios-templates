@@ -1,0 +1,17 @@
+workflows:
+    deploy_firebase_staging:
+      name: Deploy Firebase Staging
+      instance_type: mac_pro
+      environment:
+        groups:
+          - fastlane
+        xcode: 14.2
+        cocoapods: default
+      scripts:
+        # - gem install bundler:2.2.27
+        - bundle install --path vendor/bundle
+        - bundle exec pod install
+        - bundle exec fastlane beta
+      artifacts:
+        - ./*.ipa
+        - ./*.dSYM.zip
