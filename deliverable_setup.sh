@@ -9,11 +9,10 @@ elif [ "$ciService" = "b" -o "$ciService" = "bitrise" ]; then
     echo "Setting template for Bitrise"
     rm -rf .github/workflows
     rm codemagic.yaml
-elif [ "$ciService" = "b" -o "$ciService" = "bitrise" ]; then
-    echo "Setting template for Bitrise"
+elif [ "$ciService" = "b" -o "$ciService" = "codemagic" ]; then
+    echo "Setting template for CodeMagic"
     rm -rf .github/workflows
     rm bitrise.yml
-else
 else
     echo "You can manually setup the template later."
 fi
