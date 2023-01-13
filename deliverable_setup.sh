@@ -1,12 +1,19 @@
 #!/bin/sh
-read -p "Which CI/CD service do you use (Can be edited later) [(g)ithub/(b)itrise/(l)ater]: " ciService
+read -p "Which CI/CD service do you use (Can be edited later) [(g)ithub/(b)itrise/(c)odemagic/(l)ater]: " ciService
 
 if [ "$ciService" = "g" -o "$ciService" = "github" ]; then
     echo "Setting template for Github Actions"
     rm bitrise.yml
+    rm codemagic.yaml
 elif [ "$ciService" = "b" -o "$ciService" = "bitrise" ]; then
     echo "Setting template for Bitrise"
     rm -rf .github/workflows
+    rm codemagic.yaml
+elif [ "$ciService" = "b" -o "$ciService" = "bitrise" ]; then
+    echo "Setting template for Bitrise"
+    rm -rf .github/workflows
+    rm bitrise.yml
+else
 else
     echo "You can manually setup the template later."
 fi

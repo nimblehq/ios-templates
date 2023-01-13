@@ -1,17 +1,36 @@
 workflows:
     deploy_firebase_staging:
       name: Deploy Firebase Staging
-      instance_type: mac_pro
+      instance_type: mac_mini_m1
       environment:
         groups:
           - fastlane
-        xcode: 14.2
+        xcode: latest
         cocoapods: default
+      triggering:
+        events:
+          - push
+        branch_patterns:
+          - pattern: 'develop'
+            include: true
+            source: true
+        cancel_previous_builds: true
       scripts:
-        # - gem install bundler:2.2.27
-        - bundle install --path vendor/bundle
-        - bundle exec pod install
-        - bundle exec fastlane beta
+        - name: Install bundle
+          script:
+            - bundle install --path vendor/bundle
+        - name: Install Pods Dependencies
+          script:
+            - bundle exec pod install
+        - name: Build and Test
+          script:
+            - bundle exec fastlane buildAndTest
+        - name: Match Ad-hoc
+          script:
+            - bundle exec fastlane syncAdHocStagingCodeSigning
+        - name: Build App and Distribute to Firebase
+          script:
+            - bundle exec fastlane buildStagingAndUploadToFirebase
       artifacts:
         - ./*.ipa
         - ./*.dSYM.zip
