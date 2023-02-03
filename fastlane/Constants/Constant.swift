@@ -16,16 +16,16 @@ enum Constant {
 
     // MARK: - Firebase
 
-    static let stagingFirebaseAppId = "<#stagingFirebaseAppId#>"
-    static let productionFirebaseAppId = "<#productionFirebaseAppId#>"
-    static let firebaseTesterGroups = "<#group1#>, <#group2#>"
+    static let stagingFirebaseAppId = "1:394751167018:ios:7670aacd2a018cd5b21153"
+    static let productionFirebaseAppId = "1:394751167018:ios:8ab5165fcff843c5b21153"
+    static let firebaseTesterGroups = "nimble"
 
     // MARK: - Match
 
-    static let userName = "<#userName#>"
-    static let teamId = "<#teamId#>"
+    static let userName = "duc@nimblehq.co"
+    static let teamId = "TKJCMGPSYH"
     static let keychainName = "github_action_keychain"
-    static let matchURL = "git@github.com:{organization}/{repo}.git"
+    static let matchURL = "git@github.com:nimblehq/match-certificates.git"
 
     // MARK: - Path
 

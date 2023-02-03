@@ -13,6 +13,8 @@
 		25913A22E5744B21878B0DEB /* Pods_iOSTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E185A0B7875E1D081280C8BB /* Pods_iOSTemplate.framework */; };
 		446CC70C628D7CC8C27A1849 /* Navigator+Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BECCBF0CA14B17B0959963 /* Navigator+Scene.swift */; };
 		4FCEDE8042ABA9D35C2950EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 724E6ED12BEA15DB5A8F0375 /* Assets.xcassets */; };
+		588614BD298CB2B4006E9416 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 588614BA298CB2B4006E9416 /* GoogleService-Info.plist */; };
+		588614BE298CB2B4006E9416 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 588614BC298CB2B4006E9416 /* GoogleService-Info.plist */; };
 		68BC00C309F6104543F42462 /* ApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDED84325D42E71E616C0EB /* ApplicationSpec.swift */; };
 		69AC8941C01BF9C6785A81BC /* Pods_iOSTemplateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3D8239F32497C16C374C2D /* Pods_iOSTemplateTests.framework */; };
 		6D07FBB7A294B0835D88824F /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8186138592A545BBBA15428E /* NetworkAPI.swift */; };
@@ -98,6 +100,8 @@
 		4FAC77F3425541C349DCDC93 /* RequestConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestConfiguration.swift; sourceTree = "<group>"; };
 		52371C076DADD65520094B04 /* UIView+Subviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Subviews.swift"; sourceTree = "<group>"; };
 		547E18FFCE0027B16D300A1F /* Pods-iOSTemplateTests.debug production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTemplateTests.debug production.xcconfig"; path = "Target Support Files/Pods-iOSTemplateTests/Pods-iOSTemplateTests.debug production.xcconfig"; sourceTree = "<group>"; };
+		588614BA298CB2B4006E9416 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		588614BC298CB2B4006E9416 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F50BFFB24231D23E3438F95 /* Pods-iOSTemplate-iOSTemplateUITests.debug staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTemplate-iOSTemplateUITests.debug staging.xcconfig"; path = "Target Support Files/Pods-iOSTemplate-iOSTemplateUITests/Pods-iOSTemplate-iOSTemplateUITests.debug staging.xcconfig"; sourceTree = "<group>"; };
 		724E6ED12BEA15DB5A8F0375 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73E5E28A3059767BB83F7A52 /* Pods-iOSTemplate-iOSTemplateUITests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTemplate-iOSTemplateUITests.release production.xcconfig"; path = "Target Support Files/Pods-iOSTemplate-iOSTemplateUITests/Pods-iOSTemplate-iOSTemplateUITests.release production.xcconfig"; sourceTree = "<group>"; };
@@ -240,6 +244,7 @@
 		277B0D86289EDD39CD0AFB97 /* Plists */ = {
 			isa = PBXGroup;
 			children = (
+				588614B8298CB2B4006E9416 /* GoogleService */,
 				E71E2456B57C589C871BBD45 /* Info.plist */,
 			);
 			path = Plists;
@@ -366,6 +371,31 @@
 				7C17CE8C65F1CF802F37A861 /* UseCases */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		588614B8298CB2B4006E9416 /* GoogleService */ = {
+			isa = PBXGroup;
+			children = (
+				588614B9298CB2B4006E9416 /* Staging */,
+				588614BB298CB2B4006E9416 /* Production */,
+			);
+			path = GoogleService;
+			sourceTree = "<group>";
+		};
+		588614B9298CB2B4006E9416 /* Staging */ = {
+			isa = PBXGroup;
+			children = (
+				588614BA298CB2B4006E9416 /* GoogleService-Info.plist */,
+			);
+			path = Staging;
+			sourceTree = "<group>";
+		};
+		588614BB298CB2B4006E9416 /* Production */ = {
+			isa = PBXGroup;
+			children = (
+				588614BC298CB2B4006E9416 /* GoogleService-Info.plist */,
+			);
+			path = Production;
 			sourceTree = "<group>";
 		};
 		59E64A81AFEA8A91B7FD8A57 /* Helpers */ = {
@@ -776,7 +806,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FCEDE8042ABA9D35C2950EF /* Assets.xcassets in Resources */,
+				588614BE298CB2B4006E9416 /* GoogleService-Info.plist in Resources */,
 				7680F155E4F62AEDB4F88C84 /* LaunchScreen.storyboard in Resources */,
+				588614BD298CB2B4006E9416 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
