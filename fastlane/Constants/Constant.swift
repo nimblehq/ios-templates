@@ -51,9 +51,9 @@ enum Constant {
 
     // MARK: - Project
 
-    static let stagingBundleId = "{BUNDLE_ID_STAGING}"
-    static let productionBundleId = "{BUNDLE_ID_PRODUCTION}"
-    static let projectName = "{PROJECT_NAME}"
+    static let stagingBundleId = "co.nimblehq.ios.templates.staging"
+    static let productionBundleId = "co.nimblehq.ios.templates"
+    static let projectName = "iOSTemplate"
 
     // MARK: - Symbol
 
