@@ -7,6 +7,9 @@ workflows:
           - fastlane
         xcode: latest
         cocoapods: default
+      cache:
+        cache_paths:
+          - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
           - push
@@ -36,12 +39,16 @@ workflows:
           - fastlane
         xcode: latest
         cocoapods: default
+      cache:
+        cache_paths:
+          - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
           - push
         branch_patterns:
           - pattern: 'release/*'
             include: true
+            source: true
         cancel_previous_builds: true
       scripts:
         - name: Install bundle
@@ -65,12 +72,16 @@ workflows:
           - fastlane
         xcode: latest
         cocoapods: default
+      cache:
+        cache_paths:
+          - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
           - push
         branch_patterns:
           - pattern: 'main'
             include: true
+            source: true
         cancel_previous_builds: true
       scripts:
         - name: Install bundle
@@ -96,6 +107,9 @@ workflows:
           - fastlane
         xcode: latest
         cocoapods: default
+      cache:
+        cache_paths:
+          - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
           - push
@@ -117,11 +131,3 @@ workflows:
       artifacts:
         - ./*.ipa
         - ./*.dSYM.zip
-
-
-
-
-
-
-
-    
