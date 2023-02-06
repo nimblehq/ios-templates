@@ -90,8 +90,6 @@ workflows:
           script: bundle exec pod install
         - name: Build and Test
           script: bundle exec fastlane buildAndTest
-        - name: Match Ad-hoc
-          script: bundle exec fastlane syncAdHocProductionCodeSigning
         - name: Match AppStore
           script: bundle exec fastlane syncAppStoreCodeSigning
         - name: Build App and Distribute to AppStore

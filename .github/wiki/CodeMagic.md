@@ -29,7 +29,7 @@ Out of the box, the CodeMagic Template has the following workflows and steps:
 
 - MATCH_PASSWORD
 
-> The password is used to encrypt/decrypt the repository to store your distribution certificates and provisioning profiles.
+> The password is used to encrypt/decrypt the Match repository to store the distribution certificates and provisioning profiles.
 
 - MATCH_SSH_KEY
 
@@ -37,7 +37,7 @@ Out of the box, the CodeMagic Template has the following workflows and steps:
 
 - KEYCHAIN_PASSWORD
 
-> The password to access the keychain
+> The password to access the keychain.
 
 - FIREBASE_CLI_TOKEN
 
@@ -62,11 +62,12 @@ Out of the box, the CodeMagic Template has the following workflows and steps:
 ## Installation
 
 1. Follow the setup instruction in [`README.md`](https://github.com/nimblehq/ios-templates#readme).
-2. To connect your repository to CodeMagic, please follow the instruction on this page: [Adding the app to CodeMagic](https://docs.codemagic.io/yaml-quick-start/building-a-native-ios-app).
 
-3. Provide all the required variables and secrets.
+2. To connect the repository to CodeMagic, please follow the instruction on: [Adding the app to CodeMagic](https://docs.codemagic.io/yaml-quick-start/building-a-native-ios-app).
 
-> The final project directory structure
+3. Provide all the required variables and secrets. 
+
+   The final project directory structure should be like this:
 
 ```
 ROOT
