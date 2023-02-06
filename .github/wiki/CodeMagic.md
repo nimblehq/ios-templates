@@ -75,4 +75,4 @@ ROOT
 ├──...
 ```
 
-5. Push changes to SCM.
+4. Push changes to SCM.
