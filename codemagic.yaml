@@ -13,7 +13,6 @@ workflows:
         branch_patterns:
           - pattern: 'develop'
             include: true
-            source: true
         cancel_previous_builds: true
       scripts:
         - name: Install bundle
@@ -43,7 +42,6 @@ workflows:
         branch_patterns:
           - pattern: 'release/*'
             include: true
-            source: true
         cancel_previous_builds: true
       scripts:
         - name: Install bundle
@@ -73,7 +71,6 @@ workflows:
         branch_patterns:
           - pattern: 'main'
             include: true
-            source: true
         cancel_previous_builds: true
       scripts:
         - name: Install bundle
