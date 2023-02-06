@@ -29,11 +29,11 @@ Out of the box, the CodeMagic Template has the following workflows and steps:
 
 - MATCH_PASSWORD
 
-> The password used to encrypt/decrypt the repository used to store your distribution certificates and provisioning profiles.
+> The password is used to encrypt/decrypt the repository to store your distribution certificates and provisioning profiles.
 
 - MATCH_SSH_KEY
 
-> An SSH private key is used for cloning the Match repository that contains your distribution certificates and provisioning
+> An SSH private key is used for cloning the Match repository that contains your distribution certificates and provisioning.
 
 - KEYCHAIN_PASSWORD
 
