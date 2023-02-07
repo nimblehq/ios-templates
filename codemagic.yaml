@@ -100,7 +100,6 @@ workflows:
       environment:
         groups:
           - fastlane
-          - danger
         xcode: latest
         cocoapods: default
       cache:
