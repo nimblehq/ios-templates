@@ -1,6 +1,6 @@
 workflows:
     deploy_staging_firebase:
-      name: Deploy Firebase Staging
+      name: Deploy Staging Build To Firebase
       instance_type: mac_mini_m1
       environment:
         groups:
@@ -16,7 +16,7 @@ workflows:
         branch_patterns:
           - pattern: 'develop'
             include: true
-        cancel_previous_builds: true
+            source: true
       scripts:
         - name: Install bundle
           script: bundle install --path vendor/bundle
@@ -31,8 +31,8 @@ workflows:
       artifacts:
         - ./*.ipa
         - ./*.dSYM.zip
-    deploy_release_firebase:
-      name: Deploy Firebase Production
+    deploy_production_firebase:
+      name: Deploy Production Build To Firebase
       instance_type: mac_mini_m1
       environment:
         groups:
@@ -49,7 +49,6 @@ workflows:
           - pattern: 'release/*'
             include: true
             source: true
-        cancel_previous_builds: true
       scripts:
         - name: Install bundle
           script: bundle install --path vendor/bundle
@@ -62,10 +61,10 @@ workflows:
         - name: Build App and Distribute to Firebase
           script: bundle exec fastlane buildProductionAndUploadToFirebase
       artifacts:
-        - ./*.ipa
-        - ./*.dSYM.zip
+        - ./Output/*.ipa
+        - ./Output/*.dSYM.zip
     deploy_app_store:
-      name: Deploy App Store
+      name: Deploy Build To App Store
       instance_type: mac_mini_m1
       environment:
         groups:
@@ -82,7 +81,6 @@ workflows:
           - pattern: 'main'
             include: true
             source: true
-        cancel_previous_builds: true
       scripts:
         - name: Install bundle
           script: bundle install --path vendor/bundle
@@ -95,14 +93,14 @@ workflows:
         - name: Build App and Distribute to AppStore
           script: bundle exec fastlane buildAndUploadToAppStore
       artifacts:
-        - ./*.ipa
-        - ./*.dSYM.zip
+        - ./Output/*.ipa
     test:
       name: Test
       instance_type: mac_mini_m1
       environment:
         groups:
           - fastlane
+          - danger
         xcode: latest
         cocoapods: default
       cache:
@@ -110,13 +108,11 @@ workflows:
           - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
-          - push
           - pull_request
         branch_patterns:
           - pattern: '*'
             include: true
             source: true
-        cancel_previous_builds: true
       scripts:
         - name: Install bundle
           script: bundle install --path vendor/bundle
@@ -126,6 +122,5 @@ workflows:
           script: bundle exec fastlane buildAndTest
         - name: Clean Up
           script: bundle exec fastlane cleanUpOutput
-      artifacts:
-        - ./*.ipa
-        - ./*.dSYM.zip
+        - name: Danger
+          script: bundle exec danger
