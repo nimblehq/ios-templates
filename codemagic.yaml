@@ -1,5 +1,5 @@
 workflows:
-    deploy_staging:
+    deploy_staging_firebase:
       name: Deploy Firebase Staging
       instance_type: mac_mini_m1
       environment:
