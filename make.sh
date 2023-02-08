@@ -181,6 +181,7 @@ echo "Remove tuist files"
 rm -rf .tuist-version
 rm -rf tuist
 rm -rf Project.swift
+rm -rf Workspace.swift
 
 # Remove script files and git/index
 echo "Remove script files and git/index"
