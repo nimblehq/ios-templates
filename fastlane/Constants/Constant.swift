@@ -57,7 +57,7 @@ enum Constant {
 
     static let uploadSymbolsBinaryPath: String = "./Pods/FirebaseCrashlytics/upload-symbols"
     static let dSYMSuffix: String = ".dSYM.zip"
-    
+
     // MARK: - Build and Version
 
     static let manualVersion: String = ""
@@ -65,7 +65,7 @@ enum Constant {
     // MARK: - Device
 
     static let devices = ["iPhone 12 Pro Max"]
-    
+
     // MARK: - Test
 
     static let testTarget: String = "\(projectName)Tests"

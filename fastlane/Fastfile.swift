@@ -150,10 +150,12 @@ class Fastfile: LaneFile {
             useAutomaticSigning: .userDefined(false),
             teamId: .userDefined(EnvironmentParser.string(key: "sigh_\(Constant.productionBundleId)_appstore_team-id")),
             codeSignIdentity: .userDefined("iPhone Distribution"),
-            profileName: .userDefined(EnvironmentParser.string(key: "sigh_\(Constant.productionBundleId)_appstore_profile-name"))
+            profileName: .userDefined(EnvironmentParser.string(
+                key: "sigh_\(Constant.productionBundleId)_appstore_profile-name"
+            ))
         )
     }
-    
+
     func setUpTestProjectLane() {
         desc("Disable Exempt Encryption")
         Test.disableExemptEncryption()
