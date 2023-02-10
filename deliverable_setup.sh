@@ -12,9 +12,9 @@ else
 fi
 echo "✅  Completed"
 
-read -n1 -p "Do you want to set up Deliverable Constants values? (Can be edited later) [Y/n]:" confirm
+read -n1 -p "Do you want to set up Constants values? (Can be edited later) [Y/n]:" confirm
 if ! echo $confirm | grep '^[Yy]\?$'; then
     echo "✅  Completed"
 else
-    open -a Xcode fastlane/Constants/DeliverableConstants.rb
+    open -a Xcode fastlane/Constants/Constant.swift
 fi
