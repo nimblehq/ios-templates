@@ -28,6 +28,9 @@ workflows:
           script: bundle exec fastlane syncAdHocStagingCodeSigning
         - name: Build App and Distribute to Firebase
           script: bundle exec fastlane buildStagingAndUploadToFirebase
+      artifacts:
+        - ./Output/*.ipa
+        - ./Output/*.dSYM.zip
     deploy_production_firebase:
       name: Deploy Production Build To Firebase
       instance_type: mac_mini_m1
@@ -57,6 +60,9 @@ workflows:
           script: bundle exec fastlane syncAdHocProductionCodeSigning
         - name: Build App and Distribute to Firebase
           script: bundle exec fastlane buildProductionAndUploadToFirebase
+      artifacts:
+        - ./Output/*.ipa
+        - ./Output/*.dSYM.zip
     deploy_app_store:
       name: Deploy Build To App Store
       instance_type: mac_mini_m1
@@ -86,6 +92,9 @@ workflows:
           script: bundle exec fastlane syncAppStoreCodeSigning
         - name: Build App and Distribute to AppStore
           script: bundle exec fastlane buildAndUploadToAppStore
+      artifacts:
+        - ./Output/*.ipa
+        - ./Output/*.dSYM.zip
     test:
       name: Test
       instance_type: mac_mini_m1
