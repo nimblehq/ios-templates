@@ -39,7 +39,7 @@ enum Build {
 
     // MARK: Private
 
-    static private func build(
+    private static func build(
         environment: Constant.Environment,
         type: Constant.BuildType
     ) {
