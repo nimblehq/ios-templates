@@ -63,8 +63,8 @@ jobs:
     - name: Build and Test
       run: bundle exec fastlane buildAndTest
 
-    - name: Match AppStore
-      run: bundle exec fastlane syncAppStoreCodeSigning
+    - name: Update Provision Profile
+      run: bundle exec fastlane updateProvisionSettings
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
@@ -72,6 +72,9 @@ jobs:
       run: bundle exec fastlane buildAndUploadToAppStore
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        BUMP_APP_STORE_BUILD_NUMBER: "true"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
