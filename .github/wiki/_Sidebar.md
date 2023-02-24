@@ -15,6 +15,7 @@
 - [[Github Actions]]
 - [[Self Hosted Github Actions]]
 - [[Bitrise]]
+- [[CodeMagic]]
 - [[Fastlane]]
 
 ## Operations

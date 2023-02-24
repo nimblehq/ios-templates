@@ -39,7 +39,9 @@ enum Constant {
     // MARK: Platform
 
     static var platform: PlatformType {
-        if EnvironmentParser.bool(key: "BITRISE_IO") {
+        if EnvironmentParser.bool(key: "CM_BRANCH") {
+            return .codeMagic
+        } else if EnvironmentParser.bool(key: "BITRISE_IO") {
             return .bitrise
         } else if EnvironmentParser.bool(key: "GITHUB_ACTIONS") {
             return .gitHubActions
@@ -129,7 +131,7 @@ extension Constant {
 
     enum PlatformType {
 
-        case gitHubActions, bitrise, unknown
+        case gitHubActions, bitrise, codeMagic, unknown
     }
 }
 

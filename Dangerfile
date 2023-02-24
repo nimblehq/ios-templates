@@ -24,7 +24,7 @@ swiftlint.lint_files(
 )
 
 xcresultPath = "./fastlane/test_output/{PROJECT_NAME} Staging.xcresult"
-scheme = "'{PROJECT_NAME} Staging'"
+scheme = "{PROJECT_NAME} Staging"
 workspace = "./{PROJECT_NAME}.xcworkspace"
 xcovOutputDirectory = "./fastlane/xcov_output"
 
