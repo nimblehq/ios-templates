@@ -1,13 +1,13 @@
-https://github.com/nimblehq/ios-templates/issues/
+- Close #
 
-## What happened
+## What happened 👀
 
-Describe the big picture of your changes here to communicate to the team why we should accept this pull request. 
- 
-## Insight
+Provide a description of the **changes** this pull request brings to the codebase. Additionally, when the pull request is still being worked on, a checklist of the planned changes is welcome to track progress.
 
-Describe in details how to test the changes; referenced documentation is welcome as well.
- 
-## Proof Of Work
+## Insight 📝
 
-Show us the implementation: screenshots, gif, etc.
+Describe in detail why this solution is the most appropriate, which solution you tried but did not go with, and how to test the changes. References to relevant documentation are welcome as well.
+
+## Proof Of Work 📹
+
+Show us the implementation: screenshots, GIFs, etc.
