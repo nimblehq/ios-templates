@@ -1,0 +1,126 @@
+workflows:
+    deploy_staging_firebase:
+      name: Deploy Staging Build To Firebase
+      instance_type: mac_mini_m1
+      environment:
+        groups:
+          - fastlane
+        xcode: latest
+        cocoapods: default
+      cache:
+        cache_paths:
+          - $HOME/Library/Caches/CocoaPods
+      triggering:
+        events:
+          - push
+        branch_patterns:
+          - pattern: 'develop'
+            include: true
+            source: true
+      scripts:
+        - name: Install bundle
+          script: bundle install --path vendor/bundle
+        - name: Install Pods Dependencies
+          script: bundle exec pod install
+        - name: Build and Test
+          script: bundle exec fastlane buildAndTest
+        - name: Match Ad-hoc
+          script: bundle exec fastlane syncAdHocStagingCodeSigning
+        - name: Build App and Distribute to Firebase
+          script: bundle exec fastlane buildStagingAndUploadToFirebase
+      artifacts:
+        - ./Output/*.ipa
+        - ./Output/*.dSYM.zip
+    deploy_production_firebase:
+      name: Deploy Production Build To Firebase
+      instance_type: mac_mini_m1
+      environment:
+        groups:
+          - fastlane
+        xcode: latest
+        cocoapods: default
+      cache:
+        cache_paths:
+          - $HOME/Library/Caches/CocoaPods
+      triggering:
+        events:
+          - push
+        branch_patterns:
+          - pattern: 'release/*'
+            include: true
+            source: true
+      scripts:
+        - name: Install bundle
+          script: bundle install --path vendor/bundle
+        - name: Install Pods Dependencies
+          script: bundle exec pod install
+        - name: Build and Test
+          script: bundle exec fastlane buildAndTest
+        - name: Match Ad-hoc
+          script: bundle exec fastlane syncAdHocProductionCodeSigning
+        - name: Build App and Distribute to Firebase
+          script: bundle exec fastlane buildProductionAndUploadToFirebase
+      artifacts:
+        - ./Output/*.ipa
+        - ./Output/*.dSYM.zip
+    deploy_app_store:
+      name: Deploy Build To App Store
+      instance_type: mac_mini_m1
+      environment:
+        groups:
+          - fastlane
+        xcode: latest
+        cocoapods: default
+      cache:
+        cache_paths:
+          - $HOME/Library/Caches/CocoaPods
+      triggering:
+        events:
+          - push
+        branch_patterns:
+          - pattern: 'main'
+            include: true
+            source: true
+      scripts:
+        - name: Install bundle
+          script: bundle install --path vendor/bundle
+        - name: Install Pods Dependencies
+          script: bundle exec pod install
+        - name: Build and Test
+          script: bundle exec fastlane buildAndTest
+        - name: Match AppStore
+          script: bundle exec fastlane syncAppStoreCodeSigning
+        - name: Build App and Distribute to AppStore
+          script: bundle exec fastlane buildAndUploadToAppStore
+      artifacts:
+        - ./Output/*.ipa
+        - ./Output/*.dSYM.zip
+    test:
+      name: Test
+      instance_type: mac_mini_m1
+      environment:
+        groups:
+          - fastlane
+        xcode: latest
+        cocoapods: default
+      cache:
+        cache_paths:
+          - $HOME/Library/Caches/CocoaPods
+      triggering:
+        events:
+          - pull_request
+        branch_patterns:
+          - pattern: '*'
+            include: true
+            source: true
+      scripts:
+        - name: Install bundle
+          script: bundle install --path vendor/bundle
+        - name: Install Pods Dependencies
+          script: bundle exec pod install
+        - name: Build and Test
+          script: bundle exec fastlane buildAndTest
+        - name: Clean Up
+          script: bundle exec fastlane cleanUpOutput
+        - name: Danger
+          script: bundle exec danger

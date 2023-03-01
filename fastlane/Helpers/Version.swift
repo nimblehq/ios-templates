@@ -7,9 +7,9 @@
 //
 
 enum Version {
-    
+
     // MARK: - Getting
-    
+
     static var versionNumber: String {
         get {
             FastlaneRunner.getVersionNumber(
@@ -17,7 +17,7 @@ enum Version {
                 target: .userDefined(Constant.projectName)
             )
         }
-        
+
         set {
             incrementVersionNumber(
                 versionNumber: .userDefined(newValue),
@@ -25,7 +25,7 @@ enum Version {
             )
         }
     }
-    
+
     static var buildNumber: String {
         get {
             FastlaneRunner.getBuildNumber(xcodeproj: .userDefined(Constant.projectPath))

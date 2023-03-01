@@ -39,7 +39,9 @@ enum Constant {
     // MARK: Platform
 
     static var platform: PlatformType {
-        if EnvironmentParser.bool(key: "BITRISE_IO") {
+        if EnvironmentParser.bool(key: "CM_BRANCH") {
+            return .codeMagic
+        } else if EnvironmentParser.bool(key: "BITRISE_IO") {
             return .bitrise
         } else if EnvironmentParser.bool(key: "GITHUB_ACTIONS") {
             return .gitHubActions
@@ -57,7 +59,7 @@ enum Constant {
 
     static let uploadSymbolsBinaryPath: String = "./Pods/FirebaseCrashlytics/upload-symbols"
     static let dSYMSuffix: String = ".dSYM.zip"
-    
+
     // MARK: - Build and Version
 
     static let manualVersion: String = ""
@@ -65,7 +67,7 @@ enum Constant {
     // MARK: - Device
 
     static let devices = ["iPhone 12 Pro Max"]
-    
+
     // MARK: - Test
 
     static let testTarget: String = "\(projectName)Tests"
@@ -129,7 +131,7 @@ extension Constant {
 
     enum PlatformType {
 
-        case gitHubActions, bitrise, unknown
+        case gitHubActions, bitrise, codeMagic, unknown
     }
 }
 
