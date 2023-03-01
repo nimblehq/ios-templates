@@ -142,20 +142,6 @@ class Fastfile: LaneFile {
         )
     }
 
-    func updateProvisionSettingsLane() {
-        desc("Update Provision Profile")
-        syncAppStoreCodeSigningLane()
-        updateCodeSigningSettings(
-            path: Constant.projectPath,
-            useAutomaticSigning: .userDefined(false),
-            teamId: .userDefined(EnvironmentParser.string(key: "sigh_\(Constant.productionBundleId)_appstore_team-id")),
-            codeSignIdentity: .userDefined("iPhone Distribution"),
-            profileName: .userDefined(EnvironmentParser.string(
-                key: "sigh_\(Constant.productionBundleId)_appstore_profile-name"
-            ))
-        )
-    }
-
     func setUpTestProjectLane() {
         desc("Disable Exempt Encryption")
         Test.disableExemptEncryption()

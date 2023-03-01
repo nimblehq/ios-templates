@@ -32,6 +32,51 @@ enum Match {
                 gitUrl: Constant.matchURL,
                 force: .userDefined(isForce)
             )
+            updateCodeSigning(type: type, appIdentifier: appIdentifier)
+        }
+    }
+    
+    static func updateCodeSigning(type: MatchType, appIdentifier: [String]) {
+        // Update Code signing from automatic to manual
+        switch type {
+        case .development:
+            updateCodeSigningSettings(
+                path: Constant.projectPath,
+                useAutomaticSigning: .userDefined(false),
+                targets: .userDefined([Constant.projectName]),
+                buildConfigurations: .userDefined(["Release Staging"]),
+                codeSignIdentity: .userDefined("iPhone Developer"),
+                profileName: .userDefined("match AdHoc \(Constant.stagingBundleId)")
+            )
+        case .adHoc:
+            if appIdentifier.first == Constant.productionBundleId {
+                updateCodeSigningSettings(
+                    path: Constant.projectPath,
+                    useAutomaticSigning: .userDefined(false),
+                    targets: .userDefined([Constant.projectName]),
+                    buildConfigurations: .userDefined(["Debug Production"]),
+                    codeSignIdentity: .userDefined("iPhone Distribution"),
+                    profileName: .userDefined("match AdHoc \(Constant.productionBundleId)")
+                )
+            } else {
+                updateCodeSigningSettings(
+                    path: Constant.projectPath,
+                    useAutomaticSigning: .userDefined(false),
+                    targets: .userDefined([Constant.projectName]),
+                    buildConfigurations: .userDefined(["Release Staging"]),
+                    codeSignIdentity: .userDefined("iPhone Distribution"),
+                    profileName: .userDefined("match AdHoc \(Constant.stagingBundleId)")
+                )
+            }
+        case .appStore:
+            updateCodeSigningSettings(
+                path: Constant.projectPath,
+                useAutomaticSigning: .userDefined(false),
+                targets: .userDefined([Constant.projectName]),
+                buildConfigurations: .userDefined(["Release Production"]),
+                codeSignIdentity: .userDefined("iPhone Distribution"),
+                profileName: .userDefined("match AppStore \(Constant.productionBundleId)")
+            )
         }
     }
 }
