@@ -32,8 +32,8 @@ enum Match {
                 gitUrl: Constant.matchURL,
                 force: .userDefined(isForce)
             )
-            updateCodeSigning(type: type, appIdentifier: appIdentifier)
         }
+        updateCodeSigning(type: type, appIdentifier: appIdentifier)
     }
     
     static func updateCodeSigning(type: MatchType, appIdentifier: [String]) {
