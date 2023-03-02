@@ -40,34 +40,34 @@ enum Match {
         // Update Code signing from automatic to manual
         switch type {
         case .development:
-            updateCodeSigningSettings(
-                path: Constant.projectPath,
-                useAutomaticSigning: .userDefined(false),
-                targets: .userDefined([Constant.projectName]),
-                buildConfigurations: .userDefined(["Debug Staging"]),
-                codeSignIdentity: .userDefined("iPhone Developer"),
-                profileName: .userDefined("match Development \(Constant.stagingBundleId)")
-            )
-        case .adHoc:
             if appIdentifier.first == Constant.productionBundleId {
                 updateCodeSigningSettings(
                     path: Constant.projectPath,
                     useAutomaticSigning: .userDefined(false),
                     targets: .userDefined([Constant.projectName]),
                     buildConfigurations: .userDefined(["Debug Production"]),
-                    codeSignIdentity: .userDefined("iPhone Distribution"),
-                    profileName: .userDefined("match AdHoc \(Constant.productionBundleId)")
+                    codeSignIdentity: .userDefined("iPhone Developer"),
+                    profileName: .userDefined("match \(type.method) \(Constant.productionBundleId)")
                 )
             } else {
                 updateCodeSigningSettings(
                     path: Constant.projectPath,
                     useAutomaticSigning: .userDefined(false),
                     targets: .userDefined([Constant.projectName]),
-                    buildConfigurations: .userDefined(["Release Staging"]),
-                    codeSignIdentity: .userDefined("iPhone Distribution"),
-                    profileName: .userDefined("match AdHoc \(Constant.stagingBundleId)")
+                    buildConfigurations: .userDefined(["Debug Staging"]),
+                    codeSignIdentity: .userDefined("iPhone Developer"),
+                    profileName: .userDefined("match \(type.method) \(Constant.stagingBundleId)")
                 )
             }
+        case .adHoc:
+            updateCodeSigningSettings(
+                path: Constant.projectPath,
+                useAutomaticSigning: .userDefined(false),
+                targets: .userDefined([Constant.projectName]),
+                buildConfigurations: .userDefined(["Release Staging"]),
+                codeSignIdentity: .userDefined("iPhone Distribution"),
+                profileName: .userDefined("match \(type.method) \(Constant.stagingBundleId)")
+            )
         case .appStore:
             updateCodeSigningSettings(
                 path: Constant.projectPath,
@@ -75,7 +75,7 @@ enum Match {
                 targets: .userDefined([Constant.projectName]),
                 buildConfigurations: .userDefined(["Release Production"]),
                 codeSignIdentity: .userDefined("iPhone Distribution"),
-                profileName: .userDefined("match AppStore \(Constant.productionBundleId)")
+                profileName: .userDefined("match \(type.method) \(Constant.productionBundleId)")
             )
         }
     }
@@ -90,5 +90,13 @@ extension Match {
         case appStore = "appstore"
 
         var value: String { return rawValue }
+        
+        var method: String {
+            switch self {
+            case .development: return "Development"
+            case .adHoc: return "AdHoc"
+            case .appStore: return "AppStore"
+            }
+        }
     }
 }
