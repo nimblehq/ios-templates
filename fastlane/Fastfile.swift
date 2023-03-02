@@ -12,11 +12,19 @@ class Fastfile: LaneFile {
 
     // MARK: - Code signing
 
-    func syncDevelopmentCodeSigningLane() {
+    func syncDevelopmentStagingCodeSigningLane() {
         desc("Sync the Development match signing for the Staging build")
         Match.syncCodeSigning(
             type: .development,
             appIdentifier: [Constant.stagingBundleId]
+        )
+    }
+    
+    func syncDevelopmentProductionCodeSigningLane() {
+        desc("Sync the Development match signing for the Staging build")
+        Match.syncCodeSigning(
+            type: .development,
+            appIdentifier: [Constant.productionBundleId]
         )
     }
 
