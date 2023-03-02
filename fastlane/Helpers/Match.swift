@@ -44,9 +44,9 @@ enum Match {
                 path: Constant.projectPath,
                 useAutomaticSigning: .userDefined(false),
                 targets: .userDefined([Constant.projectName]),
-                buildConfigurations: .userDefined(["Release Staging"]),
+                buildConfigurations: .userDefined(["Debug Staging"]),
                 codeSignIdentity: .userDefined("iPhone Developer"),
-                profileName: .userDefined("match AdHoc \(Constant.stagingBundleId)")
+                profileName: .userDefined("match Development \(Constant.stagingBundleId)")
             )
         case .adHoc:
             if appIdentifier.first == Constant.productionBundleId {
