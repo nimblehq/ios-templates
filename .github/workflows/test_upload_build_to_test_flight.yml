@@ -62,6 +62,10 @@ jobs:
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
+    - uses: yanamura/ios-bump-version@v1
+      with:
+        build-number: ${{github.run_number}}
+
     - name: Build App and Distribute to AppStore
       run: bundle exec fastlane buildAndUploadToAppStore
       env:

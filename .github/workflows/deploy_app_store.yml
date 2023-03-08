@@ -72,6 +72,10 @@ jobs:
       run: bundle exec pod install
       shell: bash
 
+    - uses: yanamura/ios-bump-version@v1
+      with:
+        build-number: ${{github.run_number}}
+
     - name: Build and Test
       run: bundle exec fastlane buildAndTest
 

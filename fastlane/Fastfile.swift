@@ -80,7 +80,7 @@ class Fastfile: LaneFile {
         desc("Build Staging app and upload to Firebase")
 
         setAppVersion()
-        bumpBuild()
+//        bumpBuild()
 
         buildAdHocStagingLane()
 
@@ -96,7 +96,7 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to Firebase")
 
         setAppVersion()
-        bumpBuild()
+//        bumpBuild()
 
         buildAdHocProductionLane()
 
@@ -113,11 +113,11 @@ class Fastfile: LaneFile {
 
         setAppVersion()
         AppStoreAuthentication.connectAPIKey()
-        if Secret.bumpAppStoreBuildNumber {
-            bumpAppstoreBuild()
-        } else {
-            bumpBuild()
-        }
+//        if Secret.bumpAppStoreBuildNumber {
+//            bumpAppstoreBuild()
+//        } else {
+//            bumpBuild()
+//        }
 
         buildAppStoreLane()
 
@@ -132,7 +132,7 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to TestFlight")
 
         setAppVersion()
-        bumpBuild()
+//        bumpBuild()
 
         buildAppStoreLane()
 
@@ -196,21 +196,21 @@ class Fastfile: LaneFile {
         )
     }
 
-    private func bumpBuild(buildNumber: Int = numberOfCommits()) {
-        desc("Set build number with number of commits")
-        incrementBuildNumber(
-            buildNumber: .userDefined(String(buildNumber)),
-            xcodeproj: .userDefined(Constant.projectPath)
-        )
-    }
-
-    private func bumpAppstoreBuild() {
-        desc("Set build number with App Store latest build")
-        let theLatestBuildNumber = latestTestflightBuildNumber(
-            appIdentifier: Constant.productionBundleId
-        ) + 1
-        incrementBuildNumber(
-            buildNumber: .userDefined("\(theLatestBuildNumber)")
-        )
-    }
+//    private func bumpBuild(buildNumber: Int = numberOfCommits()) {
+//        desc("Set build number with number of commits")
+//        incrementBuildNumber(
+//            buildNumber: .userDefined(String(buildNumber)),
+//            xcodeproj: .userDefined(Constant.projectPath)
+//        )
+//    }
+//
+//    private func bumpAppstoreBuild() {
+//        desc("Set build number with App Store latest build")
+//        let theLatestBuildNumber = latestTestflightBuildNumber(
+//            appIdentifier: Constant.productionBundleId
+//        ) + 1
+//        incrementBuildNumber(
+//            buildNumber: .userDefined("\(theLatestBuildNumber)")
+//        )
+//    }
 }
