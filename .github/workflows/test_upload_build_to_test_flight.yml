@@ -57,7 +57,7 @@ jobs:
       run: bundle exec fastlane setUpTestProject
 
     - name: Update Provision Profile
-      run: bundle exec fastlane updateProvisionSettings
+      run: bundle exec fastlane syncAppStoreCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
