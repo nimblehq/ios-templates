@@ -18,6 +18,9 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Setup
+      run: make setup
+
     - name: Bundle install
       run: bundle install
 
