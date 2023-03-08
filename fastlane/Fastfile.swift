@@ -16,7 +16,7 @@ class Fastfile: LaneFile {
         desc("Sync the Development match signing for the Staging build")
         Match.syncCodeSigning(
             type: .development,
-            appIdentifier: [Constant.stagingBundleId]
+            environment: .staging
         )
     }
     
@@ -24,7 +24,7 @@ class Fastfile: LaneFile {
         desc("Sync the Development match signing for the Staging build")
         Match.syncCodeSigning(
             type: .development,
-            appIdentifier: [Constant.productionBundleId]
+            environment: .production
         )
     }
 
@@ -32,7 +32,7 @@ class Fastfile: LaneFile {
         desc("Sync the Ad Hoc match signing for the Staging build")
         Match.syncCodeSigning(
             type: .adHoc,
-            appIdentifier: [Constant.stagingBundleId]
+            environment: .staging
         )
     }
 
@@ -40,7 +40,7 @@ class Fastfile: LaneFile {
         desc("Sync the Ad Hoc match signing for the Production build")
         Match.syncCodeSigning(
             type: .adHoc,
-            appIdentifier: [Constant.productionBundleId]
+            environment: .production
         )
     }
 
@@ -48,7 +48,7 @@ class Fastfile: LaneFile {
         desc("Sync the App Store match signing for the Production build")
         Match.syncCodeSigning(
             type: .appStore,
-            appIdentifier: [Constant.productionBundleId]
+            environment: .production
         )
     }
 
@@ -167,8 +167,8 @@ class Fastfile: LaneFile {
             teamId: .userDefined(Constant.teamId)
         )
 
-        Match.syncCodeSigning(type: .development, appIdentifier: [], isForce: true)
-        Match.syncCodeSigning(type: .adHoc, appIdentifier: [], isForce: true)
+        Match.syncCodeSigning(type: .development, environment: .staging, isForce: true)
+        Match.syncCodeSigning(type: .adHoc, environment: .staging, isForce: true)
     }
 
     // MARK: - Utilities
