@@ -30,6 +30,9 @@ workflows:
     - git-clone@6.1: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
+    - set-xcode-build-number@1:
+        inputs:
+        - plist_path: Project/$BITRISE_SCHEME/Configurations/Plists/Info.plist
     - xcode-test@4.0: {}
     - fastlane-match@0:
         inputs:
@@ -75,6 +78,9 @@ workflows:
     - git-clone@6.1: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
+    - set-xcode-build-number@1:
+        inputs:
+        - plist_path: Project/$BITRISE_SCHEME/Configurations/Plists/Info.plist
     - xcode-test@4.0: {}
     - fastlane-match@0:
         inputs:
@@ -120,6 +126,9 @@ workflows:
     - git-clone@6.1: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
+    - set-xcode-build-number@1:
+        inputs:
+        - plist_path: Project/$BITRISE_SCHEME/Configurations/Plists/Info.plist
     - xcode-test@4.0: {}
     - fastlane-match@0:
         inputs:
