@@ -49,6 +49,9 @@ jobs:
         yarn global add firebase-tools
         echo "$(yarn global bin)" >> $GITHUB_PATH
 
+    - name: Setup
+      run: make setup
+
     - name: Bundle install
       # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install

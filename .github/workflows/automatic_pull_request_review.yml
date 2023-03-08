@@ -26,6 +26,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gems-
 
+    - name: Setup
+      run: make setup
+
     - name: Bundle install
       run: bundle install --path vendor/bundle
 
