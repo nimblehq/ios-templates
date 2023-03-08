@@ -31,6 +31,9 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Setup
+      run: make setup
+
     - name: Bundle install
       run: bundle install
 
