@@ -9,7 +9,9 @@ name: Test Upload Build to TestFlight
 ### APPSTORE_CONNECT_API_KEY
 
 on:
-  pull_request
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -30,9 +32,6 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Setup
-      run: make setup
 
     - name: Bundle install
       run: bundle install
