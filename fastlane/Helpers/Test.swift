@@ -19,7 +19,7 @@ enum Test {
             onlyTesting: targets,
             codeCoverage: .userDefined(true),
             outputDirectory: Constant.testOutputDirectoryPath,
-            xcodebuildFormatter: "xcbeautify",
+//            xcodebuildFormatter: "xcbeautify",
             resultBundle: .userDefined(true),
             failBuild: .userDefined(false)
         )
