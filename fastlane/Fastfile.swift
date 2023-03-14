@@ -107,7 +107,7 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to App Store")
 
         setAppVersion()
-        AppStoreAuthentication.connectAPIKey()
+        AppStoreAuthentication.connectProductionAPIKey()
         if Secret.bumpAppStoreBuildNumber {
             bumpAppstoreBuild()
         } else {
@@ -131,7 +131,7 @@ class Fastfile: LaneFile {
 
         buildAppStoreLane()
 
-        AppStoreAuthentication.connectAPIKey()
+        AppStoreAuthentication.connectProductionAPIKey()
         Distribution.uploadToTestFlight()
 
         Symbol.uploadToCrashlytics(environment: .production)
@@ -167,7 +167,7 @@ class Fastfile: LaneFile {
         registerDevice(
             name: deviceName,
             udid: deviceUDID,
-            teamId: .userDefined(Constant.teamId)
+            teamId: .userDefined(Constant.appleStagingTeamId)
         )
 
         Match.syncCodeSigning(type: .development, environment: .staging, isForce: true)

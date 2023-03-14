@@ -22,8 +22,10 @@ enum Constant {
 
     // MARK: - Match
 
-    static let userName = "<#userName#>"
-    static let teamId = "<#teamId#>"
+    static let appleStagingUserName = "<#userName#>"
+    static let appleStagingTeamId = "<#teamId#>"
+    static let appleProductionUserName = "<#userName#>"
+    static let appleProductionTeamId = "<#teamId#>"
     static let keychainName = "github_action_keychain"
     static let matchURL = "git@github.com:{organization}/{repo}.git"
 
@@ -116,6 +118,20 @@ extension Constant {
         var dsymPath: String {
             let outputDirectoryURL = URL(fileURLWithPath: Constant.outputPath)
             return outputDirectoryURL.appendingPathComponent(productName + ".app" + Constant.dSYMSuffix).relativePath
+        }
+        
+        var appleUsername: String {
+            switch self {
+            case .staging: return Constant.appleStagingUserName
+            case .production: return Constant.appleProductionUserName
+            }
+        }
+        
+        var appleTeamId: String {
+            switch self {
+            case .staging: return Constant.appleStagingTeamId
+            case .production: return Constant.appleProductionTeamId
+            }
         }
     }
 
