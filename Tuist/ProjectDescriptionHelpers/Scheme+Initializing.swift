@@ -10,7 +10,7 @@ extension Scheme {
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
             testAction: .targets(
-                ["\(name)Tests", "\(name)KIFUITests", "\(name)UITests"],
+                ["\(name)Tests", "\(name)KIFUITests"],
                 configuration: debugConfigName
             ),
             runAction: .runAction(configuration: debugConfigName),
@@ -28,7 +28,7 @@ extension Scheme {
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
             testAction: .targets(
-                ["\(name)Tests", "\(name)KIFUITests", "\(name)UITests"],
+                ["\(name)Tests", "\(name)KIFUITests"],
                 configuration: debugConfigName
             ),
             runAction: .runAction(configuration: debugConfigName),
