@@ -7,9 +7,7 @@ def testing_pods
   pod 'Nimble'
   pod 'RxNimble', subspecs: ['RxBlocking', 'RxTest']
   pod 'RxSwift'
-  # TODO: Remove or update the version of `1.8.0` to the newest version (not 1.8.1) when init a new project.
-  # Currently, there is a bug on `1.8.1` - the newest version.
-  pod 'Sourcery', '1.8.0'
+  pod 'Sourcery'
   pod 'SwiftFormat/CLI'
 end
 
@@ -32,19 +30,22 @@ target '{PROJECT_NAME}' do
   pod 'IQKeyboardManagerSwift'
   pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
   pod 'R.swift'
-  pod 'Resolver' # Needs Cocoapods on iOS 11 to support Resolver
+  pod 'Factory'
 
   # Development
   pod 'SwiftLint'
   pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
+  pod 'xcbeautify'
 
   target '{PROJECT_NAME}Tests' do
     inherit! :search_paths
     testing_pods
   end
 
-  target '{PROJECT_NAME}UITests' do
+  target '{PROJECT_NAME}KIFUITests' do
     testing_pods
+    pod 'KIF', :configurations => ['Debug Staging', 'Debug Production']
+    pod 'KIF/IdentifierTests', :configurations => ['Debug Staging', 'Debug Production']
   end
 end
 

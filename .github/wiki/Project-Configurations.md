@@ -15,7 +15,7 @@ There are 3 default targets in a project:
 
 - {ProjectName}
 - {ProjectName}Tests
-- {ProjectName}UITests
+- {ProjectName}KIFUITests
 
 ### Schemes
 

@@ -48,18 +48,17 @@ extension Target {
         )
     }
 
-    public static func uiTestsTarget(name: String, bundleId: String) -> Target {
-        let targetName = "\(name)UITests"
+    public static func kifUITestsTarget(name: String, bundleId: String) -> Target {
+        let targetName = "\(name)KIFUITests"
         return Target(
             name: targetName,
             platform: .iOS,
-            product: .uiTests,
+            product: .unitTests,
             bundleId: bundleId,
             infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
             sources: ["\(targetName)/**"],
             resources: [
                 "\(targetName)/**/.gitkeep", // To include empty folders
-                "\(targetName)/Resources/**/*"
             ], 
             dependencies: [.target(name: name)]
         )
