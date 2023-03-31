@@ -48,10 +48,6 @@ target '{PROJECT_NAME}' do
     pod 'KIF', :configurations => ['Debug Staging', 'Debug Production']
     pod 'KIF/IdentifierTests', :configurations => ['Debug Staging', 'Debug Production']
   end
-
-  target '{PROJECT_NAME}UITests' do
-    testing_pods
-  end
 end
 
 post_install do |installer|

@@ -123,9 +123,6 @@ rename_folder(){
 # Rename test folder structure
 rename_folder "${CONSTANT_PROJECT_NAME}Tests" "${PROJECT_NAME_NO_SPACES}Tests"
 
-# Rename UI Test folder structure
-rename_folder "${CONSTANT_PROJECT_NAME}UITests" "${PROJECT_NAME_NO_SPACES}UITests"
-
 # Rename KIF UI Test folder structure
 rename_folder "${CONSTANT_PROJECT_NAME}KIFUITests" "${PROJECT_NAME_NO_SPACES}KIFUITests"
 

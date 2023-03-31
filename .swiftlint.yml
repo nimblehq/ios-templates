@@ -1,7 +1,6 @@
 included:
   - {PROJECT_NAME}
   - {PROJECT_NAME}Tests
-  - {PROJECT_NAME}UITests
   - {PROJECT_NAME}KIFUITests
 
 excluded:

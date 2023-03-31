@@ -63,21 +63,4 @@ extension Target {
             dependencies: [.target(name: name)]
         )
     }
-
-    public static func uiTestsTarget(name: String, bundleId: String) -> Target {
-        let targetName = "\(name)UITests"
-        return Target(
-            name: targetName,
-            platform: .iOS,
-            product: .uiTests,
-            bundleId: bundleId,
-            infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
-            sources: ["\(targetName)/**"],
-            resources: [
-                "\(targetName)/**/.gitkeep", // To include empty folders
-                "\(targetName)/Resources/**/*"
-            ], 
-            dependencies: [.target(name: name)]
-        )
-    }
 }
