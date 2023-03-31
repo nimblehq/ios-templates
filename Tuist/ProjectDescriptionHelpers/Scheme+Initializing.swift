@@ -9,7 +9,10 @@ extension Scheme {
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: .targets(["\(name)Tests", "\(name)UITests"], configuration: debugConfigName),
+            testAction: .targets(
+                ["\(name)Tests", "\(name)KIFUITests"],
+                configuration: debugConfigName
+            ),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName),
             profileAction: .profileAction(configuration: debugConfigName),
@@ -24,11 +27,24 @@ extension Scheme {
             name: "\(name) Staging",
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: .targets(["\(name)Tests", "\(name)UITests"], configuration: debugConfigName),
+            testAction: .targets(
+                ["\(name)Tests", "\(name)KIFUITests"],
+                configuration: debugConfigName
+            ),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName),
             profileAction: .profileAction(configuration: debugConfigName),
             analyzeAction: .analyzeAction(configuration: debugConfigName)
+        )
+    }
+
+    public static func kifUITestsScheme(name: String) -> Scheme {
+        let debugConfigName = BuildConfiguration.debugStaging.name
+        let releaseConfigName = BuildConfiguration.releaseStaging.name
+        return Scheme(
+            name: "\(name)KIFUITests",
+            shared: false,
+            hidden: true
         )
     }
 }

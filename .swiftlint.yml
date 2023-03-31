@@ -1,7 +1,7 @@
 included:
   - {PROJECT_NAME}
   - {PROJECT_NAME}Tests
-  - {PROJECT_NAME}UITests
+  - {PROJECT_NAME}KIFUITests
 
 excluded:
   - {PROJECT_NAME}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
