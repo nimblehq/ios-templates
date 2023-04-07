@@ -129,6 +129,9 @@ rename_folder "${CONSTANT_PROJECT_NAME}KIFUITests" "${PROJECT_NAME_NO_SPACES}KIF
 # Rename app folder structure
 rename_folder "${CONSTANT_PROJECT_NAME}" "${PROJECT_NAME_NO_SPACES}"
 
+# Duplicate the env example file and rename it to env file
+cp "./.env.example" "./.env"
+
 # Add AutoMockable.generated.swift file
 mkdir -p "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery"
 touch "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift"
@@ -167,6 +170,10 @@ echo "✅  Completed"
 # Install dependencies
 echo "Installing gems"
 bundle install
+
+echo "Run Arkana"
+bundle exec arkana
+
 echo "Installing pod dependencies"
 bundle exec pod install --repo-update
 echo "✅  Completed"

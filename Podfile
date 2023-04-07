@@ -36,6 +36,8 @@ target '{PROJECT_NAME}' do
   pod 'SwiftLint'
   pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
   pod 'xcbeautify'
+  pod "ArkanaKeys", path: "./dependencies/ArkanaKeys"
+  pod "ArkanaKeysInterfaces", path: "./dependencies/ArkanaKeysInterfaces"
 
   target '{PROJECT_NAME}Tests' do
     inherit! :search_paths
