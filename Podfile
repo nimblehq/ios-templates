@@ -37,7 +37,7 @@ target '{PROJECT_NAME}' do
   pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
   pod 'xcbeautify'
   pod "ArkanaKeys", path: "./dependencies/ArkanaKeys"
-  pod "ArkanaInterfaces", path: "./dependencies/ArkanaInterfaces"
+  pod "ArkanaKeysInterfaces", path: "./dependencies/ArkanaKeysInterfaces"
 
   target '{PROJECT_NAME}Tests' do
     inherit! :search_paths

@@ -1,6 +1,3 @@
-import_name: '{PROJECT_NAME}Keys'
-namespace: 'Keys' # Optional. Namespace used to access the secrets in the codebase. Defaults to ArkanaKeys.
-pod_name: '{PROJECT_NAME}Keys' # Optional. Name of the pod to be declared in your Podfile. Defaults to ArkanaKeys.
 result_path: 'dependencies' # Optional. Destination path of the generated code, related to the path of this config file. Defaults to ArkanaKeys.
 flavors: # Optional. Flavors are keywords added as a prefix to every secret when reading them from environment variables. This is useful for instance in white-label projects. Check the "Usage" section of the README for more information.
 swift_declaration_strategy: let # Optional. One of: lazy var, var, let. Defaults to let.
