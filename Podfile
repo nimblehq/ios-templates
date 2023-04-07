@@ -36,6 +36,8 @@ target '{PROJECT_NAME}' do
   pod 'SwiftLint'
   pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
   pod 'xcbeautify'
+  pod "{PROJECT_NAME}Keys", path: "./dependencies/{PROJECT_NAME}Keys"
+  pod "{PROJECT_NAME}Interfaces", path: "./dependencies/{PROJECT_NAME}Interfaces"
 
   target '{PROJECT_NAME}Tests' do
     inherit! :search_paths
