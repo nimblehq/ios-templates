@@ -167,6 +167,10 @@ echo "✅  Completed"
 # Install dependencies
 echo "Installing gems"
 bundle install
+
+echo "Run Arkana"
+bundle exec arkana
+
 echo "Installing pod dependencies"
 bundle exec pod install --repo-update
 echo "✅  Completed"
