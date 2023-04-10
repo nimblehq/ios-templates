@@ -11,7 +11,7 @@ def testing_pods
   pod 'SwiftFormat/CLI'
 end
 
-target '{PROJECT_NAME}' do
+target 'TemplateApp' do
   # UI
   pod 'Kingfisher'
   pod 'SnapKit'
@@ -39,12 +39,12 @@ target '{PROJECT_NAME}' do
   pod "ArkanaKeys", path: "./dependencies/ArkanaKeys"
   pod "ArkanaKeysInterfaces", path: "./dependencies/ArkanaKeysInterfaces"
 
-  target '{PROJECT_NAME}Tests' do
+  target 'TemplateAppTests' do
     inherit! :search_paths
     testing_pods
   end
 
-  target '{PROJECT_NAME}KIFUITests' do
+  target 'TemplateAppKIFUITests' do
     testing_pods
     pod 'KIF', :configurations => ['Debug Staging', 'Debug Production']
     pod 'KIF/IdentifierTests', :configurations => ['Debug Staging', 'Debug Production']
