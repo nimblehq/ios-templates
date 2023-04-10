@@ -17,6 +17,7 @@ extension Target {
             infoPlist: "\(name)/\(plistsPath)/Info.plist",
             sources: ["\(name)/Sources/**"],
             resources: [
+                "\(name)/\(plistsPath)/**",
                 "\(name)/Resources/**",
                 "\(name)/Sources/**/.gitkeep" // To include empty folders
             ],
