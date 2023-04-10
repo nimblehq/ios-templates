@@ -44,6 +44,13 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Setup ENV file
+      env:
+        ENV: ${{ secrets.ENV }}
+      run: |
+        touch .env
+        echo $ENV | base64 --decode > .env
+
     - name: Bundle install
       run: bundle install
       
