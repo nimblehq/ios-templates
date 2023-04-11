@@ -43,6 +43,10 @@ class Fastfile: LaneFile {
             codeSignIdentity: .userDefined("iPhone Distribution"),
             profileName: .userDefined("match AdHoc \(Constant.stagingBundleId)")
         )
+        Match.syncCodeSigning(
+            type: .adHoc,
+            appIdentifier: [Constant.stagingBundleId]
+        )
     }
     
     func syncAdHocProductionCodeSigningLane() {
