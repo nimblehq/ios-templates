@@ -64,11 +64,6 @@ jobs:
       run: bundle exec fastlane syncAdHocStagingCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
-    # Call second match to resolve There are no local code signing identities found
-    - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdHocStagingCodeSigning
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distribute to Firebase
       run: bundle exec fastlane buildStagingAndUploadToFirebase
