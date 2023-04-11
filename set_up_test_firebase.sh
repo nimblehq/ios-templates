@@ -1,7 +1,7 @@
 echo "import('./Tests/Fastfile')" | cat - fastlane/Fastfile | tee fastlane/Fastfile &> /dev/null
 
 readonly CONSTANT_STAGING_FIREBASE_APP_ID="<#stagingFirebaseAppId#>"
-readonly CONSTANT_FIREBASE_TESTER_GROUPS=["<#group1#>", "<#group2#>"]
+readonly CONSTANT_FIREBASE_TESTER_GROUPS="<#group1#>, <#group2#>"
 readonly CONSTANT_MATCH_REPO="git@github.com:{organization}\/{repo}.git"
 
 readonly WORKING_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
