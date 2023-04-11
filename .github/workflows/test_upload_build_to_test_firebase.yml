@@ -1,13 +1,10 @@
-name: Test Upload Build to TestFlight
+name: Test Upload Build to Firebase
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
-### MATCH_REPO
 ### MATCH_PASS
-### API_KEY_ID
-### ISSUER_ID
-### APPSTORE_CONNECT_API_KEY
-### TEAM_ID
+### FIREBASE_TOKEN
+### STAGING_FIREBASE_APP_ID
 
 on:
   pull_request
@@ -22,20 +19,25 @@ jobs:
     runs-on: macOS-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.7.0
+      uses: webfactory/ssh-agent@v0.5.4
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Install Firebase-Tools
+      run: |
+        yarn global add firebase-tools
+        echo "$(yarn global bin)" >> $GITHUB_PATH
 
     - name: Bundle install
       run: bundle install
 
     - name: Cache Pods
-      uses: actions/cache@v3
+      uses: actions/cache@v2
       id: cocoapodCache
       with:
         path: Pods
@@ -47,26 +49,30 @@ jobs:
       run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
 
     - name: Start Setup Script for Template App TestFlight Upload
-      run: sh set_up_test_testflight.sh
+      run: sh set_up_test_firebase.sh
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
-        API_KEY_ID: ${{ secrets.API_KEY_ID }}
-        ISSUER_ID: ${{ secrets.ISSUER_ID }}
-        TEAM_ID: ${{ secrets.TEAM_ID }}
+        STAGING_FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
 
-    - name: Set Up Test Project for App Store
+    - name: Set Up Test Project for Firebase
       run: bundle exec fastlane setUpTestProject
 
-    - name: Update Provision Profile
-      run: bundle exec fastlane syncAppStoreCodeSigning
+    - name: Match Ad-hoc
+      run: bundle exec fastlane syncAdHocStagingCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build App and Distribute to AppStore
-      run: bundle exec fastlane buildAndUploadToAppStore
+    - name: Build App and Distribute to Firebase
+      run: bundle exec fastlane buildStagingAndUploadToFirebase
       env:
-        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
-        API_KEY_ID: ${{ secrets.API_KEY_ID }}
-        ISSUER_ID: ${{ secrets.ISSUER_ID }}
-        SKIP_FIREBASE_DSYM: "true"
-        BUMP_APP_STORE_BUILD_NUMBER: "true"
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
+        path: |
+          ${{ env.IPA_OUTPUT_PATH }}
+          ${{ env.DSYM_OUTPUT_PATH }}
+      env:
+        TAG_TYPE: Staging_Firebase
