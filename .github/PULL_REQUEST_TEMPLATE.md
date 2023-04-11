@@ -1,4 +1,4 @@
-- Close #https://github.com/nimblehq/ios-templates/issues/
+- Close #
 
 ## What happened 👀
 
