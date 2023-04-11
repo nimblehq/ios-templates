@@ -32,19 +32,6 @@ class Fastfile: LaneFile {
         desc("Sync the Ad Hoc match signing for the Staging build")
         Match.syncCodeSigning(
             type: .adHoc,
-            environment: .staging
-        )
-        // TODO: Remove after workflow run successfully
-        updateCodeSigningSettings(
-            path: Constant.projectPath,
-            useAutomaticSigning: .userDefined(false),
-            targets: .userDefined([Constant.projectName]),
-            buildConfigurations: .userDefined(["Release Staging"]),
-            codeSignIdentity: .userDefined("iPhone Distribution"),
-            profileName: .userDefined("match AdHoc \(Constant.stagingBundleId)")
-        )
-        Match.syncCodeSigning(
-            type: .adHoc,
             appIdentifier: [Constant.stagingBundleId]
         )
     }
