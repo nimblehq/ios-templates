@@ -6,9 +6,12 @@ name: Test Upload Build to Firebase
 ### FIREBASE_TOKEN
 ### STAGING_FIREBASE_APP_ID
 
+#on:
+#  pull_request
 on:
-  pull_request
-
+  push:
+    branches: [ feature/**, bug/**, chore/** ]
+  
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
