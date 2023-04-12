@@ -19,12 +19,12 @@ jobs:
     runs-on: macOS-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.5.4
+      uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -37,7 +37,7 @@ jobs:
       run: bundle install
 
     - name: Cache Pods
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cocoapodCache
       with:
         path: Pods
@@ -48,7 +48,7 @@ jobs:
     - name: Start Install Script for Template App
       run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
 
-    - name: Start Setup Script for Template App Firebase Upload
+    - name: Start Setup Script for Template App TestFlight Upload
       run: sh set_up_test_firebase.sh
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
