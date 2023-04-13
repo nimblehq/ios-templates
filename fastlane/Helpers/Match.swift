@@ -41,10 +41,13 @@ enum Match {
         updateCodeSigningSettings(
             path: Constant.projectPath,
             useAutomaticSigning: .userDefined(false),
-            targets: .userDefined([Constant.projectName]),
-            buildConfigurations: .userDefined(["\(type.buildConfiguration) \(environment.rawValue)"]),
+            teamId: .userDefined(EnvironmentParser.string(
+                key: "sigh_\(Constant.productionBundleId)_\(type.rawValue)_team-id"
+            )),
             codeSignIdentity: .userDefined(type.codeSignIdentity),
-            profileName: .userDefined("match \(type.method) \(environment.bundleId)")
+            profileName: .userDefined(EnvironmentParser.string(
+                key: "sigh_\(environment.bundleId)_\(type.rawValue)_profile-name"
+            ))
         )
     }
 }
