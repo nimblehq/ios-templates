@@ -7,7 +7,7 @@
 //
 
 enum Match {
-
+    
     static func syncCodeSigning(type: MatchType, environment: Environment, isForce: Bool = false) {
         if isCi() {
             Keychain.create()
@@ -41,13 +41,11 @@ enum Match {
         updateCodeSigningSettings(
             path: Constant.projectPath,
             useAutomaticSigning: .userDefined(false),
-            teamId: .userDefined(EnvironmentParser.string(
-                key: "sigh_\(environment.bundleId)_\(type.rawValue)_team-id"
-            )),
+            teamId: .userDefined(Constant.teamId),
+            targets: .userDefined([Constant.projectName]),
+            buildConfigurations: .userDefined(["\(type.buildConfiguration) \(environment.rawValue)"]),
             codeSignIdentity: .userDefined(type.codeSignIdentity),
-            profileName: .userDefined(EnvironmentParser.string(
-                key: "sigh_\(environment.bundleId)_\(type.rawValue)_profile-name"
-            ))
+            profileName: .userDefined("match \(type.method) \(environment.bundleId)")
         )
     }
 }
@@ -55,6 +53,7 @@ enum Match {
 extension Match {
     
     enum Environment: String {
+        
         case staging = "Staging"
         case production = "Production"
         
@@ -65,13 +64,13 @@ extension Match {
             }
         }
     }
-
+    
     enum MatchType: String {
-
+        
         case development
         case adHoc = "adhoc"
         case appStore = "appstore"
-
+        
         var value: String { return rawValue }
         
         var method: String {
@@ -88,7 +87,6 @@ extension Match {
             case .adHoc, .appStore: return "Release"
             }
         }
-        
         var codeSignIdentity: String {
             switch self {
             case .development: return "iPhone Developer"
