@@ -42,7 +42,7 @@ enum Match {
             path: Constant.projectPath,
             useAutomaticSigning: .userDefined(false),
             teamId: .userDefined(EnvironmentParser.string(
-                key: "sigh_\(Constant.productionBundleId)_\(type.rawValue)_team-id"
+                key: "sigh_\(environment.bundleId)_\(type.rawValue)_team-id"
             )),
             codeSignIdentity: .userDefined(type.codeSignIdentity),
             profileName: .userDefined(EnvironmentParser.string(
