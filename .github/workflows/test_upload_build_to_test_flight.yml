@@ -21,12 +21,12 @@ jobs:
     runs-on: macOS-12
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.5.4
+      uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -34,7 +34,7 @@ jobs:
       run: bundle install
 
     - name: Cache Pods
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cocoapodCache
       with:
         path: Pods
