@@ -35,7 +35,7 @@ class Fastfile: LaneFile {
             appIdentifier: [Constant.stagingBundleId]
         )
     }
-    
+
     func syncAdHocProductionCodeSigningLane() {
         desc("Sync the Ad Hoc match signing for the Production build")
         Match.syncCodeSigning(
