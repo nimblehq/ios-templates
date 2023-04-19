@@ -21,7 +21,7 @@ class Fastfile: LaneFile {
     }
     
     func syncDevelopmentProductionCodeSigningLane() {
-        desc("Sync the Development match signing for the Staging build")
+        desc("Sync the Development match signing for the Production build")
         Match.syncCodeSigning(
             type: .development,
             environment: .production
@@ -88,7 +88,7 @@ class Fastfile: LaneFile {
     }
 
     func buildProductionAndUploadToFirebaseLane() {
-        desc("Build Staging app and upload to Firebase")
+        desc("Build Production app and upload to Firebase")
 
         setAppVersion()
         bumpBuild()
