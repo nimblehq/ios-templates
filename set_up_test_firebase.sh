@@ -1,5 +1,6 @@
 echo "import('./Tests/Fastfile')" | cat - fastlane/Fastfile | tee fastlane/Fastfile &> /dev/null
 
+readonly CONSTANT_TEAM_ID="<#teamId#>"
 readonly CONSTANT_STAGING_FIREBASE_APP_ID="<#stagingFirebaseAppId#>"
 readonly CONSTANT_FIREBASE_TESTER_GROUPS="<#group1#>, <#group2#>"
 readonly CONSTANT_MATCH_REPO="git@github.com:{organization}\/{repo}.git"
