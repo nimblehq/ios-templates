@@ -32,7 +32,7 @@ class Fastfile: LaneFile {
         desc("Sync the Ad Hoc match signing for the Staging build")
         Match.syncCodeSigning(
             type: .adHoc,
-            appIdentifier: [Constant.stagingBundleId]
+            environment: .staging
         )
     }
 
