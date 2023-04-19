@@ -80,7 +80,6 @@ class Fastfile: LaneFile {
         desc("Build Staging app and upload to Firebase")
 
         setAppVersion()
-//        bumpBuild()
 
         buildAdHocStagingLane()
 
@@ -96,7 +95,6 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to Firebase")
 
         setAppVersion()
-//        bumpBuild()
 
         buildAdHocProductionLane()
 
@@ -132,7 +130,6 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to TestFlight")
 
         setAppVersion()
-//        bumpBuild()
 
         buildAppStoreLane()
 
@@ -195,22 +192,4 @@ class Fastfile: LaneFile {
             versionNumber: .userDefined(Constant.manualVersion)
         )
     }
-
-//    private func bumpBuild(buildNumber: Int = numberOfCommits()) {
-//        desc("Set build number with number of commits")
-//        incrementBuildNumber(
-//            buildNumber: .userDefined(String(buildNumber)),
-//            xcodeproj: .userDefined(Constant.projectPath)
-//        )
-//    }
-//
-//    private func bumpAppstoreBuild() {
-//        desc("Set build number with App Store latest build")
-//        let theLatestBuildNumber = latestTestflightBuildNumber(
-//            appIdentifier: Constant.productionBundleId
-//        ) + 1
-//        incrementBuildNumber(
-//            buildNumber: .userDefined("\(theLatestBuildNumber)")
-//        )
-//    }
 }
