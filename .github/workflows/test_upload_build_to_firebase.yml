@@ -5,6 +5,7 @@ name: Test Upload Build to Firebase
 ### MATCH_PASS
 ### FIREBASE_TOKEN
 ### STAGING_FIREBASE_APP_ID
+### TEAM_ID
 
 on:
   pull_request
@@ -53,6 +54,7 @@ jobs:
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
         STAGING_FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
+        TEAM_ID: ${{ secrets.TEAM_ID }}
 
     - name: Set Up Test Project for Firebase
       run: bundle exec fastlane setUpTestProject
