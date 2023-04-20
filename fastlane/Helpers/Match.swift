@@ -66,13 +66,13 @@ extension Match {
     }
     
     enum MatchType: String {
-        
+
         case development
         case adHoc = "adhoc"
         case appStore = "appstore"
-        
+
         var value: String { return rawValue }
-        
+
         var method: String {
             switch self {
             case .development: return "Development"

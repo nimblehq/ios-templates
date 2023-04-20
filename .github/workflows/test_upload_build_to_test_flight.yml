@@ -7,6 +7,7 @@ name: Test Upload Build to TestFlight
 ### API_KEY_ID
 ### ISSUER_ID
 ### APPSTORE_CONNECT_API_KEY
+### TEAM_ID
 
 on:
   pull_request
@@ -51,6 +52,7 @@ jobs:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
         API_KEY_ID: ${{ secrets.API_KEY_ID }}
         ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        TEAM_ID: ${{ secrets.TEAM_ID }}
 
     - name: Set Up Test Project for App Store
       run: bundle exec fastlane setUpTestProject
