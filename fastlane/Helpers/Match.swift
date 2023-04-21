@@ -41,7 +41,6 @@ enum Match {
         updateCodeSigningSettings(
             path: Constant.projectPath,
             useAutomaticSigning: .userDefined(false),
-            teamId: .userDefined(Constant.teamId),
             targets: .userDefined([Constant.projectName]),
             buildConfigurations: .userDefined([Self.createBuildConfiguration(type: type, environment: environment)]),
             codeSignIdentity: .userDefined(type.codeSignIdentity),

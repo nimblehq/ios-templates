@@ -83,7 +83,12 @@ extension Constant {
 
         var productName: String { "\(Constant.projectName) \(rawValue)".trimmed }
 
-        var scheme: String { "\(Constant.projectName) \(rawValue)".trimmed }
+        var scheme: String {
+            switch self {
+            case .staging: return "\(Constant.projectName) \(rawValue)".trimmed
+            case .production: return Constant.projectName
+            }
+        }
 
         var bundleId: String {
             switch self {
