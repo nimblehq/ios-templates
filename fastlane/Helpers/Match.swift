@@ -12,7 +12,7 @@ enum Match {
         if isCi() {
             Keychain.create()
             match(
-                type: type.value,
+                type: type.match,
                 readonly: .userDefined(!isForce),
                 appIdentifier: [environment.bundleId],
                 username: .userDefined(Constant.userName),
@@ -24,7 +24,7 @@ enum Match {
             )
         } else {
             match(
-                type: type.value,
+                type: type.match,
                 readonly: .userDefined(!isForce),
                 appIdentifier: [environment.bundleId],
                 username: .userDefined(Constant.userName),

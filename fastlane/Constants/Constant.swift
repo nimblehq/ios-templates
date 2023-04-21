@@ -122,6 +122,14 @@ extension Constant {
 
         var value: String { return rawValue }
         
+        var match: String {
+            switch self {
+            case .development: return "development"
+            case .adHoc: return "adhoc"
+            case .appStore: return "appstore"
+            }
+        }
+        
         var configuration: String {
             switch self {
             case .development: return "Debug"
