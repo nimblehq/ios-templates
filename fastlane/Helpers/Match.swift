@@ -7,7 +7,7 @@
 //
 
 enum Match {
-    
+
     static func syncCodeSigning(type: MatchType, environment: Environment, isForce: Bool = false) {
         if isCi() {
             Keychain.create()
