@@ -10,7 +10,7 @@ import Foundation
 
 enum AppStoreAuthentication {
 
-    static func connectProductionAPIKey() {
+    static func connectAPIKey() {
         appStoreConnectApiKey(
             keyId: Secret.appStoreKeyIdKey,
             issuerId: Secret.appStoreIssuerIdKey,
