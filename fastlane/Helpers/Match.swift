@@ -8,7 +8,7 @@
 
 enum Match {
 
-    static func syncCodeSigning(type: MatchType, environment: Environment, isForce: Bool = false) {
+    static func syncCodeSigning(type: Constant.BuildType, environment: Constant.Environment, isForce: Bool = false) {
         if isCi() {
             Keychain.create()
             match(
@@ -36,62 +36,24 @@ enum Match {
         updateCodeSigning(type: type, environment: environment)
     }
     
-    static func updateCodeSigning(type: MatchType, environment: Environment) {
+    static func updateCodeSigning(type: Constant.BuildType, environment: Constant.Environment) {
         // Update Code signing from automatic to manual
         updateCodeSigningSettings(
             path: Constant.projectPath,
             useAutomaticSigning: .userDefined(false),
             teamId: .userDefined(Constant.teamId),
             targets: .userDefined([Constant.projectName]),
-            buildConfigurations: .userDefined(["\(type.buildConfiguration) \(environment.rawValue)"]),
+            buildConfigurations: .userDefined([Self.createBuildConfiguration(type: type, environment: environment)]),
             codeSignIdentity: .userDefined(type.codeSignIdentity),
-            profileName: .userDefined("match \(type.method) \(environment.bundleId)")
+            profileName: .userDefined(Self.createProfileName(type: type, environment: environment))
         )
     }
-}
-
-extension Match {
     
-    enum Environment: String {
-        
-        case staging = "Staging"
-        case production = "Production"
-        
-        var bundleId: String {
-            switch self {
-            case .staging: return Constant.stagingBundleId
-            case .production: return Constant.productionBundleId
-            }
-        }
+    static func createBuildConfiguration(type: Constant.BuildType, environment: Constant.Environment) -> String {
+        "\(type.configuration) \(environment.rawValue)"
     }
     
-    enum MatchType: String {
-
-        case development
-        case adHoc = "adhoc"
-        case appStore = "appstore"
-
-        var value: String { return rawValue }
-
-        var method: String {
-            switch self {
-            case .development: return "Development"
-            case .adHoc: return "AdHoc"
-            case .appStore: return "AppStore"
-            }
-        }
-        
-        var buildConfiguration: String {
-            switch self {
-            case .development: return "Debug"
-            case .adHoc, .appStore: return "Release"
-            }
-        }
-        var codeSignIdentity: String {
-            switch self {
-            case .development: return "iPhone Developer"
-            case .adHoc, . appStore: return "iPhone Distribution"
-            }
-        }
+    static func createProfileName(type: Constant.BuildType, environment: Constant.Environment) -> String {
+        "match \(type.method) \(environment.bundleId)"
     }
 }
