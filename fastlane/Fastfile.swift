@@ -107,7 +107,6 @@ class Fastfile: LaneFile {
         desc("Build Production app and upload to App Store")
 
         setAppVersion()
-        AppStoreAuthentication.connectAPIKey()
         if Secret.bumpAppStoreBuildNumber {
             bumpAppstoreBuild()
         } else {
@@ -116,6 +115,7 @@ class Fastfile: LaneFile {
 
         buildAppStoreLane()
 
+        AppStoreAuthentication.connectAPIKey()
         Distribution.uploadToAppStore()
 
         Symbol.uploadToCrashlytics(environment: .production)
