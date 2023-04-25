@@ -4,6 +4,9 @@ name: Deploy Build To App Store
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
 ### APPSTORE_CONNECT_API_KEY
+### API_KEY_ID
+### ISSUER_ID
+### APPSTORE_CONNECT_API_KEY
 
 on:
   push:
