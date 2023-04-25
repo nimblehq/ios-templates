@@ -111,12 +111,6 @@ class Fastfile: LaneFile {
 
         setAppVersion()
         AppStoreAuthentication.connectAPIKey()
-//        if Secret.bumpAppStoreBuildNumber {
-//            bumpAppstoreBuild()
-//        } else {
-//            bumpBuild()
-//        }
-
         buildAppStoreLane()
 
         Distribution.uploadToAppStore()
