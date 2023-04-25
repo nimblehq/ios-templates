@@ -34,6 +34,10 @@ Out of the box, the Bitrise Template has the following workflows and steps:
 - MATCH_REPO_URL
 > Link to a repository that contains your Fastlane Match it can be either HTTPS or SSH link (e.g., https://github.com/nimblehq/fastlane-match.git)
 
+- BUILD NUMBER OFFSET
+
+> Set this variable value in the **Set Xcode Project Build Number** step in Bitrise in case you switch to Bitrise from another CI/CD and want to keep the build number of the application. 
+
 ### Workflow Environment Variables
 All four workflows have their own variables:
 
@@ -52,14 +56,14 @@ All four workflows have their own variables:
 
 ## Installation
 1. Follow the setup instruction in [`README.md`](https://github.com/nimblehq/ios-templates#readme).
-2. To connect your repository to Bitrise please follow the instruction in this page: [Adding a new app](https://devcenter.bitrise.io/en/getting-started/adding-your-first-app.html).
-3. Make sure the option where the `bitrise.yml` locate is set to `Store in-app repository`.
+2. To connect your repository to Bitrise, please follow the instruction on this page: [Adding a new app](https://devcenter.bitrise.io/en/getting-started/adding-your-first-app.html).
+3. Ensure the option where the `bitrise.yml` is located is set to `Store in-app repository`.
 <p align="center">
   <img src="assets/images/operations/bitrise/Bitrise-YML-Storage-Location.png" alt="Bitrise Store in-app repository" width="600"/>
 </p>
 
 4. Provide all the required variables and secrets.
-> Final project directory structure
+> The final project directory structure
 ```
 ROOT
 ├── ExampleApp.xcworkspace
