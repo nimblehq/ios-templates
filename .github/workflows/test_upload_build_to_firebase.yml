@@ -59,7 +59,7 @@ jobs:
     - name: Set Up Test Project for Firebase
       run: bundle exec fastlane setUpTestProject
 
-    - name: Match Ad-hoc
+    - name: Sync Ad Hoc Code Signing
       run: bundle exec fastlane syncAdHocStagingCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
