@@ -84,14 +84,14 @@ extension Constant {
         case production = "Production"
 
         var productName: String { "\(Constant.projectName) \(rawValue)".trimmed }
-        
+
         var scheme: String {
             switch self {
             case .staging: return "\(Constant.projectName) \(rawValue)".trimmed
             case .production: return Constant.projectName.trimmed
             }
         }
-        
+
         var bundleId: String {
             switch self {
             case .staging: return Constant.stagingBundleId
