@@ -49,7 +49,7 @@ jobs:
     - name: Start Install Script for Template App
       run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
 
-    - name: Start Setup Script for Template App TestFlight Upload
+    - name: Start Setup Script for Template App Firebase Upload
       run: sh set_up_test_firebase.sh
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
