@@ -11,7 +11,7 @@ enum Secret {
 
     static let keychainPassword = EnvironmentParser.string(key: "KEYCHAIN_PASSWORD")
 
-    static let firebaseCLIToken = EnvironmentParser.string(key: "FIREBASE_CLI_TOKEN")
+    static let firebaseCLIToken = EnvironmentParser.string(key: "FIREBASE_TOKEN")
 
     static let appstoreConnectAPIKey = EnvironmentParser.string(key: "APPSTORE_CONNECT_API_KEY")
 
