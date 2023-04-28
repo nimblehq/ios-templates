@@ -167,7 +167,7 @@ class Fastfile: LaneFile {
         registerDevice(
             name: deviceName,
             udid: deviceUDID,
-            teamId: .userDefined(Constant.teamId)
+            teamId: .userDefined(Constant.appleStagingTeamId)
         )
 
         Match.syncCodeSigning(type: .development, environment: .staging, isForce: true)

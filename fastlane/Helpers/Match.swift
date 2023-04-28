@@ -15,8 +15,8 @@ enum Match {
                 type: type.match,
                 readonly: .userDefined(!isForce),
                 appIdentifier: [environment.bundleId],
-                username: .userDefined(Constant.userName),
-                teamId: .userDefined(Constant.teamId),
+                username: .userDefined(environment.appleUsername),
+                teamId: .userDefined(environment.appleTeamId),
                 gitUrl: Constant.matchURL,
                 keychainName: Constant.keychainName,
                 keychainPassword: .userDefined(Secret.keychainPassword),
@@ -27,8 +27,8 @@ enum Match {
                 type: type.match,
                 readonly: .userDefined(!isForce),
                 appIdentifier: [environment.bundleId],
-                username: .userDefined(Constant.userName),
-                teamId: .userDefined(Constant.teamId),
+                username: .userDefined(environment.appleUsername),
+                teamId: .userDefined(environment.appleTeamId),
                 gitUrl: Constant.matchURL,
                 force: .userDefined(isForce)
             )
@@ -41,7 +41,7 @@ enum Match {
         updateCodeSigningSettings(
             path: Constant.projectPath,
             useAutomaticSigning: .userDefined(false),
-            teamId: .userDefined(Constant.teamId),
+            teamId: .userDefined(environment.appleTeamId),
             targets: .userDefined([Constant.projectName]),
             buildConfigurations: .userDefined([Self.createBuildConfiguration(type: type, environment: environment)]),
             codeSignIdentity: .userDefined(type.codeSignIdentity),
