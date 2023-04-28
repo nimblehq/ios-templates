@@ -8,13 +8,13 @@
 
 enum Match {
 
-    static func syncCodeSigning(type: MatchType, appIdentifier: [String], isForce: Bool = false) {
+    static func syncCodeSigning(type: Constant.BuildType, environment: Constant.Environment, isForce: Bool = false) {
         if isCi() {
             Keychain.create()
             match(
-                type: type.value,
+                type: type.match,
                 readonly: .userDefined(!isForce),
-                appIdentifier: appIdentifier,
+                appIdentifier: [environment.bundleId],
                 username: .userDefined(Constant.userName),
                 teamId: .userDefined(Constant.teamId),
                 gitUrl: Constant.matchURL,
@@ -24,26 +24,36 @@ enum Match {
             )
         } else {
             match(
-                type: type.value,
+                type: type.match,
                 readonly: .userDefined(!isForce),
-                appIdentifier: appIdentifier,
+                appIdentifier: [environment.bundleId],
                 username: .userDefined(Constant.userName),
                 teamId: .userDefined(Constant.teamId),
                 gitUrl: Constant.matchURL,
                 force: .userDefined(isForce)
             )
         }
+        updateCodeSigning(type: type, environment: environment)
     }
-}
-
-extension Match {
-
-    enum MatchType: String {
-
-        case development
-        case adHoc = "adhoc"
-        case appStore = "appstore"
-
-        var value: String { return rawValue }
+    
+    static func updateCodeSigning(type: Constant.BuildType, environment: Constant.Environment) {
+        // Update Code signing from automatic to manual
+        updateCodeSigningSettings(
+            path: Constant.projectPath,
+            useAutomaticSigning: .userDefined(false),
+            teamId: .userDefined(Constant.teamId),
+            targets: .userDefined([Constant.projectName]),
+            buildConfigurations: .userDefined([Self.createBuildConfiguration(type: type, environment: environment)]),
+            codeSignIdentity: .userDefined(type.codeSignIdentity),
+            profileName: .userDefined(Self.createProfileName(type: type, environment: environment))
+        )
+    }
+    
+    static func createBuildConfiguration(type: Constant.BuildType, environment: Constant.Environment) -> String {
+        "\(type.configuration) \(environment.rawValue)"
+    }
+    
+    static func createProfileName(type: Constant.BuildType, environment: Constant.Environment) -> String {
+        "match \(type.method) \(environment.bundleId)"
     }
 }

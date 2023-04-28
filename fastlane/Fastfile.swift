@@ -12,11 +12,19 @@ class Fastfile: LaneFile {
 
     // MARK: - Code signing
 
-    func syncDevelopmentCodeSigningLane() {
+    func syncDevelopmentStagingCodeSigningLane() {
         desc("Sync the Development match signing for the Staging build")
         Match.syncCodeSigning(
             type: .development,
-            appIdentifier: [Constant.stagingBundleId]
+            environment: .staging
+        )
+    }
+    
+    func syncDevelopmentProductionCodeSigningLane() {
+        desc("Sync the Development match signing for the Production build")
+        Match.syncCodeSigning(
+            type: .development,
+            environment: .production
         )
     }
 
@@ -24,7 +32,7 @@ class Fastfile: LaneFile {
         desc("Sync the Ad Hoc match signing for the Staging build")
         Match.syncCodeSigning(
             type: .adHoc,
-            appIdentifier: [Constant.stagingBundleId]
+            environment: .staging
         )
     }
 
@@ -32,7 +40,7 @@ class Fastfile: LaneFile {
         desc("Sync the Ad Hoc match signing for the Production build")
         Match.syncCodeSigning(
             type: .adHoc,
-            appIdentifier: [Constant.productionBundleId]
+            environment: .production
         )
     }
 
@@ -40,7 +48,7 @@ class Fastfile: LaneFile {
         desc("Sync the App Store match signing for the Production build")
         Match.syncCodeSigning(
             type: .appStore,
-            appIdentifier: [Constant.productionBundleId]
+            environment: .production
         )
     }
 
@@ -80,7 +88,7 @@ class Fastfile: LaneFile {
     }
 
     func buildProductionAndUploadToFirebaseLane() {
-        desc("Build Staging app and upload to Firebase")
+        desc("Build Production app and upload to Firebase")
 
         setAppVersion()
         bumpBuild()
@@ -145,20 +153,6 @@ class Fastfile: LaneFile {
         )
     }
 
-    func updateProvisionSettingsLane() {
-        desc("Update Provision Profile")
-        syncAppStoreCodeSigningLane()
-        updateCodeSigningSettings(
-            path: Constant.projectPath,
-            useAutomaticSigning: .userDefined(false),
-            teamId: .userDefined(EnvironmentParser.string(key: "sigh_\(Constant.productionBundleId)_appstore_team-id")),
-            codeSignIdentity: .userDefined("iPhone Distribution"),
-            profileName: .userDefined(EnvironmentParser.string(
-                key: "sigh_\(Constant.productionBundleId)_appstore_profile-name"
-            ))
-        )
-    }
-
     func setUpTestProjectLane() {
         desc("Disable Exempt Encryption")
         Test.disableExemptEncryption()
@@ -176,8 +170,8 @@ class Fastfile: LaneFile {
             teamId: .userDefined(Constant.teamId)
         )
 
-        Match.syncCodeSigning(type: .development, appIdentifier: [], isForce: true)
-        Match.syncCodeSigning(type: .adHoc, appIdentifier: [], isForce: true)
+        Match.syncCodeSigning(type: .development, environment: .staging, isForce: true)
+        Match.syncCodeSigning(type: .adHoc, environment: .staging, isForce: true)
     }
 
     // MARK: - Utilities

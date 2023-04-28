@@ -79,11 +79,16 @@ extension Constant {
     enum Environment: String {
 
         case staging = "Staging"
-        case production = ""
+        case production = "Production"
 
         var productName: String { "\(Constant.projectName) \(rawValue)".trimmed }
 
-        var scheme: String { "\(Constant.projectName) \(rawValue)".trimmed }
+        var scheme: String {
+            switch self {
+            case .staging: return "\(Constant.projectName) \(rawValue)".trimmed
+            case .production: return Constant.projectName
+            }
+        }
 
         var bundleId: String {
             switch self {
@@ -116,13 +121,37 @@ extension Constant {
 
     enum BuildType: String {
 
+        case development
         case adHoc = "ad-hoc"
         case appStore = "app-store"
 
         var value: String { return rawValue }
-
+        
+        var match: String {
+            switch self {
+            case .development: return "development"
+            case .adHoc: return "adhoc"
+            case .appStore: return "appstore"
+            }
+        }
+        
+        var configuration: String {
+            switch self {
+            case .development: return "Debug"
+            case .adHoc, .appStore: return "Release"
+            }
+        }
+        
+        var codeSignIdentity: String {
+            switch self {
+            case .development: return "iPhone Developer"
+            case .adHoc, . appStore: return "iPhone Distribution"
+            }
+        }
+        
         var method: String {
             switch self {
+            case .development: return "Development"
             case .adHoc: return "AdHoc"
             case .appStore: return "AppStore"
             }
