@@ -52,7 +52,7 @@ enum Build {
             exportMethod: .userDefined(type.value),
             exportOptions: .userDefined([
                 "provisioningProfiles": [
-                    environment.bundleId: "match \(type.method) \(environment.bundleId)"
+                    environment.bundleId: Match.createProfileName(type: type, environment: environment)
                 ]
             ]),
             buildPath: .userDefined(Constant.buildPath),

@@ -7,6 +7,7 @@ name: Test Upload Build to TestFlight
 ### API_KEY_ID
 ### ISSUER_ID
 ### APPSTORE_CONNECT_API_KEY
+### TEAM_ID
 
 on:
   pull_request
@@ -18,15 +19,15 @@ concurrency:
 jobs:
   build:
     name: Build
-    runs-on: macOS-12
+    runs-on: macOS-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.5.4
+      uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -34,7 +35,7 @@ jobs:
       run: bundle install
 
     - name: Cache Pods
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       id: cocoapodCache
       with:
         path: Pods
@@ -51,12 +52,13 @@ jobs:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
         API_KEY_ID: ${{ secrets.API_KEY_ID }}
         ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        TEAM_ID: ${{ secrets.TEAM_ID }}
 
     - name: Set Up Test Project for App Store
       run: bundle exec fastlane setUpTestProject
 
-    - name: Update Provision Profile
-      run: bundle exec fastlane updateProvisionSettings
+    - name: Sync App Store Code Signing
+      run: bundle exec fastlane syncAppStoreCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
