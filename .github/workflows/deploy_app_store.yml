@@ -6,7 +6,6 @@ name: Deploy Build To App Store
 ### APPSTORE_CONNECT_API_KEY
 ### API_KEY_ID
 ### ISSUER_ID
-### APPSTORE_CONNECT_API_KEY
 
 on:
   push:
