@@ -4,6 +4,8 @@ name: Deploy Build To App Store
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
 ### APPSTORE_CONNECT_API_KEY
+### API_KEY_ID
+### ISSUER_ID
 
 on:
   push:
@@ -72,6 +74,9 @@ jobs:
       run: bundle exec fastlane buildAndUploadToAppStore
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        BUMP_APP_STORE_BUILD_NUMBER: "true"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
