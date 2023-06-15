@@ -162,8 +162,8 @@ then
     tuist install ${TUIST_VERSION}
 fi
 
-cp tuist/Projects/SwiftUI/Project.swift . 
-rm -rf tuist/Projects
+# Choose the Interface
+sh interface_setup.sh
 
 # Generate with tuist
 echo "Tuist found"
@@ -198,6 +198,7 @@ echo "Remove script files and git/index"
 rm -rf make.sh
 rm -rf .github/workflows/test_install_script.yml
 rm -f .git/index
+rm -rf interface_setup.sh
 git reset
 
 if [[ -z "${CI}" ]]; then
