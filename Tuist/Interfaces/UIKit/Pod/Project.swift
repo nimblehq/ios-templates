@@ -17,7 +17,7 @@ extension Project {
                 configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) }
             ),
             targets: [
-                .mainTarget2(name: name, bundleId: bundleId),
+                .mainUIKitTarget(name: name, bundleId: bundleId),
                 .testsTarget(name: name, bundleId: bundleId),
                 .kifUITestsTarget(name: name, bundleId: bundleId),
             ],

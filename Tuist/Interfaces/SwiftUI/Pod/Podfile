@@ -13,6 +13,9 @@ target '{PROJECT_NAME}' do
   # UI
   pod 'Kingfisher'
 
+  # Backend
+  pod 'Alamofire'
+
   # Storage
   pod 'KeychainAccess'
 

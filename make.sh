@@ -101,6 +101,9 @@ if ! [[ $bundle_id_production =~ $regex ]]; then
     die "Invalid Package Name: $bundle_id_production (needs to follow standard pattern {com.example.package})"
 fi
 
+# Choose the Interface
+sh interface_setup.sh
+
 echo "=> 🐢 Starting init $project_name ..."
 
 # Trim spaces in APP_NAME
@@ -161,9 +164,6 @@ then
     curl -Ls https://install.tuist.io | bash
     tuist install ${TUIST_VERSION}
 fi
-
-# Choose the Interface
-sh interface_setup.sh
 
 # Generate with tuist
 echo "Tuist found"
