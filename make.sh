@@ -162,6 +162,9 @@ then
     tuist install ${TUIST_VERSION}
 fi
 
+cp tuist/Projects/SwiftUI/Project.swift . 
+rm -rf tuist/Projects
+
 # Generate with tuist
 echo "Tuist found"
 tuist generate --no-open

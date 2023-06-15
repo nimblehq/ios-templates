@@ -15,7 +15,39 @@ extension Target {
                 devices: [.iphone]
             ),
             infoPlist: "\(name)/\(plistsPath)/Info.plist",
-            sources: ["\(name)/Sources/**"],
+            sources: [
+                "\(name)/Sources/Application/**",
+                "\(name)/Sources/Constants/**"
+            ],
+            resources: [
+                "\(name)/Resources/**",
+                "\(name)/Sources/**/.gitkeep" // To include empty folders
+            ],
+            scripts: [
+                .sourceryScript(),
+                .rswiftScript(),
+                .swiftLintScript(),
+                .swiftFormatLintScript(),
+                .firebaseScript()
+            ]
+        )
+    }
+
+    public static func mainTarget2(name: String, bundleId: String) -> Target {
+        return Target(
+            name: name,
+            platform: .iOS,
+            product: .app,
+            bundleId: bundleId,
+            deploymentTarget: .iOS(
+                targetVersion: "{TARGET_VERSION}", 
+                devices: [.iphone]
+            ),
+            infoPlist: "\(name)/\(plistsPath)/Info.plist",
+            sources: [
+                "\(name)/Sources/Data/**",
+                "\(name)/Sources/Domain/**"
+            ],
             resources: [
                 "\(name)/Resources/**",
                 "\(name)/Sources/**/.gitkeep" // To include empty folders
