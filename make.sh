@@ -115,7 +115,7 @@ if ! [[ $bundle_id_production =~ $regex ]]; then
 fi
 
 # Choose the Interface
-sh interface_setup.sh -i $interface
+sh set_up_interface.sh -i $interface
 
 echo "=> 🐢 Starting init $project_name ..."
 
@@ -211,14 +211,14 @@ echo "Remove script files and git/index"
 rm -rf make.sh
 rm -rf .github/workflows/test_install_script.yml
 rm -f .git/index
-rm -rf interface_setup.sh
+rm -rf set_up_interface.sh
 git reset
 
 if [[ -z "${CI}" ]]; then
     rm -rf fastlane/Tests
     rm -f set_up_test_firebase.sh
     rm -f set_up_test_testflight.sh
-    sh deliverable_setup.sh
+    sh set_up_deliverable.sh
 fi
 
 echo "✅  Completed"

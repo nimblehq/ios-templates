@@ -12,5 +12,5 @@ The file [DeliverableConstants.rb](https://github.com/nimblehq/ios-templates/blo
 ## Configure later
 
 - Developer can modify the `DeliverableConstants` at any time.
-- Use the command `sh deliverable_setup.sh` to open `DeliverableConstants` with Xcode.
+- Use the command `sh set_up_deliverable.sh` to open `DeliverableConstants` with Xcode.
 - Open the file manually at `fastlane/Constants/DeliverableConstants.rb` with any IDE.
