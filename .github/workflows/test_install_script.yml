@@ -21,7 +21,7 @@ jobs:
       run: bundle install
 
     - name: Start Install Script for Template App
-      run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp
+      run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp --interface UIKit
 
     - name: Build and Test
       run: bundle exec fastlane buildAndTest
