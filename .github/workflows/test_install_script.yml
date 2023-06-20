@@ -11,7 +11,7 @@ concurrency:
 jobs:
   Test:
     name: Test
-    runs-on: macOS-12
+    runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v3
       with:

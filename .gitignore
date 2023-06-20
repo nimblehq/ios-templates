@@ -78,3 +78,9 @@ Output
 # JetBrains IDEs
 
 .idea
+
+# Arkana
+dependencies/
+
+# Environment
+.env
