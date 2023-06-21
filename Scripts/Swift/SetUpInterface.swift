@@ -7,12 +7,15 @@ let fileManager = FileManager.default
 var interface = "UIKit"
 
 switch CommandLine.arguments[1] {
-  case "SwiftUI", "s", "S":
+case "SwiftUI", "s", "S":
     print("=> 🦅 Setting up SwiftUI")
     interface = "SwiftUI"
     let swiftUIAppDirectory = "tuist/Interfaces/SwiftUI/Sources/Application"
-    fileManager.rename(file: "\(swiftUIAppDirectory)/App.swift", to: "\(swiftUIAppDirectory)/\(CommandLine.arguments[2])App.swift")
-  default:
+    fileManager.rename(
+        file: "\(swiftUIAppDirectory)/App.swift",
+        to: "\(swiftUIAppDirectory)/\(CommandLine.arguments[2])App.swift"
+    )
+default:
     print("=> 🦉 Setting up UIKit")
     interface = "UIKit"
 }
