@@ -17,6 +17,6 @@ switch CommandLine.arguments[1] {
     interface = "UIKit"
 }
 
-fileManager.moveFiles(in: "tuist/Interfaces/\(interface)/Pod", to: "")
+fileManager.moveFiles(in: "tuist/Interfaces/\(interface)/Project", to: "")
 fileManager.moveFiles(in: "tuist/Interfaces/\(interface)/Sources", to: "{PROJECT_NAME}/Sources")
 fileManager.removeItems(in: "tuist/Interfaces")
