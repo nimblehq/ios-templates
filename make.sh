@@ -114,8 +114,8 @@ if ! [[ $bundle_id_production =~ $regex ]]; then
     die "Invalid Package Name: $bundle_id_production (needs to follow standard pattern {com.example.package})"
 fi
 
-# Choose the Interface
-sh set_up_interface.sh -i $interface
+# Select the Interface
+cat Scripts/Swift/SetUpInterface.swift Scripts/Swift/Extensions/FileManager+.swift | swift - $interface
 
 echo "=> 🐢 Starting init $project_name ..."
 
@@ -211,7 +211,7 @@ echo "Remove script files and git/index"
 rm -rf make.sh
 rm -rf .github/workflows/test_install_script.yml
 rm -f .git/index
-rm -rf set_up_interface.sh
+rm -rf Scripts
 git reset
 
 if [[ -z "${CI}" ]]; then
