@@ -115,7 +115,7 @@ if ! [[ $bundle_id_production =~ $regex ]]; then
 fi
 
 # Select the Interface
-cat Scripts/Swift/SetUpInterface.swift Scripts/Swift/Extensions/FileManager+.swift | swift - $interface $project_name
+cat Scripts/Swift/SetUpInterface.swift Scripts/Swift/Extensions/FileManager+Utils.swift | swift - $interface $project_name
 
 echo "=> 🐢 Starting init $project_name ..."
 
