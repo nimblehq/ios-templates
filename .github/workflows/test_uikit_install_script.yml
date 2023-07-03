@@ -1,0 +1,29 @@
+name: Test UIKit Install Script
+
+on:
+  push:
+    branches: [ feature/**, bug/**, chore/** ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  Test:
+    name: Test
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Bundle install
+      run: bundle install
+
+    - name: Start Install Script for UIKit Template App
+      run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp --interface UIKit
+
+    - name: Build and Test
+      run: bundle exec fastlane buildAndTest
+      env:
+        CI: true
