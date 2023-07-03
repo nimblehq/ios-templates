@@ -48,9 +48,19 @@ jobs:
         yarn global add firebase-tools
         echo "$(yarn global bin)" >> $GITHUB_PATH
 
+    - name: Setup ENV file
+      env:
+        ENV: ${{ secrets.ENV }}
+      run: |
+        touch .env
+        echo $ENV | base64 --decode > .env
+
     - name: Bundle install
       # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
+      
+    - name: Run Arkana
+      run: bundle exec arkana
 
     - name: Cache Pods
       uses: actions/cache@v2
