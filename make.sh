@@ -218,9 +218,9 @@ if [[ -z "${CI}" ]]; then
     rm -f set_up_test_testflight.sh
     cat Scripts/Swift/SetUpCICDService.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift && rm -rf 't.swift'
     cat Scripts/Swift/SetUpDeliveryConstants.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift && rm -rf 't.swift'
+    rm -rf Scripts
 fi
 
-rm -rf Scripts
 
 echo "✅  Completed"
 

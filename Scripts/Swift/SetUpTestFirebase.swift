@@ -10,9 +10,8 @@ let matchRepoEscaped = envMatchRepo.replacingOccurrences(of: "/", with: "\\/")
 let firebaseTesterGroup = "nimble"
 
 let fileManager = FileManager.default
-let workingDirectory = fileManager.currentDirectoryPath.replacingOccurrences(of: "/", with: "\\/")
 
-try safeShell("LC_ALL=C find \(workingDirectory) -type f -exec sed -i \"\" \"s/\(ConstantTeamId)/\(envTeamId)/g\" {} +")
-try safeShell("LC_ALL=C find \(workingDirectory) -type f -exec sed -i \"\" \"s/\(ConstantStagingFirebaseAppId)/\(envStagingFirebaseAppId)/g\" {} +")
-try safeShell("LC_ALL=C find \(workingDirectory) -type f -exec sed -i \"\" \"s/\(ConstantFirebaseTesterGroups)/\(firebaseTesterGroup)/g\" {} +")
-try safeShell("LC_ALL=C find \(workingDirectory) -type f -exec sed -i \"\" \"s/\(ConstantMatchRepo)/\(matchRepoEscaped)/g\" {} +")
+try fileManager.replaceAllOccurrences(of: ConstantTeamId, to: envTeamId)
+try fileManager.replaceAllOccurrences(of: ConstantStagingFirebaseAppId, to: envStagingFirebaseAppId)
+try fileManager.replaceAllOccurrences(of: ConstantFirebaseTesterGroups, to: firebaseTesterGroup)
+try fileManager.replaceAllOccurrences(of: ConstantMatchRepo, to: matchRepoEscaped)
