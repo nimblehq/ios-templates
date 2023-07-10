@@ -24,6 +24,7 @@ Options:
 -b, --bundle-id [BUNDLE_ID_PRODUCTION]       the production id (i.e. com.example.package)
 -s, --bundle-id-staging [BUNDLE_ID_STAGING]  the staging id (i.e. com.example.package.staging)
 -n, --project-name [PROJECT_NAME]            the project name (i.e. MyApp)
+-i, --interface [INTERFACE]                  the user interface frameword (SwiftUI or UIKit)
 EOF
     exit 1
 }
@@ -32,6 +33,7 @@ bundle_id_production=""
 bundle_id_staging=""
 project_name=""
 minimum_version=""
+interface=""
 
 readonly CONSTANT_PROJECT_NAME="{PROJECT_NAME}"
 readonly CONSTANT_BUNDLE_PRODUCTION="{BUNDLE_ID_PRODUCTION}"
@@ -53,6 +55,10 @@ while [ $# -gt 0 ] ; do
         ;;
     -n|--project-name)
         project_name="$2"
+        shift
+        ;;
+    -i|--interface)
+        interface="$2"
         shift
         ;;
     -*)
@@ -84,6 +90,13 @@ if [ -z "$minimum_version" ]; then
     minimum_version="14.0"
 fi
 
+if [ -z "$interface" ]; then
+    read -p "Interface [(S)wiftUI or (U)IKit]:" interface
+    if [ -z "$interface" ]; then
+        interface="SwiftUI"
+    fi
+fi
+
 # Enforce minimum version
 version_regex='^[0-9_]+(\.[0-9]+)+$'
 if ! [[ $minimum_version =~ $version_regex ]]; then
@@ -100,6 +113,9 @@ regex='^[a-z][a-z0-9_]*(\.[a-z0-9_-]+)+[0-9a-z_-]$'
 if ! [[ $bundle_id_production =~ $regex ]]; then
     die "Invalid Package Name: $bundle_id_production (needs to follow standard pattern {com.example.package})"
 fi
+
+# Select the Interface
+cat Scripts/Swift/SetUpInterface.swift Scripts/Swift/Extensions/FileManager+Utils.swift | swift - $interface $project_name
 
 echo "=> 🐢 Starting init $project_name ..."
 
@@ -195,13 +211,14 @@ echo "Remove script files and git/index"
 rm -rf make.sh
 rm -rf .github/workflows/test_install_script.yml
 rm -f .git/index
+rm -rf Scripts
 git reset
 
 if [[ -z "${CI}" ]]; then
     rm -rf fastlane/Tests
     rm -f set_up_test_firebase.sh
     rm -f set_up_test_testflight.sh
-    sh deliverable_setup.sh
+    sh set_up_deliverable.sh
 fi
 
 echo "✅  Completed"

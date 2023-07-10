@@ -3,6 +3,7 @@
 - [[Home]]
 - [[Getting Started]]
 - [[Deliverable Configurations]]
+- [[Selecting User Interface]]
 
 ## Architecture
 
