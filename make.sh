@@ -215,7 +215,6 @@ git reset
 
 if [[ -z "${CI}" ]]; then
     rm -rf fastlane/Tests
-    rm -f set_up_test_firebase.sh
     rm -f set_up_test_testflight.sh
     cat Scripts/Swift/SetUpCICDService.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift && rm -rf 't.swift'
     cat Scripts/Swift/SetUpDeliveryConstants.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift && rm -rf 't.swift'
