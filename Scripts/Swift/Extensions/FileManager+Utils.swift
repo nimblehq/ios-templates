@@ -51,9 +51,7 @@ extension FileManager {
                 let modifiedText = text.replacingOccurrences(of: original, with: replacing)
                 try modifiedText.write(to: file, atomically: true, encoding: .utf8)
             }
-            catch {
-                print(error)
-            }
+            catch {}
         }
     }
 
