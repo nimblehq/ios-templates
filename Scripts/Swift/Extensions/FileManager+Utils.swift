@@ -48,7 +48,6 @@ extension FileManager {
         for file in files {
             do {
                 let text = try String(contentsOf: file, encoding: .utf8)
-                print(file)
                 let modifiedText = text.replacingOccurrences(of: original, with: replacing)
                 try modifiedText.write(to: file, atomically: true, encoding: .utf8)
             }
@@ -65,9 +64,7 @@ extension FileManager {
             for case let fileURL as URL in enumerator {
                 do {
                     let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
-                    guard fileAttributes.isRegularFile ?? false,
-                          fileURL.pathExtension.count > 0
-                    else { continue }
+                    guard fileAttributes.isRegularFile ?? false else { continue }
                     files.append(fileURL)
                 }
             }
