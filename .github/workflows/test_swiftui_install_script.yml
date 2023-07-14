@@ -1,4 +1,4 @@
-name: Test Install Script
+name: Test SwiftUI Install Script
 
 on:
   push:
@@ -11,17 +11,15 @@ concurrency:
 jobs:
   Test:
     name: Test
-    runs-on: macOS-latest
+    runs-on: macOS-12
     steps:
     - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
 
     - name: Bundle install
       run: bundle install
 
-    - name: Start Install Script for Template App
-      run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp --interface UIKit
+    - name: Start Install Script for SwiftUI Template App
+      run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp --interface SwiftUI
 
     - name: Build and Test
       run: bundle exec fastlane buildAndTest
