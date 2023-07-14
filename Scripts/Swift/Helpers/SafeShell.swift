@@ -1,7 +1,7 @@
 import Foundation
 
 @discardableResult
-func safeShell(_ command: String) throws -> String {
+func safeShell(_ command: String) throws -> String? {
     let task = Process()
     let pipe = Pipe()
     
@@ -14,7 +14,7 @@ func safeShell(_ command: String) throws -> String {
     try task.run()
     
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: .utf8)!
+    let output = String(data: data, encoding: .utf8)
     
     return output
 }
