@@ -11,8 +11,10 @@ var arg = "y"
 arg = readLine() ?? arg
 
 switch arg.lowercased() {
-    case "y", "yes":
-        try safeShell("open -a Xcode fastlane/Constants/Constant.swift")
+    case "y", "yes", "":
+        let error = try safeShell("open -a Xcode fastlane/Constants/Constant.swift")
+        guard let error = error, !error.isEmpty else { break }
+        print("Could not open Xcode. Make sure Xcode is installed and try again.\nRaw error: \(error)")
     default:
         print("✅  Completed. You can edit this file at 'fastlane/Constants/Constant.swift'.")
 }

@@ -4,30 +4,32 @@ import Foundation
 
 let fileManager = FileManager.default
 
-print("Which CI/CD service do you use (Can be edited later) [(g)ithub/(b)itrise/(c)odemagic/(l)ater]: ")
-
-var service = "later"
-
 enum CICDService {
-    case github, bitrise, codemagic, later
+    case github, bitrise, codemagic, later, none
 
     init(_ name: String) {
-        switch name {
-        case "g", "github", "Github":
+        switch name.lowercased() {
+        case "g", "github":
             self = .github
-        case "b", "bitrise", "Bitrise":
+        case "b", "bitrise":
             self = .bitrise
-        case "c", "codemagic", "Codemagic":
+        case "c", "codemagic":
             self = .codemagic
-        default: self = .later
+        case "l", "later":
+            self = .later
+        default: self = .none
         }
     }
 }
 
-service = readLine() ?? service
+var service = CICDService.none
 
-let serviceType = CICDService(service)
-switch serviceType {
+while service == .none {
+    print("Which CI/CD service do you use (Can be edited later) [(g)ithub/(b)itrise/(c)odemagic/(l)ater]: ")
+    service = CICDService(readLine() ?? "")
+}
+
+switch service {
 case .github:
     print("Setting template for Github Actions")
     fileManager.removeItems(in: "bitrise.yml")
@@ -40,7 +42,7 @@ case .codemagic:
     print("Setting template for CodeMagic")
     fileManager.removeItems(in: "bitrise.yml")
     fileManager.removeItems(in: ".github/workflows")
-case .later:
+case .later, .none:
     print("You can manually setup the template later.")
 }
 
