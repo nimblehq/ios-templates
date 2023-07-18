@@ -6,9 +6,7 @@ let fileManager = FileManager.default
 
 print("Do you want to set up Constants values? (Can be edited later) [Y/n]: ")
 
-var arg = "y"
-
-arg = readLine() ?? arg
+var arg = readLine() ?? "y"
 
 switch arg.lowercased() {
     case "y", "yes", "":

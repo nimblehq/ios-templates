@@ -5,9 +5,9 @@ import Foundation
 let fileManager = FileManager.default
 
 enum CICDService {
-    case github, bitrise, codemagic, later, none
+    case github, bitrise, codemagic, later
 
-    init(_ name: String) {
+    init?(_ name: String) {
         switch name.lowercased() {
         case "g", "github":
             self = .github
@@ -17,14 +17,15 @@ enum CICDService {
             self = .codemagic
         case "l", "later":
             self = .later
-        default: self = .none
+        default: 
+            return nil
         }
     }
 }
 
-var service = CICDService.none
+var service: CICDService? = nil
 
-while service == .none {
+while service == nil {
     print("Which CI/CD service do you use (Can be edited later) [(g)ithub/(b)itrise/(c)odemagic/(l)ater]: ")
     service = CICDService(readLine() ?? "")
 }
@@ -42,7 +43,7 @@ case .codemagic:
     print("Setting template for CodeMagic")
     fileManager.removeItems(in: "bitrise.yml")
     fileManager.removeItems(in: ".github/workflows")
-case .later, .none:
+case .later:
     print("You can manually setup the template later.")
 }
 
