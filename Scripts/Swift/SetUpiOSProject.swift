@@ -1,89 +1,82 @@
-#!/bin/sh
-set -e
+#!/usr/bin/swift
 
-# Script inspired by https://gist.github.com/szeidner/613fe4652fc86f083cefa21879d5522b
+let CONSTANT_PROJECT_NAME = "TemplateApp"
+let CONSTANT_BUNDLE_PRODUCTION = "co.nimblehq.ios.templates"
+let CONSTANT_BUNDLE_STAGING = "co.nimblehq.ios.templates.staging"
+let CONSTANT_MINIMUM_VERSION = ""
 
-readonly PROGNAME=$(basename $0)
-readonly WORKING_DIR=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+var bundleIdProduction = ""
+var bundleIdStaging = ""
+var projectName = ""
+var minimumVersion = ""
+var interface: SetUpInterface.Interface?
 
-die() {
-    echo "$PROGNAME: $*" >&2
-    exit 1
+// TODO: Should be replaced with ArgumentParser instead of command line
+for (index, argument) in CommandLine.arguments.enumerated() {
+    switch index {
+    case 1: bundleIdProduction = argument
+    case 2: bundleIdStaging = argument
+    case 3: projectName = argument
+    case 4: minimumVersion = argument
+    case 5: interface = .init(argument)
+    default: break
+    }
 }
 
-usage() {
-    if [ "$*" != "" ] ; then
-        echo "Error: $*"
-    fi
-
-    cat << EOF
-Usage: $PROGNAME --bundle-id [BUNDLE_ID_PRODUCTION] --bundle-id-staging [BUNDLE_ID_STAGING] --project-name [PROJECT_NAME]
-Set up an iOS app from tuist template.
-Options:
--h, --help                                   display this usage message and exit
--b, --bundle-id [BUNDLE_ID_PRODUCTION]       the production id (i.e. com.example.package)
--s, --bundle-id-staging [BUNDLE_ID_STAGING]  the staging id (i.e. com.example.package.staging)
--n, --project-name [PROJECT_NAME]            the project name (i.e. MyApp)
--i, --interface [INTERFACE]                  the user interface frameword (SwiftUI or UIKit)
-EOF
-    exit 1
+func checkPackageName(_ name: String) -> Bool {
+    let packageNameRegex="^[a-z][a-z0-9_]*(\\.[a-z0-9_-]+)+[0-9a-z_-]$"
+    let valid = name ~= packageNameRegex
+    if !valid {
+        print("Please pick a valid package name with pattern {com.example.package}")
+    }
+    return valid
 }
 
-bundle_id_production=""
-bundle_id_staging=""
-project_name=""
-minimum_version=""
-interface=""
+func checkVersion(_ version: String) -> Bool {
+    let versionRegex="^[0-9_]+(\\.[0-9]+)+$"
+    let valid = version ~= versionRegex
+    if !valid {
+        print("Please pick a valid version with pattern {x.y}")
+    }
+    return valid
+}
 
-readonly CONSTANT_PROJECT_NAME="TemplateApp"
-readonly CONSTANT_BUNDLE_PRODUCTION="co.nimblehq.ios.templates"
-readonly CONSTANT_BUNDLE_STAGING="co.nimblehq.ios.templates.staging"
-readonly CONSTANT_MINIMUM_VERSION=""
+while bundleIdProduction.isEmpty || !checkPackageName(bundleIdProduction) {
+    print("BUNDLE ID PRODUCTION (i.e. com.example.project):")
+    bundleIdProduction = readLine() ?? ""
+}
+while bundleIdStaging.isEmpty || !checkPackageName(bundleIdStaging)  {
+    print("BUNDLE ID STAGING (i.e. com.example.project.staging):")
+    bundleIdStaging = readLine() ?? ""
+}
+while projectName.isEmpty {
+    print("PROJECT NAME (i.e. NewProject):")
+    projectName = readLine() ?? ""
+}
+while minimumVersion.isEmpty || !checkVersion(minimumVersion) {
+    print("iOS Minimum Version (i.e. 14.0):")
+    minimumVersion = readLine() ?? "14.0"
+}
+while interface == nil {
+    print("Interface [(S)wiftUI or (U)IKit]:")
+    interface = SetUpInterface.Interface(readLine() ?? "")
+}
 
-while [ $# -gt 0 ] ; do
-    case "$1" in
-    -h|--help)
-        usage
-        ;;
-    -b|--bundle-id)
-        bundle_id_production="$2"
-        shift
-        ;;
-    -s|--bundle-id-staging)
-        bundle_id_staging="$2"
-        shift
-        ;;
-    -n|--project-name)
-        project_name="$2"
-        shift
-        ;;
-    -i|--interface)
-        interface="$2"
-        shift
-        ;;
-    -*)
-        usage "Unknown option '$1'"
-        ;;
-    *)
-        usage "Too many arguments"
-      ;;
-    esac
-    shift
-done
+// Select the Interface
+SetUpInterface().perform(interface ?? .uiKit, projectName)
 
-cat Scripts/Swift/SetUpiOSProject.swift Scripts/Swift/SetUpInterface.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Extensions/String+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift $bundle_id_production $bundle_id_staging $project_name $minimum_version $interface && rm -rf 't.swift'
+print("=> 🐢 Starting init \(projectName) ...")
 
-# Trim spaces in APP_NAME
-readonly PROJECT_NAME_NO_SPACES=$(echo "$project_name" | sed "s/ //g")
 
+/*
 # Rename files structure
 echo "=> 🔎 Replacing files structure..."
 
 
 ## user define function
 rename_folder(){
-	local DIR=$1
-	local NEW_DIR=$2
+    local DIR=$1
+    local NEW_DIR=$2
     if [ -d "$DIR" ]
     then
         mv ${DIR} ${NEW_DIR}
@@ -185,3 +178,4 @@ if [[ -z "${CI}" ]]; then
     echo "=> 🛠 Opening the project."
     open -a Xcode $PROJECT_NAME_NO_SPACES.xcworkspace
 fi
+*/
