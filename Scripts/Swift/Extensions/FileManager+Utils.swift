@@ -34,6 +34,28 @@ extension FileManager {
         }
     }
 
+    func copy(file: String, to destination: String) {
+        let currentDirectory = currentDirectoryPath
+        do {
+            try copyItem(
+                atPath: "\(currentDirectory)/\(file)",
+                toPath:"\(currentDirectory)/\(destination)"
+            )
+        } catch {
+            print("Error \(error)")
+        }
+    }
+
+    func createFile(name: String, at directory: String) {
+        let currentDirectory = currentDirectoryPath
+        do {
+            try createDirectory(atPath: "\(currentDirectory)/\(directory)", withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            print("Error \(error)")
+        }
+        createFile(atPath: "\(currentDirectory)\(directory)\(name)", contents: nil)
+    }
+
     func removeItems(in directory: String) {
         let currentDirectory = currentDirectoryPath
         do {

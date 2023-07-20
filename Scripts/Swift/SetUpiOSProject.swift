@@ -1,15 +1,17 @@
 #!/usr/bin/swift
 
-let CONSTANT_PROJECT_NAME = "TemplateApp"
-let CONSTANT_BUNDLE_PRODUCTION = "co.nimblehq.ios.templates"
-let CONSTANT_BUNDLE_STAGING = "co.nimblehq.ios.templates.staging"
-let CONSTANT_MINIMUM_VERSION = ""
+let CONSTANT_PROJECT_NAME = "{PROJECT_NAME}"
+let CONSTANT_BUNDLE_PRODUCTION = "{BUNDLE_ID_PRODUCTION}"
+let CONSTANT_BUNDLE_STAGING = "{BUNDLE_ID_STAGING}"
+let CONSTANT_MINIMUM_VERSION = "{TARGET_VERSION}"
 
 var bundleIdProduction = ""
 var bundleIdStaging = ""
 var projectName = ""
 var minimumVersion = ""
 var interface: SetUpInterface.Interface?
+
+var isCI = !(ProcessInfo.processInfo.environment["CI"] ?? "").isEmpty
 
 // TODO: Should be replaced with ArgumentParser instead of command line
 for (index, argument) in CommandLine.arguments.enumerated() {
@@ -21,6 +23,10 @@ for (index, argument) in CommandLine.arguments.enumerated() {
     case 5: interface = .init(argument)
     default: break
     }
+}
+
+if isCI {
+    minimumVersion = "14.0"
 }
 
 func checkPackageName(_ name: String) -> Bool {
@@ -61,104 +67,98 @@ while interface == nil {
     print("Interface [(S)wiftUI or (U)IKit]:")
     interface = SetUpInterface.Interface(readLine() ?? "")
 }
+let projectNameNoSpace = projectName.trimmingCharacters(in: .whitespacesAndNewlines)
+
+print("=> 🐢 Starting init \(projectName) ...")
+
+print("=> 🔎 Replacing files structure...")
+
+let fileManager = FileManager.default
+
+// Rename test folder structure
+fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)Tests", to: "\(projectNameNoSpace)Tests")
+
+// Rename KIF UI Test folder structure
+fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)KIFUITests", to: "\(projectNameNoSpace)KIFUITests")
+
+// Rename app folder structure
+fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)", to: "\(projectNameNoSpace)")
+
+// Duplicate the env example file to env file
+fileManager.copy(file: ".env.example", to: ".env")
+
+// Add AutoMockable.generated.swift file
+fileManager.createFile(name: "AutoMockable.generated.swift", at: "\(projectNameNoSpace)Tests/Sources/Mocks/Sourcery")
+
+// Add AutoMockable.generated.swift file
+fileManager.createFile(name: "R.generated.swift", at: "\(projectNameNoSpace)/Sources/Supports/Helpers/Rswift")
 
 // Select the Interface
 SetUpInterface().perform(interface ?? .uiKit, projectName)
 
-print("=> 🐢 Starting init \(projectName) ...")
+print("✅  Completed")
 
+// Search and replace in files
 
-/*
-# Rename files structure
-echo "=> 🔎 Replacing files structure..."
+print("=> 🔎 Replacing package and package name within files...")
 
+try fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_STAGING, to: bundleIdStaging)
+try fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_PRODUCTION, to: bundleIdProduction)
+try fileManager.replaceAllOccurrences(of: CONSTANT_PROJECT_NAME, to: projectNameNoSpace)
+try fileManager.replaceAllOccurrences(of: CONSTANT_MINIMUM_VERSION, to: minimumVersion)
+print("✅  Completed")
 
-## user define function
-rename_folder(){
-    local DIR=$1
-    local NEW_DIR=$2
-    if [ -d "$DIR" ]
-    then
-        mv ${DIR} ${NEW_DIR}
-    fi
+// check for tuist and install
+let tuistLocation = try safeShell("command -v tuist")
+if let tuistLocation, tuistLocation.isEmpty {
+    print("Tuist could not be found")
+    print("Installing tuist")
+    try safeShell(
+        """
+            readonly TUIST_VERSION=`cat .tuist-version`
+            curl -Ls https://install.tuist.io | bash
+            tuist install ${TUIST_VERSION}
+        """
+    )
 }
 
-# Rename test folder structure
-rename_folder "${CONSTANT_PROJECT_NAME}Tests" "${PROJECT_NAME_NO_SPACES}Tests"
+// Generate with tuist
+try safeShell("tuist generate --no-open")
+print("✅  Completed")
 
-# Rename KIF UI Test folder structure
-rename_folder "${CONSTANT_PROJECT_NAME}KIFUITests" "${PROJECT_NAME_NO_SPACES}KIFUITests"
+// Install dependencies
+print("Installing gems")
+try safeShell("bundle install")
 
-# Rename app folder structure
-rename_folder "${CONSTANT_PROJECT_NAME}" "${PROJECT_NAME_NO_SPACES}"
+// Install dependencies
+print("Run Arkana")
+try safeShell("bundle exec arkana")
 
-# Duplicate the env example file and rename it to env file
-cp "./.env.example" "./.env"
+print("Installing pod dependencies")
+try safeShell("bundle exec pod install --repo-update")
+print("✅  Completed")
 
-# Add AutoMockable.generated.swift file
-mkdir -p "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery"
-touch "${PROJECT_NAME_NO_SPACES}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift"
+// Remove gitkeep files
+print("Remove gitkeep files from project")
+let escapedProjectNameNoSpace = projectNameNoSpace.replacingOccurrences(of: ".", with: "\\.")
+try safeShell("sed -i \"\" \"s/.*\\(gitkeep\\).*,//\" \(escapedProjectNameNoSpace).xcodeproj/project.pbxproj")
+print("✅  Complete")
 
-# Add R.generated.swift file
-mkdir -p "${PROJECT_NAME_NO_SPACES}/Sources/Supports/Helpers/Rswift"
-touch "${PROJECT_NAME_NO_SPACES}/Sources/Supports/Helpers/Rswift/R.generated.swift"
+// Remove Tuist files
+print("Remove tuist files")
+fileManager.removeItems(in: ".tuist-version")
+fileManager.removeItems(in: "tuist")
+fileManager.removeItems(in: "Project.swift")
+fileManager.removeItems(in: "Workspace.swift")
 
-echo "✅  Completed"
+// Remove script files and git/index
+print("Remove script files and git/index")
+fileManager.removeItems(in: "make.sh")
+fileManager.removeItems(in: ".github/workflows/test_install_script.yml")
+fileManager.removeItems(in: ".git/index")
+try safeShell("git reset")
 
-# Search and replace in files
-echo "=> 🔎 Replacing package and package name within files..."
-BUNDLE_ID_PRODUCTION_ESCAPED="${bundle_id_production//./\.}"
-BUNDLE_ID_STAGING_ESCAPED="${bundle_id_staging//./\.}"
-LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_STAGING/$BUNDLE_ID_STAGING_ESCAPED/g" {} +
-LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_BUNDLE_PRODUCTION/$BUNDLE_ID_PRODUCTION_ESCAPED/g" {} +
-LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_PROJECT_NAME/$PROJECT_NAME_NO_SPACES/g" {} +
-LC_ALL=C find $WORKING_DIR -type f -exec sed -i "" "s/$CONSTANT_MINIMUM_VERSION/$minimum_version/g" {} +
-echo "✅  Completed"
-
-# check for tuist and install
-if ! command -v tuist &> /dev/null
-then
-    echo "Tuist could not be found"
-    echo "Installing tuist"
-    readonly TUIST_VERSION=`cat .tuist-version`
-    curl -Ls https://install.tuist.io | bash
-    tuist install ${TUIST_VERSION}
-fi
-
-# Generate with tuist
-echo "Tuist found"
-tuist generate --no-open
-echo "✅  Completed"
-
-# Install dependencies
-echo "Installing gems"
-bundle install
-
-echo "Run Arkana"
-bundle exec arkana
-
-echo "Installing pod dependencies"
-bundle exec pod install --repo-update
-echo "✅  Completed"
-
-# Remove gitkeep files
-echo "Remove gitkeep files from project"
-sed -i "" "s/.*\(gitkeep\).*,//" $PROJECT_NAME_NO_SPACES.xcodeproj/project.pbxproj
-echo "✅  Completed"
-
-# Remove Tuist files
-echo "Remove tuist files"
-rm -rf .tuist-version
-rm -rf tuist
-rm -rf Project.swift
-rm -rf Workspace.swift
-
-# Remove script files and git/index
-echo "Remove script files and git/index"
-rm -rf make.sh
-rm -rf .github/workflows/test_install_script.yml
-rm -f .git/index
-git reset
+/*
 
 if [[ -z "${CI}" ]]; then
     rm -rf fastlane/Tests
