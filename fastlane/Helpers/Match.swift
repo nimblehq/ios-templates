@@ -9,30 +9,15 @@
 enum Match {
 
     static func syncCodeSigning(type: Constant.BuildType, environment: Constant.Environment, isForce: Bool = false) {
-        if isCi() {
-            Keychain.create()
-            match(
-                type: type.match,
-                readonly: .userDefined(!isForce),
-                appIdentifier: [environment.bundleId],
-                username: .userDefined(environment.appleUsername),
-                teamId: .userDefined(environment.appleTeamId),
-                gitUrl: Constant.matchURL,
-                keychainName: Constant.keychainName,
-                keychainPassword: .userDefined(Secret.keychainPassword),
-                force: .userDefined(isForce)
-            )
-        } else {
-            match(
-                type: type.match,
-                readonly: .userDefined(!isForce),
-                appIdentifier: [environment.bundleId],
-                username: .userDefined(environment.appleUsername),
-                teamId: .userDefined(environment.appleTeamId),
-                gitUrl: Constant.matchURL,
-                force: .userDefined(isForce)
-            )
-        }
+        match(
+            type: type.match,
+            readonly: .userDefined(!isForce),
+            appIdentifier: [environment.bundleId],
+            username: .userDefined(environment.appleUsername),
+            teamId: .userDefined(environment.appleTeamId),
+            gitUrl: Constant.matchURL,
+            force: .userDefined(isForce)
+        )
         updateCodeSigning(type: type, environment: environment)
     }
     
