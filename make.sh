@@ -211,15 +211,17 @@ echo "Remove script files and git/index"
 rm -rf make.sh
 rm -rf .github/workflows/test_install_script.yml
 rm -f .git/index
-rm -rf Scripts
 git reset
 
 if [[ -z "${CI}" ]]; then
     rm -rf fastlane/Tests
     rm -f set_up_test_firebase.sh
     rm -f set_up_test_testflight.sh
-    sh set_up_deliverable.sh
+    cat Scripts/Swift/SetUpCICDService.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift && rm -rf 't.swift'
+    cat Scripts/Swift/SetUpDeliveryConstants.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift && rm -rf 't.swift'
 fi
+
+rm -rf Scripts
 
 echo "✅  Completed"
 
