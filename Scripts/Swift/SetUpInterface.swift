@@ -1,4 +1,3 @@
-
 struct SetUpInterface {
 
     enum Interface {
@@ -23,9 +22,9 @@ struct SetUpInterface {
         }
     }
 
-    func perform(_ interface: Interface, _ projectName: String) {
-        let fileManager = FileManager.default
+    let fileManager = FileManager.default
 
+    func perform(_ interface: Interface, _ projectName: String) {
         switch interface {
         case .swiftUI:
             print("=> 🦅 Setting up SwiftUI")

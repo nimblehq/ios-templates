@@ -71,4 +71,4 @@ while [ $# -gt 0 ] ; do
     shift
 done
 
-cat Scripts/Swift/SetUpiOSProject.swift Scripts/Swift/SetUpInterface.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Extensions/String+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift $bundle_id_production $bundle_id_staging $project_name "$minimum_version" $interface && rm -rf 't.swift'
+cat Scripts/Swift/SetUpiOSProject.swift Scripts/Swift/SetUpCICDService.swift Scripts/Swift/SetUpDeliveryConstants.swift Scripts/Swift/SetUpInterface.swift Scripts/Swift/Extensions/FileManager+Utils.swift Scripts/Swift/Extensions/String+Utils.swift Scripts/Swift/Helpers/SafeShell.swift > t.swift && swift t.swift $bundle_id_production $bundle_id_staging $project_name "$minimum_version" $interface && rm -rf 't.swift'
