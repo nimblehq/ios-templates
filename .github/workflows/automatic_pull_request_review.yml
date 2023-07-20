@@ -11,8 +11,19 @@ concurrency:
 jobs:
   review_pull_request:
     name: Pull request review by Danger
-    runs-on: macOS-latest
+    runs-on: self-hosted
     steps:
+    - name: Determine Runner Port
+      id: runner_port
+      run: |
+        last_char=$(echo "${{ runner.name }}" | tail -c 2 | head -c 1)
+        if [ "$last_char" = "1" ]; then
+          echo "runner_port=2000" >> $GITHUB_ENV
+          echo "test_device=iPhone 14 Pro Max" >> $GITHUB_ENV
+        else
+          echo "runner_port=2001" >> $GITHUB_ENV
+          echo "test_device=iPhone SE (3rd generation)" >> $GITHUB_ENV
+        fi
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
@@ -51,12 +62,12 @@ jobs:
       run: bundle exec pod install
 
     - name: Build and Test
-      run: bundle exec fastlane buildAndTest
-      env:
-        CI: true
+      run: |
+        bundle exec fastlane buildAndTest --swift_server_port ${{ env.runner_port }}
 
     - name: Clean up previous code coverage report
-      run: bundle exec fastlane cleanUpOutput
+      run: |
+        bundle exec fastlane cleanUpOutput --swift_server_port ${{ env.runner_port }}
 
     - name: Review pull request by Danger
       env:

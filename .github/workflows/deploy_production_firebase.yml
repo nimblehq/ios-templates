@@ -31,9 +31,21 @@ jobs:
 
   build:
     name: Build
-    runs-on: macOS-latest
+    runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v3
+    - name: Determine Runner Port
+      id: runner_port
+      run: |
+        last_char=$(echo "${{ runner.name }}" | tail -c 2 | head -c 1)
+        if [ "$last_char" = "1" ]; then
+          echo "runner_port=2000" >> $GITHUB_ENV
+          echo "test_device=iPhone 14 Pro Max" >> $GITHUB_ENV
+        else
+          echo "runner_port=2001" >> $GITHUB_ENV
+          echo "test_device=iPhone SE (3rd generation)" >> $GITHUB_ENV
+        fi
+    - name: Checkout Repo
+      uses: actions/checkout@v3
     # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
@@ -70,15 +82,18 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: bundle exec fastlane buildAndTest
+      run: |
+        bundle exec fastlane buildAndTest --swift_server_port ${{ env.runner_port }}
 
     - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdHocProductionCodeSigning
+      run: |
+        bundle exec fastlane syncAdHocProductionCodeSigning --swift_server_port ${{ env.runner_port }}
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build Production App and Distribute to Firebase
-      run: bundle exec fastlane buildProductionAndUploadToFirebase
+      run: |
+        bundle exec fastlane buildProductionAndUploadToFirebase --swift_server_port ${{ env.runner_port }}
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 

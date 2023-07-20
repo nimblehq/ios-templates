@@ -11,9 +11,21 @@ concurrency:
 jobs:
   Test:
     name: Test
-    runs-on: macOS-12
+    runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v3
+    - name: Determine Runner Port
+      id: runner_port
+      run: |
+        last_char=$(echo "${{ runner.name }}" | tail -c 2 | head -c 1)
+        if [ "$last_char" = "1" ]; then
+          echo "runner_port=2000" >> $GITHUB_ENV
+          echo "test_device=iPhone 14 Pro Max" >> $GITHUB_ENV
+        else
+          echo "runner_port=2001" >> $GITHUB_ENV
+          echo "test_device=iPhone SE (3rd generation)" >> $GITHUB_ENV
+        fi
+    - name: Checkout Repo
+      uses: actions/checkout@v3
 
     - name: Bundle install
       run: bundle install
@@ -22,6 +34,5 @@ jobs:
       run: sh make.sh --bundle-id co.nimblehq.template --bundle-id-staging co.nimblehq.template.staging --project-name TemplateApp --interface SwiftUI
 
     - name: Build and Test
-      run: bundle exec fastlane buildAndTest
-      env:
-        CI: true
+      run: |
+        bundle exec fastlane buildAndTest --swift_server_port ${{ env.runner_port }}

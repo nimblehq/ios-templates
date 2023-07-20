@@ -19,8 +19,19 @@ concurrency:
 jobs:
   build:
     name: Build
-    runs-on: macOS-latest
+    runs-on: self-hosted
     steps:
+    - name: Determine Runner Port
+      id: runner_port
+      run: |
+        last_char=$(echo "${{ runner.name }}" | tail -c 2 | head -c 1)
+        if [ "$last_char" = "1" ]; then
+          echo "runner_port=2000" >> $GITHUB_ENV
+          echo "test_device=iPhone 14 Pro Max" >> $GITHUB_ENV
+        else
+          echo "runner_port=2001" >> $GITHUB_ENV
+          echo "test_device=iPhone SE (3rd generation)" >> $GITHUB_ENV
+        fi
     - name: Checkout Repo
       uses: actions/checkout@v3
       with:
@@ -55,15 +66,18 @@ jobs:
         TEAM_ID: ${{ secrets.TEAM_ID }}
 
     - name: Set Up Test Project for App Store
-      run: bundle exec fastlane setUpTestProject
+      run: |
+       bundle exec fastlane setUpTestProject --swift_server_port ${{ env.runner_port }}
 
     - name: Sync App Store Code Signing
-      run: bundle exec fastlane syncAppStoreCodeSigning
+      run: |
+       bundle exec fastlane syncAppStoreCodeSigning --swift_server_port ${{ env.runner_port }}
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distribute to AppStore
-      run: bundle exec fastlane buildAndUploadToAppStore
+      run: |
+       bundle exec fastlane buildAndUploadToAppStore --swift_server_port ${{ env.runner_port }}
       env:
         APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
         API_KEY_ID: ${{ secrets.API_KEY_ID }}
