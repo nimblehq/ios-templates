@@ -22,7 +22,7 @@ struct SetUpInterface {
         }
     }
 
-    let fileManager = FileManager.default
+    private let fileManager = FileManager.default
 
     func perform(_ interface: Interface, _ projectName: String) {
         switch interface {

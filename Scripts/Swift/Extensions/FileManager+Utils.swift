@@ -85,7 +85,7 @@ extension FileManager {
         if let enumerator = enumerator(
             at: url, 
             includingPropertiesForKeys: [.isRegularFileKey], 
-            options: [.skipsHiddenFiles, .skipsPackageDescendants]
+            options: [.skipsPackageDescendants]
         ) {
             for case let fileURL as URL in enumerator {
                 let fileAttributes = try? fileURL.resourceValues(forKeys:[.isRegularFileKey])

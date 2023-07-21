@@ -2,22 +2,38 @@
 
 class SetUpIOSProject {
 
-    let CONSTANT_PROJECT_NAME = "{PROJECT_NAME}"
-    let CONSTANT_BUNDLE_PRODUCTION = "{BUNDLE_ID_PRODUCTION}"
-    let CONSTANT_BUNDLE_STAGING = "{BUNDLE_ID_STAGING}"
-    let CONSTANT_MINIMUM_VERSION = "{TARGET_VERSION}"
-
+    private let CONSTANT_PROJECT_NAME = "{PROJECT_NAME}"
+    private let CONSTANT_BUNDLE_PRODUCTION = "{BUNDLE_ID_PRODUCTION}"
+    private let CONSTANT_BUNDLE_STAGING = "{BUNDLE_ID_STAGING}"
+    private let CONSTANT_MINIMUM_VERSION = "{TARGET_VERSION}"
     private let fileManager = FileManager.default
 
-    var bundleIdProduction = ""
-    var bundleIdStaging = ""
-    var projectName = ""
-    var minimumVersion = ""
-    var interface: SetUpInterface.Interface?
+    private var bundleIdProduction = ""
+    private var bundleIdStaging = ""
+    private var projectName = ""
+    private var minimumVersion = ""
+    private var interface: SetUpInterface.Interface?
+    private var projectNameNoSpace: String { projectName.trimmingCharacters(in: .whitespacesAndNewlines) }
+    private var isCI = !(ProcessInfo.processInfo.environment["CI"] ?? "").isEmpty
 
-    var isCI = !(ProcessInfo.processInfo.environment["CI"] ?? "").isEmpty
+    func perform() {
+        readArguments()
+        print("=> 🐢 Starting init \(projectName) ...")
+        replaceFileStructure()
+        createPlaceholderFiles()
+        SetUpInterface().perform(interface ?? .uiKit, projectName)
+        try? replaceTextInFiles()
+        try? runTuist()
+        try? installDependencies()
+        try? removeGitkeepFromXcodeProject()
+        try? removeTemplateFiles()
+        setUpCICD()
 
-    func perform() throws {
+        print("=> 🚀 Done! App is ready to be tested 🙌")
+        try? openProject()
+    }
+
+    private func readArguments() {
         // TODO: Should be replaced with ArgumentParser instead of command line
         for (index, argument) in CommandLine.arguments.enumerated() {
             switch index {
@@ -48,27 +64,23 @@ class SetUpIOSProject {
         }
         while minimumVersion.isEmpty || !checkVersion(minimumVersion) {
             print("iOS Minimum Version (i.e. 14.0):")
-            minimumVersion = readLine() ?? "14.0"
+            let version = readLine() ?? ""
+            minimumVersion = !version.isEmpty ? version : "14.0"
         }
         while interface == nil {
             print("Interface [(S)wiftUI or (U)IKit]:")
             interface = SetUpInterface.Interface(readLine() ?? "")
         }
-        let projectNameNoSpace = projectName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 
-        print("=> 🐢 Starting init \(projectName) ...")
-
+    private func replaceFileStructure() {
         print("=> 🔎 Replacing files structure...")
-
-        // Rename test folder structure
         fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)Tests", to: "\(projectNameNoSpace)Tests")
-
-        // Rename KIF UI Test folder structure
         fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)KIFUITests", to: "\(projectNameNoSpace)KIFUITests")
-
-        // Rename app folder structure
         fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)", to: "\(projectNameNoSpace)")
+    }
 
+    private func createPlaceholderFiles() {
         // Duplicate the env example file to env file
         fileManager.copy(file: ".env.example", to: ".env")
 
@@ -77,23 +89,18 @@ class SetUpIOSProject {
 
         // Add AutoMockable.generated.swift file
         fileManager.createFile(name: "R.generated.swift", at: "\(projectNameNoSpace)/Sources/Supports/Helpers/Rswift")
+    }
 
-        // Select the Interface
-        SetUpInterface().perform(interface ?? .uiKit, projectName)
-
-        print("✅  Completed")
-
-        // Search and replace in files
-
+    private func replaceTextInFiles() throws {
         print("=> 🔎 Replacing package and package name within files...")
-
-        try fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_STAGING, to: bundleIdStaging)
-        try fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_PRODUCTION, to: bundleIdProduction)
-        try fileManager.replaceAllOccurrences(of: CONSTANT_PROJECT_NAME, to: projectNameNoSpace)
-        try fileManager.replaceAllOccurrences(of: CONSTANT_MINIMUM_VERSION, to: minimumVersion)
+        fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_STAGING, to: bundleIdStaging)
+        fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_PRODUCTION, to: bundleIdProduction)
+        fileManager.replaceAllOccurrences(of: CONSTANT_PROJECT_NAME, to: projectNameNoSpace)
+        fileManager.replaceAllOccurrences(of: CONSTANT_MINIMUM_VERSION, to: minimumVersion)
         print("✅  Completed")
+    }
 
-        // check for tuist and install
+    private func installTuistIfNeeded() throws {
         let tuistLocation = try safeShell("command -v tuist")
         if let tuistLocation, tuistLocation.isEmpty {
             print("Tuist could not be found")
@@ -106,12 +113,15 @@ class SetUpIOSProject {
                 """
             )
         }
+    }
 
-        // Generate with tuist
+    private func runTuist() throws {
+        try installTuistIfNeeded()
         try safeShell("tuist generate --no-open")
         print("✅  Completed")
+    }
 
-        // Install dependencies
+    private func installDependencies() throws {
         print("Installing gems")
         try safeShell("bundle install")
 
@@ -122,27 +132,30 @@ class SetUpIOSProject {
         print("Installing pod dependencies")
         try safeShell("bundle exec pod install --repo-update")
         print("✅  Completed")
+    }
 
-        // Remove gitkeep files
+    private func removeGitkeepFromXcodeProject() throws {
         print("Remove gitkeep files from project")
         let escapedProjectNameNoSpace = projectNameNoSpace.replacingOccurrences(of: ".", with: "\\.")
         try safeShell("sed -i \"\" \"s/.*\\(gitkeep\\).*,//\" \(escapedProjectNameNoSpace).xcodeproj/project.pbxproj")
         print("✅  Complete")
+    }
 
-        // Remove Tuist files
+    private func removeTemplateFiles() throws {
         print("Remove tuist files")
         fileManager.removeItems(in: ".tuist-version")
         fileManager.removeItems(in: "tuist")
         fileManager.removeItems(in: "Project.swift")
         fileManager.removeItems(in: "Workspace.swift")
 
-        // Remove script files and git/index
         print("Remove script files and git/index")
         fileManager.removeItems(in: "make.sh")
         fileManager.removeItems(in: ".github/workflows/test_install_script.yml")
         fileManager.removeItems(in: ".git/index")
         try safeShell("git reset")
+    }
 
+    private func setUpCICD() {
         if !isCI {
             SetUpCICDService().perform()
             SetUpDeliveryConstants().perform()
@@ -150,19 +163,17 @@ class SetUpIOSProject {
             fileManager.removeItems(in: "set_up_test_testflight.sh")
             fileManager.removeItems(in: "Scripts")
         }
-
         print("✅  Completed")
+    }
 
-        // Done!
-        print("=> 🚀 Done! App is ready to be tested 🙌")
-
+    private func openProject() throws {
         if !isCI {
             print("=> 🛠 Opening the project.")
             try safeShell("open -a Xcode \(projectNameNoSpace).xcworkspace")
         }
     }
 
-    func checkPackageName(_ name: String) -> Bool {
+    private func checkPackageName(_ name: String) -> Bool {
         let packageNameRegex="^[a-z][a-z0-9_]*(\\.[a-z0-9_-]+)+[0-9a-z_-]$"
         let valid = name ~= packageNameRegex
         if !valid {
@@ -171,7 +182,7 @@ class SetUpIOSProject {
         return valid
     }
 
-    func checkVersion(_ version: String) -> Bool {
+    private func checkVersion(_ version: String) -> Bool {
         let versionRegex="^[0-9_]+(\\.[0-9]+)+$"
         let valid = version ~= versionRegex
         if !valid {
@@ -181,4 +192,4 @@ class SetUpIOSProject {
     }
 }
 
-try SetUpIOSProject().perform()
+SetUpIOSProject().perform()

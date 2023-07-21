@@ -35,11 +35,6 @@ project_name=""
 minimum_version=""
 interface=""
 
-readonly CONSTANT_PROJECT_NAME="{PROJECT_NAME}"
-readonly CONSTANT_BUNDLE_PRODUCTION="{BUNDLE_ID_PRODUCTION}"
-readonly CONSTANT_BUNDLE_STAGING="{BUNDLE_ID_STAGING}"
-readonly CONSTANT_MINIMUM_VERSION="{TARGET_VERSION}"
-
 while [ $# -gt 0 ] ; do
     case "$1" in
     -h|--help)
