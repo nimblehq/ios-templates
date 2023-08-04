@@ -43,28 +43,32 @@ extension FileManager {
         }
     }
 
-    func replaceAllOccurrences(of original: String, to replacing: String) throws {
-        let files = try allFiles(in: currentDirectoryPath)
+    func replaceAllOccurrences(of original: String, to replacing: String) {
+        let files = try? allFiles(in: currentDirectoryPath)
+        guard let files else { return print("Cannot find any files in current directory") }
         for file in files {
             do {
                 let text = try String(contentsOf: file, encoding: .utf8)
                 let modifiedText = text.replacingOccurrences(of: original, with: replacing)
                 try modifiedText.write(to: file, atomically: true, encoding: .utf8)
+            } catch {
+                print(error.localizedDescription)
             }
-            catch {}
         }
     }
 
     private func allFiles(in directory: String) throws -> [URL] {
         let url = URL(fileURLWithPath: directory)
         var files = [URL]()
-        if let enumerator = enumerator(at: url, includingPropertiesForKeys: [.isRegularFileKey], options: [.skipsHiddenFiles, .skipsPackageDescendants]) {
+        if let enumerator = enumerator(
+            at: url, 
+            includingPropertiesForKeys: [.isRegularFileKey], 
+            options: [.skipsHiddenFiles, .skipsPackageDescendants]
+        ) {
             for case let fileURL as URL in enumerator {
-                do {
-                    let fileAttributes = try fileURL.resourceValues(forKeys:[.isRegularFileKey])
-                    guard fileAttributes.isRegularFile ?? false else { continue }
-                    files.append(fileURL)
-                }
+                let fileAttributes = try? fileURL.resourceValues(forKeys:[.isRegularFileKey])
+                guard fileAttributes?.isRegularFile ?? false else { continue }
+                files.append(fileURL)
             }
         }
         return files

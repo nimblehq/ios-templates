@@ -1,7 +1,7 @@
-let ConstantTeamId = "<#teamId#>"
-let ConstantStagingFirebaseAppId = "<#stagingFirebaseAppId#>"
-let ConstantFirebaseTesterGroups = "<#group1#>, <#group2#>"
-let ConstantMatchRepo = "git@github.com:{organization}/{repo}.git"
+let teamIdPlaceholder = "<#teamId#>"
+let stagingFirebaseAppIdPlaceholder = "<#stagingFirebaseAppId#>"
+let firebaseTesterGroupsPlaceholder = "<#group1#>, <#group2#>"
+let matchRepoPlaceholder = "git@github.com:{organization}/{repo}.git"
 
 let envMatchRepo = ProcessInfo.processInfo.environment["MATCH_REPO"] ?? ""
 let envStagingFirebaseAppId = ProcessInfo.processInfo.environment["STAGING_FIREBASE_APP_ID"] ?? ""
@@ -10,7 +10,7 @@ let firebaseTesterGroup = "nimble"
 
 let fileManager = FileManager.default
 
-try fileManager.replaceAllOccurrences(of: ConstantTeamId, to: envTeamId)
-try fileManager.replaceAllOccurrences(of: ConstantStagingFirebaseAppId, to: envStagingFirebaseAppId)
-try fileManager.replaceAllOccurrences(of: ConstantFirebaseTesterGroups, to: firebaseTesterGroup)
-try fileManager.replaceAllOccurrences(of: ConstantMatchRepo, to: envMatchRepo)
+fileManager.replaceAllOccurrences(of: teamIdPlaceholder, to: envTeamId)
+fileManager.replaceAllOccurrences(of: stagingFirebaseAppIdPlaceholder, to: envStagingFirebaseAppId)
+fileManager.replaceAllOccurrences(of: firebaseTesterGroupsPlaceholder, to: firebaseTesterGroup)
+fileManager.replaceAllOccurrences(of: matchRepoPlaceholder, to: envMatchRepo)
