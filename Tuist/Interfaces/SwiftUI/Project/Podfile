@@ -15,6 +15,7 @@ target '{PROJECT_NAME}' do
 
   # Backend
   pod 'Alamofire'
+  pod 'JSONAPIMapper', :git => 'https://github.com/nimblehq/JSONMapper', :tag => '1.1.1'
 
   # Storage
   pod 'KeychainAccess'
