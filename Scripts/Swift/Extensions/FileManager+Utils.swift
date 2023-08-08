@@ -88,6 +88,7 @@ extension FileManager {
             options: [.skipsPackageDescendants]
         ) {
             for case let fileURL as URL in enumerator {
+                guard fileURL.absoluteString ~= "([^\\/]+\\..*)" else { continue }
                 let fileAttributes = try? fileURL.resourceValues(forKeys:[.isRegularFileKey])
                 guard fileAttributes?.isRegularFile ?? false else { continue }
                 files.append(fileURL)
