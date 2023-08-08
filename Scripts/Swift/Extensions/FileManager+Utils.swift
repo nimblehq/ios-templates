@@ -87,8 +87,9 @@ extension FileManager {
             includingPropertiesForKeys: [.isRegularFileKey], 
             options: [.skipsPackageDescendants]
         ) {
+            let hiddenFolderRegex = "\(directory.replacingOccurrences(of: "/", with: "\\/"))\\/\\..*\\/"
             for case let fileURL as URL in enumerator {
-                guard fileURL.absoluteString ~= "([^\\/]+\\..*)" else { continue }
+                guard !(fileURL.relativePath ~= hiddenFolderRegex) else { continue }
                 let fileAttributes = try? fileURL.resourceValues(forKeys:[.isRegularFileKey])
                 guard fileAttributes?.isRegularFile ?? false else { continue }
                 files.append(fileURL)
