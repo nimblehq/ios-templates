@@ -43,7 +43,7 @@ case .codemagic:
     print("Setting template for CodeMagic")
     fileManager.removeItems(in: "bitrise.yml")
     fileManager.removeItems(in: ".github/workflows")
-case .later:
+case .later, .none:
     print("You can manually setup the template later.")
 }
 
