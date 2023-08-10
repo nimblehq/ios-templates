@@ -47,7 +47,7 @@ jobs:
       run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface UIKit
 
     - name: Start Setup Script for Template App TestFlight Upload
-      run: sh set_up_test_testflight.sh
+      run: cat Scripts/Swift/SetUpTestTestFlight.swift Scripts/Swift/Extensions/FileManager+Utils.swift | swift -
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
         API_KEY_ID: ${{ secrets.API_KEY_ID }}
