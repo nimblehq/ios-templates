@@ -87,7 +87,7 @@ class SetUpIOSProject {
         // Add AutoMockable.generated.swift file
         fileManager.createFile(name: "AutoMockable.generated.swift", at: "\(projectNameNoSpace)Tests/Sources/Mocks/Sourcery")
 
-        // Add AutoMockable.generated.swift file
+        // Add R.generated.swift file.
         fileManager.createFile(name: "R.generated.swift", at: "\(projectNameNoSpace)/Sources/Supports/Helpers/Rswift")
     }
 
