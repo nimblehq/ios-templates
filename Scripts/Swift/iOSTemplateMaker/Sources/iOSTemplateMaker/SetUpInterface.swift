@@ -1,3 +1,5 @@
+import Foundation
+
 struct SetUpInterface {
 
     enum Interface {

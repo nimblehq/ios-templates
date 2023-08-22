@@ -44,10 +44,10 @@ jobs:
           ${{ runner.os }}-pods-
 
     - name: Start Install Script for Template App
-      run: sh make.sh --bundle-id co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface UIKit
+      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface UIKit
 
     - name: Start Setup Script for Template App TestFlight Upload
-      run: cat Scripts/Swift/SetUpTestTestFlight.swift Scripts/Swift/Extensions/FileManager+Utils.swift | swift -
+      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-test-flight
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
         API_KEY_ID: ${{ secrets.API_KEY_ID }}

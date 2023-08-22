@@ -1,3 +1,5 @@
+import Foundation
+
 struct SetUpCICDService {
 
     enum CICDService {
@@ -26,7 +28,7 @@ struct SetUpCICDService {
         var service: CICDService? = nil
         while service == nil {
             print("Which CI/CD service do you use (Can be edited later) [(g)ithub/(b)itrise/(c)odemagic/(l)ater]: ")
-            service = CICDService(readLine() ?? "")
+            service = CICDService(readLine().string)
         }
 
         switch service {

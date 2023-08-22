@@ -1,4 +1,4 @@
-#!/usr/bin/swift
+import Foundation
 
 class SetUpIOSProject {
 
@@ -14,7 +14,21 @@ class SetUpIOSProject {
     private var minimumVersion = ""
     private var interface: SetUpInterface.Interface?
     private var projectNameNoSpace: String { projectName.trimmingCharacters(in: .whitespacesAndNewlines) }
-    private var isCI = !(ProcessInfo.processInfo.environment["CI"] ?? "").isEmpty
+    private var isCI = !((ProcessInfo.processInfo.environment["CI"]).string).isEmpty
+
+    init(
+        bundleIdProduction: String = "",
+        bundleIdStaging: String = "",
+        projectName: String = "",
+        minimumVersion: String = "",
+        interface: String = ""
+    ) {
+        self.bundleIdProduction = bundleIdProduction
+        self.bundleIdStaging = bundleIdStaging
+        self.projectName = projectName
+        self.minimumVersion = minimumVersion
+        self.interface = .init(interface)
+    }
 
     func perform() {
         readArguments()
@@ -34,42 +48,30 @@ class SetUpIOSProject {
     }
 
     private func readArguments() {
-        // TODO: Should be replaced with ArgumentParser instead of command line
-        for (index, argument) in CommandLine.arguments.enumerated() {
-            switch index {
-            case 1: bundleIdProduction = argument
-            case 2: bundleIdStaging = argument
-            case 3: projectName = argument
-            case 4: minimumVersion = argument
-            case 5: interface = .init(argument)
-            default: break
-            }
-        }
-
         if isCI {
             minimumVersion = "14.0"
         }
 
         while bundleIdProduction.isEmpty || !checkPackageName(bundleIdProduction) {
             print("BUNDLE ID PRODUCTION (i.e. com.example.project):")
-            bundleIdProduction = readLine() ?? ""
+            bundleIdProduction = readLine().string
         }
         while bundleIdStaging.isEmpty || !checkPackageName(bundleIdStaging)  {
             print("BUNDLE ID STAGING (i.e. com.example.project.staging):")
-            bundleIdStaging = readLine() ?? ""
+            bundleIdStaging = readLine().string
         }
         while projectName.isEmpty {
             print("PROJECT NAME (i.e. NewProject):")
-            projectName = readLine() ?? ""
+            projectName = readLine().string
         }
         while minimumVersion.isEmpty || !checkVersion(minimumVersion) {
             print("iOS Minimum Version (i.e. 14.0):")
-            let version = readLine() ?? ""
+            let version = readLine().string
             minimumVersion = !version.isEmpty ? version : "14.0"
         }
         while interface == nil {
             print("Interface [(S)wiftUI or (U)IKit]:")
-            interface = SetUpInterface.Interface(readLine() ?? "")
+            interface = SetUpInterface.Interface(readLine().string)
         }
     }
 
@@ -191,5 +193,3 @@ class SetUpIOSProject {
         return valid
     }
 }
-
-SetUpIOSProject().perform()

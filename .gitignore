@@ -84,3 +84,6 @@ dependencies/
 
 # Environment
 .env
+Scripts/Swift/iOSTemplateMaker/.swiftpm/xcode/package.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+Scripts/Swift/iOSTemplateMaker/.build
+Scripts/Swift/iOSTemplateMaker/.swiftpm
