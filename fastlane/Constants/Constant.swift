@@ -37,7 +37,6 @@ enum Constant {
     static let projectPath: String = "./\(projectName).xcodeproj"
     static let testOutputDirectoryPath = "./fastlane/test_output"
     static let infoPlistPath = "\(projectName)/Configurations/Plists/Info.plist"
-    static let keychainPath = "~/Library/Keychains/\(keychainName)-db"
 
     // MARK: Platform
 

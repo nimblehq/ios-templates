@@ -21,9 +21,6 @@ enum Keychain {
     }
     
     static func remove() {
-        guard FileManager.default.fileExists(atPath: Constant.keychainPath) else {
-            return log(message: "Couldn't find the Keychain")
-        }
         deleteKeychain(
             name: .userDefined(Constant.keychainName)
         )
