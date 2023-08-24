@@ -26,7 +26,7 @@ enum Constant {
     static let appleStagingTeamId = "<#teamId#>"
     static let appleProductionUserName = "<#userName#>"
     static let appleProductionTeamId = "<#teamId#>"
-    static let keychainName = "{PROJECT_NAME}"
+    static let keychainName = "{PROJECT_NAME}_keychain"
     static let matchURL = "git@github.com:{organization}/{repo}.git"
 
     // MARK: - Path
