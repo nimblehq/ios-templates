@@ -23,7 +23,7 @@ final class ApplicationSpec: QuickSpec {
             context("when opens") {
 
                 it("shows its UI components") {
-                    self.tester().waitForView(withAccessibilityLabel: "Hello")
+                    self.tester().waitForView(withAccessibilityLabel: "Hello, world!")
                 }
             }
         }
