@@ -6,6 +6,8 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
+import Foundation
+	
 enum Keychain {
 
     static func create() {
@@ -15,6 +17,12 @@ enum Keychain {
             defaultKeychain: .userDefined(true),
             unlock: .userDefined(true),
             timeout: 3600
+        )
+    }
+    
+    static func remove() {
+        deleteKeychain(
+            name: .userDefined(Constant.keychainName)
         )
     }
 }

@@ -70,3 +70,8 @@ jobs:
         ISSUER_ID: ${{ secrets.ISSUER_ID }}
         SKIP_FIREBASE_DSYM: "true"
         BUMP_APP_STORE_BUILD_NUMBER: "true"
+
+    - name: Remove keychain
+      if: ${{ always() }}
+      run: bundle exec fastlane removeKeychain
+      continue-on-error: true

@@ -17,13 +17,14 @@ usage() {
     fi
 
     cat << EOF
-Usage: $PROGNAME --bundle-id [BUNDLE_ID_PRODUCTION] --bundle-id-staging [BUNDLE_ID_STAGING] --project-name [PROJECT_NAME]
+Usage: $PROGNAME --bundle-id [BUNDLE_ID_PRODUCTION] --bundle-id-staging [BUNDLE_ID_STAGING] --project-name [PROJECT_NAME] --minimum-version [MINIMUM_VERSION] --interface [INTERFACE]
 Set up an iOS app from tuist template.
 Options:
 -h, --help                                   display this usage message and exit
 -b, --bundle-id [BUNDLE_ID_PRODUCTION]       the production id (i.e. com.example.package)
 -s, --bundle-id-staging [BUNDLE_ID_STAGING]  the staging id (i.e. com.example.package.staging)
 -n, --project-name [PROJECT_NAME]            the project name (i.e. MyApp)
+-m, --minimum-version [MINIMUM_VERSION]      the minimum version of the project (i.e. 14.0)
 -i, --interface [INTERFACE]                  the user interface frameword (SwiftUI or UIKit)
 EOF
     exit 1
@@ -50,6 +51,10 @@ while [ $# -gt 0 ] ; do
         ;;
     -n|--project-name)
         project_name="$2"
+        shift
+        ;;
+    -m|--minimum-version)
+        minimum_version="$2"
         shift
         ;;
     -i|--interface)

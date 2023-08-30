@@ -97,3 +97,8 @@ jobs:
           ${{ env.DSYM_OUTPUT_PATH }}
       env:
         TAG_TYPE: App_Store
+
+    - name: Remove keychain
+      if: ${{ always() }}
+      run: bundle exec fastlane removeKeychain
+      continue-on-error: true

@@ -51,6 +51,11 @@ class Fastfile: LaneFile {
             environment: .production
         )
     }
+    
+    func removeKeychainLane() {
+        desc("Delete keychain")
+        Keychain.remove()
+    }
 
     // MARK: - Build
 
