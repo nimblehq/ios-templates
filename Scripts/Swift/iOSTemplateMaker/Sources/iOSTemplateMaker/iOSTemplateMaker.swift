@@ -43,9 +43,9 @@ extension iOSTemplateMaker {
     struct MakeTestFirebase: ParsableCommand {
 
         mutating func run() {
-            let envMatchRepo = ProcessInfo.processInfo.environment["MATCH_REPO"].string
-            let envStagingFirebaseAppId = ProcessInfo.processInfo.environment["STAGING_FIREBASE_APP_ID"].string
-            let envTeamId = ProcessInfo.processInfo.environment["TEAM_ID"].string
+            let envMatchRepo = EnvironmentValue.value(for: .matchRepo).string
+            let envStagingFirebaseAppId = EnvironmentValue.value(for: .stagingFirebaseAppId).string
+            let envTeamId = EnvironmentValue.value(for: .teamId).string
 
             SetUpTestFirebase(
                 matchRepo: envMatchRepo,
@@ -62,10 +62,10 @@ extension iOSTemplateMaker {
     struct MakeTestTestFlight: ParsableCommand {
 
         mutating func run() {
-            let envMatchRepo = ProcessInfo.processInfo.environment["MATCH_REPO"].string
-            let envApiKey = ProcessInfo.processInfo.environment["API_KEY_ID"].string
-            let envIssuerId = ProcessInfo.processInfo.environment["ISSUER_ID"].string
-            let envTeamId = ProcessInfo.processInfo.environment["TEAM_ID"].string
+            let envMatchRepo = EnvironmentValue.value(for: .matchRepo).string
+            let envApiKey = EnvironmentValue.value(for: .apiKey).string
+            let envIssuerId = EnvironmentValue.value(for: .issuerId).string
+            let envTeamId = EnvironmentValue.value(for: .teamId).string
 
             SetUpTestTestFlight(
                 matchRepo: envMatchRepo,

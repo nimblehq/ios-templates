@@ -14,7 +14,7 @@ class SetUpIOSProject {
     private var minimumVersion = ""
     private var interface: SetUpInterface.Interface?
     private var projectNameNoSpace: String { projectName.trimmingCharacters(in: .whitespacesAndNewlines) }
-    private var isCI = !((ProcessInfo.processInfo.environment["CI"]).string).isEmpty
+    private var isCI = !((EnvironmentValue.value(for: .isCI)).string).isEmpty
 
     init(
         bundleIdProduction: String = "",

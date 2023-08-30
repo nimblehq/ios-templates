@@ -22,4 +22,8 @@ Options are optional and will be prompted if not provided. Example is provided i
 - `--minimum-version`: The minimum version of the iOS application. (14.0)
 - `--interface`: The user interface. (UIKit or SwiftUI)
 
+### Example
+
+```
+swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface SwiftUI
 ```
