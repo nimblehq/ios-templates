@@ -36,6 +36,10 @@ struct SetUpCICDService {
             print("Setting template for Github Actions")
             fileManager.removeItems(in: "bitrise.yml")
             fileManager.removeItems(in: "codemagic.yaml")
+            fileManager.removeItems(in: ".github/workflows")
+            fileManager.createDirectory(path: ".github/workflows")
+            fileManager.moveFiles(in: ".github/project_workflows", to: ".github/workflows")
+            fileManager.removeItems(in: ".github/project_workflows")
         case .bitrise:
             print("Setting template for Bitrise")
             fileManager.removeItems(in: "codemagic.yaml")

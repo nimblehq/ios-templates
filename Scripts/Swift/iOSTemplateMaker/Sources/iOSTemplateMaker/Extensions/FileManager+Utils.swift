@@ -46,13 +46,18 @@ extension FileManager {
         }
     }
 
-    func createFile(name: String, at directory: String) {
+    func createDirectory(path: String) {
         let currentDirectory = currentDirectoryPath
         do {
-            try createDirectory(atPath: "\(currentDirectory)/\(directory)", withIntermediateDirectories: true, attributes: nil)
+            try createDirectory(atPath: "\(currentDirectory)/\(path)", withIntermediateDirectories: true, attributes: nil)
         } catch {
             print("Error \(error)")
         }
+    }
+
+    func createFile(name: String, at directory: String) {
+        let currentDirectory = currentDirectoryPath
+        createDirectory(path: directory)
         createFile(atPath: "\(currentDirectory)\(directory)\(name)", contents: nil)
     }
 
