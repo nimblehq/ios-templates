@@ -7,7 +7,7 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = .white
 
         let helloLabel = UILabel()
-        helloLabel.text = "Hello"
+        helloLabel.text = "Hello, world!"
         helloLabel.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(helloLabel)
