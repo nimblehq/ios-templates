@@ -7,12 +7,13 @@ struct SetUpInterface {
         case swiftUI, uiKit
 
         init?(_ name: String) {
-            switch name.lowercased() {
-            case "s", "swiftui":
+            let name = name.lowercased()
+            if name == "s" || name == "swiftui" {
                 self = .swiftUI
-            case "u", "uikit":
+            } else if name == "u" || name == "uikit" {
                 self = .uiKit
-            default: return nil
+            } else {
+                return nil
             }
         }
 
