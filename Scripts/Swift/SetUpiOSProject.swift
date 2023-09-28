@@ -150,7 +150,8 @@ class SetUpIOSProject {
 
         print("Remove script files and git/index")
         fileManager.removeItems(in: "make.sh")
-        fileManager.removeItems(in: ".github/workflows/test_install_script.yml")
+        fileManager.removeItems(in: ".github/workflows/test_uikit_install_script.yml")
+        fileManager.removeItems(in: ".github/workflows/test_swiftui_install_script.yml")
         fileManager.removeItems(in: ".git/index")
         try safeShell("git reset")
     }
@@ -159,8 +160,6 @@ class SetUpIOSProject {
         if !isCI {
             SetUpCICDService().perform()
             SetUpDeliveryConstants().perform()
-            fileManager.removeItems(in: "fastlane/Tests")
-            fileManager.removeItems(in: "set_up_test_testflight.sh")
             fileManager.removeItems(in: "Scripts")
         }
         print("✅  Completed")
