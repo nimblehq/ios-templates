@@ -5,8 +5,6 @@ inhibit_all_warnings!
 def testing_pods
   pod 'Quick'
   pod 'Nimble'
-  pod 'RxNimble', subspecs: ['RxBlocking', 'RxTest']
-  pod 'RxSwift'
   pod 'Sourcery'
   pod 'SwiftFormat/CLI'
 end
@@ -16,11 +14,9 @@ target '{PROJECT_NAME}' do
   pod 'Kingfisher'
   pod 'SnapKit'
 
-  # Rx
-  pod 'RxAlamofire'
-  pod 'RxCocoa'
-  pod 'RxDataSources'
-  pod 'RxSwift'
+  # Backend
+  pod 'Alamofire'
+  pod 'JSONAPIMapper', :git => 'https://github.com/nimblehq/JSONMapper', :tag => '1.1.1'
 
   # Storage
   pod 'KeychainAccess'
