@@ -3,14 +3,13 @@
 //
 
 import Alamofire
-import Combine
 
 protocol NetworkAPIProtocol {
 
     func performRequest<T: Decodable>(
         _ configuration: RequestConfiguration,
         for type: T.Type
-    ) -> AnyPublisher<T, AFError>
+    ) async throws -> T
 }
 
 extension NetworkAPIProtocol {
@@ -19,16 +18,29 @@ extension NetworkAPIProtocol {
         session: Session,
         configuration: RequestConfiguration,
         decoder: JSONDecoder
-    ) -> AnyPublisher<T, AFError> {
-        return session.request(
-            configuration.url,
-            method: configuration.method,
-            parameters: configuration.parameters,
-            encoding: configuration.encoding,
-            headers: configuration.headers,
-            interceptor: configuration.interceptor
-        )
-        .publishDecodable(type: T.self, decoder: decoder)
-        .value()
+    ) async throws -> T {
+        try await withCheckedThrowingContinuation { continuation in
+            session.request(
+                configuration.url,
+                method: configuration.method,
+                parameters: configuration.parameters,
+                encoding: configuration.encoding,
+                headers: configuration.headers,
+                interceptor: configuration.interceptor
+            )
+            .response { response in
+                switch response.result {
+                case let .success(data):
+                    do {
+                        let decodedData = try decoder.decode(T.self, from: data ?? Data())
+                        continuation.resume(returning: decodedData)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                case let .failure(error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 }
