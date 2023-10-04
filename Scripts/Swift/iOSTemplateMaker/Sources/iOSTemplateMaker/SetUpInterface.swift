@@ -43,7 +43,7 @@ struct SetUpInterface {
         let folderName = interface.folderName
 
         fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Project", to: "")
-        fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Sources", to: "TemplateApp/Sources")
+        fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Sources", to: "\(projectName)/Sources")
         fileManager.removeItems(in: "tuist/Interfaces")
     }
 }
