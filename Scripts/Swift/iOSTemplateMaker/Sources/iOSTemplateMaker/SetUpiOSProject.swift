@@ -161,7 +161,6 @@ class SetUpIOSProject {
         if !isCI {
             SetUpCICDService().perform()
             SetUpDeliveryConstants().perform()
-            fileManager.removeItems(in: "fastlane/Tests")
             fileManager.removeItems(in: "Scripts")
         }
         print("✅  Completed")
