@@ -151,7 +151,8 @@ class SetUpIOSProject {
         fileManager.removeItems(in: "Workspace.swift")
 
         print("Remove script files and git/index")
-        fileManager.removeItems(in: ".github/workflows/test_install_script.yml")
+        fileManager.removeItems(in: ".github/workflows/test_uikit_install_script.yml")
+        fileManager.removeItems(in: ".github/workflows/test_swiftui_install_script.yml")
         fileManager.removeItems(in: ".git/index")
         try safeShell("git reset")
     }
