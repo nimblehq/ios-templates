@@ -26,7 +26,7 @@ Our optimized iOS template used in our projects using Xcode Templates
 2. Clone your repository
 3. Setup the project by running the following command in your terminal:
     ```bash
-    sh make.sh --bundle-id [BUNDLE_ID_PRODUCTION] --bundle-id-staging [BUNDLE_ID_STAGING] --project-name [PROJECT_NAME]
+    swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make
     ```
 
 ## Full Documentation

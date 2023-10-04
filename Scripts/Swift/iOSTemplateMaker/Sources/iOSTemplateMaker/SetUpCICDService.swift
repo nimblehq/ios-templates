@@ -1,3 +1,5 @@
+import Foundation
+
 struct SetUpCICDService {
 
     enum CICDService {
@@ -26,7 +28,7 @@ struct SetUpCICDService {
         var service: CICDService? = nil
         while service == nil {
             print("Which CI/CD service do you use (Can be edited later) [(g)ithub/(b)itrise/(c)odemagic/(l)ater]: ")
-            service = CICDService(readLine() ?? "")
+            service = CICDService(readLine().string)
         }
 
         switch service {
@@ -34,6 +36,10 @@ struct SetUpCICDService {
             print("Setting template for Github Actions")
             fileManager.removeItems(in: "bitrise.yml")
             fileManager.removeItems(in: "codemagic.yaml")
+            fileManager.removeItems(in: ".github/workflows")
+            fileManager.createDirectory(path: ".github/workflows")
+            fileManager.moveFiles(in: ".github/project_workflows", to: ".github/workflows")
+            fileManager.removeItems(in: ".github/project_workflows")
         case .bitrise:
             print("Setting template for Bitrise")
             fileManager.removeItems(in: "codemagic.yaml")

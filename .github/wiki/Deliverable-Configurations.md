@@ -6,7 +6,7 @@ The file [DeliverableConstants.rb](https://github.com/nimblehq/ios-templates/blo
 
 ## Use the template
 
-1. Running the `make.sh` script will ask if the developer wants to configure the `DeliverableConstants` file.
+1. Running the `iOSTemplateMaker` script will ask if the developer wants to configure the `DeliverableConstants` file.
 2. When confirming with the prompt, the template will launch Xcode to modify the `DeliverableConstants` file.
 
 ## Configure later

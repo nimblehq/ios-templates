@@ -1,3 +1,5 @@
+import Foundation
+
 struct SetUpInterface {
 
     enum Interface {
@@ -5,12 +7,13 @@ struct SetUpInterface {
         case swiftUI, uiKit
 
         init?(_ name: String) {
-            switch name.lowercased() {
-            case "s", "swiftui":
+            let name = name.lowercased()
+            if name == "s" || name == "swiftui" {
                 self = .swiftUI
-            case "u", "uikit":
+            } else if name == "u" || name == "uikit" {
                 self = .uiKit
-            default: return nil
+            } else {
+                return nil
             }
         }
 
@@ -40,7 +43,7 @@ struct SetUpInterface {
         let folderName = interface.folderName
 
         fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Project", to: "")
-        fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Sources", to: "TemplateApp/Sources")
+        fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Sources", to: "\(projectName)/Sources")
         fileManager.removeItems(in: "tuist/Interfaces")
     }
 }

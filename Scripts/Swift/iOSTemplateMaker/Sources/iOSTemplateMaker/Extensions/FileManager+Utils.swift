@@ -46,13 +46,18 @@ extension FileManager {
         }
     }
 
-    func createFile(name: String, at directory: String) {
+    func createDirectory(path: String) {
         let currentDirectory = currentDirectoryPath
         do {
-            try createDirectory(atPath: "\(currentDirectory)/\(directory)", withIntermediateDirectories: true, attributes: nil)
+            try createDirectory(atPath: "\(currentDirectory)/\(path)", withIntermediateDirectories: true, attributes: nil)
         } catch {
             print("Error \(error)")
         }
+    }
+
+    func createFile(name: String, at directory: String) {
+        let currentDirectory = currentDirectoryPath
+        createDirectory(path: directory)
         createFile(atPath: "\(currentDirectory)\(directory)\(name)", contents: nil)
     }
 
@@ -66,7 +71,9 @@ extension FileManager {
     }
 
     func replaceAllOccurrences(of original: String, to replacing: String) {
-        let files = try? allFiles(in: currentDirectoryPath)
+        let swiftScriptBuildDirectory = "Scripts/Swift/iOSTemplateMaker/.build".lowercased()
+        let pngImage = ".png"
+        let files = try? allFiles(in: currentDirectoryPath, skips: [swiftScriptBuildDirectory, pngImage])
         guard let files else { return print("Cannot find any files in current directory") }
         for file in files {
             do {
@@ -79,7 +86,7 @@ extension FileManager {
         }
     }
 
-    private func allFiles(in directory: String) throws -> [URL] {
+    private func allFiles(in directory: String, skips: [String] = []) throws -> [URL] {
         let url = URL(fileURLWithPath: directory)
         var files = [URL]()
         if let enumerator = enumerator(
@@ -90,6 +97,7 @@ extension FileManager {
             let hiddenFolderRegex = "\(directory.replacingOccurrences(of: "/", with: "\\/"))\\/\\..*\\/"
             for case let fileURL as URL in enumerator {
                 guard !(fileURL.relativePath ~= hiddenFolderRegex) else { continue }
+                guard !(skips.contains(where: { fileURL.relativePath.lowercased().contains($0) })) else { continue }
                 let fileAttributes = try? fileURL.resourceValues(forKeys:[.isRegularFileKey])
                 guard fileAttributes?.isRegularFile ?? false else { continue }
                 files.append(fileURL)
