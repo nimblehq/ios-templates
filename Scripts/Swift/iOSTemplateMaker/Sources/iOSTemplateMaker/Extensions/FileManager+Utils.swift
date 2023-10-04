@@ -93,8 +93,10 @@ extension FileManager {
             options: [.skipsPackageDescendants]
         ) {
             let hiddenFolderRegex = "\(directory.replacingOccurrences(of: "/", with: "\\/"))\\/\\..*\\/"
+            let swiftScriptBuildDirectory = "Scripts/Swift/iOSTemplateMaker/.build".lowercased()
             for case let fileURL as URL in enumerator {
                 guard !(fileURL.relativePath ~= hiddenFolderRegex) else { continue }
+                guard !(fileURL.relativePath.lowercased().contains(swiftScriptBuildDirectory)) else { continue }
                 let fileAttributes = try? fileURL.resourceValues(forKeys:[.isRegularFileKey])
                 guard fileAttributes?.isRegularFile ?? false else { continue }
                 files.append(fileURL)
