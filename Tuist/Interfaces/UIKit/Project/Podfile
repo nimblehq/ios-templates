@@ -7,6 +7,7 @@ def testing_pods
   pod 'Nimble'
   pod 'Sourcery'
   pod 'SwiftFormat/CLI'
+  pod 'OHHTTPStubs/Swift', :configurations => ['Debug Staging', 'Debug Production']
 end
 
 target '{PROJECT_NAME}' do
