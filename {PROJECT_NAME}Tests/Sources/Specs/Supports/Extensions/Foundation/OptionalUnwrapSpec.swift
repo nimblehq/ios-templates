@@ -9,7 +9,7 @@ import Quick
 
 final class OptionalUnwrapSpec: QuickSpec {
 
-    override func spec() {
+    override class func spec() {
 
         describe("an string optional") {
             var value: String?

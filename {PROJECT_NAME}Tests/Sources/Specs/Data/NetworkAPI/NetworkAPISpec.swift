@@ -9,7 +9,7 @@ import Quick
 
 final class NetworkAPISpec: QuickSpec {
 
-    override func spec() {
+    override class func spec() {
 
         describe("a NetworkAPI") {
 

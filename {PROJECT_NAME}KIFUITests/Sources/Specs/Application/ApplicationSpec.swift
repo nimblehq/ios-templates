@@ -6,9 +6,9 @@ import Foundation
 import Nimble
 import Quick
 
-final class ApplicationSpec: QuickSpec {
+final class ApplicationSpec: KIFSpec {
 
-    override func spec() {
+    override class func spec() {
 
         describe("a {PROJECT_NAME} screen") {
 
@@ -23,7 +23,7 @@ final class ApplicationSpec: QuickSpec {
             context("when opens") {
 
                 it("shows its UI components") {
-                    self.tester().waitForView(withAccessibilityLabel: "Hello, world!")
+                    tester().waitForView(withAccessibilityLabel: "Hello, world!")
                 }
             }
         }
