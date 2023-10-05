@@ -1,10 +1,10 @@
-platform :ios, '11.0'
+platform :ios, '13.0'
 use_frameworks!
 inhibit_all_warnings!
 
 def testing_pods
-  pod 'Quick'
-  pod 'Nimble'
+  pod 'Quick', '~> 6.0'
+  pod 'Nimble', '~> 11.0'
   pod 'Sourcery'
   pod 'SwiftFormat/CLI'
   pod 'OHHTTPStubs/Swift', :configurations => ['Debug Staging', 'Debug Production']
