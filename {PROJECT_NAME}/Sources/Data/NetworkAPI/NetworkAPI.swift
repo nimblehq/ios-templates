@@ -3,7 +3,6 @@
 //
 
 import Alamofire
-import Combine
 
 final class NetworkAPI: NetworkAPIProtocol {
 
@@ -16,8 +15,8 @@ final class NetworkAPI: NetworkAPIProtocol {
     func performRequest<T: Decodable>(
         _ configuration: RequestConfiguration,
         for type: T.Type
-    ) -> AnyPublisher<T, AFError> {
-        request(
+    ) async throws -> T {
+        try await request(
             session: Session(),
             configuration: configuration,
             decoder: decoder
