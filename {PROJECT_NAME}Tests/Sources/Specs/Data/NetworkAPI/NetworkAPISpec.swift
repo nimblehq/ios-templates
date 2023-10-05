@@ -7,7 +7,7 @@ import Quick
 
 @testable import {PROJECT_NAME}
 
-final class NetworkAPISpec: QuickSpec {
+final class NetworkAPISpec: AsyncSpec {
 
     override class func spec() {
 
