@@ -55,10 +55,8 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │           │   └── Builder.swift
 │           ├── Extensions
 │           │   ├── Foundation
-│           │   ├── Rx
 │           │   └── UIKit
 │           └── Helpers
-│               ├── Rx
 │               ├── Typealias
 │               └── UIKit
 ├── {ProjectName}Tests

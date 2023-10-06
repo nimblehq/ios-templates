@@ -7,6 +7,3 @@ output:
 args:
   autoMockableTestableImports:
     - {PROJECT_NAME}
-  autoMockableImports:
-    - RxSwift
-    - RxCocoa
