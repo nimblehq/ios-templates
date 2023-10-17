@@ -3,8 +3,8 @@ use_frameworks!
 inhibit_all_warnings!
 
 def testing_pods
-  pod 'Quick', '~> 6.0'
-  pod 'Nimble', '~> 11.0'
+  pod 'Quick', '~> 7.0'
+  pod 'Nimble', '~> 12.0'
   pod 'Sourcery'
   pod 'SwiftFormat/CLI'
   pod 'OHHTTPStubs/Swift', :configurations => ['Debug Staging', 'Debug Production']
