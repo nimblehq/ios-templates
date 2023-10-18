@@ -6,6 +6,16 @@ let project = Project.project(name: "{PROJECT_NAME}", bundleId: "${PRODUCT_BUNDL
 extension Project {
 
     static func project(name: String, bundleId: String) -> Project {
+        var targets: [Target] = [
+            .mainTarget(name: name, bundleId: bundleId),
+            .testsTarget(name: name, bundleId: bundleId),
+            .kifUITestsTarget(name: name, bundleId: bundleId),
+        ]
+
+        Module.allCases.forEach {
+            targets.append(Target.makeFramework(module: $0, bundleId: bundleId))
+        }
+
         return Project(
             name: name,
             organizationName: "Nimble",
