@@ -15,10 +15,6 @@ target '{PROJECT_NAME}' do
   pod 'Kingfisher'
   pod 'SnapKit'
 
-  # Backend
-  pod 'Alamofire'
-  pod 'JSONAPIMapper', :git => 'https://github.com/nimblehq/JSONMapper', :tag => '1.1.1'
-
   # Storage
   pod 'KeychainAccess'
 
@@ -45,6 +41,27 @@ target '{PROJECT_NAME}' do
     testing_pods
     pod 'KIF', :configurations => ['Debug Staging', 'Debug Production']
     pod 'KIF/IdentifierTests', :configurations => ['Debug Staging', 'Debug Production']
+  end
+end
+
+def data_dependencies
+  pod 'Alamofire'
+  pod 'JSONAPIMapper', :git => 'https://github.com/nimblehq/JSONMapper', :tag => '1.1.1'
+end
+
+target 'Data' do
+  data_dependencies
+
+  target 'DataTests' do
+    data_dependencies
+    testing_pods
+  end
+end
+
+target 'Domain' do
+  # Pods for Domain
+  target 'DomainTests' do
+    testing_pods
   end
 end
 

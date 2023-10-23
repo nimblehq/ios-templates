@@ -7,7 +7,6 @@
 
 import ProjectDescription
 
-
 public enum Module: CaseIterable {
 
     case domain
@@ -29,5 +28,40 @@ public enum Module: CaseIterable {
         case .data:
             return [.target(name: Module.domain.name)]
         }
+    }
+
+    public var frameworkPath: String {
+        "\(Constant.modulesRootPath)/\(name)"
+    }
+
+    public var sources: ProjectDescription.SourceFilesList {
+        return ["\(frameworkPath)/\(Constant.sourcesPath)/**"]
+    }
+
+    public var resources: ProjectDescription.ResourceFileElements {
+        switch self {
+        case .data, .domain:
+            return []
+        }
+    }
+
+    public var testsSources: ProjectDescription.SourceFilesList {
+        ["\(frameworkPath)/\(Constant.testsPath)/**"]
+    }
+
+    public var testsResources: ProjectDescription.ResourceFileElements {
+        [
+            "\(frameworkPath)/\(Constant.testsPath)/**/.gitkeep",
+            "\(frameworkPath)/\(Constant.testsPath)/\(Constant.resourcesPath)/**"
+        ]
+    }
+
+
+    public func getBundleId(mainBundleId: String) -> String {
+        "\(mainBundleId).\(name)"
+    }
+
+    public func getTestBundleId(mainBundleId: String) -> String {
+        "\(mainBundleId).\(name)\(Constant.testsPath)"
     }
 }

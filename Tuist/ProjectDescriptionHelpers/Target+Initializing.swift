@@ -1,17 +1,32 @@
 import ProjectDescription
 
 extension Target {
-    
-    private static let plistsPath: String = "Configurations/Plists"
-    
-    enum Constant {
-        
-        static let modulesRootPath: String = "Modules"
-        static let sourcesPath: String = "Sources"
-        static let resourcesPath: String = "Resources"
+
+    public static func makeTargets(name: String, bundleId: String) -> [Target] {
+        var targets: [Target] = []
+
+        let frameworks = Module.allCases
+            .flatMap { Target.makeFramework(module: $0, bundleId: bundleId) }
+
+        targets.append(contentsOf: frameworks)
+
+        let mainTargets: [Target] = [
+            .mainTarget(name: name, bundleId: bundleId),
+            .testsTarget(name: name, bundleId: bundleId),
+            .kifUITestsTarget(name: name, bundleId: bundleId)
+        ]
+
+        targets.append(contentsOf: mainTargets)
+
+        return targets
     }
-    
-    public static func mainTarget(name: String, bundleId: String) -> Target {
+}
+
+// MARK: - Main Targets
+
+extension Target {
+
+    fileprivate static func mainTarget(name: String, bundleId: String) -> Target {
         return Target(
             name: name,
             platform: .iOS,
@@ -21,7 +36,7 @@ extension Target {
                 targetVersion: "{TARGET_VERSION}",
                 devices: [.iphone]
             ),
-            infoPlist: "\(name)/\(plistsPath)/Info.plist",
+            infoPlist: "\(name)/\(Constant.plistsPath)/Info.plist",
             sources: ["\(name)/Sources/**"],
             resources: [
                 "\(name)/Resources/**",
@@ -36,19 +51,19 @@ extension Target {
             ],
             dependencies: [
                 .target(name: Module.data.name),
-                .target(name: Module.data.name)
+                .target(name: Module.domain.name)
             ]
         )
     }
-    
-    public static func testsTarget(name: String, bundleId: String) -> Target {
+
+    fileprivate static func testsTarget(name: String, bundleId: String) -> Target {
         let targetName = "\(name)Tests"
         return Target(
             name: targetName,
             platform: .iOS,
             product: .unitTests,
             bundleId: bundleId,
-            infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
+            infoPlist: "\(targetName)/\(Constant.plistsPath)/Info.plist",
             sources: ["\(targetName)/**"],
             resources: [
                 "\(targetName)/**/.gitkeep", // To include empty folders
@@ -58,15 +73,15 @@ extension Target {
             dependencies: [.target(name: name)]
         )
     }
-    
-    public static func kifUITestsTarget(name: String, bundleId: String) -> Target {
+
+    fileprivate static func kifUITestsTarget(name: String, bundleId: String) -> Target {
         let targetName = "\(name)KIFUITests"
         return Target(
             name: targetName,
             platform: .iOS,
             product: .unitTests,
             bundleId: bundleId,
-            infoPlist: "\(targetName)/\(plistsPath)/Info.plist",
+            infoPlist: "\(targetName)/\(Constant.plistsPath)/Info.plist",
             sources: ["\(targetName)/**"],
             resources: [
                 "\(targetName)/**/.gitkeep", // To include empty folders
@@ -74,69 +89,36 @@ extension Target {
             dependencies: [.target(name: name)]
         )
     }
-    
-    public static func makeFramework(module: Module, bundleId: String) -> Target {
-        let frameworkPath = "\(Constant.modulesRootPath)/\(module.name)"
-        let resourcesElement = ResourceFileElement.glob(pattern: "\(frameworkPath)/\(Constant.resourcesPath)/**")
-        
-        return Target(
+}
+
+// MARK: - Dependencies
+
+extension Target {
+
+    fileprivate static func makeFramework(module: Module, bundleId: String) -> [Target] {
+        let framework = Target(
             name: module.name,
             platform: .iOS,
             product: .framework,
-            bundleId: bundleId,
-            sources: ["\(frameworkPath)/\(Constant.sourcesPath)/**"],
-            resources: ResourceFileElements(resources: [resourcesElement]),
+            bundleId: module.getBundleId(mainBundleId: bundleId),
+            deploymentTarget: .iOS(
+                targetVersion: "{TARGET_VERSION}",
+                devices: [.iphone]
+            ),
+            sources: module.sources,
+            resources: module.resources,
             dependencies: module.dependencies
         )
+
+        let testTarget = Target(
+            name: "\(module.name)\(Constant.testsPath)",
+            platform: .iOS,
+            product: .unitTests,
+            bundleId: module.getTestBundleId(mainBundleId: bundleId),
+            sources: module.testsSources,
+            resources: module.testsResources,
+            dependencies: [.target(name: module.name)]
+        )
+        return [framework, testTarget]
     }
 }
-
-//// MARK: - Domain
-//
-//extension Target {
-//
-//    public static func domainTarget(bundleId: String) -> Target {
-//        return Target(
-//            name: "Domain",
-//            platform: .iOS,
-//            product: .staticLibrary,
-//            bundleId: bundleId
-//        )
-//    }
-//
-//    public static func domainTestsTarget(bundleId: String) -> Target {
-//        return Target(
-//            name: "DomainTests",
-//            platform: .iOS,
-//            product: .unitTests,
-//            bundleId: bundleId
-//        )
-//    }
-//}
-//
-//
-//// MARK: - Data
-//
-//extension Target {
-//
-//    public static func domainTarget(bundleId: String) -> Target {
-//        let name = "Data"
-//        return Target(
-//            name: name,
-//            platform: .iOS,
-//            product: .staticLibrary,
-//            bundleId: bundleId,
-//            sources: ["\(modulesPath)/\(name)/**"]
-//        )
-//    }
-//
-//    public static func domainTestsTarget(bundleId: String) -> Target {
-//        return Target(
-//            name: "DataTests",
-//            platform: .iOS,
-//            product: .unitTests,
-//            bundleId: bundleId,
-//            sources: [""]
-//        )
-//    }
-//}
