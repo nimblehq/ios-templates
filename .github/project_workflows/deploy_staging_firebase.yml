@@ -25,7 +25,7 @@ jobs:
         fetch-depth: 0
 
     - name: Run SwiftLint
-      uses: norio-nomura/action-swiftlint@3.1.0
+      uses: norio-nomura/action-swiftlint@3.2.1
       with:
         args: --strict
 
