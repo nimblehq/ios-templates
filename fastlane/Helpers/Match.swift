@@ -27,14 +27,7 @@ enum Match {
                 type: type.match,
                 readonly: .userDefined(!isForce),
                 appIdentifier: [environment.bundleId],
-                apiKey: .userDefined(
-                    [
-                        "key_id" : EnvironmentParser.string(key: "KEY_ID"),
-                        "issuer_id": EnvironmentParser.string(key: "ISSUER_ID"),
-                        "key": EnvironmentParser.string(key: "KEY"),
-                        "in_house": false
-                    ]
-                ),
+                apiKey: .userDefined(Constant.apiKey),
                 username: .userDefined(environment.appleUsername),
                 teamId: .userDefined(environment.appleTeamId),
                 gitUrl: Constant.matchURL,

@@ -28,6 +28,12 @@ enum Constant {
     static let appleProductionTeamId = "<#teamId#>"
     static let keychainName = "{PROJECT_NAME}_keychain"
     static let matchURL = "git@github.com:{organization}/{repo}.git"
+    static let apiKey: [String: Any] = [
+        "key_id" : EnvironmentParser.string(key: "KEY_ID"),
+        "issuer_id": EnvironmentParser.string(key: "ISSUER_ID"),
+        "key": EnvironmentParser.string(key: "KEY"),
+        "in_house": false
+    ]
 
     // MARK: - Path
 

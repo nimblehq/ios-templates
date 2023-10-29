@@ -172,14 +172,7 @@ class Fastfile: LaneFile {
         registerDevice(
             name: deviceName,
             udid: deviceUDID,
-            apiKey: .userDefined(
-                [
-                    "key_id" : EnvironmentParser.string(key: "KEY_ID"),
-                    "issuer_id": EnvironmentParser.string(key: "ISSUER_ID"),
-                    "key": EnvironmentParser.string(key: "KEY"),
-                    "in_house": false
-                ]
-            ),
+            apiKey: .userDefined(Constant.apiKey),
             teamId: .userDefined(Constant.appleStagingTeamId)
         )
 
