@@ -106,6 +106,7 @@ implicit_return:
   included:
     - closure
     - getter
+    - function
 
 custom_rules:
   multiline_collection_one_per_line:
