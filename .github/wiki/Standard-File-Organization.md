@@ -2,6 +2,8 @@
 
 To keep all current and upcoming iOS projects aligned, we standardize an iOS project’s file organization by following this below structure:
 
+### Common
+
 ```
 .
 ├── README.md
@@ -15,9 +17,7 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   │   └── LaunchScreen
 │   └── Sources
 │       ├── Application
-│       │   ├── AppDelegate.swift
-│       │   ├── Application.swift
-│       │   └── SceneDelegate.swift
+│       │   └── Varies by UI Interface
 │       ├── Constants
 │       │   ├── Constants+API.swift
 │       │   └── Constants.swift
@@ -49,27 +49,14 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │       │       ├── Authentication
 │       │       └── User
 │       ├── Presentation
-│       │   ├── Modules
-│       │   │   ├── Home
-│       │   │   └── Login
-│       │   ├── Navigator
-│       │   │   ├── Navigator+Scene.swift
-│       │   │   ├── Navigator+Transition.swift
-│       │   │   └── Navigator.swift
-│       │   └── Views
-│       │       ├── Button
-│       │       ├── CollectionView
-│       │       ├── TextField
-│       │       └── Transition
+│       │   └── Varies by UI Interface
 │       └── Supports
 │           ├── Builder
 │           │   └── Builder.swift
 │           ├── Extensions
 │           │   ├── Foundation
-│           │   ├── Rx
 │           │   └── UIKit
 │           └── Helpers
-│               ├── Rx
 │               ├── Typealias
 │               └── UIKit
 ├── {ProjectName}Tests
@@ -91,6 +78,7 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │       │       └── HomeViewModelProtocolMock+Equatable.swift
 │       ├── Specs
 │       │   ├── Data
+│       │   │   └── Datasources
 │       │   │   └── Repositories
 │       │   ├── Domain
 │       │   │   └── UseCases
@@ -121,6 +109,60 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
         │   └── Home
         └── Utilities
             └── KIF+Swift.swift
+```
+
+### SwiftUI
+
+```
+.
+└── {ProjectName}
+    └── Sources
+        ├── Application
+        │   ├── {ProjectName}App.swift
+        │   └── AppDelegate.swift
+        └── Presentation
+            ├── Models
+            │   └── ProductUIModel.swift
+            ├── Coordinators
+            │   └── AppCoordinator.swift
+            ├── Modules
+            │   ├── Home
+            │   └── Login
+            ├── Styles
+            │   └── RoundedButtonStyle.swift
+            ├── ViewModifiers
+            │   └── View+PrimaryNavigationBar.swift
+            ├── Views
+            │   └── SearchBarView.swift
+            └── ViewIds
+                └── ViewId.swift
+```
+
+### UIKit
+
+```
+.
+└── {ProjectName}
+    └── Sources
+        ├── Application
+        │   ├── AppDelegate.swift
+        │   ├── Application.swift
+        │   └── SceneDelegate.swift
+        └── Presentation
+            ├── Modules
+            │   ├── Home
+            │   └── Login
+            ├── Navigator
+            │   ├── Navigator+Scene.swift
+            │   ├── Navigator+Transition.swift
+            │   └── Navigator.swift
+            └── Views
+            │   ├── Button
+            │   ├── CollectionView
+            │   ├── TextField
+            │   └── Transition
+            └── ViewIds
+                └── ViewId.swift
 ```
 
 ## README.md
