@@ -16,7 +16,7 @@ enum Keychain {
             password: Secret.keychainPassword,
             defaultKeychain: .userDefined(true),
             unlock: .userDefined(true),
-            timeout: 3600
+            timeout: 115_200
         )
     }
     
