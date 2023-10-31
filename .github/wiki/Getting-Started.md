@@ -9,5 +9,21 @@
 2. Clone your repository
 3. Setup the project by running the following command in your terminal:
     ```bash
-    sh make.sh --bundle-id [BUNDLE_ID_PRODUCTION] --bundle-id-staging [BUNDLE_ID_STAGING] --project-name [PROJECT_NAME]
+    swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make
     ```
+
+## Options
+
+Options are optional and will be prompted if not provided. Example is provided in (brackets).
+
+- `--bundle-id-production`: The application's bundle id for production variant. (co.nimblehq.project)
+- `--bundle-id-staging`: The application's bundle id for staging variant. (co.nimblehq.project.staging)
+- `--project-name`: The name of the project. (Project)
+- `--minimum-version`: The minimum version of the iOS application. (14.0)
+- `--interface`: The user interface. (UIKit or SwiftUI)
+
+### Example
+
+```
+swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface SwiftUI
+```

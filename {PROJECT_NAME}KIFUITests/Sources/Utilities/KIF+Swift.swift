@@ -5,13 +5,13 @@
 
 import KIF
 
-extension XCTestCase {
+extension KIFSpec {
 
-    func tester(file: String = #file, _ line: Int = #line) -> KIFUITestActor {
-        return KIFUITestActor(inFile: file, atLine: line, delegate: self)
+    static func tester(file: String = #file, _ line: Int = #line) -> KIFUITestActor {
+        return KIFUITestActor(inFile: file, atLine: line, delegate: kifDelegate)
     }
 
-    func system(file: String = #file, _ line: Int = #line) -> KIFSystemTestActor {
-        return KIFSystemTestActor(inFile: file, atLine: line, delegate: self)
+    static func system(file: String = #file, _ line: Int = #line) -> KIFSystemTestActor {
+        return KIFSystemTestActor(inFile: file, atLine: line, delegate: kifDelegate)
     }
 }
