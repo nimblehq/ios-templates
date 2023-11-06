@@ -29,9 +29,9 @@ enum Constant {
     static let keychainName = "{PROJECT_NAME}_keychain"
     static let matchURL = "git@github.com:{organization}/{repo}.git"
     static let apiKey: [String: Any] = [
-        "key_id" : EnvironmentParser.string(key: "KEY_ID"),
+        "key_id" : EnvironmentParser.string(key: "API_KEY_ID"),
         "issuer_id": EnvironmentParser.string(key: "ISSUER_ID"),
-        "key": EnvironmentParser.string(key: "KEY"),
+        "key": EnvironmentParser.string(key: "APPSTORE_CONNECT_API_KEY"),
         "in_house": false
     ]
 
