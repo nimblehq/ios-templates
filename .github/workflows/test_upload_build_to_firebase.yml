@@ -3,7 +3,7 @@ name: Test Upload Build to Firebase
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
-### FIREBASE_TOKEN
+### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
 ### STAGING_FIREBASE_APP_ID
 ### TEAM_ID
 
@@ -33,6 +33,13 @@ jobs:
       run: |
         yarn global add firebase-tools
         echo "$(yarn global bin)" >> $GITHUB_PATH
+
+    - name: Read Google Service Account
+      id: firebase_service_account
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'firebase_service_account.json'
+        encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
       run: bundle install
@@ -67,7 +74,7 @@ jobs:
     - name: Build App and Distribute to Firebase
       run: bundle exec fastlane buildStagingAndUploadToFirebase
       env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3

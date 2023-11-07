@@ -21,7 +21,6 @@ enum Distribution {
             app: .userDefined(environment.firebaseAppId),
             groups: .userDefined(groups),
             releaseNotes: .userDefined(releaseNotes),
-            firebaseCliToken: .userDefined(Secret.firebaseCLIToken),
             debug: .userDefined(true)
         )
     }
