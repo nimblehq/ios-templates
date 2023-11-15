@@ -1,0 +1,104 @@
+name: Deploy Build To App Store
+
+# SECRETS needed:
+### SSH_PRIVATE_KEY for Match Repo
+### MATCH_PASS
+### APPSTORE_CONNECT_API_KEY
+### API_KEY_ID
+### ISSUER_ID
+
+on:
+  push:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Run SwiftLint
+      uses: docker://norionomura/swiftlint:0.53.0_swift-5.7
+      with:
+        args: swiftlint --strict
+
+  build:
+    name: Build
+    runs-on: [self-hosted, macOS]
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+    # Set fetch-depth (default: 1) to get whole tree
+      with:
+        fetch-depth: 0
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Setup ENV file
+      env:
+        ENV: ${{ secrets.ENV }}
+      run: |
+        touch .env
+        echo $ENV | base64 --decode > .env
+
+    - name: Bundle install
+      run: bundle install
+      
+    - name: Run Arkana
+      run: bundle exec arkana
+
+    - name: Cache Pods
+      uses: actions/cache@v3
+      id: cocoapodCache
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Install Pods Dependencies
+      run: bundle exec pod install
+      shell: bash
+
+    - name: Build and Test
+      run: bundle exec fastlane buildAndTest
+
+    - name: Match AppStore
+      run: bundle exec fastlane syncAppStoreCodeSigning
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+    - name: Build App and Distribute to AppStore
+      run: bundle exec fastlane buildAndUploadToAppStore
+      env:
+        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        BUMP_APP_STORE_BUILD_NUMBER: "true"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
+        path: |
+          ${{ env.IPA_OUTPUT_PATH }}
+          ${{ env.DSYM_OUTPUT_PATH }}
+      env:
+        TAG_TYPE: App_Store
+
+    - name: Remove keychain
+      if: ${{ always() }}
+      run: bundle exec fastlane removeKeychain
+      continue-on-error: true

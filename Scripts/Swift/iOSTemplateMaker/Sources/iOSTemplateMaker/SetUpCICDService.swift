@@ -33,13 +33,29 @@ struct SetUpCICDService {
 
         switch service {
         case .github:
+            var runnerType: String?
+            while runnerType == nil {
+                print("Which workflow runner do you want to use? [(m)acos-latest/(s)elf-hosted]: ")
+                runnerType = readLine()?.lowercased()
+                if runnerType != "m" && runnerType != "s" {
+                    print("Invalid input. Please enter 'm' for macOS-latest or 's' for self-hosted.")
+                    runnerType = nil
+                }
+            }
             print("Setting template for Github Actions")
             fileManager.removeItems(in: "bitrise.yml")
             fileManager.removeItems(in: "codemagic.yaml")
             fileManager.removeItems(in: ".github/workflows")
             fileManager.createDirectory(path: ".github/workflows")
-            fileManager.moveFiles(in: ".github/project_workflows", to: ".github/workflows")
-            fileManager.removeItems(in: ".github/project_workflows")
+            if runnerType == "s" {
+                fileManager.moveFiles(in: ".github/self_hosted_project_workflows", to: ".github/workflows")
+                fileManager.removeItems(in: ".github/project_workflows")
+                fileManager.removeItems(in: ".github/self_hosted_project_workflows")
+            } else {
+                fileManager.moveFiles(in: ".github/project_workflows", to: ".github/workflows")
+                fileManager.removeItems(in: ".github/project_workflows")
+                fileManager.removeItems(in: ".github/self_hosted_project_workflows")
+            }
         case .bitrise:
             print("Setting template for Bitrise")
             fileManager.removeItems(in: "codemagic.yaml")
