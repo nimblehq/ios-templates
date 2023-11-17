@@ -7,108 +7,109 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 ```
 .
 ├── README.md
-├── {ProjectName}
-│   ├── Configurations
-│   │   ├── Plists
-│   │   └── XCConfigs
-│   ├── Resources
-│   │   ├── Assets
-│   │   ├── Languages
-│   │   └── LaunchScreen
-│   └── Sources
-│       ├── Application
-│       │   └── Varies by UI Interface
-│       ├── Constants
-│       │   ├── Constants+API.swift
-│       │   └── Constants.swift
-│       ├── Data
-│       │   ├── Keychain
-│       │   │   ├── Keychain.swift
-│       │   │   ├── KeychainKey.swift
-│       │   │   └── Models
-│       │   ├── Models
-│       │   ├── NetworkAPI
-│       │   │   ├── AuthenticatedNetworkAPI.swift
-│       │   │   ├── NetworkAPI.swift
-│       │   │   ├── Core
-│       │   │   ├── Interceptors
-│       │   │   ├── Models
-│       │   │   └── RequestConfigurations
-│       │   └── Repositories
-│       │       ├── RepositoryProvider.swift
-│       │       ├── Authentication
-│       │       └── User
-│       ├── Domain
-│       │   ├── Entities
-│       │   │   ├── User.swift
-│       │   │   └── Token.swift
-│       │   ├── Interfaces
-│       │   │   └── Repositories
-│       │   └── UseCases
-│       │       ├── UseCaseProvider.swift
-│       │       ├── Authentication
-│       │       └── User
-│       ├── Presentation
-│       │   └── Varies by UI Interface
-│       └── Supports
-│           ├── Builder
-│           │   └── Builder.swift
-│           ├── Extensions
-│           │   ├── Foundation
-│           │   └── UIKit
-│           └── Helpers
-│               ├── Typealias
-│               └── UIKit
-├── {ProjectName}Tests
-│   ├── Configurations
-│   │   └── Plists
-│   ├── Resources
-│   └── Sources
-│       ├── Dummy
-│       │   ├── Data
-│       │   │   └── Models
-│       │   ├── Domain
-│       │   │   └── Entities
-│       │   └── Modules
-│       │       └── Home
-│       ├── Mocks
-│       │   ├── NetworkAPIMock.swift
-│       │   └── Sourcery
-│       │       ├── AutoMockable.generated.swift
-│       │       └── HomeViewModelProtocolMock+Equatable.swift
-│       ├── Specs
-│       │   ├── Data
-│       │   │   └── Datasources
-│       │   │   └── Repositories
-│       │   ├── Domain
-│       │   │   └── UseCases
-│       │   ├── Presentation
-│       │   │   ├── Modules
-│       │   │   └── Navigator
-│       │   └── Supports
-│       │       └── Extensions
-│       └── Utilities
-│           ├── Data+Decode.swift
-│           ├── String+Data.swift
-│           └── TestError.swift
-└── {ProjectName}KIFUITests
-    ├── Configurations
-    │   └── Plists
-    └── Sources
-        ├── AccessibilityIdentifiers
-        │   ├── Login
-        │   └── Home
-        ├── Flows
-        │   ├── Login
-        │   └── Home
-        ├── Screens
-        │   ├── Login
-        │   └── Home
-        ├── Specs
-        │   ├── Login
-        │   └── Home
-        └── Utilities
-            └── KIF+Swift.swift
+├── Modules/
+│   ├── Data/
+│   │   ├── Sources/
+│   │   │   ├── NetworkAPI/
+│   │   │   │   ├── Interceptors
+│   │   │   │   ├── Models
+│   │   │   │   ├── RequestConfigurations
+│   │   │   │   ├── Core/
+│   │   │   │   │   ├── NetworkAPIError.swift
+│   │   │   │   │   ├── NetworkAPIProtocol.swift
+│   │   │   │   │   └── RequestConfiguration.swift
+│   │   │   │   └── NetworkAPI.swift
+│   │   │   └── Repositories
+│   │   └── Tests/
+│   │       ├── Resources
+│   │       └── Sources/
+│   │           ├── Dummies/
+│   │           │   ├── DummyNetworkModel.swift
+│   │           │   └── DummyRequestConfiguration.swift
+│   │           ├── Specs/
+│   │           │   └── NetworkAPISpec.swift
+│   │           └── Utilities/
+│   │               └── NetworkStubber.swift
+│   └── Domain/
+│       ├── Sources/
+│       │   ├── Entities
+│       │   ├── Interfaces
+│       │   └── UseCases/
+│       │       └── UseCaseFactoryProtocol.swift
+│       └── Tests/
+│           ├── Resources
+│           └── Sources/
+│               └── DummySpec.swift
+├── {ProjectName}/
+│   ├── Configurations/
+│   │   ├── Plists
+│   │   └── XCConfigs
+│   ├── Resources/
+│   │   ├── Assets
+│   │   ├── Languages
+│   │   └── LaunchScreen
+│   └── Sources/
+│       ├── Application/
+│       │   └── Varies by UI Interface
+│       ├── Constants/
+│       │   ├── Constants+API.swift
+│       │   └── Constants.swift
+│       ├── Presentations/
+│       │   └── Varies by UI Interaface
+│       └── Supports/
+│           ├── Builder/
+│           │   └── Builder.swift
+│           ├── Extensions/
+│           │   ├── Foundation
+│           │   └── UIKit
+│           └── Helpers/
+│               ├── Typealias
+│               └── UIKit
+├── {ProjectName}Tests/
+│   ├── Configurations/
+│   │   └── Plists
+│   ├── Resources
+│   └── Sources/
+│       ├── Dummy/
+│       │   ├── Data/
+│       │   │   └── Models
+│       │   ├── Domain/
+│       │   │   └── Entities
+│       │   └── Modules/
+│       │       └── Home
+│       ├── Mocks/
+│       │   ├── NetworkAPIMock.swift
+│       │   └── Sourcery/
+│       │       ├── AutoMockable.generated.swift
+│       │       └── HomeViewModelProtocolMock+Equatable.swift
+│       ├── Specs/
+│       │   ├── Presentation/
+│       │   │   ├── Modules
+│       │   │   └── Navigator
+│       │   └── Supports/
+│       │       └── Extensions
+│       └── Utilities/
+│           ├── Data+Decode.swift
+│           ├── String+Data.swift
+│           └── TestError.swift
+└── {ProjectName}KIFUITests/
+    ├── Configurations/
+    │   └── Plists
+    └── Sources/
+        ├── AccessibilityIdentifiers/
+        │   ├── Login
+        │   └── Home
+        ├── Flows/
+        │   ├── Login
+        │   └── Home
+        ├── Screens/
+        │   ├── Login
+        │   └── Home
+        ├── Specs/
+        │   ├── Login
+        │   └── Home
+        └── Utilities/
+            └── KIF+Swift.swift
 ```
 
 ### SwiftUI
@@ -172,6 +173,17 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 - What is the main feature of the project?
 - How to set up the project?
 - What are project configurations?
+
+## Modules
+
+This folder contains modules which represent targets in the project. Currently, it contains `Data` and `Domain` folder.
+
+- Data: This folder contains two subfolders
+  - Sources: This folder contains only `.swift` files - the main source code of the module.
+  - Tests: This folder contains the unit testing.
+- Domain: This folder contains source files and Unit Test for the `Domain` target.
+  - Sources: This folder contains only `.swift` files - the main source code of the module.
+  - Tests: This folder contains the unit testing.
 
 ## {ProjectName}
 
