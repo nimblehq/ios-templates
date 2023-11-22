@@ -39,10 +39,7 @@ public enum Module: CaseIterable {
     }
 
     public var resources: ProjectDescription.ResourceFileElements {
-        switch self {
-        case .data, .domain:
-            return []
-        }
+        []
     }
 
     public var testsSources: ProjectDescription.SourceFilesList {

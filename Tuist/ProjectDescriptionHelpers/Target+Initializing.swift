@@ -6,7 +6,7 @@ extension Target {
         var targets: [Target] = []
 
         let frameworks = Module.allCases
-            .flatMap { Target.makeFramework(module: $0, bundleId: bundleId) }
+            .flatMap { Target.frameworkTargets(module: $0, bundleId: bundleId) }
 
         targets.append(contentsOf: frameworks)
 
@@ -95,7 +95,7 @@ extension Target {
 
 extension Target {
 
-    fileprivate static func makeFramework(module: Module, bundleId: String) -> [Target] {
+    fileprivate static func frameworkTargets(module: Module, bundleId: String) -> [Target] {
         let framework = Target(
             name: module.name,
             platform: .iOS,
