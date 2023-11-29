@@ -119,14 +119,14 @@ extension Constant {
             let outputDirectoryURL = URL(fileURLWithPath: Constant.outputPath)
             return outputDirectoryURL.appendingPathComponent(productName + ".app" + Constant.dSYMSuffix).relativePath
         }
-        
+
         var appleUsername: String {
             switch self {
             case .staging: return Constant.appleStagingUserName
             case .production: return Constant.appleProductionUserName
             }
         }
-        
+
         var appleTeamId: String {
             switch self {
             case .staging: return Constant.appleStagingTeamId
@@ -142,7 +142,7 @@ extension Constant {
         case appStore = "app-store"
 
         var value: String { return rawValue }
-        
+
         var match: String {
             switch self {
             case .development: return "development"
@@ -150,21 +150,21 @@ extension Constant {
             case .appStore: return "appstore"
             }
         }
-        
+
         var configuration: String {
             switch self {
             case .development: return "Debug"
             case .adHoc, .appStore: return "Release"
             }
         }
-        
+
         var codeSignIdentity: String {
             switch self {
             case .development: return "iPhone Developer"
-            case .adHoc, . appStore: return "iPhone Distribution"
+            case .adHoc, .appStore: return "iPhone Distribution"
             }
         }
-        
+
         var method: String {
             switch self {
             case .development: return "Development"

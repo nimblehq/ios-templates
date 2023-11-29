@@ -11,6 +11,7 @@ final class NetworkAPISpec: AsyncSpec {
 
     override class func spec() {
 
+        // swiftlint:disable closure_body_length
         describe("a NetworkAPI") {
 
             var networkAPI: NetworkAPI!
@@ -60,5 +61,6 @@ final class NetworkAPISpec: AsyncSpec {
                 }
             }
         }
+        // swiftlint:enable closure_body_length
     }
 }

@@ -1,5 +1,5 @@
 # file options
---exclude Pods, Generated, **/*.generated.swift, fastlane/swift
+--exclude Pods, Generated, **/*.generated.swift, fastlane/swift, ArkanaKeys
 
 # rules
 --disable fileHeader
