@@ -27,7 +27,7 @@ enum Match {
                 type: type.match,
                 readonly: .userDefined(!isForce),
                 appIdentifier: [environment.bundleId],
-                apiKey: .userDefined(Constant.apiKey),
+                apiKey: isForce ? .userDefined(Constant.apiKey) : .nil,
                 username: .userDefined(environment.appleUsername),
                 teamId: .userDefined(environment.appleTeamId),
                 gitUrl: Constant.matchURL,
