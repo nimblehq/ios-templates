@@ -172,6 +172,7 @@ class Fastfile: LaneFile {
         registerDevice(
             name: deviceName,
             udid: deviceUDID,
+            apiKey: .userDefined(Constant.apiKey),
             teamId: .userDefined(Constant.appleStagingTeamId)
         )
 
