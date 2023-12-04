@@ -35,7 +35,7 @@ public enum Module: CaseIterable {
     }
 
     public var sources: ProjectDescription.SourceFilesList {
-        return ["\(frameworkPath)/\(Constant.sourcesPath)/**"]
+        ["\(frameworkPath)/\(Constant.sourcesPath)/**"]
     }
 
     public var resources: ProjectDescription.ResourceFileElements {

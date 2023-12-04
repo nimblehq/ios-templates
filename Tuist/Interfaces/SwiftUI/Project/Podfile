@@ -61,7 +61,6 @@ target 'Data' do
 end
 
 target 'Domain' do
-  # Pods for Domain
   target 'DomainTests' do
     testing_pods
   end

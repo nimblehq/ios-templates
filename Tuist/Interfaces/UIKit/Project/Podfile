@@ -51,7 +51,6 @@ end
 
 target 'Data' do
   data_dependencies
-
   target 'DataTests' do
     data_dependencies
     testing_pods
@@ -59,7 +58,6 @@ target 'Data' do
 end
 
 target 'Domain' do
-  # Pods for Domain
   target 'DomainTests' do
     testing_pods
   end
