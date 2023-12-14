@@ -70,17 +70,21 @@ struct SetUpCICDService {
                 fileManager.moveFiles(in: ".github/self_hosted_project_workflows", to: ".github/workflows")
                 fileManager.removeItems(in: ".github/project_workflows")
                 fileManager.removeItems(in: ".github/self_hosted_project_workflows")
-            case .later, .none:
+            case .later:
                 print("You can manually setup the runner later.")
             }
         case .bitrise:
             print("Setting template for Bitrise")
             fileManager.removeItems(in: "codemagic.yaml")
             fileManager.removeItems(in: ".github/workflows")
+            fileManager.removeItems(in: ".github/project_workflows")
+            fileManager.removeItems(in: ".github/self_hosted_project_workflows")
         case .codemagic:
             print("Setting template for CodeMagic")
             fileManager.removeItems(in: "bitrise.yml")
             fileManager.removeItems(in: ".github/workflows")
+            fileManager.removeItems(in: ".github/project_workflows")
+            fileManager.removeItems(in: ".github/self_hosted_project_workflows")
         case .later, .none:
             print("You can manually setup the template later.")
         }
