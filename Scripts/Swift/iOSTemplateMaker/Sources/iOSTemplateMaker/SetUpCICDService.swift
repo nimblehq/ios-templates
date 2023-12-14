@@ -70,7 +70,7 @@ struct SetUpCICDService {
                 fileManager.moveFiles(in: ".github/self_hosted_project_workflows", to: ".github/workflows")
                 fileManager.removeItems(in: ".github/project_workflows")
                 fileManager.removeItems(in: ".github/self_hosted_project_workflows")
-            case .later:
+            case .later, .none:
                 print("You can manually setup the runner later.")
             }
         case .bitrise:
