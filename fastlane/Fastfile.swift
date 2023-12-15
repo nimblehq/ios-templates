@@ -19,7 +19,7 @@ class Fastfile: LaneFile {
             environment: .staging
         )
     }
-    
+
     func syncDevelopmentProductionCodeSigningLane() {
         desc("Sync the Development match signing for the Production build")
         Match.syncCodeSigning(
@@ -51,7 +51,7 @@ class Fastfile: LaneFile {
             environment: .production
         )
     }
-    
+
     func removeKeychainLane() {
         desc("Delete keychain")
         Keychain.remove()

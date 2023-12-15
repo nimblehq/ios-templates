@@ -36,7 +36,7 @@ enum Match {
         }
         updateCodeSigning(type: type, environment: environment)
     }
-    
+
     static func updateCodeSigning(type: Constant.BuildType, environment: Constant.Environment) {
         // Update Code signing from automatic to manual
         updateCodeSigningSettings(
@@ -44,16 +44,16 @@ enum Match {
             useAutomaticSigning: .userDefined(false),
             teamId: .userDefined(environment.appleTeamId),
             targets: .userDefined([Constant.projectName]),
-            buildConfigurations: .userDefined([Self.createBuildConfiguration(type: type, environment: environment)]),
+            buildConfigurations: .userDefined([createBuildConfiguration(type: type, environment: environment)]),
             codeSignIdentity: .userDefined(type.codeSignIdentity),
-            profileName: .userDefined(Self.createProfileName(type: type, environment: environment))
+            profileName: .userDefined(createProfileName(type: type, environment: environment))
         )
     }
-    
+
     static func createBuildConfiguration(type: Constant.BuildType, environment: Constant.Environment) -> String {
         "\(type.configuration) \(environment.rawValue)"
     }
-    
+
     static func createProfileName(type: Constant.BuildType, environment: Constant.Environment) -> String {
         "match \(type.method) \(environment.bundleId)"
     }
