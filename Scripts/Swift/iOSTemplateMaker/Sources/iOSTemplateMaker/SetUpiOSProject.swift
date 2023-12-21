@@ -80,6 +80,8 @@ class SetUpIOSProject {
         fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)Tests", to: "\(projectNameNoSpace)Tests")
         fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)KIFUITests", to: "\(projectNameNoSpace)KIFUITests")
         fileManager.rename(file: "\(CONSTANT_PROJECT_NAME)", to: "\(projectNameNoSpace)")
+        fileManager.removeItems(in: "README.md")
+        fileManager.rename(file: "PROJECT_README.md", to: "README.md")
     }
 
     private func createPlaceholderFiles() {
