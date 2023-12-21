@@ -5,7 +5,7 @@
 import Nimble
 import Quick
 
-@testable import {PROJECT_NAME}
+@testable import Data
 
 final class NetworkAPISpec: AsyncSpec {
 

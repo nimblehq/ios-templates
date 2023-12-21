@@ -46,6 +46,26 @@ target '{PROJECT_NAME}' do
   end
 end
 
+def data_dependencies
+  pod 'Alamofire'
+  pod 'JSONAPIMapper', :git => 'https://github.com/nimblehq/JSONMapper', :tag => '1.1.1'
+end
+
+target 'Data' do
+  data_dependencies
+
+  target 'DataTests' do
+    data_dependencies
+    testing_pods
+  end
+end
+
+target 'Domain' do
+  target 'DomainTests' do
+    testing_pods
+  end
+end
+
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|

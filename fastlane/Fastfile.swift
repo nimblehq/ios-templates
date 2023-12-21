@@ -150,10 +150,6 @@ class Fastfile: LaneFile {
         desc("Build and Test project")
         Test.buildAndTest(
             environment: .staging,
-            targets: [
-                Constant.testTarget,
-                Constant.kifUITestTarget
-            ],
             devices: Constant.devices
         )
     }

@@ -75,11 +75,6 @@ enum Constant {
     // MARK: - Device
 
     static let devices = ["iPhone 12 Pro Max"]
-
-    // MARK: - Test
-
-    static let testTarget: String = "\(projectName)Tests"
-    static let kifUITestTarget: String = "\(projectName)KIFUITests"
 }
 
 extension Constant {
