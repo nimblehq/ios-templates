@@ -21,6 +21,24 @@ struct SetUpCICDService {
             }
         }
     }
+    
+    enum GithubRunnerType {
+
+        case macOSLatest, selfHosted, later
+
+        init?(_ name: String) {
+            switch name.lowercased() {
+            case "m", "macOS":
+                self = .macOSLatest
+            case "s", "self-hosted":
+                self = .selfHosted
+            case "l", "later":
+                self = .later
+            default:
+                return nil
+            }
+        }
+    }
 
     private let fileManager = FileManager.default
 
@@ -33,21 +51,40 @@ struct SetUpCICDService {
 
         switch service {
         case .github:
+            var runnerType: GithubRunnerType?
+            while runnerType == nil {
+                print("Which workflow runner do you want to use? [(m)acos-latest/(s)elf-hosted/(l)ater]: ")
+                runnerType = GithubRunnerType(readLine().string)
+            }
             print("Setting template for Github Actions")
             fileManager.removeItems(in: "bitrise.yml")
             fileManager.removeItems(in: "codemagic.yaml")
             fileManager.removeItems(in: ".github/workflows")
             fileManager.createDirectory(path: ".github/workflows")
-            fileManager.moveFiles(in: ".github/project_workflows", to: ".github/workflows")
-            fileManager.removeItems(in: ".github/project_workflows")
+            switch runnerType {
+            case .macOSLatest:
+                fileManager.moveFiles(in: ".github/project_workflows", to: ".github/workflows")
+                fileManager.removeItems(in: ".github/project_workflows")
+                fileManager.removeItems(in: ".github/self_hosted_project_workflows")
+            case .selfHosted:
+                fileManager.moveFiles(in: ".github/self_hosted_project_workflows", to: ".github/workflows")
+                fileManager.removeItems(in: ".github/project_workflows")
+                fileManager.removeItems(in: ".github/self_hosted_project_workflows")
+            case .later, .none:
+                print("You can manually setup the runner later.")
+            }
         case .bitrise:
             print("Setting template for Bitrise")
             fileManager.removeItems(in: "codemagic.yaml")
             fileManager.removeItems(in: ".github/workflows")
+            fileManager.removeItems(in: ".github/project_workflows")
+            fileManager.removeItems(in: ".github/self_hosted_project_workflows")
         case .codemagic:
             print("Setting template for CodeMagic")
             fileManager.removeItems(in: "bitrise.yml")
             fileManager.removeItems(in: ".github/workflows")
+            fileManager.removeItems(in: ".github/project_workflows")
+            fileManager.removeItems(in: ".github/self_hosted_project_workflows")
         case .later, .none:
             print("You can manually setup the template later.")
         }
