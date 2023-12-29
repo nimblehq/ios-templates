@@ -7,34 +7,44 @@ struct SetUpCICDService {
         case github, bitrise, codemagic, later
 
         init?(_ name: String) {
-            switch name.lowercased() {
-            case "g", "github":
-                self = .github
-            case "b", "bitrise":
-                self = .bitrise
-            case "c", "codemagic":
-                self = .codemagic
-            case "l", "later":
-                self = .later
-            default: 
+            let name = name.lowercased()
+            let mappings: [String: Self] = [
+                "g": .github,
+                "github": .github,
+                "b": .bitrise,
+                "bitrise": .bitrise,
+                "c": .codemagic,
+                "codemagic": .codemagic,
+                "l": .later,
+                "later": .later
+            ]
+
+            if let matchedCase = mappings[name] {
+                self = matchedCase
+            } else {
                 return nil
             }
         }
     }
-    
+
     enum GithubRunnerType {
 
         case macOSLatest, selfHosted, later
 
         init?(_ name: String) {
-            switch name.lowercased() {
-            case "m", "macOS":
-                self = .macOSLatest
-            case "s", "self-hosted":
-                self = .selfHosted
-            case "l", "later":
-                self = .later
-            default:
+            let mappings: [String: Self] = [
+                "m": .macOSLatest,
+                "macos": .macOSLatest,
+                "s": .selfHosted,
+                "self-hosted": .selfHosted,
+                "l": .later,
+                "later": .later
+            ]
+
+            let name = name.lowercased()
+            if let matchedCase = mappings[name] {
+                self = matchedCase
+            } else {
                 return nil
             }
         }
@@ -63,10 +73,12 @@ struct SetUpCICDService {
             fileManager.createDirectory(path: ".github/workflows")
             switch runnerType {
             case .macOSLatest:
+                print("Configured to run on the latest macOS.")
                 fileManager.moveFiles(in: ".github/project_workflows", to: ".github/workflows")
                 fileManager.removeItems(in: ".github/project_workflows")
                 fileManager.removeItems(in: ".github/self_hosted_project_workflows")
             case .selfHosted:
+                print("Configured to run on self-hosted.")
                 fileManager.moveFiles(in: ".github/self_hosted_project_workflows", to: ".github/workflows")
                 fileManager.removeItems(in: ".github/project_workflows")
                 fileManager.removeItems(in: ".github/self_hosted_project_workflows")
