@@ -7,6 +7,7 @@ workflows:
           - fastlane
         xcode: latest
         cocoapods: default
+        firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
       cache:
         cache_paths:
           - $HOME/Library/Caches/CocoaPods
@@ -71,6 +72,7 @@ workflows:
           - fastlane
         xcode: latest
         cocoapods: default
+        firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
       cache:
         cache_paths:
           - $HOME/Library/Caches/CocoaPods

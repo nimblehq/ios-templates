@@ -4,7 +4,7 @@
 
 import Alamofire
 
-@testable import {PROJECT_NAME}
+@testable import Data
 
 struct DummyRequestConfiguration: RequestConfiguration {
 
@@ -24,6 +24,6 @@ extension DummyRequestConfiguration: RequestConfigurationStubable {
     }
 
     var path: String {
-        (try? url.asURL().path).string
+        (try? url.asURL().path) ?? ""
     }
 }

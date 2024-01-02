@@ -1,4 +1,4 @@
-name: Deploy Production Build To Firebase
+name: Deploy Staging Build To Firebase
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
@@ -7,7 +7,7 @@ name: Deploy Production Build To Firebase
 
 on:
   push:
-    branches: [ release/** ]
+    branches: [ develop ]
   workflow_dispatch:
 
 concurrency:
@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Lint:
-    name: lint
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -31,7 +31,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: macOS-latest
+    runs-on: [self-hosted, macOS]
     steps:
     - uses: actions/checkout@v3
     # Set fetch-depth (default: 1) to get whole tree
@@ -42,6 +42,11 @@ jobs:
       uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Install Firebase-Tools
+      run: |
+        yarn global add firebase-tools
+        echo "$(yarn global bin)" >> $GITHUB_PATH
 
     - name: Setup ENV file
       env:
@@ -58,13 +63,14 @@ jobs:
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
+      # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
       
     - name: Run Arkana
       run: bundle exec arkana
 
     - name: Cache Pods
-      uses: actions/cache@v3
+      uses: actions/cache@v2
       id: cocoapodCache
       with:
         path: Pods
@@ -80,12 +86,12 @@ jobs:
       run: bundle exec fastlane buildAndTest
 
     - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdHocProductionCodeSigning
+      run: bundle exec fastlane syncAdHocStagingCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build Production App and Distribute to Firebase
-      run: bundle exec fastlane buildProductionAndUploadToFirebase
+    - name: Build App and Distribute to Firebase
+      run: bundle exec fastlane buildStagingAndUploadToFirebase
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
@@ -97,7 +103,7 @@ jobs:
           ${{ env.IPA_OUTPUT_PATH }}
           ${{ env.DSYM_OUTPUT_PATH }}
       env:
-        TAG_TYPE: Production_Firebase
+        TAG_TYPE: Staging_Firebase
 
     - name: Remove keychain
       if: ${{ always() }}

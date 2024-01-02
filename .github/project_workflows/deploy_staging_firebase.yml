@@ -3,7 +3,7 @@ name: Deploy Staging Build To Firebase
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
-### FIREBASE_TOKEN
+### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
 
 on:
   push:
@@ -25,9 +25,9 @@ jobs:
         fetch-depth: 0
 
     - name: Run SwiftLint
-      uses: norio-nomura/action-swiftlint@3.1.0
+      uses: docker://norionomura/swiftlint:0.53.0_swift-5.7
       with:
-        args: --strict
+        args: swiftlint --strict
 
   build:
     name: Build
@@ -54,6 +54,13 @@ jobs:
       run: |
         touch .env
         echo $ENV | base64 --decode > .env
+
+    - name: Read Google Service Account
+      id: firebase_service_account
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'firebase_service_account.json'
+        encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
       # if: steps.bundleCache.outputs.cache-hit != 'true'
@@ -86,7 +93,7 @@ jobs:
     - name: Build App and Distribute to Firebase
       run: bundle exec fastlane buildStagingAndUploadToFirebase
       env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3

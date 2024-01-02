@@ -1,0 +1,64 @@
+name: Automatic pull request review
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  review_pull_request:
+    name: Pull request review by Danger
+    runs-on: [self-hosted, macOS]
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - uses: actions/cache@v3
+      id: bunlderCache
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    - name: Setup ENV file
+      env:
+        ENV: ${{ secrets.ENV }}
+      run: |
+        touch .env
+        echo $ENV | base64 --decode > .env
+
+    - name: Bundle install
+      run: bundle install --path vendor/bundle
+      
+    - name: Run Arkana
+      run: bundle exec arkana
+
+    - name: Cache Pods
+      uses: actions/cache@v3
+      id: cocoapodCache
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
+    - name: Install Pods Dependencies
+      run: bundle exec pod install
+
+    - name: Build and Test
+      run: bundle exec fastlane buildAndTest
+      env:
+        CI: true
+
+    - name: Clean up previous code coverage report
+      run: bundle exec fastlane cleanUpOutput
+
+    - name: Review pull request by Danger
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: bundle exec danger

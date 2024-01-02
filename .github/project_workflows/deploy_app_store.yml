@@ -27,9 +27,9 @@ jobs:
         fetch-depth: 0
 
     - name: Run SwiftLint
-      uses: norio-nomura/action-swiftlint@3.1.0
+      uses: docker://norionomura/swiftlint:0.53.0_swift-5.7
       with:
-        args: --strict
+        args: swiftlint --strict
 
   build:
     name: Build

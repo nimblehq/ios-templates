@@ -19,7 +19,7 @@ class Fastfile: LaneFile {
             environment: .staging
         )
     }
-    
+
     func syncDevelopmentProductionCodeSigningLane() {
         desc("Sync the Development match signing for the Production build")
         Match.syncCodeSigning(
@@ -51,7 +51,7 @@ class Fastfile: LaneFile {
             environment: .production
         )
     }
-    
+
     func removeKeychainLane() {
         desc("Delete keychain")
         Keychain.remove()
@@ -150,10 +150,6 @@ class Fastfile: LaneFile {
         desc("Build and Test project")
         Test.buildAndTest(
             environment: .staging,
-            targets: [
-                Constant.testTarget,
-                Constant.kifUITestTarget
-            ],
             devices: Constant.devices
         )
     }
@@ -172,6 +168,7 @@ class Fastfile: LaneFile {
         registerDevice(
             name: deviceName,
             udid: deviceUDID,
+            apiKey: .userDefined(Constant.apiKey),
             teamId: .userDefined(Constant.appleStagingTeamId)
         )
 

@@ -6,6 +6,8 @@ let project = Project.project(name: "{PROJECT_NAME}", bundleId: "${PRODUCT_BUNDL
 extension Project {
 
     static func project(name: String, bundleId: String) -> Project {
+        let targets = Target.makeTargets(name: name, bundleId: bundleId)
+
         return Project(
             name: name,
             organizationName: "Nimble",
@@ -16,11 +18,7 @@ extension Project {
             settings: .settings(
                 configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) }
             ),
-            targets: [
-                .mainTarget(name: name, bundleId: bundleId),
-                .testsTarget(name: name, bundleId: bundleId),
-                .kifUITestsTarget(name: name, bundleId: bundleId),
-            ],
+            targets: targets,
             schemes: [
                 .productionScheme(name: name),
                 .stagingScheme(name: name),

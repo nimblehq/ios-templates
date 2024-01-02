@@ -10,13 +10,13 @@ enum Test {
 
     static func buildAndTest(
         environment: Constant.Environment,
-        targets: [String],
+        onlyTesting: [String] = [],
         devices: [String]
     ) {
         scan(
             scheme: .userDefined(environment.scheme),
             devices: .userDefined(devices),
-            onlyTesting: targets,
+            onlyTesting: onlyTesting,
             codeCoverage: .userDefined(true),
             outputDirectory: Constant.testOutputDirectoryPath,
             xcodebuildFormatter: "Pods/xcbeautify/xcbeautify",

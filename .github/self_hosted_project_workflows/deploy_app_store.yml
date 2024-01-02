@@ -1,13 +1,15 @@
-name: Deploy Production Build To Firebase
+name: Deploy Build To App Store
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
-### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
+### APPSTORE_CONNECT_API_KEY
+### API_KEY_ID
+### ISSUER_ID
 
 on:
   push:
-    branches: [ release/** ]
+    branches: [ master, main ]
   workflow_dispatch:
 
 concurrency:
@@ -15,8 +17,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  Lint:
-    name: lint
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -31,9 +33,10 @@ jobs:
 
   build:
     name: Build
-    runs-on: macOS-latest
+    runs-on: [self-hosted, macOS]
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout Repo
+      uses: actions/checkout@v3
     # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
@@ -49,13 +52,6 @@ jobs:
       run: |
         touch .env
         echo $ENV | base64 --decode > .env
-
-    - name: Read Google Service Account
-      id: firebase_service_account
-      uses: timheuer/base64-to-file@v1.2
-      with:
-        fileName: 'firebase_service_account.json'
-        encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
       run: bundle install
@@ -79,15 +75,18 @@ jobs:
     - name: Build and Test
       run: bundle exec fastlane buildAndTest
 
-    - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdHocProductionCodeSigning
+    - name: Match AppStore
+      run: bundle exec fastlane syncAppStoreCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build Production App and Distribute to Firebase
-      run: bundle exec fastlane buildProductionAndUploadToFirebase
+    - name: Build App and Distribute to AppStore
+      run: bundle exec fastlane buildAndUploadToAppStore
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
+        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        BUMP_APP_STORE_BUILD_NUMBER: "true"
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
@@ -97,7 +96,7 @@ jobs:
           ${{ env.IPA_OUTPUT_PATH }}
           ${{ env.DSYM_OUTPUT_PATH }}
       env:
-        TAG_TYPE: Production_Firebase
+        TAG_TYPE: App_Store
 
     - name: Remove keychain
       if: ${{ always() }}

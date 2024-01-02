@@ -53,7 +53,7 @@ Make sure the following secrets are set up.
 |SSH_PRIVATE_KEY         |SSH key connected to a user with access to the match repo for check out the match repo.                                             |-   |✅              |✅                      |✅                                  |
 |MATCH_PASS              |Fastlane Match Passphrase for decrypting a match repository.                                                                        |-   |✅              |✅                      |✅                                  |
 |APPSTORE_CONNECT_API_KEY|App Store Connect API https://docs.fastlane.tools/actions/app_store_connect_api_key/ for uploading build to TestFlight or App Store. Should be `base64` encoded.|-   |-              |-                      |✅                                  |
-|FIREBASE_TOKEN          |Firebase token https://firebase.google.com/docs/cli#cli-ci-systems for uploading build to Firebase Distributions and Analytics.     |-   |✅              |✅                      |✅ For uploading dSYM to Crashlytics|
+|FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64|Google Service Firebase Account https://firebase.google.com/docs/app-distribution/ios/distribute-fastlane#service-acc-fastlane for uploading build to Firebase Distributions and Analytics. Should be `base64` encoded.|-   |✅              |✅                      |✅ For uploading dSYM to Crashlytics|
 
 ## Installation
 

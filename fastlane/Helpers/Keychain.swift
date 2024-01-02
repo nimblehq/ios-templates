@@ -7,7 +7,7 @@
 //
 
 import Foundation
-	
+
 enum Keychain {
 
     static func create() {
@@ -16,10 +16,10 @@ enum Keychain {
             password: Secret.keychainPassword,
             defaultKeychain: .userDefined(true),
             unlock: .userDefined(true),
-            timeout: 3600
+            timeout: 115_200
         )
     }
-    
+
     static func remove() {
         deleteKeychain(
             name: .userDefined(Constant.keychainName)

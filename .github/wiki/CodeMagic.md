@@ -33,7 +33,7 @@ Out of the box, the CodeMagic Template has the following workflows and steps:
 | MATCH_PASSWORD              | The password is used to encrypt/decrypt the Match repository to store the distribution certificates and provisioning profiles. |
 | MATCH_SSH_KEY               | The SSH private key is used for cloning the Match repository that contains your distribution certificates and provisioning. |
 | KEYCHAIN_PASSWORD           | The password to access the keychain.                         |
-| FIREBASE_CLI_TOKEN          | [Firebase token](https://firebase.google.com/docs/cli#cli-ci-systems) for uploading build to Firebase Distributions and Analytics. |
+| FIREBASE_SERVICE_ACCOUNT    | [Google Service Firebase Account](https://firebase.google.com/docs/app-distribution/ios/distribute-fastlane#service-acc-fastlane) for uploading build to Firebase Distributions and Analytics. |
 | APPSTORE_CONNECT_API_KEY    | [App Store Connect API](https://docs.fastlane.tools/actions/app_store_connect_api_key/) for uploading build to TestFlight or App Store. It should be `base64` encoded. |
 | API_KEY_ID                  | The key identifier of your App Store Connect API key.        |
 | ISSUER_ID                   | The issuer of your App Store Connect API key.                |
