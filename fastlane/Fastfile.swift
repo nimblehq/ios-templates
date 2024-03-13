@@ -176,6 +176,24 @@ class Fastfile: LaneFile {
         Match.syncCodeSigning(type: .adHoc, environment: .staging, isForce: true)
     }
 
+    func addDevicesGenerateProfilesLane() {
+        desc("Add device and regenerate profiles with match")
+
+        guard let data = Secret.devices.data(using: .utf8),
+              let devices = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+            return
+        }
+        registerDevices(
+            devices: .userDefined(devices),
+            apiKey: .userDefined(Constant.apiKey),
+            teamId: .userDefined(Constant.appleStagingTeamId),
+            platform: Secret.platform
+        )
+
+        Match.syncCodeSigning(type: .development, environment: .staging, isForce: true)
+        Match.syncCodeSigning(type: .adHoc, environment: .staging, isForce: true)
+    }
+
     // MARK: - Utilities
 
     func cleanUpOutputLane() {
