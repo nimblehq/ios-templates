@@ -18,4 +18,8 @@ enum Secret {
     static let appStoreIssuerIdKey = EnvironmentParser.string(key: "ISSUER_ID")
 
     static let bumpAppStoreBuildNumber = EnvironmentParser.bool(key: "BUMP_APP_STORE_BUILD_NUMBER")
+
+    static let devices = EnvironmentParser.string(key: "DEVICES")
+
+    static let platform = EnvironmentParser.string(key: "PLATFORM")
 }
