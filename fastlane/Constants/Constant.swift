@@ -74,7 +74,7 @@ enum Constant {
 
     // MARK: - Device
 
-    static let devices = ["iPhone 15 Pro Max"]
+    static let devices = ["iPhone 15 Pro"]
 }
 
 extension Constant {
