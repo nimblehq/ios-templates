@@ -39,15 +39,6 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Cache Pods
-      uses: actions/cache@v3
-      id: cocoapodCache
-      with:
-        path: Pods
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pods-
-
     - name: Bundle install
       run: bundle install
 
