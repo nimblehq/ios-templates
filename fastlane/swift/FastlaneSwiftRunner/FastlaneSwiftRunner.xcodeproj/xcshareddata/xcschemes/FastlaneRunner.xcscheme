@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "lane addDevicesGenerateProfilesLane"
+            argument = "lane testLane"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
