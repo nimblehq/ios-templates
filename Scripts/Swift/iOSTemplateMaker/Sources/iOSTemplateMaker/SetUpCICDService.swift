@@ -29,7 +29,7 @@ struct SetUpCICDService {
         var title: String {
             switch self {
             case .github:
-                "Github"
+                "GitHub"
             case .bitrise:
                 "Bitrise"
             case .codemagic:
@@ -47,7 +47,7 @@ struct SetUpCICDService {
         init?(_ name: String) {
             let mappings: [String: Self] = [
                 "m": .macOSLatest,
-                "macos": .macOSLatest,
+                "macos-latest": .macOSLatest,
                 "s": .selfHosted,
                 "self-hosted": .selfHosted,
                 "l": .later,
@@ -65,7 +65,7 @@ struct SetUpCICDService {
         var title: String {
             switch self {
             case .macOSLatest:
-                "macos"
+                "macos-latest"
             case .selfHosted:
                 "self-hosted"
             case .later:

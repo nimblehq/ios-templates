@@ -10,7 +10,6 @@ import ANSITerminal
 
 enum WriteStyle {
 
-    case section
     case success
     case error
     case warning
@@ -18,10 +17,6 @@ enum WriteStyle {
 
 func write(_ text: String, style: WriteStyle) {
     switch style {
-    case .section:
-        writeln("-------------------".green)
-        writeln(text.green)
-        writeln("-------------------".green)
     case .success:
         writeln(text.green)
     case .error:
@@ -105,23 +100,27 @@ private func getWroteLineCount(_ text: String) -> Int {
 private func unexpand(text: String) -> String {
     var result = ""
     var spaceCount = 0
+
+    func appendSpacesAndTabs() {
+        result.append(String(repeating: "\t", count: spaceCount / 8))
+        result.append(String(repeating: " ", count: spaceCount % 8))
+        spaceCount = 0
+    }
+
     for char in text {
         if char == " " {
             spaceCount += 1
         } else {
             if spaceCount > 0 {
-                let tabs = String(repeating: "\t", count: spaceCount / 8)
-                let spaces = String(repeating: " ", count: spaceCount % 8)
-                result += tabs + spaces
-                spaceCount = 0
+                appendSpacesAndTabs()
             }
             result += String(char)
         }
     }
+
     if spaceCount > 0 {
-        let tabs = String(repeating: "\t", count: spaceCount / 8)
-        let spaces = String(repeating: " ", count: spaceCount % 8)
-        result += tabs + spaces
+        appendSpacesAndTabs()
     }
+
     return result
 }
