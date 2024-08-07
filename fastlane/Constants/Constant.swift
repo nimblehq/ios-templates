@@ -28,12 +28,20 @@ enum Constant {
     static let appleProductionTeamId = "<#teamId#>"
     static let keychainName = "{PROJECT_NAME}_keychain"
     static let matchURL = "git@github.com:{organization}/{repo}.git"
-    static let apiKey: [String: Any] = [
-        "key_id" : Secret.appStoreKeyIdKey,
-        "issuer_id": Secret.appStoreIssuerIdKey,
-        "key": Secret.appstoreConnectAPIKey,
-        "in_house": false
-    ]
+    static let apiKey: [String: Any] = {
+        var key = Secret.appstoreConnectAPIKey
+        if let data = Data(base64Encoded: Secret.appstoreConnectAPIKey),
+           let decodedKey = String(data: data, encoding: .utf8) {
+            key = decodedKey
+        }
+
+        return [
+            "key_id" : Secret.appStoreKeyIdKey,
+            "issuer_id": Secret.appStoreIssuerIdKey,
+            "key": key,
+            "in_house": false
+        ]
+    }()
 
     // MARK: - Path
 

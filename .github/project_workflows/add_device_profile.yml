@@ -1,0 +1,58 @@
+name: Test Add device and regenerate profiles with fastlane match
+
+# SECRETS needed:
+### SSH_PRIVATE_KEY for the match Repo
+### MATCH_PASSWORD
+### APPSTORE_CONNECT_API_KEY
+### API_KEY_ID
+### ISSUER_ID
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      devices:
+        description: 'JSON of devices. `{"Luka iPhone 6":"1234567890123456789012345678901234567890","Felix iPad Air 2":"abcdefghijklmnopqrstvuwxyzabcdefghijklmn"}`'
+        required: true
+        type: string
+      platform:
+        description: 'The platform'
+        required: true
+        default: 'ios'
+        type: choice
+        options:
+        - ios
+        - mac
+
+jobs:
+  create_files:
+    name: Create certificates and profiles
+    runs-on: macOS-latest
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Bundle install
+      run: bundle install
+
+    - name: Add device and regenerate profiles with match
+      run: bundle exec fastlane addDevicesGenerateProfiles
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+        DEVICES: ${{ inputs.devices }}
+        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        API_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        PLATFORM: ${{ inputs.platform }}
+
+    - name: Clean up keychain
+      if: ${{ always() }}
+      run: bundle exec fastlane remove_keychain
+      continue-on-error: true
