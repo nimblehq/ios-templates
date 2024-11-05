@@ -1,0 +1,93 @@
+name: Create Release Pull Request
+
+on:
+  workflow_dispatch:
+    inputs:
+      nextVersion:
+        description: "Next version (eg. 1.0.0)"
+        required: true
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  create_release_pull_request:
+    name: Create Release Pull Request
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Find HEAD commit
+        id: head
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Build changelog on "main"
+        id: changelog
+        uses: mikepenz/release-changelog-builder-action@v4
+        with:
+          configuration: ".github/workflows/configs/changelog-config.json"
+          # Listing PRs from the last tag to the HEAD commit
+          toTag: ${{ steps.head.outputs.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Prepare variables
+        run: |
+          echo "RELEASE_VERSION=$(grep -oP 'MARKETING_VERSION\s*=\s*[^;]+' Smashburger.xcodeproj/project.pbxproj  | head -n 1 | sed 's/^[^=]*=\s*//' | tr -d ' ')" >> $GITHUB_ENV
+          echo "${{ steps.changelog.outputs.changelog }}" | sed 's/"/\\"/g' > escaped-changelog.txt
+
+      - name: Create Release branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: release/${{ env.RELEASE_VERSION }}
+
+      - name: Create pull request
+        run: gh pr create --draft -B main -H release/${{ env.RELEASE_VERSION }} -t 'Release - ${{ env.RELEASE_VERSION }}' -b "$(cat escaped-changelog.txt)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  create_bump_version_pull_request:
+    name: Create Bump Version Pull Request
+    runs-on: macos-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Create Bump Version branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: chore/bump-version-to-${{ github.event.inputs.nextVersion }}
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: chore/bump-version-to-${{ github.event.inputs.nextVersion }}
+
+      - name: Bump version
+        run: sed -i "" "s/MARKETING_VERSION = .*/MARKETING_VERSION = ${{ github.event.inputs.nextVersion }};/g" Smashburger.xcodeproj/project.pbxproj
+      
+      - name: Set up Git
+        run: |
+          git config --global user.name 'Github Actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "[Chore] Bump version to ${{ github.event.inputs.nextVersion }}"
+          git push origin HEAD
+
+      - name: Create pull request
+        run: |
+          echo -e "## What happened 👀\n\nBump version to ${{ github.event.inputs.nextVersion }}" > body
+          export body=$(cat body) ; gh pr create --draft -B develop -H chore/bump-version-to-${{ github.event.inputs.nextVersion }} -t '[Chore] Bump version to ${{ github.event.inputs.nextVersion }}' -b "$body"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
