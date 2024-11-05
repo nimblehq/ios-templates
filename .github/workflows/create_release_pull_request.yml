@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       nextVersion:
-        description: "Next version (eg. 1.0.0)"
+        description: "Next version (eg. 1.0.0)x"
         required: true
         type: string
+  push:
+    branches: 
+      - feature/557-automate-release-pull-request-creation-process
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -64,15 +67,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: chore/bump-version-to-${{ github.event.inputs.nextVersion }}
+          branch: chore/bump-version-to-1.1.0
 
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: chore/bump-version-to-${{ github.event.inputs.nextVersion }}
+          ref: chore/bump-version-to-1.1.0
 
       - name: Bump version
-        run: sed -i "" "s/MARKETING_VERSION = .*/MARKETING_VERSION = ${{ github.event.inputs.nextVersion }};/g" Smashburger.xcodeproj/project.pbxproj
+        run: sed -i "" "s/MARKETING_VERSION = .*/MARKETING_VERSION = 1.1.0;/g" Smashburger.xcodeproj/project.pbxproj
       
       - name: Set up Git
         run: |
@@ -82,12 +85,12 @@ jobs:
       - name: Commit changes
         run: |
           git add .
-          git commit -m "[Chore] Bump version to ${{ github.event.inputs.nextVersion }}"
+          git commit -m "[Chore] Bump version to 1.1.0"
           git push origin HEAD
 
       - name: Create pull request
         run: |
-          echo -e "## What happened 👀\n\nBump version to ${{ github.event.inputs.nextVersion }}" > body
-          export body=$(cat body) ; gh pr create --draft -B develop -H chore/bump-version-to-${{ github.event.inputs.nextVersion }} -t '[Chore] Bump version to ${{ github.event.inputs.nextVersion }}' -b "$body"
+          echo -e "## What happened 👀\n\nBump version to 1.1.0" > body
+          export body=$(cat body) ; gh pr create --draft -B develop -H chore/bump-version-to-1.1.0 -t '[Chore] Bump version to 1.1.0' -b "$body"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
