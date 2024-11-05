@@ -1,0 +1,127 @@
+name: Create Release Pull Request
+
+on:
+  workflow_dispatch:
+    inputs:
+      nextVersion:
+        description: "Next version (eg. 1.0.0)x"
+        required: true
+        type: string
+  push:
+    branches: 
+      - feature/557-automate-release-pull-request-creation-process
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  create_release_pull_request:
+    name: Create Release Pull Request
+    runs-on: macOS-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Install Firebase-Tools
+        run: |
+          yarn global add firebase-tools
+          echo "$(yarn global bin)" >> $GITHUB_PATH
+
+      - name: Read Google Service Account
+        id: firebase_service_account
+        uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: 'firebase_service_account.json'
+          encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
+
+      - name: Bundle install
+        run: bundle install
+
+      - name: Cache Pods
+        uses: actions/cache@v3
+        id: cocoapodCache
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Start Install Script for Template App
+        run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface UIKit
+      - name: Find HEAD commit
+        id: head
+        run: echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Build changelog on "main"
+        id: changelog
+        uses: mikepenz/release-changelog-builder-action@v4
+        with:
+          configuration: ".github/workflows/configs/changelog-config.json"
+          # Listing PRs from the last tag to the HEAD commit
+          toTag: ${{ steps.head.outputs.sha }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Prepare variables
+        run: |
+          echo "RELEASE_VERSION=$(grep -oP 'MARKETING_VERSION\s*=\s*[^;]+' TemplateApp.xcodeproj/project.pbxproj  | head -n 1 | sed 's/^[^=]*=\s*//' | tr -d ' ')" >> $GITHUB_ENV
+          echo "${{ steps.changelog.outputs.changelog }}" | sed 's/"/\\"/g' > escaped-changelog.txt
+
+      - name: Create Release branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: release/1.0.0
+
+      - name: Create pull request
+        run: gh pr create --draft -B main -H release/1.0.0 -t 'Release - 1.0.0' -b "$(cat escaped-changelog.txt)"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # create_bump_version_pull_request:
+  #   name: Create Bump Version Pull Request
+  #   runs-on: macos-latest
+  #   timeout-minutes: 30
+  #   permissions:
+  #     contents: write
+  #     pull-requests: write
+  #   steps:
+  #     - name: Create Bump Version branch
+  #       uses: peterjgrainger/action-create-branch@v2.2.0
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         branch: chore/bump-version-to-1.1.0
+
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: chore/bump-version-to-1.1.0
+
+  #     - name: Bump version
+  #       run: sed -i "" "s/MARKETING_VERSION = .*/MARKETING_VERSION = 1.1.0;/g" {PROJECT_NAME}.xcodeproj/project.pbxproj
+      
+  #     - name: Set up Git
+  #       run: |
+  #         git config --global user.name 'Github Actions'
+  #         git config --global user.email 'github-actions@users.noreply.github.com'
+
+  #     - name: Commit changes
+  #       run: |
+  #         git add .
+  #         git commit -m "[Chore] Bump version to 1.1.0"
+  #         git push origin HEAD
+
+  #     - name: Create pull request
+  #       run: |
+  #         echo -e "## What happened 👀\n\nBump version to 1.1.0" > body
+  #         export body=$(cat body) ; gh pr create --draft -B develop -H chore/bump-version-to-1.1.0 -t '[Chore] Bump version to 1.1.0' -b "$body"
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
