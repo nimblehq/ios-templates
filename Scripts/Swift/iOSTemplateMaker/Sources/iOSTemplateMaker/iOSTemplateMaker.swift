@@ -6,7 +6,11 @@ struct iOSTemplateMaker: ParsableCommand {
 
     static let configuration: CommandConfiguration = CommandConfiguration(
         abstract: "Set up an iOS Project",
-        subcommands: [Make.self, MakeTestFirebase.self, MakeTestTestFlight.self],
+        subcommands: [
+            Make.self,
+            MakeTestFirebase.self,
+            MakeTestTestFlight.self
+        ],
         defaultSubcommand: Make.self
     )
 }

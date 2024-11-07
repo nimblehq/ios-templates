@@ -2,7 +2,7 @@ import Foundation
 
 struct SetUpInterface {
 
-    enum Interface {
+    enum Interface: Titlable, CaseIterable {
 
         case swiftUI, uiKit
 
@@ -23,27 +23,27 @@ struct SetUpInterface {
                 case .uiKit: return "UIKit"
             }
         }
+
+        var title: String { folderName }
     }
 
     private let fileManager = FileManager.default
 
-    func perform(_ interface: Interface, _ projectName: String) {
+    func perform(_ interface: Interface, _ projectName: String) throws {
         switch interface {
         case .swiftUI:
-            print("=> 🦅 Setting up SwiftUI")
             let swiftUIAppDirectory = "tuist/Interfaces/SwiftUI/Sources/Application"
-            fileManager.rename(
+            try fileManager.rename(
                 file: "\(swiftUIAppDirectory)/App.swift",
                 to: "\(swiftUIAppDirectory)/\(projectName)App.swift"
             )
-        case .uiKit:
-            print("=> 🦉 Setting up UIKit")
+        case .uiKit: break
         }
 
         let folderName = interface.folderName
 
-        fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Project", to: "")
-        fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Sources", to: "\(projectName)/Sources")
-        fileManager.removeItems(in: "tuist/Interfaces")
+        try fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Project", to: "")
+        try fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Sources", to: "\(projectName)/Sources")
+        try fileManager.removeItems(in: "tuist/Interfaces")
     }
 }
