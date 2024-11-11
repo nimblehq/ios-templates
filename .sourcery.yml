@@ -1,0 +1,9 @@
+sources:
+  - TemplateApp/Sources
+templates:
+  - tools/sourcery/templates
+output:
+  TemplateAppTests/Sources/Mocks/Sourcery 
+args:
+  autoMockableTestableImports:
+    - TemplateApp

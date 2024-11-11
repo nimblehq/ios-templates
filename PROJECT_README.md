@@ -1,5 +1,5 @@
 <p align="center">
-  <strong>{PROJECT_NAME}</strong>
+  <strong>TemplateApp</strong>
 </p>
 
 ---

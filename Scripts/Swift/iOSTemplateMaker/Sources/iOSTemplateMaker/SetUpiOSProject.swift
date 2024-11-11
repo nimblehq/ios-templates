@@ -3,10 +3,10 @@ import ANSITerminal
 
 class SetUpIOSProject {
 
-    private let CONSTANT_PROJECT_NAME = "{PROJECT_NAME}"
-    private let CONSTANT_BUNDLE_PRODUCTION = "{BUNDLE_ID_PRODUCTION}"
-    private let CONSTANT_BUNDLE_STAGING = "{BUNDLE_ID_STAGING}"
-    private let CONSTANT_MINIMUM_VERSION = "{TARGET_VERSION}"
+    private let CONSTANT_PROJECT_NAME = "TemplateApp"
+    private let CONSTANT_BUNDLE_PRODUCTION = "co.nimblehq.ios.templates"
+    private let CONSTANT_BUNDLE_STAGING = "co.nimblehq.ios.templates.staging"
+    private let CONSTANT_MINIMUM_VERSION = "14.0"
     private let fileManager = FileManager.default
 
     private var bundleIdProduction = ""

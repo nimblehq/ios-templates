@@ -1,0 +1,267 @@
+PODS:
+  - Alamofire (5.10.1)
+  - ArkanaKeys (1.0.0):
+    - ArkanaKeysInterfaces (~> 1.0.0)
+  - ArkanaKeysInterfaces (1.0.0)
+  - Factory (2.4.1)
+  - Firebase/CoreOnly (11.4.2):
+    - FirebaseCore (= 11.4.2)
+  - Firebase/Crashlytics (11.4.2):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 11.4.0)
+  - FirebaseCore (11.4.2):
+    - FirebaseCoreInternal (< 12.0, >= 11.4.2)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/Logger (~> 8.0)
+  - FirebaseCoreExtension (11.4.1):
+    - FirebaseCore (~> 11.0)
+  - FirebaseCoreInternal (11.4.2):
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+  - FirebaseCrashlytics (11.4.0):
+    - FirebaseCore (~> 11.4)
+    - FirebaseInstallations (~> 11.0)
+    - FirebaseRemoteConfigInterop (~> 11.0)
+    - FirebaseSessions (~> 11.0)
+    - GoogleDataTransport (~> 10.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - nanopb (~> 3.30910.0)
+    - PromisesObjC (~> 2.4)
+  - FirebaseInstallations (11.4.0):
+    - FirebaseCore (~> 11.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - PromisesObjC (~> 2.4)
+  - FirebaseRemoteConfigInterop (11.4.0)
+  - FirebaseSessions (11.4.0):
+    - FirebaseCore (~> 11.4)
+    - FirebaseCoreExtension (~> 11.4)
+    - FirebaseInstallations (~> 11.0)
+    - GoogleDataTransport (~> 10.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
+    - nanopb (~> 3.30910.0)
+    - PromisesSwift (~> 2.1)
+  - GoogleDataTransport (10.1.0):
+    - nanopb (~> 3.30910.0)
+    - PromisesObjC (~> 2.4)
+  - GoogleUtilities/Environment (8.0.2):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.0.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - "GoogleUtilities/NSData+zlib (8.0.2)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.0.2)
+  - GoogleUtilities/UserDefaults (8.0.2):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - IQKeyboardCore (1.0.5)
+  - IQKeyboardManagerSwift (8.0.0):
+    - IQKeyboardManagerSwift/Appearance (= 8.0.0)
+    - IQKeyboardManagerSwift/Core (= 8.0.0)
+    - IQKeyboardManagerSwift/IQKeyboardReturnManager (= 8.0.0)
+    - IQKeyboardManagerSwift/IQKeyboardToolbarManager (= 8.0.0)
+    - IQKeyboardManagerSwift/IQTextView (= 8.0.0)
+    - IQKeyboardManagerSwift/Resign (= 8.0.0)
+  - IQKeyboardManagerSwift/Appearance (8.0.0):
+    - IQKeyboardManagerSwift/Core
+  - IQKeyboardManagerSwift/Core (8.0.0):
+    - IQKeyboardNotification
+    - IQTextInputViewNotification
+  - IQKeyboardManagerSwift/IQKeyboardReturnManager (8.0.0):
+    - IQKeyboardReturnManager
+  - IQKeyboardManagerSwift/IQKeyboardToolbarManager (8.0.0):
+    - IQKeyboardManagerSwift/Core
+    - IQKeyboardToolbarManager
+  - IQKeyboardManagerSwift/IQTextView (8.0.0):
+    - IQTextView
+  - IQKeyboardManagerSwift/Resign (8.0.0):
+    - IQKeyboardManagerSwift/Core
+  - IQKeyboardNotification (1.0.3)
+  - IQKeyboardReturnManager (1.0.4):
+    - IQKeyboardCore (= 1.0.5)
+  - IQKeyboardToolbar (1.1.1):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Core (= 1.1.1)
+  - IQKeyboardToolbar/Core (1.1.1):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Placeholderable
+  - IQKeyboardToolbar/Placeholderable (1.1.1):
+    - IQKeyboardCore
+  - IQKeyboardToolbarManager (1.1.2):
+    - IQKeyboardToolbar
+    - IQTextInputViewNotification
+  - IQTextInputViewNotification (1.0.8):
+    - IQKeyboardCore
+  - IQTextView (1.0.5):
+    - IQKeyboardToolbar/Placeholderable
+  - JSONAPIMapper (1.1.1)
+  - KeychainAccess (4.2.2)
+  - KIF (3.9.0):
+    - KIF/Core (= 3.9.0)
+  - KIF/Core (3.9.0)
+  - KIF/IdentifierTests (3.9.0):
+    - KIF/Core
+  - Kingfisher (8.1.0)
+  - nanopb (3.30910.0):
+    - nanopb/decode (= 3.30910.0)
+    - nanopb/encode (= 3.30910.0)
+  - nanopb/decode (3.30910.0)
+  - nanopb/encode (3.30910.0)
+  - Nimble (12.3.0)
+  - NimbleExtension (0.1.1)
+  - OHHTTPStubs/Core (9.1.0)
+  - OHHTTPStubs/Default (9.1.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (9.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (9.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (9.1.0)
+  - OHHTTPStubs/Swift (9.1.0):
+    - OHHTTPStubs/Default
+  - PromisesObjC (2.4.0)
+  - PromisesSwift (2.4.0):
+    - PromisesObjC (= 2.4.0)
+  - Quick (7.6.2)
+  - R.swift (7.8.0)
+  - SnapKit (5.7.1)
+  - Sourcery (2.2.5):
+    - Sourcery/CLI-Only (= 2.2.5)
+  - Sourcery/CLI-Only (2.2.5)
+  - SwiftFormat/CLI (0.54.6)
+  - SwiftLint (0.57.0)
+  - Wormholy (1.7.0)
+  - xcbeautify (0.17.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - ArkanaKeys (from `./ArkanaKeys/ArkanaKeys`)
+  - ArkanaKeysInterfaces (from `./ArkanaKeys/ArkanaKeysInterfaces`)
+  - Factory
+  - Firebase/Crashlytics
+  - IQKeyboardManagerSwift
+  - JSONAPIMapper (from `https://github.com/nimblehq/JSONMapper`, tag `1.1.1`)
+  - KeychainAccess
+  - KIF
+  - KIF/IdentifierTests
+  - Kingfisher
+  - Nimble (~> 12.0)
+  - NimbleExtension (from `https://github.com/nimblehq/NimbleExtension`, branch `master`)
+  - OHHTTPStubs/Swift
+  - Quick (~> 7.0)
+  - R.swift
+  - SnapKit
+  - Sourcery
+  - SwiftFormat/CLI
+  - SwiftLint
+  - Wormholy
+  - xcbeautify
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Factory
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
+    - FirebaseCrashlytics
+    - FirebaseInstallations
+    - FirebaseRemoteConfigInterop
+    - FirebaseSessions
+    - GoogleDataTransport
+    - GoogleUtilities
+    - IQKeyboardCore
+    - IQKeyboardManagerSwift
+    - IQKeyboardNotification
+    - IQKeyboardReturnManager
+    - IQKeyboardToolbar
+    - IQKeyboardToolbarManager
+    - IQTextInputViewNotification
+    - IQTextView
+    - KeychainAccess
+    - KIF
+    - Kingfisher
+    - nanopb
+    - Nimble
+    - OHHTTPStubs
+    - PromisesObjC
+    - PromisesSwift
+    - Quick
+    - R.swift
+    - SnapKit
+    - Sourcery
+    - SwiftFormat
+    - SwiftLint
+    - Wormholy
+    - xcbeautify
+
+EXTERNAL SOURCES:
+  ArkanaKeys:
+    :path: "./ArkanaKeys/ArkanaKeys"
+  ArkanaKeysInterfaces:
+    :path: "./ArkanaKeys/ArkanaKeysInterfaces"
+  JSONAPIMapper:
+    :git: https://github.com/nimblehq/JSONMapper
+    :tag: 1.1.1
+  NimbleExtension:
+    :branch: master
+    :git: https://github.com/nimblehq/NimbleExtension
+
+CHECKOUT OPTIONS:
+  JSONAPIMapper:
+    :git: https://github.com/nimblehq/JSONMapper
+    :tag: 1.1.1
+  NimbleExtension:
+    :commit: 1e7ca84f4992fbcb3ae81e973935259fd1a7ae0a
+    :git: https://github.com/nimblehq/NimbleExtension
+
+SPEC CHECKSUMS:
+  Alamofire: 840d2a1ad82355b536ec6ba5f97e5bfa54600ca3
+  ArkanaKeys: 356555f467c55ae40ba074c1b4d9cb5c38a55f3d
+  ArkanaKeysInterfaces: 81d21923368b058e2b6fd932ec96855166ef6d19
+  Factory: 13e63ac988c73f13c55c251b0748a9518e078710
+  Firebase: 7fd5466678d964be78fbf536d8a3385da19c4828
+  FirebaseCore: 6b32c57269bd999aab34354c3923d92a6e5f3f84
+  FirebaseCoreExtension: f1bc67a4702931a7caa097d8e4ac0a1b0d16720e
+  FirebaseCoreInternal: 35731192cab10797b88411be84940d2beb33a238
+  FirebaseCrashlytics: 41bbdd2b514a8523cede0c217aee6ef7ecf38401
+  FirebaseInstallations: 6ef4a1c7eb2a61ee1f74727d7f6ce2e72acf1414
+  FirebaseRemoteConfigInterop: e76f46ffa4d6a65e273d4dfebb6a79e588cec136
+  FirebaseSessions: 3f56f177d9e53a85021d16b31f9a111849d1dd8b
+  GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
+  GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
+  IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
+  IQKeyboardManagerSwift: 0c6fbbaa2e60739e48d7cf59f25661471a7a3a65
+  IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
+  IQKeyboardReturnManager: 972be48528ce9e7508ab3ab15ac7efac803f17f5
+  IQKeyboardToolbar: d4bdccfb78324aec2f3920659c77bb89acd33312
+  IQKeyboardToolbarManager: 6f4072ac620c2572d4af8c09f42a801f3e4909f7
+  IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
+  IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
+  JSONAPIMapper: 0d832d3b7d74281b150622a004f84171ded28a04
+  KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
+  KIF: 2bd28f6c15e5b448d578668586acc8c3fe603f06
+  Kingfisher: dfbf20b6249ed4ef6f18d6a96c847bce860bdb95
+  nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  Nimble: f8a8219d16f176429b951e8f7e72df5c23ceddc0
+  NimbleExtension: ade9ae2bb2deae95810cb31f22f3f2fb6bed0193
+  OHHTTPStubs: 90eac6d8f2c18317baeca36698523dc67c513831
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
+  Quick: b8bec97cd4b9f21da0472d45580f763b801fc353
+  R.swift: f573269ca45b2ab066c082e363dd4c2b297b0d71
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  Sourcery: 088e2f5a70844da8bc439f9eb9d88f35fc702f93
+  SwiftFormat: 9f26de7d1d46de100e4d66bec289531b119fc057
+  SwiftLint: eb47480d47c982481592c195c221d11013a679cc
+  Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
+  xcbeautify: 6e2f57af5c3a86d490376d5758030a8dcc201c1b
+
+PODFILE CHECKSUM: 1dadc1717a0755a7a2756f2e6e72e0d9ded62419
+
+COCOAPODS: 1.15.2

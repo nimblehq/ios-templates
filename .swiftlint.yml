@@ -1,11 +1,11 @@
 included:
-  - {PROJECT_NAME}
-  - {PROJECT_NAME}Tests
-  - {PROJECT_NAME}KIFUITests
+  - TemplateApp
+  - TemplateAppTests
+  - TemplateAppKIFUITests
 
 excluded:
-  - {PROJECT_NAME}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
-  - {PROJECT_NAME}/Sources/Supports/Helpers/Rswift/R.generated.swift
+  - TemplateAppTests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
+  - TemplateApp/Sources/Supports/Helpers/Rswift/R.generated.swift
   - Pods
   - Derived
   - DerivedData
