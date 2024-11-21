@@ -90,7 +90,7 @@ class SetUpIOSProject {
         }
 
         if isCI {
-            minimumVersion = "14.0"
+            minimumVersion = "15.0"
         }
 
         if bundleIdProduction.isEmpty {
@@ -123,7 +123,7 @@ class SetUpIOSProject {
         if minimumVersion.isEmpty {
             tryMoveDown()
 
-            let defaultVersion = "14.0"
+            let defaultVersion = "15.0"
             minimumVersion = ask(
                 "Which is the iOS minimum version?",
                 note: "Default: \(defaultVersion)",
