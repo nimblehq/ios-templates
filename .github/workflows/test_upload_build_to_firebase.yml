@@ -26,8 +26,10 @@ jobs:
 
     - name: Create Release Note
       run: |
+        echo "Here is: "
+        echo "RELEASE_NOTES="$((git log -1 --merges | grep "\[") | grep . && echo "" || echo $(git log -1 --merges --format=%B))""
         echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-        echo "$(git log -1 | grep -o "\[.*")" >> $GITHUB_ENV
+        echo "$((git log -1 --merges | grep "\[") | grep . && echo "" || echo $(git log -1 --merges --format=%B))" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
 
     - name: Install SSH key
