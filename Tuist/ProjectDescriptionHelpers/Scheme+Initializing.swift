@@ -28,4 +28,18 @@ extension Scheme {
             archiveAction: .archiveAction(configuration: releaseConfigName)
         )
     }
+    
+    public static func devScheme(name: String) -> Scheme {
+        let debugConfigName = BuildConfiguration.debugDev.name
+        let releaseConfigName = BuildConfiguration.releaseDev.name
+
+        return Scheme(
+            name: "\(name) Dev",
+            shared: true,
+            buildAction: .buildAction(targets: ["\(name)"]),
+            testAction: TestAction.targets([.testableTarget(target: "\(name)Tests")], configuration: debugConfigName),
+            runAction: .runAction(configuration: debugConfigName),
+            archiveAction: .archiveAction(configuration: releaseConfigName),
+        )
+    }
 }

@@ -56,7 +56,8 @@ extension Project {
             targets: Target.makeTargets(name: name, bundleId: bundleId),
             schemes: [
                 .productionScheme(name: name),
-                .stagingScheme(name: name)
+                .stagingScheme(name: name),
+                .devScheme(name: name)
             ]
         )
     }
