@@ -23,6 +23,8 @@ extension iOSTemplateMaker {
         var bundleIdProduction: String?
         @Option(help: "The staging id (i.e. com.example.package.staging)")
         var bundleIdStaging: String?
+        @Option(help: "The dev id (i.e. com.example.package.dev)")
+        var bundleIdDev: String?
         @Option(help: "The project name (i.e. MyApp)")
         var projectName: String?
         @Option(help: "The minimum iOS version (14.0)")
@@ -34,6 +36,7 @@ extension iOSTemplateMaker {
             SetUpIOSProject(
                 bundleIdProduction: bundleIdProduction.string,
                 bundleIdStaging: bundleIdStaging.string,
+                bundleIdDev: bundleIdDev.string,
                 projectName: projectName.string,
                 minimumVersion: minimumVersion.string,
                 interface: interface.string
@@ -48,11 +51,13 @@ extension iOSTemplateMaker {
 
         mutating func run() {
             let envMatchRepo = EnvironmentValue.value(for: .matchRepo).string
+            let envDevFirebaseAppId = EnvironmentValue.value(for: .devFirebaseAppId).string
             let envStagingFirebaseAppId = EnvironmentValue.value(for: .stagingFirebaseAppId).string
             let envTeamId = EnvironmentValue.value(for: .teamId).string
 
             SetUpTestFirebase(
                 matchRepo: envMatchRepo,
+                devFirebaseAppId: envDevFirebaseAppId,
                 stagingFirebaseAppId: envStagingFirebaseAppId,
                 teamId: envTeamId
             ).perform()
