@@ -1,10 +1,10 @@
-name: Test Upload Build to Firebase
+name: Test Upload Dev Build to Firebase
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
 ### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
-### STAGING_FIREBASE_APP_ID
+### DEV_FIREBASE_APP_ID
 ### TEAM_ID
 
 on:
@@ -60,19 +60,19 @@ jobs:
       run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-firebase
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
-        STAGING_FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
+        DEV_FIREBASE_APP_ID: ${{ secrets.DEV_FIREBASE_APP_ID }}
         TEAM_ID: ${{ secrets.TEAM_ID }}
 
     - name: Set Up Test Project for Firebase
       run: bundle exec fastlane setUpTestProject
 
     - name: Sync Ad Hoc Code Signing
-      run: bundle exec fastlane syncAdHocStagingCodeSigning
+      run: bundle exec fastlane syncAdHocDevCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build App and Distribute to Firebase
-      run: bundle exec fastlane buildStagingAndUploadToFirebase
+    - name: Build Dev App and Distribute to Firebase
+      run: bundle exec fastlane buildDevAndUploadToFirebase
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
@@ -84,7 +84,7 @@ jobs:
           ${{ env.IPA_OUTPUT_PATH }}
           ${{ env.DSYM_OUTPUT_PATH }}
       env:
-        TAG_TYPE: Staging_Firebase
+        TAG_TYPE: Dev_Firebase
 
     - name: Remove keychain
       if: ${{ always() }}

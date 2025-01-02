@@ -27,6 +27,14 @@ class Fastfile: LaneFile {
             environment: .production
         )
     }
+    
+    func syncAdHocDevCodeSigningLane() {
+        desc("Sync the Ad Hoc match signing for the Dev build")
+        Match.syncCodeSigning(
+            type: .adHoc,
+            environment: .dev
+        )
+    }
 
     func syncAdHocStagingCodeSigningLane() {
         desc("Sync the Ad Hoc match signing for the Staging build")
@@ -58,6 +66,12 @@ class Fastfile: LaneFile {
     }
 
     // MARK: - Build
+    
+    func buildAdHocDevLane() {
+        desc("Build ad-hoc dev")
+        Build.adHoc(environment: .dev)
+    }
+
 
     func buildAdHocStagingLane() {
         desc("Build ad-hoc staging")
@@ -75,6 +89,22 @@ class Fastfile: LaneFile {
     }
 
     // MARK: - Upload builds to Firebase and AppStore
+    
+    func buildDevAndUploadToFirebaseLane() {
+        desc("Build Dev app and upload to Firebase")
+
+        setAppVersion()
+        bumpBuild()
+
+        buildAdHocDevLane()
+
+        // TODO: - Make release notes
+        Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
+
+        Symbol.uploadToCrashlytics(environment: .dev)
+
+        Build.saveBuildContextToCI()
+    }
 
     func buildStagingAndUploadToFirebaseLane() {
         desc("Build Staging app and upload to Firebase")
@@ -150,6 +180,14 @@ class Fastfile: LaneFile {
         desc("Build and Test project")
         Test.buildAndTest(
             environment: .staging,
+            devices: Constant.devices
+        )
+    }
+
+    func buildAndTestDevLane() {
+        desc("Build and Test dev project")
+        Test.buildAndTest(
+            environment: .dev,
             devices: Constant.devices
         )
     }

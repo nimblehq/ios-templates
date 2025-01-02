@@ -16,12 +16,15 @@ enum Constant {
 
     // MARK: - Firebase
 
+    static let devFirebaseAppId = "<#devFirebaseAppId#>"
     static let stagingFirebaseAppId = "<#stagingFirebaseAppId#>"
     static let productionFirebaseAppId = "<#productionFirebaseAppId#>"
     static let firebaseTesterGroups = "<#group1#>, <#group2#>"
 
     // MARK: - Match
 
+    static let appleDevUserName = "<#userName#>"
+    static let appleDevTeamId = "<#teamId#>"
     static let appleStagingUserName = "<#userName#>"
     static let appleStagingTeamId = "<#teamId#>"
     static let appleProductionUserName = "<#userName#>"
@@ -67,6 +70,7 @@ enum Constant {
 
     // MARK: - Project
 
+    static let devBundleId = "{BUNDLE_ID_DEV}"
     static let stagingBundleId = "{BUNDLE_ID_STAGING}"
     static let productionBundleId = "{BUNDLE_ID_PRODUCTION}"
     static let projectName = "{PROJECT_NAME}"
@@ -89,6 +93,7 @@ extension Constant {
 
     enum Environment: String {
 
+        case dev = "Dev"
         case staging = "Staging"
         case production = "Production"
 
@@ -96,13 +101,14 @@ extension Constant {
 
         var scheme: String {
             switch self {
-            case .staging: return "\(Constant.projectName) \(rawValue)".trimmed
+            case .dev, .staging: return "\(Constant.projectName) \(rawValue)".trimmed
             case .production: return Constant.projectName.trimmed
             }
         }
 
         var bundleId: String {
             switch self {
+            case .dev: return Constant.devBundleId
             case .staging: return Constant.stagingBundleId
             case .production: return Constant.productionBundleId
             }
@@ -110,6 +116,7 @@ extension Constant {
 
         var firebaseAppId: String {
             switch self {
+            case .dev: return Constant.devFirebaseAppId
             case .staging: return Constant.stagingFirebaseAppId
             case .production: return Constant.productionFirebaseAppId
             }
@@ -119,6 +126,7 @@ extension Constant {
             let infoName = "GoogleService-Info.plist"
             let googleServiceFolder = "./\(Constant.projectName)/Configurations/Plists/GoogleService"
             switch self {
+            case .dev: return "\(googleServiceFolder)/Dev/\(infoName)"
             case .staging: return "\(googleServiceFolder)/Staging/\(infoName)"
             case .production: return "\(googleServiceFolder)/Production/\(infoName)"
             }
@@ -131,6 +139,7 @@ extension Constant {
 
         var appleUsername: String {
             switch self {
+            case .dev: return Constant.appleDevUserName
             case .staging: return Constant.appleStagingUserName
             case .production: return Constant.appleProductionUserName
             }
@@ -138,6 +147,7 @@ extension Constant {
 
         var appleTeamId: String {
             switch self {
+            case .dev: return appleDevTeamId
             case .staging: return Constant.appleStagingTeamId
             case .production: return Constant.appleProductionTeamId
             }

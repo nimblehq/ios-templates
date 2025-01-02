@@ -22,6 +22,7 @@ extension Project {
             schemes: [
                 .productionScheme(name: name),
                 .stagingScheme(name: name),
+                .devScheme(name: name),
                 .kifUITestsScheme(name: name)
             ]
         )

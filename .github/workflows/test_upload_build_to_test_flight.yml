@@ -44,7 +44,7 @@ jobs:
           ${{ runner.os }}-pods-
 
     - name: Start Install Script for Template App
-      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface UIKit
+      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --bundle-id-dev co.nimblehq.ios.templates.dev --project-name TemplateApp --interface UIKit
 
     - name: Start Setup Script for Template App TestFlight Upload
       run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-test-flight

@@ -36,6 +36,23 @@ extension Scheme {
         )
     }
 
+    public static func devScheme(name: String) -> Scheme {
+        let debugConfigName = BuildConfiguration.debugDev.name
+        let releaseConfigName = BuildConfiguration.releaseDev.name
+        let testModules = testSchemes(name)
+
+        return Scheme(
+            name: "\(name) Dev",
+            shared: true,
+            buildAction: .buildAction(targets: ["\(name)"]),
+            testAction: .targets(testModules, configuration: debugConfigName),
+            runAction: .runAction(configuration: debugConfigName),
+            archiveAction: .archiveAction(configuration: releaseConfigName),
+            profileAction: .profileAction(configuration: debugConfigName),
+            analyzeAction: .analyzeAction(configuration: debugConfigName)
+        )
+    }
+
     public static func kifUITestsScheme(name: String) -> Scheme {
         return Scheme(
             name: "\(name)KIFUITests",
