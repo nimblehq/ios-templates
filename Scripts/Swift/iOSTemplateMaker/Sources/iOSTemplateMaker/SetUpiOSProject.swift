@@ -123,7 +123,7 @@ class SetUpIOSProject {
         if minimumVersion.isEmpty {
             tryMoveDown()
 
-            let defaultVersion = "15.0"
+            let defaultVersion = "16.0"
             minimumVersion = ask(
                 "Which is the iOS minimum version?",
                 note: "Default: \(defaultVersion)",
