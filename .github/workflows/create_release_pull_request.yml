@@ -1,0 +1,80 @@
+name: Create Release Pull Request
+
+on:
+  push:
+    branches: [ feature/**, bug/**, chore/** ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  create_release_pull_request:
+    name: Create Release Pull Request
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # - name: Get release version
+      #   run: |
+      #     filename=$(find . -maxdepth 1 -name "*.xcodeproj" -exec basename {} .xcodeproj \; | head -n 1)
+      #     release_version=$(sed -n 's/.*MARKETING_VERSION *= *\([^;]*\);.*/\1/p' "$filename.xcodeproj/project.pbxproj" | head -n 1 | sed 's/^[^=]*=\s*//' | tr -d ' ')
+      #     echo $release_version
+      #     echo "RELEASE_VERSION=$release_version" >> "$GITHUB_ENV"
+
+      - uses: nimblehq/github-actions-workflows/create_release_pull_request@0.1.10
+        with:
+          release_version: "1.0.0"
+          changelog_configuration: ".github/workflows/configs/changelog-config.json"
+          assignee: bot-nimble
+
+  # create_bump_version_pull_request:
+  #   name: Create Bump Version Pull Request
+  #   runs-on: macos-latest
+  #   timeout-minutes: 30
+  #   permissions:
+  #     contents: write
+  #     pull-requests: write
+  #   steps:
+  #     - name: Validate Version Input
+  #       run: |
+  #         if ! [[ "${{ github.event.inputs.nextVersion }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  #           echo "Error: nextVersion must follow semantic versioning (e.g., 1.2.3)"
+  #           exit 1
+  #         fi
+  #     - name: Create Bump Version branch
+  #       uses: peterjgrainger/action-create-branch@v2.2.0
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         branch: chore/bump-version-to-${{ github.event.inputs.nextVersion }}
+
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: chore/bump-version-to-${{ github.event.inputs.nextVersion }}
+
+  #     - name: Bump version
+  #       run: |
+  #         filename=$(find . -maxdepth 1 -name "*.xcodeproj" -exec basename {} .xcodeproj \; | head -n 1)
+  #         sed -i "" "s/MARKETING_VERSION = .*/MARKETING_VERSION = ${{ github.event.inputs.nextVersion }};/g" $filename.xcodeproj/project.pbxproj
+      
+  #     - name: Set up Git
+  #       run: |
+  #         git config --global user.name 'Github Actions'
+  #         git config --global user.email 'github-actions@users.noreply.github.com'
+
+  #     - name: Commit changes
+  #       run: |
+  #         git add .
+  #         git commit -m "[Chore] Bump version to ${{ github.event.inputs.nextVersion }}"
+  #         git push origin HEAD
+
+  #     - name: Create pull request
+  #       run: |
+  #         echo -e "## What happened 👀\n\nBump version to ${{ github.event.inputs.nextVersion }}" > body
+  #         export body=$(cat body) ; gh pr create --draft -B develop -H chore/bump-version-to-${{ github.event.inputs.nextVersion }} -t '[Chore] Bump version to ${{ github.event.inputs.nextVersion }}' -b "$body"
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
