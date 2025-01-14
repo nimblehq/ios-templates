@@ -1,4 +1,4 @@
-name: Create Release Pull Request
+name: Create the Release pull request and Bump the next version
 
 on:
   workflow_dispatch:
@@ -31,11 +31,11 @@ jobs:
       - uses: nimblehq/github-actions-workflows/create_release_pull_request@0.1.10
         with:
           release_version: ${{ env.RELEASE_VERSION }}
-          changelog_configuration: ".github/workflows/config/changelog-config.json"
+          changelog_configuration: ".github/workflows/configs/changelog-config.json"
           assignee: bot-nimble
 
   create_bump_version_pull_request:
-    name: Create Bump Version Pull Request
+    name: Bump Version Pull Request
     runs-on: macos-latest
     timeout-minutes: 30
     permissions:
