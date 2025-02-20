@@ -61,8 +61,7 @@ jobs:
       run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-firebase
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
-        DEV_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-        STAGING_FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+        DEV_FIREBASE_APP_ID: ${{ secrets.DEV_FIREBASE_APP_ID }}
         TEAM_ID: ${{ secrets.TEAM_ID }}
 
     - name: Set Up Test Project for Firebase

@@ -99,7 +99,7 @@ class Fastfile: LaneFile {
         buildAdHocDevLane()
 
         // TODO: - Make release notes
-        Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
+        Distribution.uploadToFirebase(environment: .dev, releaseNotes: "")
 
         Symbol.uploadToCrashlytics(environment: .dev)
 
