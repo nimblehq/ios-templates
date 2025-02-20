@@ -1,25 +1,40 @@
-name: Test Upload Build to Firebase
+name: Deploy Dev Build To Firebase
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
 ### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
-### TEAM_ID
 
 on:
-  pull_request
-  
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
+
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Run SwiftLint
+      uses: docker://norionomura/swiftlint:0.53.0_swift-5.7
+      with:
+        args: swiftlint --strict
+
   build:
     name: Build
     runs-on: macOS-latest
     steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+    # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
 
@@ -33,6 +48,13 @@ jobs:
         yarn global add firebase-tools
         echo "$(yarn global bin)" >> $GITHUB_PATH
 
+    - name: Setup ENV file
+      env:
+        ENV: ${{ secrets.ENV }}
+      run: |
+        touch .env
+        echo $ENV | base64 --decode > .env
+
     - name: Read Google Service Account
       id: firebase_service_account
       uses: timheuer/base64-to-file@v1.2
@@ -41,10 +63,14 @@ jobs:
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
+      # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
+      
+    - name: Run Arkana
+      run: bundle exec arkana
 
     - name: Cache Pods
-      uses: actions/cache@v3
+      uses: actions/cache@v2
       id: cocoapodCache
       with:
         path: Pods
@@ -52,37 +78,32 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pods-
 
-    - name: Start Install Script for Template App
-      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --bundle-id-dev co.nimblehq.ios.templates.dev --project-name TemplateApp --interface UIKit
+    - name: Install Pods Dependencies
+      run: bundle exec pod install
+      shell: bash
 
-    - name: Start Setup Script for Template App Firebase Upload
-      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-firebase
-      env:
-        MATCH_REPO: ${{ secrets.MATCH_REPO }}
-        TEAM_ID: ${{ secrets.TEAM_ID }}
+    - name: Build and Test
+      run: bundle exec fastlane buildAndTestDev
 
-    - name: Set Up Test Project for Firebase
-      run: bundle exec fastlane setUpTestProject
-
-    - name: Sync Ad Hoc Code Signing
-      run: bundle exec fastlane syncAdHocStagingCodeSigning
+    - name: Match Ad-hoc
+      run: bundle exec fastlane syncAdHocDevCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distribute to Firebase
-      run: bundle exec fastlane buildStagingAndUploadToFirebase
+      run: bundle exec fastlane buildDevAndUploadToFirebase
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
         path: |
           ${{ env.IPA_OUTPUT_PATH }}
           ${{ env.DSYM_OUTPUT_PATH }}
       env:
-        TAG_TYPE: Staging_Firebase
+        TAG_TYPE: Dev_Firebase
 
     - name: Remove keychain
       if: ${{ always() }}

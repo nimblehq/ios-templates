@@ -6,11 +6,13 @@ class SetUpIOSProject {
     private let CONSTANT_PROJECT_NAME = "{PROJECT_NAME}"
     private let CONSTANT_BUNDLE_PRODUCTION = "{BUNDLE_ID_PRODUCTION}"
     private let CONSTANT_BUNDLE_STAGING = "{BUNDLE_ID_STAGING}"
+    private let CONSTANT_BUNDLE_DEV = "{BUNDLE_ID_DEV}"
     private let CONSTANT_MINIMUM_VERSION = "{TARGET_VERSION}"
     private let fileManager = FileManager.default
 
     private var bundleIdProduction = ""
     private var bundleIdStaging = ""
+    private var bundleIdDev = ""
     private var projectName = ""
     private var minimumVersion = ""
     private var interface: SetUpInterface.Interface?
@@ -20,12 +22,14 @@ class SetUpIOSProject {
     init(
         bundleIdProduction: String = "",
         bundleIdStaging: String = "",
+        bundleIdDev: String = "",
         projectName: String = "",
         minimumVersion: String = "",
         interface: String = ""
     ) {
         self.bundleIdProduction = bundleIdProduction
         self.bundleIdStaging = bundleIdStaging
+        self.bundleIdDev = bundleIdDev
         self.projectName = projectName
         self.minimumVersion = minimumVersion
         self.interface = .init(interface)
@@ -110,6 +114,15 @@ class SetUpIOSProject {
                 onValidate: validatePackageName
             )
         }
+        
+        if bundleIdDev.isEmpty {
+            tryMoveDown()
+            bundleIdDev = ask(
+                "Which is the bundle ID for the dev environment?",
+                note: "Ex: com.example.project.dev",
+                onValidate: validatePackageName
+            )
+        }
 
         if projectName.isEmpty {
             tryMoveDown()
@@ -159,6 +172,7 @@ class SetUpIOSProject {
     }
 
     private func replaceTextInFiles() throws {
+        fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_DEV, to: bundleIdDev)
         fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_STAGING, to: bundleIdStaging)
         fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_PRODUCTION, to: bundleIdProduction)
         fileManager.replaceAllOccurrences(of: CONSTANT_PROJECT_NAME, to: projectNameNoSpace)

@@ -19,7 +19,7 @@ jobs:
       run: bundle install
 
     - name: Start Install Script for SwiftUI Template App
-      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface SwiftUI
+      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --bundle-id-dev co.nimblehq.ios.templates.dev --project-name TemplateApp --interface SwiftUI
 
     - name: Build and Test
       run: bundle exec fastlane buildAndTest
