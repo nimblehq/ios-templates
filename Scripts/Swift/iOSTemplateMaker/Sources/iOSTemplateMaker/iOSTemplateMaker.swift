@@ -51,7 +51,8 @@ extension iOSTemplateMaker {
 
         mutating func run() {
             let envMatchRepo = EnvironmentValue.value(for: .matchRepo).string
-            let envDevFirebaseAppId = EnvironmentValue.value(for: .devFirebaseAppId).string
+//            let envDevFirebaseAppId = EnvironmentValue.value(for: .devFirebaseAppId).string
+            let envDevFirebaseAppId = "1:394751167018:ios:bc6ca71168a46096b21153"
             let envStagingFirebaseAppId = EnvironmentValue.value(for: .stagingFirebaseAppId).string
             let envTeamId = EnvironmentValue.value(for: .teamId).string
 

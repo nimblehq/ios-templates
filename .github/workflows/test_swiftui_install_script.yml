@@ -1,8 +1,7 @@
 name: Test SwiftUI Install Script
 
-#on:
-#  push:
-#    branches: [ feature/**, bug/**, chore/** ]
+on:
+  pull_request
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
