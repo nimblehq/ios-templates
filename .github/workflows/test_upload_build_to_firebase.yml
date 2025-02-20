@@ -78,7 +78,7 @@ jobs:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
         path: |
