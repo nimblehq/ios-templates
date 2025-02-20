@@ -8,7 +8,8 @@ name: Test Upload Build to Firebase
 ### TEAM_ID
 
 on:
-  pull_request
+  push:
+    branches: [ feature/**, bug/**, chore/** ]
   
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
