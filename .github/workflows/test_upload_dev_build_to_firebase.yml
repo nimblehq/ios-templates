@@ -4,12 +4,10 @@ name: Test Upload Dev Build to Firebase
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
 ### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
-### FIREBASE_APP_ID
 ### TEAM_ID
 
 on:
-  push:
-    branches: [ feature/**, bug/**, chore/** ]
+  pull_request
   
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -61,7 +59,6 @@ jobs:
       run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-firebase
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
-        DEV_FIREBASE_APP_ID: ${{ secrets.DEV_FIREBASE_APP_ID }}
         TEAM_ID: ${{ secrets.TEAM_ID }}
 
     - name: Set Up Test Project for Firebase
