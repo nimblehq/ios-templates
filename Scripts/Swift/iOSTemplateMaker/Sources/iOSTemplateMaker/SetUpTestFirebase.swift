@@ -10,10 +10,10 @@ struct SetUpTestFirebase {
 
     private let firebaseTesterGroup = "nimble"
     private let fileManager = FileManager.default
+    private let devFirebaseAppId: String = "1:394751167018:ios:bc6ca71168a46096b21153"
+    private let stagingFirebaseAppId: String = "1:394751167018:ios:7670aacd2a018cd5b21153"
 
     let matchRepo: String
-    let devFirebaseAppId: String
-    let stagingFirebaseAppId: String
     let teamId: String
 
     func perform() {
