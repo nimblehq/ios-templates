@@ -20,6 +20,23 @@ Our optimized iOS template used in our projects using Xcode Templates
 - Ruby `3.1.2`
 - Xcode `13.3+`
 
+### Dependency Manager Options
+
+The template supports two dependency manager options:
+
+1. **CocoaPods** (Default)
+   - Traditional dependency manager for iOS projects
+   - Uses Podfile for dependency management
+   - Note: CocoaPods Specs repository will become read-only by December 2026
+
+2. **Swift Package Manager (SPM)**
+   - Modern dependency manager integrated with Xcode
+   - Better build performance and tighter Xcode tooling
+   - Recommended for new projects
+   - Uses Package.swift for dependency management
+
+You can choose your preferred dependency manager during project setup.
+
 ### Use the template
 
 1. Create your repository by pressing the `Use this template` button in this repository or create a new repository and use `nimblehq/ios-templates` as a repository template.

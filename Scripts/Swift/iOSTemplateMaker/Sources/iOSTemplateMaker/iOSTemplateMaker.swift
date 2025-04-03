@@ -29,6 +29,10 @@ extension iOSTemplateMaker {
         var minimumVersion: String?
         @Option(help: "The user interface framework (SwiftUI or UIKit)")
         var interface: String?
+        @Option(help: "The dependency manager to use (Cocoapods or SPM)")
+        var dependencyManager: String?
+        @Flag(name: .long, help: "Enable verbose output")
+        var verbose: Bool = false
 
         mutating func run() {
             SetUpIOSProject(
@@ -36,7 +40,9 @@ extension iOSTemplateMaker {
                 bundleIdStaging: bundleIdStaging.string,
                 projectName: projectName.string,
                 minimumVersion: minimumVersion.string,
-                interface: interface.string
+                interface: interface.string,
+                dependencyManager: dependencyManager.string,
+                verbose: verbose
             ).perform()
         }
     }

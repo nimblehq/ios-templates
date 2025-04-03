@@ -51,7 +51,14 @@ extension Target {
             ],
             dependencies: [
                 .target(name: Module.data.name),
-                .target(name: Module.domain.name)
+                .target(name: Module.domain.name),
+                .package(product: "Kingfisher"),
+                .package(product: "Alamofire"),
+                .package(product: "JSONAPIMapper"),
+                .package(product: "KeychainAccess"),
+                .package(product: "NimbleExtension"),
+                .package(product: "Factory"),
+                .package(product: "FirebaseCrashlytics")
             ]
         )
     }
@@ -70,7 +77,12 @@ extension Target {
                 "\(targetName)/Resources/**/*"
             ],
             scripts: [.swiftFormatScript()],
-            dependencies: [.target(name: name)]
+            dependencies: [
+                .target(name: name),
+                .package(product: "Quick"),
+                .package(product: "Nimble"),
+                .package(product: "OHHTTPStubs")
+            ]
         )
     }
 
