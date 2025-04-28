@@ -52,8 +52,7 @@ jobs:
       env:
         ENV: ${{ secrets.ENV }}
       run: |
-        touch .env
-        echo $ENV | base64 --decode > .env
+        echo "$ENV" > .env
 
     - name: Read Google Service Account
       id: firebase_service_account
