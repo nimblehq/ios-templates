@@ -65,6 +65,10 @@ enum Constant {
         return .unknown
     }
 
+    static var releaseNote: String {
+        EnvironmentParser.string(key: "RELEASE_NOTES")
+    }
+
     // MARK: - Project
 
     static let stagingBundleId = "{BUNDLE_ID_STAGING}"

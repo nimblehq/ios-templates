@@ -85,7 +85,7 @@ class Fastfile: LaneFile {
         buildAdHocStagingLane()
 
         // TODO: - Make release notes
-        Distribution.uploadToFirebase(environment: .staging, releaseNotes: "")
+        Distribution.uploadToFirebase(environment: .staging, releaseNotes: Constant.releaseNote)
 
         Symbol.uploadToCrashlytics(environment: .staging)
 
@@ -101,7 +101,7 @@ class Fastfile: LaneFile {
         buildAdHocProductionLane()
 
         // TODO: - Make release notes
-        Distribution.uploadToFirebase(environment: .production, releaseNotes: "")
+        Distribution.uploadToFirebase(environment: .production, releaseNotes: Constant.releaseNote)
 
         Symbol.uploadToCrashlytics(environment: .production)
 
@@ -137,7 +137,7 @@ class Fastfile: LaneFile {
         buildAppStoreLane()
 
         AppStoreAuthentication.connectAPIKey()
-        Distribution.uploadToTestFlight()
+        Distribution.uploadToTestFlight(changeLog: Constant.releaseNote)
 
         Symbol.uploadToCrashlytics(environment: .production)
 

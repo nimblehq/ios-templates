@@ -24,6 +24,12 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Create Release Note
+      run: |
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        echo "$(git log -1 | grep -o "\[.*")" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
     - name: Run SwiftLint
       uses: docker://norionomura/swiftlint:0.53.0_swift-5.7
       with:
