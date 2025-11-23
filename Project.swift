@@ -16,7 +16,8 @@ extension Project {
                 disableSynthesizedResourceAccessors: true
             ),
             settings: .settings(
-                configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) }
+                configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) },
+                defaultSettings: .none
             ),
             targets: targets,
             schemes: [

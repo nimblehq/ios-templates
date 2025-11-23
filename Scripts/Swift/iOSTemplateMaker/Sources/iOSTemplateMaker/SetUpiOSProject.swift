@@ -90,7 +90,7 @@ class SetUpIOSProject {
         }
 
         if isCI {
-            minimumVersion = "15.0"
+            minimumVersion = "16.0"
         }
 
         if bundleIdProduction.isEmpty {
