@@ -104,7 +104,7 @@ class SetUpIOSProject {
 
         if bundleIdStaging.isEmpty {
             tryMoveDown()
-            bundleIdProduction = ask(
+            bundleIdStaging = ask(
                 "Which is the bundle ID for the staging environment?",
                 note: "Ex: com.example.project.staging",
                 onValidate: validatePackageName
