@@ -107,7 +107,8 @@ extension Target {
             ),
             sources: module.sources,
             resources: module.resources,
-            dependencies: module.dependencies
+            dependencies: module.dependencies,
+            settings: .settings(base: ["SWIFT_VERSION": "5"])
         )
 
         let testTarget = Target(

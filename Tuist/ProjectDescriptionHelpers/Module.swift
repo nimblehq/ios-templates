@@ -53,7 +53,6 @@ public enum Module: CaseIterable {
         ]
     }
 
-
     public func getBundleId(mainBundleId: String) -> String {
         "\(mainBundleId).\(name)"
     }
