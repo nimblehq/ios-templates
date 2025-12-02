@@ -28,7 +28,8 @@ jobs:
       uses: jdx/mise-action@v3
       with:
         install: true
-        install_args: "tuist@latest"
+        tool_versions: |
+          tuist latest
 
     - name: Create Release Note
       run: |
