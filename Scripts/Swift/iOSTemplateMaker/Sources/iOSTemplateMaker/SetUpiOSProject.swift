@@ -32,6 +32,18 @@ class SetUpIOSProject {
     }
 
     func perform() {
+        // Debug information to help understand where files are being generated in CI
+        if isCI {
+            let cwd = fileManager.currentDirectoryPath
+            print("💡 SetUpIOSProject.perform() – current directory: \(cwd)")
+            do {
+                let contents = try fileManager.contentsOfDirectory(atPath: ".")
+                print("💡 SetUpIOSProject.perform() – top-level contents: \(contents)")
+            } catch {
+                print("⚠️ SetUpIOSProject.perform() – failed to list directory contents: \(error)")
+            }
+        }
+
         do {
             try step(title: "Fill project information") {
                 readArguments()

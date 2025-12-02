@@ -78,6 +78,15 @@ jobs:
         echo "Top-level contents:"
         ls -la
         echo ""
+        echo "Find Xcode workspaces and projects:"
+        find . -maxdepth 5 \( -name "*.xcworkspace" -o -name "*.xcodeproj" \) -print
+        echo ""
+        echo "Contents of TemplateApp (if exists):"
+        if [ -d "TemplateApp" ]; then
+          ls -la TemplateApp
+        else
+          echo "TemplateApp directory not found"
+        fi
 
     - name: Start Setup Script for Template App Firebase Upload
       run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-firebase
