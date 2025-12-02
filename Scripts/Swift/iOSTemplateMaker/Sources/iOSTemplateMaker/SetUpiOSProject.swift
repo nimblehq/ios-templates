@@ -204,7 +204,27 @@ class SetUpIOSProject {
 
     private func runTuist() throws {
         try installTuistIfNeeded()
-        try safeShell("tuist generate --no-open")
+
+        if isCI {
+            print("💡 runTuist() – resolving tuist path and version...")
+            if let whichOutput = try safeShell("which tuist || echo 'tuist not found'") {
+                print("💡 runTuist() – which tuist:\n\(whichOutput)")
+            }
+            if let versionOutput = try safeShell("tuist version || echo 'failed to get tuist version'") {
+                print("💡 runTuist() – tuist version:\n\(versionOutput)")
+            }
+        }
+
+        let command = "tuist generate --no-open"
+        if isCI {
+            print("💡 runTuist() – running: \(command)")
+        }
+
+        if let output = try safeShell("\(command); echo \"tuist_exit_code=$?\"") {
+            if isCI {
+                print("💡 runTuist() – output:\n\(output)")
+            }
+        }
     }
 
     private func installDependencies() throws {
