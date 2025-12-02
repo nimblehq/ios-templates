@@ -181,8 +181,10 @@ class SetUpIOSProject {
             try safeShell(
                 """
                     readonly TUIST_VERSION=`cat .tuist-version`
-                    curl -Ls https://install.tuist.io | bash
-                    tuist install ${TUIST_VERSION}
+                    brew tap tuist/tuist
+                    brew install --formula tuist
+                    brew install --formula tuist@${TUIST_VERSION}
+                    curl -fsSL "https://docs.tuist.dev/verify.sh" | bash
                 """
             )
         }
