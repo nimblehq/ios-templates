@@ -29,7 +29,7 @@ jobs:
       with:
         install: true
         tool_versions: |
-          tuist latest
+          tuist 3.2.0
 
     - name: Create Release Note
       run: |

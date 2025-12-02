@@ -31,7 +31,7 @@ jobs:
       with:
         install: true
         tool_versions: |
-          tuist latest
+          tuist 3.2.0
 
     - name: Install SSH key
       uses: webfactory/ssh-agent@v0.7.0
