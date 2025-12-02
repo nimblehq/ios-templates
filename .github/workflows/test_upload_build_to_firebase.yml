@@ -70,6 +70,15 @@ jobs:
     - name: Start Install Script for Template App
       run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface UIKit
 
+    - name: Debug generated project structure
+      run: |
+        echo "Current directory:"
+        pwd
+        echo ""
+        echo "Top-level contents:"
+        ls -la
+        echo ""
+
     - name: Start Setup Script for Template App Firebase Upload
       run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-firebase
       env:
