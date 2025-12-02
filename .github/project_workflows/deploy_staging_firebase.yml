@@ -38,6 +38,11 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
     - name: Create Release Note
       run: |
         echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
