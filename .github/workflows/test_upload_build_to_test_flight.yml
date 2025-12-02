@@ -26,6 +26,12 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Setup mise
+      uses: jdx/mise-action@v3
+      with:
+        tools: |
+          tuist@latest
+
     - name: Install SSH key
       uses: webfactory/ssh-agent@v0.7.0
       with:
