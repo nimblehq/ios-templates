@@ -27,8 +27,8 @@ jobs:
     - name: Setup mise
       uses: jdx/mise-action@v3
       with:
-        tools: |
-          tuist@latest
+        install: true
+        install_args: "tuist@latest"
 
     - name: Create Release Note
       run: |

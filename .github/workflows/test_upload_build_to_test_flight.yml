@@ -29,8 +29,8 @@ jobs:
     - name: Setup mise
       uses: jdx/mise-action@v3
       with:
-        tools: |
-          tuist@latest
+        install: true
+        install_args: "tuist@latest"
 
     - name: Install SSH key
       uses: webfactory/ssh-agent@v0.7.0
