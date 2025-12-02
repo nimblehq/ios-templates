@@ -76,7 +76,15 @@ class SetUpIOSProject {
             writeln()
             write("🚀 Done! App is ready to development 🙌", style: .success)
             try? openProject()
-        } catch {}
+        } catch {
+            writeln()
+            write("❌ Setup failed with error: \(error)", style: .error)
+
+            if isCI {
+                // In CI we want a hard failure so the pipeline does not continue silently
+                exit(1)
+            }
+        }
     }
 
     private func readArguments() {

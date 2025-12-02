@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
 
@@ -33,7 +33,7 @@ jobs:
     name: Build
     runs-on: [self-hosted, macOS]
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
@@ -70,7 +70,7 @@ jobs:
       run: bundle exec arkana
 
     - name: Cache Pods
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       id: cocoapodCache
       with:
         path: Pods
@@ -96,7 +96,7 @@ jobs:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
         path: |

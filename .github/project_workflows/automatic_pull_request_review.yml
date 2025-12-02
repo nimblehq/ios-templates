@@ -13,11 +13,16 @@ jobs:
     name: Pull request review by Danger
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
 
-    - uses: actions/cache@v3
+    - name: Setup Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
+    - uses: actions/cache@v4
       id: bunlderCache
       with:
         path: vendor/bundle
@@ -39,7 +44,7 @@ jobs:
       run: bundle exec arkana
 
     - name: Cache Pods
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       id: cocoapodCache
       with:
         path: Pods
