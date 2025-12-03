@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Get release version
         run: |
@@ -56,7 +56,7 @@ jobs:
           branch: chore/bump-version-to-${{ github.event.inputs.nextVersion }}
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: chore/bump-version-to-${{ github.event.inputs.nextVersion }}
 
