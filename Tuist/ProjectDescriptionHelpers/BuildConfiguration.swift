@@ -1,7 +1,6 @@
 import ProjectDescription
 
 public enum BuildConfiguration: CaseIterable {
-
     case debugStaging
     case releaseStaging
     case debugProduction

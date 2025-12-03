@@ -1,10 +1,3 @@
-//
-//  Modules.swift
-//  ProjectDescriptionHelpers
-//
-//  Created by Phong on 16/10/2023.
-//
-
 import ProjectDescription
 
 public enum Module: CaseIterable {
@@ -13,11 +6,10 @@ public enum Module: CaseIterable {
     case data
 
     public var name: String {
+
         switch self {
-        case .domain:
-            return "Domain"
-        case .data:
-            return "Data"
+        case .domain: return "Domain"
+        case .data: return "Data"
         }
     }
 
@@ -26,11 +18,15 @@ public enum Module: CaseIterable {
         case .domain:
             return []
         case .data:
-            return [.target(name: Module.domain.name)]
+            // Data depends on Domain and Alamofire
+            return [
+                .target(name: Module.domain.name),
+                .package(product: "Alamofire")
+            ]
         }
     }
 
-    public var frameworkPath: String {
+    private var frameworkPath: String {
         "\(Constant.modulesRootPath)/\(name)"
     }
 
@@ -48,16 +44,16 @@ public enum Module: CaseIterable {
 
     public var testsResources: ProjectDescription.ResourceFileElements {
         [
-            "\(frameworkPath)/\(Constant.testsPath)/**/.gitkeep",
-            "\(frameworkPath)/\(Constant.testsPath)/\(Constant.resourcesPath)/**"
+            "\(frameworkPath)/\(Constant.testsPath)/\(Constant.resourcesPath)/**",
+            "\(frameworkPath)/\(Constant.testsPath)/**/.gitkeep"
         ]
     }
 
-    public func getBundleId(mainBundleId: String) -> String {
-        "\(mainBundleId).\(name)"
+    public func bundleId(mainBundleId: String) -> String {
+        "\(mainBundleId).\(name.lowercased())"
     }
 
-    public func getTestBundleId(mainBundleId: String) -> String {
-        "\(mainBundleId).\(name)\(Constant.testsPath)"
+    public func testBundleId(mainBundleId: String) -> String {
+        "\(mainBundleId).\(name.lowercased()).tests"
     }
 }

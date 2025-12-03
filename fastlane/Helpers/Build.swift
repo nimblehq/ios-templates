@@ -6,6 +6,8 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
+import Foundation
+
 enum Build {
 
     // MARK: Build the application

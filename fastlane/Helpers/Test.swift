@@ -19,7 +19,7 @@ enum Test {
             onlyTesting: onlyTesting,
             codeCoverage: .userDefined(true),
             outputDirectory: Constant.testOutputDirectoryPath,
-            xcodebuildFormatter: "Pods/xcbeautify/xcbeautify",
+            xcodebuildFormatter: "xcbeautify",
             resultBundle: .userDefined(true),
             failBuild: .userDefined(false)
         )

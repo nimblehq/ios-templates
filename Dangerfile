@@ -7,12 +7,12 @@ warn("This pull request is quite big (#{git.lines_of_code} lines changed), pleas
 warn("This pull request doesn't have any labels, please consider to add labels to this pull request.") if github.pr_labels.empty?
 
 # SwiftFormat
-swiftformat.binary_path = './Pods/SwiftFormat/CommandLineTool/swiftformat'
-swiftformat.exclude = %w(Pods/**  **/*generated.swift)
+swiftformat.binary_path = 'swiftformat'
+swiftformat.exclude = %w(**/*generated.swift)
 swiftformat.check_format
 
 # Swiftlint
-swiftlint.binary_path = './Pods/SwiftLint/swiftlint'
+swiftlint.binary_path = 'swiftlint'
 swiftlint.config_file = '.swiftlint.yml'
 swiftlint.max_num_violations = 20
 swiftlint.lint_files(
@@ -21,9 +21,9 @@ swiftlint.lint_files(
   additional_swiftlint_args: '--strict'
 )
 
+xcodeproj = "./{PROJECT_NAME}.xcodeproj"
 xcresultPath = "./fastlane/test_output/{PROJECT_NAME} Staging.xcresult"
 scheme = "{PROJECT_NAME} Staging"
-workspace = "./{PROJECT_NAME}.xcworkspace"
 xcovOutputDirectory = "./fastlane/xcov_output"
 
 # Xcode summary
@@ -35,14 +35,13 @@ xcode_summary.ignored_results { |result|
     true
   end
 }
-xcode_summary.ignored_files = 'Pods/**'
 xcode_summary.inline_mode = true
 xcode_summary.report xcresultPath
 
 # Xcov
 xcov.report(
   scheme: scheme,
-  workspace: workspace,
+  project: xcodeproj,
   output_directory: xcovOutputDirectory,
   xccov_file_direct_path: xcresultPath,
   only_project_targets: true,

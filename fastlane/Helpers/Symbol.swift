@@ -6,20 +6,6 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
-import Foundation
-
-enum Symbol {
-
-    static func uploadToCrashlytics(environment: Constant.Environment) {
-        guard FileManager.default.fileExists(atPath: environment.dsymPath) else {
-            return log(message: "Can't find the dSYM file")
-        }
-        uploadSymbolsToCrashlytics(
-            dsymPath: environment.dsymPath,
-            gspPath: .userDefined(environment.gspPath),
-            appId: .userDefined(environment.firebaseAppId),
-            binaryPath: .userDefined(Constant.uploadSymbolsBinaryPath),
-            debug: true // We sometimes has issues with dSYM files, so I enabled this flag.
-        )
-    }
-}
+// Deprecated: Crashlytics symbol upload is now handled by Firebase's SPM run script
+// (see Firebase docs for the `Crashlytics/run` build phase). This file is kept
+// empty intentionally to avoid breaking existing references.

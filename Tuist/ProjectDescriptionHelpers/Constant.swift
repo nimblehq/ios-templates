@@ -1,10 +1,6 @@
-//
-//  Constant.swift
-//  ProjectDescriptionHelpers
-//
-//  Created by Phong on 22/10/2023.
-//
+import Foundation
 
+// Shared path constants used across Tuist helpers.
 public enum Constant {
 
     static let plistsPath = "Configurations/Plists"
@@ -13,3 +9,4 @@ public enum Constant {
     static let resourcesPath = "Resources"
     static let testsPath = "Tests"
 }
+

@@ -2,19 +2,14 @@ To simplify setup for developers new to the application and to ensure a system t
 
 The project normally contains:
 
-- Fastlane is the easiest way to automate beta deployments and releases for `iOS` (also `Android`) applications. 🚀 It handles all tedious tasks, such as generating screenshots, dealing with code signing, and releasing the application.
-- Cocoapods: manages dependencies for Xcode projects. Cocoapods aims to improve engagement with and discoverability of third-party open-source Cocoa libraries. Developers only need to specify the dependencies in a file named `Podfile`. Cocoapods recursively resolves dependencies between libraries, fetches source code for all dependencies, and creates and maintains an Xcode workspace to build the project.
-- Swift Package Manager: a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
+- Fastlane: is the easiest way to automate beta deployments and releases for the `iOS` (also `Android`) applications. 🚀 It handles all tedious tasks, such as generating screenshots, dealing with code signing, and releasing the application.
+- Swift Package Manager: the single source of truth for runtime dependencies. All shared libraries are declared in `Project.swift` and appear in Xcode's **Package Dependencies** section.
 
 ## Dependencies
 
 ### Bundler
 
-[Bundler](https://bundler.io/) is a Ruby package manager, think of it as a Cocoapods for Ruby plugins that will be used for the project. Keeping package versions the same across all development and Continuous Development machines reduces the risk of unnoticed bugs. Noteworthy packages include `Fastlane`, `Firebase CLI, and CocoaPods`.
-
-### Cocoapods
-
-[Cocoapods](https://cocoapods.org/) manages iOS packages to keep consistency throughout development machines.
+[Bundler](https://bundler.io/) is a Ruby package manager used for CLI tooling such as `fastlane`, `xcov`, and `danger`. Keeping package versions the same on all development machines and Continuous Development machines reduces unnoticed bugs from occurring.
 
 ### Fastlane
 
@@ -36,7 +31,11 @@ The main usage of [Firebase](https://firebase.google.com/) for our team is `Fire
 
 [JSONAPIMapper](https://github.com/nimblehq/JSONMapper) works together with Alamofire to transform raw JSON responses into strongly typed models, keeping the networking layer predictable and easy to maintain.
 
-#### KeychainAccess
+### SwiftLint
+
+[SwiftLint](https://github.com/realm/SwiftLint) is used to enforce our team's code convention. SwiftLint is the perfect tool for this task as it is customizable, lightweight, and automate-able. CI installs SwiftLint via Homebrew, and Danger runs it directly (no Pods required).
+
+### KeychainAccess
 
 [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess) is a wrapper for Keychain, making storing data with Apple's encryption as convenient as using `UserDefault`.
 
@@ -95,4 +94,3 @@ The SwiftUI template relies on the **Common** libraries listed above. UI is impl
 #### IQKeyboardManagerSwift
 
 [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) is a plugin for `UIScrollView`. IQKeyboardManager will detect when the keyboard is showing and adjust the view so it is not blocked. IQKeyboardManager is the go-to solution due to its ease of installation and the developers' history of maintenance.
-

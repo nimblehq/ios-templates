@@ -3,6 +3,7 @@
 //
 
 import Alamofire
+import Foundation
 
 protocol NetworkAPIProtocol {
 
