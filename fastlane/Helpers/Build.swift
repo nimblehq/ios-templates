@@ -59,7 +59,7 @@ enum Build {
             ]),
             buildPath: .userDefined(Constant.buildPath),
             derivedDataPath: .userDefined(Constant.derivedDataPath),
-            xcodebuildFormatter: "Pods/xcbeautify/xcbeautify"
+            xcodebuildFormatter: ""
         )
     }
 }
