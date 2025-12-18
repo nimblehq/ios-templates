@@ -1,4 +1,5 @@
 [tools]
 tuist = "4.110.3"
+xcbeautify = "latest"
 
 

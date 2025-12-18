@@ -58,8 +58,7 @@ enum Build {
                 ]
             ]),
             buildPath: .userDefined(Constant.buildPath),
-            derivedDataPath: .userDefined(Constant.derivedDataPath),
-            xcodebuildFormatter: ""
+            derivedDataPath: .userDefined(Constant.derivedDataPath)
         )
     }
 }
