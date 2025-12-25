@@ -13,6 +13,14 @@ enum Test {
         onlyTesting: [String] = [],
         devices: [String]
     ) {
+        // Debug: Print test configuration
+        echo(message: "🔍 Test Configuration Debug:")
+        echo(message: "  - Environment: \(environment.rawValue)")
+        echo(message: "  - Scheme: \(environment.scheme)")
+        echo(message: "  - Devices: \(devices.joined(separator: ", "))")
+        echo(message: "  - Only Testing: \(onlyTesting.isEmpty ? "All tests" : onlyTesting.joined(separator: ", "))")
+        echo(message: "  - Output Directory: \(Constant.testOutputDirectoryPath)")
+        
         scan(
             scheme: .userDefined(environment.scheme),
             devices: .userDefined(devices),
@@ -20,7 +28,8 @@ enum Test {
             codeCoverage: .userDefined(true),
             outputDirectory: Constant.testOutputDirectoryPath,
             resultBundle: .userDefined(true),
-            failBuild: .userDefined(false)
+            failBuild: .userDefined(false),
+            xcargs: .userDefined("-verbose")
         )
     }
 

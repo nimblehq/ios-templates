@@ -45,6 +45,23 @@ enum Build {
         environment: Constant.Environment,
         type: Constant.BuildType
     ) {
+        // Debug: Print build configuration
+        echo(message: "🔍 Build Configuration Debug:")
+        echo(message: "  - Environment: \(environment.rawValue)")
+        echo(message: "  - Scheme: \(environment.scheme)")
+        echo(message: "  - Bundle ID: \(environment.bundleId)")
+        echo(message: "  - Build Type: \(type.rawValue)")
+        echo(message: "  - Export Method: \(type.value)")
+
+        let profileName = Match.createProfileName(type: type, environment: environment)
+        echo(message: "  - Provisioning Profile (expected from match): \(profileName)")
+        echo(message: "  - Build Path: \(Constant.buildPath)")
+        echo(message: "  - Derived Data Path: \(Constant.derivedDataPath)")
+
+        // Let gym/xcarchive infer export options from the archive and `exportMethod`
+        // to avoid incompatibilities with newer Xcode versions.
+        echo(message: "🚀 Starting build process...")
+
         buildApp(
             scheme: .userDefined(environment.scheme),
             clean: .userDefined(true),
@@ -52,13 +69,12 @@ enum Build {
             outputName: .userDefined(environment.productName),
             includeSymbols: .userDefined(true),
             exportMethod: .userDefined(type.value),
-            exportOptions: .userDefined([
-                "provisioningProfiles": [
-                    environment.bundleId: Match.createProfileName(type: type, environment: environment)
-                ]
-            ]),
             buildPath: .userDefined(Constant.buildPath),
-            derivedDataPath: .userDefined(Constant.derivedDataPath)
+            derivedDataPath: .userDefined(Constant.derivedDataPath),
+            xcargs: .userDefined("-verbose"),
+            verbose: .userDefined(true)
         )
+
+        echo(message: "✅ Build process completed")
     }
 }
