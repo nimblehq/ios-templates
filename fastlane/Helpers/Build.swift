@@ -71,8 +71,7 @@ enum Build {
             exportMethod: .userDefined(type.value),
             buildPath: .userDefined(Constant.buildPath),
             derivedDataPath: .userDefined(Constant.derivedDataPath),
-            xcargs: .userDefined("-verbose"),
-            verbose: .userDefined(true)
+            xcargs: .userDefined("-verbose")
         )
 
         echo(message: "✅ Build process completed")

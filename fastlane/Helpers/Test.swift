@@ -28,8 +28,8 @@ enum Test {
             codeCoverage: .userDefined(true),
             outputDirectory: Constant.testOutputDirectoryPath,
             resultBundle: .userDefined(true),
-            failBuild: .userDefined(false),
-            xcargs: .userDefined("-verbose")
+            xcargs: .userDefined("-verbose"),
+            failBuild: .userDefined(false)
         )
     }
 
