@@ -49,7 +49,8 @@ extension Target {
             ],
             settings: .settings(
                 base: [
-                    "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon"
+                    "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+                    "ALWAYS_SEARCH_USER_PATHS": "NO"
                 ]
             )
         )
@@ -64,7 +65,13 @@ extension Target {
             deploymentTargets: .iOS("{TARGET_VERSION}"),
             sources: module.sources,
             resources: module.resources,
-            dependencies: module.dependencies
+            dependencies: module.dependencies,
+            settings: .settings(
+                base: [
+                    "SKIP_INSTALL": "YES",
+                    "ALWAYS_SEARCH_USER_PATHS": "NO"
+                ]
+            )
         )
 
         let testTarget = Target.target(

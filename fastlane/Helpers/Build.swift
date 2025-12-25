@@ -58,8 +58,16 @@ enum Build {
         echo(message: "  - Build Path: \(Constant.buildPath)")
         echo(message: "  - Derived Data Path: \(Constant.derivedDataPath)")
 
-        // Let gym/xcarchive infer export options from the archive and `exportMethod`
-        // to avoid incompatibilities with newer Xcode versions.
+        // For Xcode 16.4 compatibility: don't include 'method' in exportOptions
+        // Let it be inferred from exportMethod parameter to avoid validation errors
+        let exportOptions: [String: Any] = [
+            "signingStyle": "manual",
+            "provisioningProfiles": [
+                environment.bundleId: profileName
+            ]
+            // Note: 'method' is intentionally omitted - it's set via exportMethod parameter
+        ]
+        
         echo(message: "🚀 Starting build process...")
 
         buildApp(
@@ -69,6 +77,7 @@ enum Build {
             outputName: .userDefined(environment.productName),
             includeSymbols: .userDefined(true),
             exportMethod: .userDefined(type.value),
+            exportOptions: .userDefined(exportOptions),
             buildPath: .userDefined(Constant.buildPath),
             derivedDataPath: .userDefined(Constant.derivedDataPath),
             xcargs: .userDefined("-verbose")
