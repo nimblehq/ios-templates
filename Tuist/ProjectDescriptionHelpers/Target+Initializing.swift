@@ -43,13 +43,15 @@ extension Target {
                 // Tools
                 .package(product: "FirebaseCrashlytics"), // From firebase-ios-sdk
                 .package(product: "NimbleExtension"),
-                .package(product: "Factory"),
+                .package(product: "FactoryKit"), // Factory 2.5+ uses FactoryKit to avoid SPM naming conflicts
                 // Note: R.swift is a code generation tool, not a library dependency
                 // It will be added later as a build script when we add scripts incrementally
             ],
             settings: .settings(
                 base: [
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
+                    // ALWAYS_SEARCH_USER_PATHS: Disables deprecated traditional headermap style.
+                    // Set to NO to use modern separate headermaps and eliminate Xcode warnings.
                     "ALWAYS_SEARCH_USER_PATHS": "NO"
                 ]
             )
@@ -68,7 +70,11 @@ extension Target {
             dependencies: module.dependencies,
             settings: .settings(
                 base: [
+                    // SKIP_INSTALL: Prevents frameworks from being included in the archive's Products directory.
+                    // This is required for embedded frameworks to avoid "invalid archive" errors during export.
                     "SKIP_INSTALL": "YES",
+                    // ALWAYS_SEARCH_USER_PATHS: Disables deprecated traditional headermap style.
+                    // Set to NO to use modern separate headermaps and eliminate Xcode warnings.
                     "ALWAYS_SEARCH_USER_PATHS": "NO"
                 ]
             )
