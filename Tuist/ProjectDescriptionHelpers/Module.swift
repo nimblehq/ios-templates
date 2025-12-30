@@ -1,25 +1,22 @@
 import ProjectDescription
 
 public enum Module: CaseIterable {
-
     case domain
     case data
 
     public var name: String {
-
         switch self {
-        case .domain: return "Domain"
-        case .data: return "Data"
+        case .domain: "Domain"
+        case .data: "Data"
         }
     }
 
     public var dependencies: [TargetDependency] {
         switch self {
-        case .domain:
-            return []
+        case .domain: []
         case .data:
             // Data depends on Domain and Alamofire
-            return [
+            [
                 .target(name: Module.domain.name),
                 .package(product: "Alamofire")
             ]
@@ -50,10 +47,10 @@ public enum Module: CaseIterable {
     }
 
     public func bundleId(mainBundleId: String) -> String {
-        "\(mainBundleId).\(name.lowercased())"
+        "\(mainBundleId).\(name)"
     }
 
     public func testBundleId(mainBundleId: String) -> String {
-        "\(mainBundleId).\(name.lowercased()).tests"
+        "\(mainBundleId).\(name).tests"
     }
 }

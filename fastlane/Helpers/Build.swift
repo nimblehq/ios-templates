@@ -52,12 +52,12 @@ enum Build {
         echo(message: "  - Bundle ID: \(environment.bundleId)")
         echo(message: "  - Build Type: \(type.rawValue)")
         echo(message: "  - Export Method: \(type.value)")
-
+        
         let profileName = Match.createProfileName(type: type, environment: environment)
         echo(message: "  - Provisioning Profile (expected from match): \(profileName)")
         echo(message: "  - Build Path: \(Constant.buildPath)")
         echo(message: "  - Derived Data Path: \(Constant.derivedDataPath)")
-
+        
         // For Xcode 16.4 compatibility: don't include 'method' in exportOptions
         // Let it be inferred from exportMethod parameter to avoid validation errors
         let exportOptions: [String: Any] = [
@@ -69,7 +69,7 @@ enum Build {
         ]
         
         echo(message: "🚀 Starting build process...")
-
+        
         buildApp(
             scheme: .userDefined(environment.scheme),
             clean: .userDefined(true),
@@ -82,7 +82,7 @@ enum Build {
             derivedDataPath: .userDefined(Constant.derivedDataPath),
             xcargs: .userDefined("-verbose")
         )
-
+        
         echo(message: "✅ Build process completed")
     }
 }
