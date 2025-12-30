@@ -84,13 +84,3 @@ Swift code generator running on top of Stencil. [Sourcery](https://github.com/kr
 ### SwiftUI
 
 The SwiftUI template relies on the **Common** libraries listed above. UI is implemented using the native `SwiftUI` framework, without additional third‑party SwiftUI-specific libraries by default, keeping the stack minimal and focused on system frameworks.
-
-### UIKit
-
-#### SnapKit
-
-[SnapKit](https://github.com/SnapKit/SnapKit) is the tool for laying out user interfaces with ease, and it makes it easier to establish a team's conventions. SnapKit applies Auto Layout using a more concise syntax. This allows the UI to be responsive on different devices.
-
-#### IQKeyboardManagerSwift
-
-[IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager) is a plugin for `UIScrollView`. IQKeyboardManager will detect when the keyboard is showing and adjust the view so it is not blocked. IQKeyboardManager is the go-to solution due to its ease of installation and the developers' history of maintenance.
