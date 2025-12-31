@@ -6,6 +6,8 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
+import Foundation
+
 enum Build {
 
     // MARK: Build the application
@@ -43,6 +45,31 @@ enum Build {
         environment: Constant.Environment,
         type: Constant.BuildType
     ) {
+        // Debug: Print build configuration
+        echo(message: "🔍 Build Configuration Debug:")
+        echo(message: "  - Environment: \(environment.rawValue)")
+        echo(message: "  - Scheme: \(environment.scheme)")
+        echo(message: "  - Bundle ID: \(environment.bundleId)")
+        echo(message: "  - Build Type: \(type.rawValue)")
+        echo(message: "  - Export Method: \(type.value)")
+        
+        let profileName = Match.createProfileName(type: type, environment: environment)
+        echo(message: "  - Provisioning Profile (expected from match): \(profileName)")
+        echo(message: "  - Build Path: \(Constant.buildPath)")
+        echo(message: "  - Derived Data Path: \(Constant.derivedDataPath)")
+        
+        // For Xcode 16.4 compatibility: don't include 'method' in exportOptions
+        // Let it be inferred from exportMethod parameter to avoid validation errors
+        let exportOptions: [String: Any] = [
+            "signingStyle": "manual",
+            "provisioningProfiles": [
+                environment.bundleId: profileName
+            ]
+            // Note: 'method' is intentionally omitted - it's set via exportMethod parameter
+        ]
+        
+        echo(message: "🚀 Starting build process...")
+        
         buildApp(
             scheme: .userDefined(environment.scheme),
             clean: .userDefined(true),
@@ -50,14 +77,12 @@ enum Build {
             outputName: .userDefined(environment.productName),
             includeSymbols: .userDefined(true),
             exportMethod: .userDefined(type.value),
-            exportOptions: .userDefined([
-                "provisioningProfiles": [
-                    environment.bundleId: Match.createProfileName(type: type, environment: environment)
-                ]
-            ]),
+            exportOptions: .userDefined(exportOptions),
             buildPath: .userDefined(Constant.buildPath),
             derivedDataPath: .userDefined(Constant.derivedDataPath),
-            xcodebuildFormatter: "Pods/xcbeautify/xcbeautify"
+            xcargs: .userDefined("-verbose")
         )
+        
+        echo(message: "✅ Build process completed")
     }
 }

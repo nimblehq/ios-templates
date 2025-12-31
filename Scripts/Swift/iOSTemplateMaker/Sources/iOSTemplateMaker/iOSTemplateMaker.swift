@@ -27,16 +27,13 @@ extension iOSTemplateMaker {
         var projectName: String?
         @Option(help: "The minimum iOS version (14.0)")
         var minimumVersion: String?
-        @Option(help: "The user interface framework (SwiftUI or UIKit)")
-        var interface: String?
 
         mutating func run() {
             SetUpIOSProject(
                 bundleIdProduction: bundleIdProduction.string,
                 bundleIdStaging: bundleIdStaging.string,
                 projectName: projectName.string,
-                minimumVersion: minimumVersion.string,
-                interface: interface.string
+                minimumVersion: minimumVersion.string
             ).perform()
         }
     }

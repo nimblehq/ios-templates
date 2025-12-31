@@ -77,7 +77,7 @@ enum Constant {
 
     // MARK: - Symbol
 
-    static let uploadSymbolsBinaryPath: String = "./Pods/FirebaseCrashlytics/upload-symbols"
+    // Suffix for archived dSYM zip files used in Constant.Environment.dsymPath.
     static let dSYMSuffix: String = ".dSYM.zip"
 
     // MARK: - Build and Version

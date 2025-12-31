@@ -1,4 +1,4 @@
-package_manager: cocoapods
+package_manager: spm
 environments:
   - Staging
   - Release

@@ -47,7 +47,12 @@ extension FileManager {
 
     func removeItems(in directory: String) throws {
         let currentDirectory = currentDirectoryPath
-        try removeItem(atPath: "\(currentDirectory)/\(directory)")
+        let path = "\(currentDirectory)/\(directory)"
+        guard fileExists(atPath: path) else {
+            // File doesn't exist, skip removal silently
+            return
+        }
+        try removeItem(atPath: path)
     }
 
     func replaceAllOccurrences(of original: String, to replacing: String) {

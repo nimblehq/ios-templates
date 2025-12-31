@@ -11,14 +11,22 @@
 
 ---
 
-Our optimized iOS template used in our projects using Xcode Templates
+Our optimized iOS template for shipping SwiftUI apps powered by Tuist 4 and Swift Package Manager (SPM).
 
 ## Getting Started
 
 ### Requirements
 
 - Ruby `3.1.2`
-- Xcode `13.3+`
+- Xcode `15+`
+- Tuist (version managed via `.mise.toml` - install with `mise install`)
+
+### What's inside
+
+- ✅ SwiftUI-only interface – UIKit scaffolding has been removed
+- ✅ SPM-only dependencies – CocoaPods and Podfiles are no longer generated
+- ✅ Tuist 4.110.3 manifests using the latest `ProjectDescription` helpers
+- ✅ CI-ready scripts (GitHub Actions / Fastlane) aligned with the new setup
 
 ### Use the template
 
@@ -28,6 +36,7 @@ Our optimized iOS template used in our projects using Xcode Templates
     ```bash
     swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make
     ```
+4. Open the generated `<YourProject>.xcodeproj` (SPM dependencies appear in **Package Dependencies**)
 
 ## Full Documentation
 

@@ -3,25 +3,19 @@ import Foundation
 struct SetUpInterface {
 
     enum Interface: Titlable, CaseIterable {
-
-        case swiftUI, uiKit
+        case swiftUI
 
         init?(_ name: String) {
             let name = name.lowercased()
-            if name == "s" || name == "swiftui" {
+            if name == "s" || name == "swiftui" || name.isEmpty {
                 self = .swiftUI
-            } else if name == "u" || name == "uikit" {
-                self = .uiKit
             } else {
                 return nil
             }
         }
 
         var folderName: String {
-            switch self {
-                case .swiftUI: return "SwiftUI"
-                case .uiKit: return "UIKit"
-            }
+            return "SwiftUI"
         }
 
         var title: String { folderName }
@@ -30,20 +24,13 @@ struct SetUpInterface {
     private let fileManager = FileManager.default
 
     func perform(_ interface: Interface, _ projectName: String) throws {
-        switch interface {
-        case .swiftUI:
-            let swiftUIAppDirectory = "tuist/Interfaces/SwiftUI/Sources/Application"
-            try fileManager.rename(
-                file: "\(swiftUIAppDirectory)/App.swift",
-                to: "\(swiftUIAppDirectory)/\(projectName)App.swift"
-            )
-        case .uiKit: break
-        }
+        let swiftUIAppDirectory = "Tuist/Interfaces/SwiftUI/Sources/Application"
+        try fileManager.rename(
+            file: "\(swiftUIAppDirectory)/App.swift",
+            to: "\(swiftUIAppDirectory)/\(projectName)App.swift"
+        )
 
-        let folderName = interface.folderName
-
-        try fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Project", to: "")
-        try fileManager.moveFiles(in: "tuist/Interfaces/\(folderName)/Sources", to: "\(projectName)/Sources")
-        try fileManager.removeItems(in: "tuist/Interfaces")
+        try fileManager.moveFiles(in: "Tuist/Interfaces/SwiftUI/Sources", to: "\(projectName)/Sources")
+        try fileManager.removeItems(in: "Tuist/Interfaces")
     }
 }

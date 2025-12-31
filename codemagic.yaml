@@ -6,11 +6,7 @@ workflows:
         groups:
           - fastlane
         xcode: latest
-        cocoapods: default
         firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
-      cache:
-        cache_paths:
-          - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
           - push
@@ -21,8 +17,6 @@ workflows:
       scripts:
         - name: Install bundle
           script: bundle install --path vendor/bundle
-        - name: Install Pods Dependencies
-          script: bundle exec pod install
         - name: Build and Test
           script: bundle exec fastlane buildAndTest
         - name: Match Ad-hoc
@@ -39,10 +33,6 @@ workflows:
         groups:
           - fastlane
         xcode: latest
-        cocoapods: default
-      cache:
-        cache_paths:
-          - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
           - push
@@ -53,8 +43,6 @@ workflows:
       scripts:
         - name: Install bundle
           script: bundle install --path vendor/bundle
-        - name: Install Pods Dependencies
-          script: bundle exec pod install
         - name: Build and Test
           script: bundle exec fastlane buildAndTest
         - name: Match Ad-hoc
@@ -71,11 +59,7 @@ workflows:
         groups:
           - fastlane
         xcode: latest
-        cocoapods: default
         firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
-      cache:
-        cache_paths:
-          - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
           - push
@@ -86,8 +70,6 @@ workflows:
       scripts:
         - name: Install bundle
           script: bundle install --path vendor/bundle
-        - name: Install Pods Dependencies
-          script: bundle exec pod install
         - name: Build and Test
           script: bundle exec fastlane buildAndTest
         - name: Match AppStore
@@ -104,10 +86,6 @@ workflows:
         groups:
           - fastlane
         xcode: latest
-        cocoapods: default
-      cache:
-        cache_paths:
-          - $HOME/Library/Caches/CocoaPods
       triggering:
         events:
           - pull_request
@@ -118,8 +96,6 @@ workflows:
       scripts:
         - name: Install bundle
           script: bundle install --path vendor/bundle
-        - name: Install Pods Dependencies
-          script: bundle exec pod install
         - name: Build and Test
           script: bundle exec fastlane buildAndTest
         - name: Clean Up

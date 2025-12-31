@@ -15,6 +15,6 @@
 
 - `bundle install`
 - `bundle exec arkana` _(generate keys from `.env`)_
-- `bundle exec pod install`
+- `tuist generate`
 
 Build with Xcode.

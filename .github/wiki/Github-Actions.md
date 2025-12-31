@@ -30,14 +30,14 @@ There are currently 4 workflows:
 ### Test
 
 1. Check out the current version.
-2. Install dependencies including Gem, Fastlane, and Cocoapods.
+2. Install dependencies via Bundler (Fastlane, Danger, etc.) and resolve SPM packages with Tuist/Xcode.
 3. Run Test on staging scheme and show result on pull request's check.
 
 ### Deploy
 
 1. Proceed to 4 if this job is running after `Test` job
 2. Check out the current version.
-3. Install dependencies including Gem, Fastlane, and Cocoapods.
+3. Install dependencies via Bundler (Fastlane, Danger, etc.) and resolve SPM packages with Tuist/Xcode.
 4. Install provisioning profiles and certificates using Fastlane match.
 5. Build archive version of the specified scheme.
 6. Deploy to Firebase Distribution, TestFlight, or App Store.

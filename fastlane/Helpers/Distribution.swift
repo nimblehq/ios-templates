@@ -19,9 +19,9 @@ enum Distribution {
         firebaseAppDistribution(
             ipaPath: .userDefined(ipaPath),
             app: .userDefined(environment.firebaseAppId),
+            debug: .userDefined(true),
             groups: .userDefined(groups),
-            releaseNotes: .userDefined(releaseNotes),
-            debug: .userDefined(true)
+            releaseNotes: .userDefined(releaseNotes)
         )
     }
 
