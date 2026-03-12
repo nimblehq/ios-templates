@@ -1,14 +1,15 @@
-# AGENT.md
+# AGENTS.md
 
 You are an experienced iOS developer working on an iOS **project template generator**.
 
 Source of truth for iOS conventions: Nimble Compass iOS guide
 `https://nimblehq.co/compass/development/ios/`
 
-If anything here conflicts with `CLAUDE.md`, prefer:
+If anything conflicts, prefer:
 1) **Compass** (link above), then
-2) **This `AGENT.md`** (actionable rules), then
-3) **`CLAUDE.md`** (repo overview and commands).
+2) **This `AGENTS.md`** (authoritative actionable rules).
+
+`CLAUDE.md` defers to this file — treat `AGENTS.md` as the single source of truth for agent guidance.
 
 ## Technology stack
 
@@ -78,6 +79,19 @@ The canonical lane in this repo is `buildAndTest` (implemented as `buildAndTestL
 bundle exec fastlane buildAndTest
 ```
 
+### Build & distribution lanes
+
+```bash
+bundle exec fastlane buildAdHocStagingLane
+bundle exec fastlane buildAdHocProductionLane
+bundle exec fastlane buildStagingAndUploadToFirebaseLane
+bundle exec fastlane buildProductionAndUploadToFirebaseLane
+bundle exec fastlane buildAndUploadToTestFlightLane
+bundle exec fastlane buildAndUploadToAppStoreLane
+```
+
+Distribution targets: Firebase Distribution (staging/QA), TestFlight (beta), App Store (production). Code signing is managed via `match`.
+
 ### Generate a new project from the template
 
 ```bash
@@ -135,9 +149,7 @@ Keep file organization aligned to the Compass structure.
   - `Constants/` (e.g. `Constants.swift`, `Constants+API.swift`)
   - `Presentation/`
   - `Supports/`
-    - `Builder/`
-    - `Extensions/` (e.g. `Foundation/`, `UIKit/`)
-    - `Helpers/` (e.g. `Typealias/`, `UIKit/`)
+    - `Extensions/` (group by framework, e.g. `Foundation/` for types like `Optional`, `String`, `Date`)
 
 ### SwiftUI-specific layout
 
@@ -194,15 +206,49 @@ Keep tests deterministic and avoid real network calls; use the repo’s establis
 - Prefer keeping template structure guidance in `.github/wiki/` (as already done) and keep `README.md` focused on “how to use the template.”
 - When adding new folders or patterns that affect template consumers, update the relevant wiki doc (or add a new one) in `.github/wiki/`.
 
+Key wiki articles in `.github/wiki/`:
+- `Getting-Started.md` — Full setup walkthrough
+- `Fastlane.md` — All lanes and managers
+- `Project-Configurations.md` — Build configs, xcconfig, compilation flags
+- `Project-Dependencies.md` — Full dependency list
+- `Standard-File-Organization.md` — File structure conventions
+
+## Key dependencies
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| Alamofire | 5.x | Networking |
+| Factory | 2.x | Dependency injection |
+| Kingfisher | 7.x | Image loading |
+| KeychainAccess | 4.x | Secure storage |
+| Firebase iOS SDK | 11.x | Crashlytics, Distribution |
+| JSONMapper | 1.x | JSON mapping |
+| Quick + Nimble | 7.x / 13.x | BDD unit testing |
+| OHHTTPStubs | 9.x | Network mocking in tests |
+
+## Build configurations
+
+Four configurations: `Debug Staging`, `Debug Production`, `Release Staging`, `Release Production`. XCConfig files live in `{ProjectName}/Configurations/XCConfigs/`. Compilation flags: `DEBUG`, `STAGING`, `PRODUCTION`.
+
+Tuist manifests in `Tuist/ProjectDescriptionHelpers/`:
+- `BuildConfiguration.swift` — defines the four configurations
+- `Target+Initializing.swift` — target definitions
+- `Scheme+Initializing.swift` — scheme definitions
+- `Module.swift` — Domain/Data module setup
+
 ## Configuration files (where to look)
 
 | File / Path | Purpose |
 |------------|---------|
-| `.mise.toml` | Tool versions (e.g. Tuist) |
+| `.mise.toml` | Tool versions (Tuist 4.110.3, xcbeautify) |
+| `Project.swift` | Root Tuist manifest (targets, schemes, packages) |
+| `Package.swift` | SPM dependency declarations |
+| `Tuist/ProjectDescriptionHelpers/` | Reusable Tuist helpers (see Build configurations above) |
 | `Scripts/Swift/iOSTemplateMaker/Package.swift` | Generator SwiftPM package definition |
-| `fastlane/Fastfile.swift` | Lanes (Swift DSL) |
-| `fastlane/Constants/Constant.swift` | Template constants/placeholders for fastlane |
+| `fastlane/Fastfile.swift` | Lane definitions (Swift DSL) |
+| `fastlane/Constants/Constant.swift` | Project name, bundle IDs, device list, Firebase app IDs |
 | `fastlane/Constants/Secret.swift` | CI-provided environment keys (no secrets in-repo) |
+| `fastlane/Helpers/` | Manager classes: `Build.swift`, `Distribution.swift`, `Match.swift`, `Test.swift`, `Version.swift` |
 | `.github/workflows/*.yml` | GitHub Actions CI (PR checks, template install tests, etc.) |
 | `bitrise.yml` | Bitrise pipelines (test, deploy staging/firebase, deploy App Store, etc.) |
 | `codemagic.yaml` | CodeMagic workflows (test + deploy variants) |
