@@ -15,9 +15,9 @@ If anything here conflicts with `CLAUDE.md`, prefer:
 | Category | Technology |
 |----------|------------|
 | **Language** | Swift |
-| **UI frameworks** | SwiftUI + UIKit (template supports both) |
+| **UI frameworks** | SwiftUI only (UIKit scaffolding has been removed) |
 | **Architecture** | Clean-ish layering (app → domain ← data), modularized with SPM targets |
-| **Dependency manager** | Swift Package Manager (and CocoaPods may appear in generated sample apps/CI) |
+| **Dependency manager** | Swift Package Manager only (CocoaPods has been removed) |
 | **Project generation** | Tuist (managed via `.mise.toml`) |
 | **Generator** | Swift CLI (`Scripts/Swift/iOSTemplateMaker`) |
 | **Automation** | Fastlane **Swift DSL** (`fastlane/Fastfile.swift`) |
@@ -29,7 +29,7 @@ If anything here conflicts with `CLAUDE.md`, prefer:
 This is an **iOS template repository**. Many files contain placeholders like `{PROJECT_NAME}` or `{ProjectName}` that are substituted during generation.
 
 - Do not “fix” placeholders into concrete names unless you’re editing the generator that performs substitution.
-- Prefer changes that preserve the template’s ability to generate both **SwiftUI** and **UIKit** variants when applicable.
+- The template generates **SwiftUI-only** projects; do not reintroduce UIKit scaffolding.
 
 ## Repo layout (high-level)
 
@@ -84,8 +84,7 @@ bundle exec fastlane buildAndTest
 swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make \
   --bundle-id-production co.nimblehq.project \
   --bundle-id-staging co.nimblehq.project.staging \
-  --project-name ProjectName \
-  --interface SwiftUI
+  --project-name ProjectName
 ```
 
 ## Testing expectations
@@ -109,7 +108,7 @@ Keep file organization aligned to the Compass structure.
 - `Modules/`
 - `{ProjectName}/`
 - `{ProjectName}Tests/`
-- `{ProjectName}KIFUITests/` (or `{ProjectName}UITests` depending on template variant)
+- `{ProjectName}KIFUITests/`
 
 ### `Modules/` (SPM targets)
 
@@ -132,9 +131,9 @@ Keep file organization aligned to the Compass structure.
   - `Languages/`
   - `LaunchScreen/`
 - `Sources/`
-  - `Application/` (varies by UI interface)
+  - `Application/` (`{ProjectName}App.swift`, `AppDelegate.swift`)
   - `Constants/` (e.g. `Constants.swift`, `Constants+API.swift`)
-  - `Presentations/` (varies by UI interface)
+  - `Presentation/`
   - `Supports/`
     - `Builder/`
     - `Extensions/` (e.g. `Foundation/`, `UIKit/`)
@@ -150,11 +149,7 @@ When working in SwiftUI templates, prefer the Compass layout:
 
 ### UIKit-specific layout
 
-When working in UIKit templates, prefer the Compass layout:
-
-- `{ProjectName}/Sources/Application/` (`AppDelegate.swift`, `Application.swift`, `SceneDelegate.swift`)
-- `{ProjectName}/Sources/Presentation/`
-  - `Modules/`, `Navigator/`, `Views/`, `ViewIds/`
+> UIKit scaffolding has been removed from this template. The SwiftUI layout above applies to all generated projects.
 
 ## Conventions for changes
 
@@ -241,7 +236,7 @@ Common examples found in-repo:
 2. **Compass-first structure**: new files must land in the Compass folder layout (Configs/Resources/Sources; Presentation breakdown by UI framework).
 3. **Module boundaries**: Domain must stay framework-light; Data implements Domain; App composes UI + DI.
 4. **Don’t break CI**: changes to fastlane/CI/generator require extra care; keep GitHub Actions/Bitrise/CodeMagic aligned.
-5. **SwiftUI vs UIKit**: don’t “convert” UIKit template to SwiftUI (or vice versa); keep each variant idiomatic.
+5. **SwiftUI only**: do not reintroduce UIKit scaffolding; the template is SwiftUI-only.
 
 ## Boundaries
 
