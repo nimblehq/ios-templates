@@ -42,7 +42,8 @@ swiftlint
 ```bash
 bundle exec fastlane buildAdHocStagingLane
 bundle exec fastlane buildAdHocProductionLane
-bundle exec fastlane buildAndUploadToFirebaseLane    # staging
+bundle exec fastlane buildStagingAndUploadToFirebaseLane
+bundle exec fastlane buildProductionAndUploadToFirebaseLane
 bundle exec fastlane buildAndUploadToTestFlightLane
 bundle exec fastlane buildAndUploadToAppStoreLane
 ```

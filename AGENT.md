@@ -33,7 +33,7 @@ This is an **iOS template repository**. Many files contain placeholders like `{P
 
 ## Repo layout (high-level)
 
-```
+```text
 Scripts/Swift/iOSTemplateMaker/  → Template generator CLI (Swift Package)
 Modules/                        → SPM modules (Domain/Data)
 {ProjectName}/                  → App template
