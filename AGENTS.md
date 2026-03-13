@@ -9,8 +9,6 @@ If anything conflicts, prefer:
 1) **Compass** (link above), then
 2) **This `AGENTS.md`** (authoritative actionable rules).
 
-`CLAUDE.md` defers to this file — treat `AGENTS.md` as the single source of truth for agent guidance.
-
 ## Technology stack
 
 | Category | Technology |
