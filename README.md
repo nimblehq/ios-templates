@@ -45,7 +45,7 @@ Our optimized iOS template for shipping SwiftUI apps powered by Tuist 4 and Swif
     ```
 4. Generate the project by running the following command in your terminal:
     ```bash
-    swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make \
+    swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make \
       --bundle-id-production com.example.app \
       --bundle-id-staging com.example.app.staging \
       --project-name YourProjectName
