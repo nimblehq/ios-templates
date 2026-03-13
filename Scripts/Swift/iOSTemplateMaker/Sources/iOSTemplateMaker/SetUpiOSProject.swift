@@ -145,6 +145,10 @@ class SetUpIOSProject {
 
         // Add R.generated.swift file.
         try fileManager.createFile(name: "R.generated.swift", at: "\(projectNameNoSpace)/Sources/Supports/Helpers/Rswift")
+
+        // Replace the template-repo AGENTS.md with one tailored for the generated project.
+        try fileManager.removeItems(in: "AGENTS.md")
+        try fileManager.copy(file: "AgentTemplates/AGENTS.md", to: "AGENTS.md")
     }
 
     private func replaceTextInFiles() throws {
@@ -161,11 +165,11 @@ class SetUpIOSProject {
             print("⚠️ Tuist could not be found")
             print("💡 Tip: Install Tuist using Mise: mise install")
             print("📦 Attempting to install Tuist...")
-            
+
             // Read version from .mise.toml (preferred) or fallback to .tuist-version
             let tuistVersion = readTuistVersion()
             print("📌 Installing Tuist version: \(tuistVersion)")
-            
+
             if tuistVersion != "unknown" {
                 try safeShell(
                     """
@@ -174,7 +178,7 @@ class SetUpIOSProject {
                         tuist install ${TUIST_VERSION}
                     """
                 )
-                
+
                 // Verify installation
                 if let version = try? safeShell("tuist version") {
                     print("✅ Tuist installed. Version: \(version.trimmingCharacters(in: .whitespacesAndNewlines))")
@@ -189,7 +193,7 @@ class SetUpIOSProject {
             }
         }
     }
-    
+
     private func readTuistVersion() -> String {
         // Try reading from .mise.toml first (preferred)
         if let miseTomlContent = try? String(contentsOfFile: ".mise.toml", encoding: .utf8) {
@@ -209,32 +213,32 @@ class SetUpIOSProject {
                 }
             }
         }
-        
+
         // Fallback to .tuist-version for backward compatibility
         if let tuistVersionContent = try? String(contentsOfFile: ".tuist-version", encoding: .utf8) {
             return tuistVersionContent.trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        
+
         return "unknown"
     }
 
     private func runTuist() throws {
         try installTuistIfNeeded()
-        
+
         print("🚀 Generating project with Tuist...")
         print("📋 Project name: \(projectNameNoSpace)")
-        
+
         // Check files before generation
         let projectSwiftExists = fileManager.fileExists(atPath: "Project.swift")
         let tuistHelpersExists = fileManager.fileExists(atPath: "Tuist/ProjectDescriptionHelpers")
         print("🔍 Pre-generation check:")
         print("   Project.swift exists: \(projectSwiftExists)")
         print("   Tuist/ProjectDescriptionHelpers exists: \(tuistHelpersExists)")
-        
+
         // Clean Tuist cache if it exists (might help with compilation issues)
         print("🧹 Cleaning Tuist cache...")
         let _ = try? safeShell("tuist clean")
-        
+
         // List ProjectDescriptionHelpers files for debugging
         if tuistHelpersExists {
             print("📁 ProjectDescriptionHelpers files:")
@@ -244,7 +248,7 @@ class SetUpIOSProject {
                 }
             }
         }
-        
+
         // Run Tuist generate with verbose output
         print("⚙️ Running: tuist generate --no-open")
         let output = try safeShell("tuist generate --no-open")
@@ -252,21 +256,21 @@ class SetUpIOSProject {
             print("📤 Tuist output:")
             print(output)
         }
-        
+
         // Verify files after generation
         let projectFile = "\(projectNameNoSpace).xcodeproj"
-        
+
         print("🔍 Post-generation verification:")
         let projectExists = fileManager.fileExists(atPath: projectFile)
         print("   \(projectFile) exists: \(projectExists)")
-        
+
         // Note: Using Xcode's native SPM integration via packages defined in Project.swift.
         // This integrates packages directly into the project without generating a workspace.
         // Packages will appear in Xcode's "Package Dependencies" section.
         //
         // Sources:
         // - https://docs.tuist.dev/en/guides/develop/projects/dependencies
-        
+
         if !projectExists {
             print("❌ ERROR: Project file was not generated!")
             print("💡 Check Tuist logs for more details:")
@@ -295,6 +299,7 @@ class SetUpIOSProject {
         try fileManager.removeItems(in: ".tuist-version")
         try fileManager.removeItems(in: "tuist")
         try fileManager.removeItems(in: "Project.swift")
+        try fileManager.removeItems(in: "AgentTemplates")
         try fileManager.removeItems(in: ".git/index")
         try safeShell("git reset")
     }

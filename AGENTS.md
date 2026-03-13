@@ -49,11 +49,12 @@ fastlane/                       → Fastlane Swift DSL lanes/helpers
 - Tuist (installed via `mise`; see `.mise.toml`)
 - SwiftLint available in your environment (or via your team’s standard setup)
 
-## Common commands
+## Development commands
 
 ### Generate an Xcode project
 
 ```bash
+mise install
 tuist generate
 ```
 
@@ -77,19 +78,6 @@ The canonical lane in this repo is `buildAndTest` (implemented as `buildAndTestL
 bundle exec fastlane buildAndTest
 ```
 
-### Build & distribution lanes
-
-```bash
-bundle exec fastlane buildAdHocStagingLane
-bundle exec fastlane buildAdHocProductionLane
-bundle exec fastlane buildStagingAndUploadToFirebaseLane
-bundle exec fastlane buildProductionAndUploadToFirebaseLane
-bundle exec fastlane buildAndUploadToTestFlightLane
-bundle exec fastlane buildAndUploadToAppStoreLane
-```
-
-Distribution targets: Firebase Distribution (staging/QA), TestFlight (beta), App Store (production). Code signing is managed via `match`.
-
 ### Generate a new project from the template
 
 ```bash
@@ -110,56 +98,14 @@ bundle exec fastlane buildAndTest
 
 **After any template change:** verify the generator still works by generating a fresh project (into a temporary folder / clean workspace) and ensuring it builds/tests.
 
-## Project structure (Compass-aligned)
+## Project structure
 
-Keep file organization aligned to the Compass structure.
+Keep file organization aligned to [Standard-File-Organization.md](.github/wiki/Standard-File-Organization.md).
 
-### Root
-
-- `README.md`
-- `Modules/`
-- `{ProjectName}/`
-- `{ProjectName}Tests/`
-- `{ProjectName}KIFUITests/`
-
-### `Modules/` (SPM targets)
-
-- `Modules/Domain/`
-  - `Sources/` contains **entities**, **interfaces**, **use cases**
-  - `Tests/` contains unit tests and their resources/utilities
-  - Keep Domain **pure Swift** (avoid UI/framework dependencies)
-- `Modules/Data/`
-  - `Sources/NetworkAPI/` (interceptors, models, request configurations, core)
-  - `Sources/Repositories/`
-  - `Tests/` mirrors the module structure with dummies/specs/utilities
-
-### `{ProjectName}/`
-
-- `Configurations/`
-  - `Plists/`
-  - `XCConfigs/`
-- `Resources/`
-  - `Assets/`
-  - `Languages/`
-  - `LaunchScreen/`
-- `Sources/`
-  - `Application/` (`{ProjectName}App.swift`, `AppDelegate.swift`)
-  - `Constants/` (e.g. `Constants.swift`, `Constants+API.swift`)
-  - `Presentation/`
-  - `Supports/`
-    - `Extensions/` (group by framework, e.g. `Foundation/` for types like `Optional`, `String`, `Date`)
-
-### SwiftUI-specific layout
-
-When working in SwiftUI templates, prefer the Compass layout:
-
-- `{ProjectName}/Sources/Application/` (`{ProjectName}App.swift`, `AppDelegate.swift`)
-- `{ProjectName}/Sources/Presentation/`
-  - `Models/`, `Coordinators/`, `Modules/`, `Styles/`, `ViewModifiers/`, `Views/`, `ViewIds/`
-
-### UIKit-specific layout
-
-> UIKit scaffolding has been removed from this template. The SwiftUI layout above applies to all generated projects.
+Key rules:
+- Domain stays **pure Swift** (no UI/framework dependencies)
+- `Sources/` for Swift only; `Resources/` for assets/strings/fonts/plists; `Configurations/` for xcconfigs/entitlements
+- SwiftUI only — do not reintroduce UIKit scaffolding
 
 ## Conventions for changes
 
