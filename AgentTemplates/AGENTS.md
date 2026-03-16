@@ -38,12 +38,14 @@ fastlane/                   → Fastlane Swift DSL lanes/helpers
 - Ruby + Bundler (for running fastlane via `bundle exec`)
 - SwiftLint available in your environment
 
-## Before commit (minimum)
+## Testing expectations
 
 ```bash
 swiftlint
 bundle exec fastlane buildAndTest
 ```
+
+You don’t need to run this on every small commit; rely on CI where available or run locally before merging substantial changes.
 
 ## Distribution lanes (CI/CD, not triggered by agents directly)
 
@@ -60,7 +62,7 @@ Distribution targets: Firebase Distribution (staging/QA), TestFlight (beta), App
 
 ## Project structure
 
-Keep file organization aligned to the Compass structure.
+Keep file organization aligned to our internal standard in **[Standard-File-Organization.md](.github/wiki/Standard-File-Organization.md)**.
 
 Key rules:
 - `Sources/` for Swift only; `Resources/` for assets/strings/fonts/plists; `Configurations/` for xcconfigs/entitlements

@@ -25,7 +25,7 @@ If anything conflicts, prefer:
 
 ## Scope
 
-This is an **iOS template repository**. Many files contain placeholders like `{PROJECT_NAME}` or `{ProjectName}` that are substituted during generation.
+This is an **iOS template repository**. Many files contain placeholders such as `{PROJECT_NAME}` that are replaced during generation.
 
 - Do not “fix” placeholders into concrete names unless you’re editing the generator that performs substitution.
 - The template generates **SwiftUI-only** projects; do not reintroduce UIKit scaffolding.
