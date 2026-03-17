@@ -19,6 +19,10 @@
 - [[CodeMagic]]
 - [[Fastlane]]
 
+## AI & Agents
+
+- [[Creating AGENTS-CLAUDE for Projects]]
+
 ## Operations
 
 - [[Automating Wiki]]

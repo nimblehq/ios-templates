@@ -214,7 +214,7 @@ Common examples found in-repo:
 
 | Placeholder | Intended meaning |
 |------------|------------------|
-| `{PROJECT_NAME}` / `{ProjectName}` | App/project name |
+| `{PROJECT_NAME}` | App/project name |
 | `{BUNDLE_ID_STAGING}` | Staging bundle identifier |
 | `{BUNDLE_ID_PRODUCTION}` | Production bundle identifier |
 | `{organization}` / `{repo}` | Match repo URL segments (code signing) |
