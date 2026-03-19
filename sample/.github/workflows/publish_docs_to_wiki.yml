@@ -1,0 +1,19 @@
+name: Publish docs to Wiki
+
+on:
+  push:
+    paths:
+      - .github/wiki/**
+    branches:
+      - main
+      - master
+
+jobs:
+  publish_docs_to_wiki:
+    name: Publish Wiki
+    uses: nimblehq/github-actions-workflows/.github/workflows/publish_wiki.yml@0.1.0
+    with:
+      USER_NAME: team-nimblehq
+      USER_EMAIL: dev@nimblehq.co
+    secrets:
+      USER_TOKEN: ${{ secrets.NIMBLE_DEV_TOKEN }}

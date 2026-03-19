@@ -7,5 +7,5 @@ Current the template supports setup with two user interfaces:
 To select a user interface when creating a project pass the argument `--interface [SwiftUI or UIKit]` with the `make` script. 
 
     ```bash
-        swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --interface SwiftUI
+        swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make --interface SwiftUI
     ```
