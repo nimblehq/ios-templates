@@ -16,7 +16,8 @@ struct SetUpCICDService {
                 "c": .codemagic,
                 "codemagic": .codemagic,
                 "l": .later,
-                "later": .later
+                "later": .later,
+                "none": .later
             ]
 
             if let matchedCase = mappings[name] {
@@ -76,47 +77,40 @@ struct SetUpCICDService {
 
     private let fileManager = FileManager.default
 
-    func perform() throws {
-        let service = picker(
+    func perform(cicd: String = "", githubRunner: String = "") throws {
+        let service = CICDService(cicd) ?? picker(
             title: "Which service do you use?",
             options: CICDService.allCases
         )
 
         switch service {
         case .github:
-            let runnerType = picker(
+            let runnerType = GithubRunnerType(githubRunner) ?? picker(
                 title: "Which workflow runner do you want to use?",
                 options: GithubRunnerType.allCases
             )
 
-            try fileManager.removeItems(in: "bitrise.yml")
-            try fileManager.removeItems(in: "codemagic.yaml")
-            try fileManager.removeItems(in: ".github/workflows")
-            try fileManager.createDirectory(path: ".github/workflows")
+            // Move all .github files (ISSUE_TEMPLATE, PULL_REQUEST_TEMPLATE, CODEOWNERS, etc.)
+            try fileManager.rename(file: ".cicdtemplate/.github", to: ".github")
+
+            // Remove the runner variant we're not using
             switch runnerType {
             case .macOSLatest:
-                try fileManager.moveFiles(in: ".github/project_workflows", to: ".github/workflows")
-                try fileManager.removeItems(in: ".github/project_workflows")
-                try fileManager.removeItems(in: ".github/self_hosted_project_workflows")
+                try fileManager.removeItems(in: ".github/self-hosted-workflows")
             case .selfHosted:
-                try fileManager.moveFiles(in: ".github/self_hosted_project_workflows", to: ".github/workflows")
-                try fileManager.removeItems(in: ".github/project_workflows")
-                try fileManager.removeItems(in: ".github/self_hosted_project_workflows")
+                try fileManager.moveFiles(in: ".github/self-hosted-workflows", to: ".github/workflows", overwrite: true)
+                try fileManager.removeItems(in: ".github/self-hosted-workflows")
             case .later:
                 print("You can manually setup the runner later.")
             }
         case .bitrise:
-            try fileManager.removeItems(in: "codemagic.yaml")
-            try fileManager.removeItems(in: ".github/workflows")
-            try fileManager.removeItems(in: ".github/project_workflows")
-            try fileManager.removeItems(in: ".github/self_hosted_project_workflows")
+            try fileManager.rename(file: ".cicdtemplate/.bitrise/bitrise.yml", to: "bitrise.yml")
         case .codemagic:
-            try fileManager.removeItems(in: "bitrise.yml")
-            try fileManager.removeItems(in: ".github/workflows")
-            try fileManager.removeItems(in: ".github/project_workflows")
-            try fileManager.removeItems(in: ".github/self_hosted_project_workflows")
+            try fileManager.rename(file: ".cicdtemplate/.codemagic/codemagic.yaml", to: "codemagic.yaml")
         case .later:
             print("You can manually setup the template later.")
         }
+
+        try fileManager.removeItems(in: ".cicdtemplate")
     }
 }

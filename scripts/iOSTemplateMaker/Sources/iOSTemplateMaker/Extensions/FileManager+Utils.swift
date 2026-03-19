@@ -2,7 +2,7 @@ import Foundation
 
 extension FileManager {
 
-    func moveFiles(in directory: String, to destination: String) throws {
+    func moveFiles(in directory: String, to destination: String, overwrite: Bool = false) throws {
         let currentDirectory = currentDirectoryPath
         let files = try? contentsOfDirectory(
             atPath: "\(currentDirectory)/\(directory)"
@@ -10,9 +10,13 @@ extension FileManager {
         if let files = files {
             for file in files {
                 guard file != ".DS_Store" else { continue }
+                let destPath = "\(currentDirectory)/\(destination)/\(file)"
+                if overwrite && fileExists(atPath: destPath) {
+                    try removeItem(atPath: destPath)
+                }
                 try moveItem(
                     atPath: "\(currentDirectory)/\(directory)/\(file)",
-                    toPath:"\(currentDirectory)/\(destination)/\(file)"
+                    toPath: destPath
                 )
             }
         }
@@ -56,9 +60,9 @@ extension FileManager {
     }
 
     func replaceAllOccurrences(of original: String, to replacing: String) {
-        let swiftScriptBuildDirectory = "Scripts/Swift/iOSTemplateMaker/.build".lowercased()
+        let swiftScriptDirectory = "scripts/iOSTemplateMaker".lowercased()
         let pngImage = ".png"
-        let files = try? allFiles(in: currentDirectoryPath, skips: [swiftScriptBuildDirectory, pngImage])
+        let files = try? allFiles(in: currentDirectoryPath, skips: [swiftScriptDirectory, pngImage])
         guard let files else { return print("Cannot find any files in current directory") }
         for file in files {
             do {

@@ -29,6 +29,12 @@ extension iOSTemplateMaker {
         var projectName: String?
         @Option(help: "The minimum iOS version (14.0)")
         var minimumVersion: String?
+        @Option(help: "The CI/CD service (github, bitrise, codemagic, none)")
+        var cicd: String?
+        @Option(help: "The GitHub runner type (macos-latest, self-hosted) — only used when --cicd=github")
+        var githubRunner: String?
+        @Flag(help: "Open Constant.swift to set up delivery constants after setup")
+        var setupConstants: Bool = false
 
         mutating func run() {
             SetUpIOSProject(
@@ -36,7 +42,10 @@ extension iOSTemplateMaker {
                 bundleIdStaging: bundleIdStaging.string,
                 bundleIdDev: bundleIdDev.string,
                 projectName: projectName.string,
-                minimumVersion: minimumVersion.string
+                minimumVersion: minimumVersion.string,
+                cicd: cicd.string,
+                githubRunner: githubRunner.string,
+                setupConstants: setupConstants
             ).perform()
         }
     }
