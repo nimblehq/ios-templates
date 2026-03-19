@@ -24,13 +24,13 @@ struct SetUpInterface {
     private let fileManager = FileManager.default
 
     func perform(_ interface: Interface, _ projectName: String) throws {
-        let swiftUIAppDirectory = "Tuist/Interfaces/SwiftUI/Sources/Application"
+        let swiftUIAppDirectory = "template/Tuist/Interfaces/SwiftUI/Sources/Application"
         try fileManager.rename(
             file: "\(swiftUIAppDirectory)/App.swift",
             to: "\(swiftUIAppDirectory)/\(projectName)App.swift"
         )
 
-        try fileManager.moveFiles(in: "Tuist/Interfaces/SwiftUI/Sources", to: "\(projectName)/Sources")
-        try fileManager.removeItems(in: "Tuist/Interfaces")
+        try fileManager.moveFiles(in: "template/Tuist/Interfaces/SwiftUI/Sources", to: "template/\(projectName)/Sources")
+        try fileManager.removeItems(in: "template/Tuist/Interfaces")
     }
 }
