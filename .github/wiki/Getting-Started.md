@@ -9,7 +9,7 @@
 2. Clone your repository
 3. Setup the project by running the following command in your terminal:
     ```bash
-    swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make
+    swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make
     ```
 
 ## Options
@@ -25,5 +25,5 @@ Options are optional and will be prompted if not provided. Example is provided i
 ### Example
 
 ```
-swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface SwiftUI
+swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface SwiftUI
 ```

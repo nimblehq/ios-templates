@@ -1,37 +1,55 @@
+<<<<<<<< HEAD:.github/workflows/test_upload_build_staging_to_firebase.yml
 name: Test Upload Staging Build to Firebase
+========
+name: Deploy Staging Build To Firebase
+>>>>>>>> b69068a ([#593] Refactor repo structure - Part 2: Sample project, scripts, and docs):sample/.github/workflows/deploy_staging_firebase.yml
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
 ### MATCH_PASS
 ### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
+<<<<<<<< HEAD:.github/workflows/test_upload_build_staging_to_firebase.yml
 ### TEAM_ID
+========
+>>>>>>>> b69068a ([#593] Refactor repo structure - Part 2: Sample project, scripts, and docs):sample/.github/workflows/deploy_staging_firebase.yml
 
 on:
-  pull_request
-  
+  push:
+    branches: [ develop ]
+  workflow_dispatch:
+
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+
+    - name: Run SwiftLint
+      uses: docker://norionomura/swiftlint:0.53.0_swift-5.7
+      with:
+        args: swiftlint --strict
+
   build:
     name: Build
     runs-on: macOS-latest
-    env:
-      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 60
-      FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
     steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v6
+    - uses: actions/checkout@v6
+    # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
 
     - name: Create Release Note
       run: |
-        echo "Here is: "
-        echo "RELEASE_NOTES="$((git log -1 --merges | grep "\[") | grep . && echo "" || echo $(git log -1 --merges --format=%B))""
         echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-        echo "$((git log -1 --merges | grep "\[") | grep . && echo "" || echo $(git log -1 --merges --format=%B))" >> $GITHUB_ENV
+        echo "$(git log -1 | grep -o "\[.*")" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
 
     - name: Install SSH key
@@ -44,6 +62,13 @@ jobs:
         yarn global add firebase-tools
         echo "$(yarn global bin)" >> $GITHUB_PATH
 
+    - name: Setup ENV file
+      env:
+        ENV: ${{ secrets.ENV }}
+      run: |
+        touch .env
+        echo $ENV | base64 --decode > .env
+
     - name: Read Google Service Account
       id: firebase_service_account
       uses: timheuer/base64-to-file@v1.2
@@ -52,11 +77,22 @@ jobs:
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
+      # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
+      
+    - name: Run Arkana
+      run: bundle exec arkana
 
-    - name: Install tools with mise
-      uses: jdx/mise-action@v3
+    - name: Cache Pods
+      uses: actions/cache@v4
+      id: cocoapodCache
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
 
+<<<<<<<< HEAD:.github/workflows/test_upload_build_staging_to_firebase.yml
     - name: Start Install Script for Template App
       run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --bundle-id-dev co.nimblehq.ios.templates.dev --project-name TemplateApp
 
@@ -65,11 +101,16 @@ jobs:
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
         TEAM_ID: ${{ secrets.TEAM_ID }}
+========
+    - name: Install Pods Dependencies
+      run: bundle exec pod install
+      shell: bash
 
-    - name: Set Up Test Project for Firebase
-      run: bundle exec fastlane setUpTestProject
+    - name: Build and Test
+      run: bundle exec fastlane buildAndTest
+>>>>>>>> b69068a ([#593] Refactor repo structure - Part 2: Sample project, scripts, and docs):sample/.github/workflows/deploy_staging_firebase.yml
 
-    - name: Sync Ad Hoc Code Signing
+    - name: Match Ad-hoc
       run: bundle exec fastlane syncAdHocStagingCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
