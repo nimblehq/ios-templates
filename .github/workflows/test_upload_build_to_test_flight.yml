@@ -41,6 +41,11 @@ jobs:
     - name: Bundle install
       run: bundle install
 
+    - name: Install asc
+      uses: rudrankriyam/setup-asc@v1
+      with:
+        version: latest
+
     - name: Cache SPM Packages
       uses: actions/cache@v4
       id: spmCache
@@ -69,14 +74,15 @@ jobs:
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
-    - name: Build App and Distribute to AppStore
-      run: bundle exec fastlane buildAndUploadToAppStore
+    - name: Build App and Upload to App Store Connect with asc
+      run: scripts/ci/run_asc_appstore_release.sh
       env:
-        APPSTORE_CONNECT_API_KEY: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
-        API_KEY_ID: ${{ secrets.API_KEY_ID }}
-        ISSUER_ID: ${{ secrets.ISSUER_ID }}
-        SKIP_FIREBASE_DSYM: "true"
-        BUMP_APP_STORE_BUILD_NUMBER: "true"
+        ASC_WORKFLOW_NAME: appstore_upload_only
+        ASC_BYPASS_KEYCHAIN: "1"
+        ASC_ISSUER_ID: ${{ secrets.ISSUER_ID }}
+        ASC_KEY_ID: ${{ secrets.API_KEY_ID }}
+        ASC_PRIVATE_KEY_B64: ${{ secrets.APPSTORE_CONNECT_API_KEY }}
+        TEAM_ID: ${{ secrets.TEAM_ID }}
 
     - name: Remove keychain
       if: ${{ always() }}

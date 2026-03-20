@@ -1,0 +1,170 @@
+{
+  "env": {
+    "ARTIFACTS_DIR": "Output/asc",
+    "ASC_BYPASS_KEYCHAIN": "1",
+    "CONFIGURATION": "Release Production",
+    "EXPORT_OPTIONS": ".asc/export-options-app-store.plist",
+    "INITIAL_BUILD_NUMBER": "1",
+    "POLL_INTERVAL": "10s"
+  },
+  "workflows": {
+    "appstore_build_only": {
+      "description": "Archive and export the production app without uploading to App Store Connect.",
+      "steps": [
+        {
+          "name": "build_only_resolve_release_inputs",
+          "run": "scripts/ci/asc_resolve_release_inputs.sh",
+          "outputs": {
+            "APP_ID": "$.app_id",
+            "ARCHIVE_PATH": "$.archive_path",
+            "BUILD_NUMBER": "$.build_number",
+            "BUNDLE_IDENTIFIER": "$.bundle_identifier",
+            "DSYM_PATH": "$.dsym_path",
+            "EXPORT_OPTIONS_PATH": "$.export_options_path",
+            "IPA_PATH": "$.ipa_path",
+            "PRODUCT_NAME": "$.product_name",
+            "PROJECT_PATH": "$.project_path",
+            "SCHEME": "$.scheme",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "build_only_archive",
+          "run": "asc xcode archive --project \"${steps.build_only_resolve_release_inputs.PROJECT_PATH}\" --scheme \"${steps.build_only_resolve_release_inputs.SCHEME}\" --configuration \"$CONFIGURATION\" --archive-path \"${steps.build_only_resolve_release_inputs.ARCHIVE_PATH}\" --clean --overwrite --xcodebuild-flag=-destination --xcodebuild-flag=generic/platform=iOS --xcodebuild-flag=MARKETING_VERSION=${steps.build_only_resolve_release_inputs.VERSION} --xcodebuild-flag=CURRENT_PROJECT_VERSION=${steps.build_only_resolve_release_inputs.BUILD_NUMBER} --output json",
+          "outputs": {
+            "ARCHIVE_PATH": "$.archive_path",
+            "BUILD_NUMBER": "$.build_number",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "build_only_export",
+          "run": "asc xcode export --archive-path \"${steps.build_only_archive.ARCHIVE_PATH}\" --export-options \"${steps.build_only_resolve_release_inputs.EXPORT_OPTIONS_PATH}\" --ipa-path \"${steps.build_only_resolve_release_inputs.IPA_PATH}\" --overwrite --output json",
+          "outputs": {
+            "BUILD_NUMBER": "$.build_number",
+            "IPA_PATH": "$.ipa_path",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "build_only_package_dsym",
+          "run": "scripts/ci/asc_zip_dsym.sh \"${steps.build_only_archive.ARCHIVE_PATH}\" \"${steps.build_only_resolve_release_inputs.DSYM_PATH}\"",
+          "outputs": {
+            "DSYM_PATH": "$.dsym_path"
+          }
+        }
+      ]
+    },
+    "appstore_upload_only": {
+      "description": "Archive, export, and upload the production app to App Store Connect without submitting it for review.",
+      "steps": [
+        {
+          "name": "upload_only_resolve_release_inputs",
+          "run": "scripts/ci/asc_resolve_release_inputs.sh",
+          "outputs": {
+            "APP_ID": "$.app_id",
+            "ARCHIVE_PATH": "$.archive_path",
+            "BUILD_NUMBER": "$.build_number",
+            "BUNDLE_IDENTIFIER": "$.bundle_identifier",
+            "DSYM_PATH": "$.dsym_path",
+            "EXPORT_OPTIONS_PATH": "$.export_options_path",
+            "IPA_PATH": "$.ipa_path",
+            "PRODUCT_NAME": "$.product_name",
+            "PROJECT_PATH": "$.project_path",
+            "SCHEME": "$.scheme",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "upload_only_archive",
+          "run": "asc xcode archive --project \"${steps.upload_only_resolve_release_inputs.PROJECT_PATH}\" --scheme \"${steps.upload_only_resolve_release_inputs.SCHEME}\" --configuration \"$CONFIGURATION\" --archive-path \"${steps.upload_only_resolve_release_inputs.ARCHIVE_PATH}\" --clean --overwrite --xcodebuild-flag=-destination --xcodebuild-flag=generic/platform=iOS --xcodebuild-flag=MARKETING_VERSION=${steps.upload_only_resolve_release_inputs.VERSION} --xcodebuild-flag=CURRENT_PROJECT_VERSION=${steps.upload_only_resolve_release_inputs.BUILD_NUMBER} --output json",
+          "outputs": {
+            "ARCHIVE_PATH": "$.archive_path",
+            "BUILD_NUMBER": "$.build_number",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "upload_only_export",
+          "run": "asc xcode export --archive-path \"${steps.upload_only_archive.ARCHIVE_PATH}\" --export-options \"${steps.upload_only_resolve_release_inputs.EXPORT_OPTIONS_PATH}\" --ipa-path \"${steps.upload_only_resolve_release_inputs.IPA_PATH}\" --overwrite --output json",
+          "outputs": {
+            "BUILD_NUMBER": "$.build_number",
+            "IPA_PATH": "$.ipa_path",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "upload_only_package_dsym",
+          "run": "scripts/ci/asc_zip_dsym.sh \"${steps.upload_only_archive.ARCHIVE_PATH}\" \"${steps.upload_only_resolve_release_inputs.DSYM_PATH}\"",
+          "outputs": {
+            "DSYM_PATH": "$.dsym_path"
+          }
+        },
+        {
+          "name": "upload_only_publish",
+          "run": "asc publish appstore --app \"${steps.upload_only_resolve_release_inputs.APP_ID}\" --ipa \"${steps.upload_only_export.IPA_PATH}\" --version \"${steps.upload_only_export.VERSION}\" --wait --poll-interval \"$POLL_INTERVAL\" --output json",
+          "outputs": {
+            "BUILD_ID": "$.buildId",
+            "VERSION_ID": "$.versionId"
+          }
+        }
+      ]
+    },
+    "appstore_release": {
+      "description": "Archive, export, and submit the production app to App Store Connect.",
+      "steps": [
+        {
+          "name": "release_resolve_release_inputs",
+          "run": "scripts/ci/asc_resolve_release_inputs.sh",
+          "outputs": {
+            "APP_ID": "$.app_id",
+            "ARCHIVE_PATH": "$.archive_path",
+            "BUILD_NUMBER": "$.build_number",
+            "BUNDLE_IDENTIFIER": "$.bundle_identifier",
+            "DSYM_PATH": "$.dsym_path",
+            "EXPORT_OPTIONS_PATH": "$.export_options_path",
+            "IPA_PATH": "$.ipa_path",
+            "PRODUCT_NAME": "$.product_name",
+            "PROJECT_PATH": "$.project_path",
+            "SCHEME": "$.scheme",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "release_archive",
+          "run": "asc xcode archive --project \"${steps.release_resolve_release_inputs.PROJECT_PATH}\" --scheme \"${steps.release_resolve_release_inputs.SCHEME}\" --configuration \"$CONFIGURATION\" --archive-path \"${steps.release_resolve_release_inputs.ARCHIVE_PATH}\" --clean --overwrite --xcodebuild-flag=-destination --xcodebuild-flag=generic/platform=iOS --xcodebuild-flag=MARKETING_VERSION=${steps.release_resolve_release_inputs.VERSION} --xcodebuild-flag=CURRENT_PROJECT_VERSION=${steps.release_resolve_release_inputs.BUILD_NUMBER} --output json",
+          "outputs": {
+            "ARCHIVE_PATH": "$.archive_path",
+            "BUILD_NUMBER": "$.build_number",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "release_export",
+          "run": "asc xcode export --archive-path \"${steps.release_archive.ARCHIVE_PATH}\" --export-options \"${steps.release_resolve_release_inputs.EXPORT_OPTIONS_PATH}\" --ipa-path \"${steps.release_resolve_release_inputs.IPA_PATH}\" --overwrite --output json",
+          "outputs": {
+            "BUILD_NUMBER": "$.build_number",
+            "IPA_PATH": "$.ipa_path",
+            "VERSION": "$.version"
+          }
+        },
+        {
+          "name": "release_package_dsym",
+          "run": "scripts/ci/asc_zip_dsym.sh \"${steps.release_archive.ARCHIVE_PATH}\" \"${steps.release_resolve_release_inputs.DSYM_PATH}\"",
+          "outputs": {
+            "DSYM_PATH": "$.dsym_path"
+          }
+        },
+        {
+          "name": "publish",
+          "run": "asc publish appstore --app \"${steps.release_resolve_release_inputs.APP_ID}\" --ipa \"${steps.release_export.IPA_PATH}\" --version \"${steps.release_export.VERSION}\" --wait --poll-interval \"$POLL_INTERVAL\" --submit --confirm --output json",
+          "outputs": {
+            "BUILD_ID": "$.buildId",
+            "SUBMISSION_ID": "$.submissionId",
+            "VERSION_ID": "$.versionId"
+          }
+        }
+      ]
+    }
+  }
+}

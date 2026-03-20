@@ -63,6 +63,7 @@ fastlane/FastlaneRunner
 
 # Output folder (Derived Data, Build, ipa, etc)
 Output
+.asc/runs
 
 # Tuist
 .tuist-generated

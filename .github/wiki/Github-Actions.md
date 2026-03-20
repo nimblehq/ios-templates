@@ -30,17 +30,17 @@ There are currently 4 workflows:
 ### Test
 
 1. Check out the current version.
-2. Install dependencies via Bundler (Fastlane, Danger, etc.) and resolve SPM packages with Tuist/Xcode.
+2. Install dependencies via Bundler (Fastlane match, Danger, etc.).
 3. Run Test on staging scheme and show result on pull request's check.
 
 ### Deploy
 
 1. Proceed to 4 if this job is running after `Test` job
 2. Check out the current version.
-3. Install dependencies via Bundler (Fastlane, Danger, etc.) and resolve SPM packages with Tuist/Xcode.
+3. Install dependencies via Bundler (Fastlane match, Danger, etc.), and install `asc` for the App Store submission path.
 4. Install provisioning profiles and certificates using Fastlane match.
 5. Build archive version of the specified scheme.
-6. Deploy to Firebase Distribution, TestFlight, or App Store.
+6. Deploy to Firebase Distribution, TestFlight, or App Store with `asc` for the App Store path.
 
 # Installation
 
@@ -52,7 +52,7 @@ Make sure the following secrets are set up.
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------|----|---------------|-----------------------|-----------------------------------|
 |SSH_PRIVATE_KEY         |SSH key connected to a user with access to the match repo for check out the match repo.                                             |-   |✅              |✅                      |✅                                  |
 |MATCH_PASS              |Fastlane Match Passphrase for decrypting a match repository.                                                                        |-   |✅              |✅                      |✅                                  |
-|APPSTORE_CONNECT_API_KEY|App Store Connect API https://docs.fastlane.tools/actions/app_store_connect_api_key/ for uploading build to TestFlight or App Store. Should be `base64` encoded.|-   |-              |-                      |✅                                  |
+|APPSTORE_CONNECT_API_KEY|App Store Connect private key (`.p8`) encoded in base64. It is passed to `asc` as `ASC_PRIVATE_KEY_B64` for App Store uploads and submission.|-   |-              |-                      |✅                                  |
 |FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64|Google Service Firebase Account https://firebase.google.com/docs/app-distribution/ios/distribute-fastlane#service-acc-fastlane for uploading build to Firebase Distributions and Analytics. Should be `base64` encoded.|-   |✅              |✅                      |✅ For uploading dSYM to Crashlytics|
 
 ## Installation
@@ -60,7 +60,8 @@ Make sure the following secrets are set up.
 1. Following the setup instruction in `README.md`.
 2. Modify the files with project's values:
     - fastlane/Matchfile
-    - fastlane/Constants/Constants.rb
+    - fastlane/Constants/Constant.swift
+    - .asc/export-options-app-store.plist
 3. Get APPSTORE_CONNECT_API_KEY base64 from AuthKey file (.p8) with `cat AuthKey_ABCDEFGH.p8 | base64`.
 4. Provide SECRETS noted in `yml` file in [Github Project's Setting](https://docs.github.com/en/actions/reference/encrypted-secrets)
 4. Push changes to Github

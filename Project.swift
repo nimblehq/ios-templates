@@ -50,6 +50,11 @@ extension Project {
                 .package(url: "https://github.com/AliSoftware/OHHTTPStubs.git", from: "9.1.0"),
             ],
             settings: .settings(
+                base: [
+                    "CURRENT_PROJECT_VERSION": "1",
+                    "MARKETING_VERSION": "1.0",
+                    "VERSIONING_SYSTEM": "apple-generic"
+                ],
                 configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) },
                 defaultSettings: .none
             ),

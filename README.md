@@ -32,6 +32,7 @@ Our optimized iOS template for shipping SwiftUI apps powered by Tuist 4 and Swif
 - ✅ Code quality tools: SwiftLint, SwiftFormat, Danger, xcov
 - ✅ Secret management via [Arkana](https://github.com/rogerluan/arkana)
 - ✅ Multi-platform CI/CD (GitHub Actions, Bitrise, CodeMagic) with Fastlane Swift DSL
+- ✅ CI-ready scripts (GitHub Actions / Fastlane match / asc workflow) aligned with the new setup
 - ✅ Four build configurations: Debug/Release × Staging/Production
 
 ### Use the template

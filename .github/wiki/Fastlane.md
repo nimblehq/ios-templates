@@ -69,6 +69,12 @@ $ bundle exec fastlane buildAndUploadToAppStore
 $ bundle exec fastlane buildAndUploadToTestFlight
 ```
 
+For the App Store submission path, the template now also ships a repo-local `asc` workflow at `.asc/workflow.json` plus the wrapper script `scripts/ci/run_asc_appstore_release.sh`.
+
+- Keep using `fastlane match` for signing sync.
+- Use `asc workflow run appstore_release` for the App Store upload + submit path.
+- Firebase distribution still uses the existing Fastlane lanes.
+
 > See more:
 > 
 > - [Build.swift](#buildswift)
@@ -89,6 +95,10 @@ Define the essential information to synchronize the certificates and profiles ac
 ### Constant.swift
 
 Contains the key/value pairs of constants used during the development and release process.
+
+### .asc/export-options-app-store.plist
+
+Contains the export options used by `asc xcode export` for the App Store release workflow.
 
 ### Secret.swift
 
