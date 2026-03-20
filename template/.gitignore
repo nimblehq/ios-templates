@@ -67,6 +67,10 @@ Output
 # Tuist
 .tuist-generated
 
+# Swift Package Manager
+.build/
+.swiftpm/
+
 # JetBrains IDEs
 
 .idea

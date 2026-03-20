@@ -1,11 +1,11 @@
 included:
-  - TemplateApp
-  - TemplateAppTests
-  - TemplateAppKIFUITests
+  - Sample
+  - SampleTests
+  - SampleKIFUITests
 
 excluded:
-  - TemplateAppTests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
-  - TemplateApp/Sources/Supports/Helpers/Rswift/R.generated.swift
+  - SampleTests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
+  - Sample/Sources/Supports/Helpers/Rswift/R.generated.swift
   - Pods
   - Derived
   - DerivedData

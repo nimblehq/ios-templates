@@ -90,6 +90,9 @@ struct SetUpCICDService {
                 options: GithubRunnerType.allCases
             )
 
+            // Remove existing .github if present (e.g. from the template repo itself) so the rename succeeds
+            try fileManager.removeItems(in: ".github")
+
             // Move all .github files (ISSUE_TEMPLATE, PULL_REQUEST_TEMPLATE, CODEOWNERS, etc.)
             try fileManager.rename(file: ".cicdtemplate/.github", to: ".github")
 

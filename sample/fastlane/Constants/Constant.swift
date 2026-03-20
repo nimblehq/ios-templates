@@ -26,7 +26,7 @@ enum Constant {
     static let appleStagingTeamId = "<#teamId#>"
     static let appleProductionUserName = "<#userName#>"
     static let appleProductionTeamId = "<#teamId#>"
-    static let keychainName = "TemplateApp_keychain"
+    static let keychainName = "Sample_keychain"
     static let matchURL = "git@github.com:{organization}/{repo}.git"
     static let apiKey: [String: Any] = {
         var key = Secret.appstoreConnectAPIKey
@@ -73,7 +73,7 @@ enum Constant {
 
     static let stagingBundleId = "co.nimblehq.ios.templates.staging"
     static let productionBundleId = "co.nimblehq.ios.templates"
-    static let projectName = "TemplateApp"
+    static let projectName = "Sample"
 
     // MARK: - Symbol
 
