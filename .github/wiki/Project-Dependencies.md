@@ -5,6 +5,11 @@ The project normally contains:
 - Fastlane: is the easiest way to automate beta deployments and releases for the `iOS` (also `Android`) applications. 🚀 It handles all tedious tasks, such as generating screenshots, dealing with code signing, and releasing the application.
 - Swift Package Manager: the single source of truth for runtime dependencies. All shared libraries are declared in `Project.swift` and appear in Xcode's **Package Dependencies** section.
 
+Current template toolchain support:
+
+- Xcode `16.2+`
+- Swift `6.1+`
+
 ## Dependencies
 
 ### Bundler

@@ -18,7 +18,8 @@ Our optimized iOS template for shipping SwiftUI apps powered by Tuist 4 and Swif
 ### Requirements
 
 - Ruby `3.1.2+`
-- Xcode `16+`
+- Xcode `16.2+`
+- Swift `6.1+`
 - [mise](https://mise.jdx.dev/) – manages Tuist and xcbeautify versions via `.mise.toml`
 
 ### What's inside

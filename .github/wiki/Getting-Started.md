@@ -1,6 +1,7 @@
 ## Requirements
 
-- Xcode `13.3+`
+- Xcode `16.2+`
+- Swift `6.1+`
 - Ruby `3.1.2`
 
 ## Use the template
