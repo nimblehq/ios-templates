@@ -1,5 +1,5 @@
 <p align="center">
-  <strong>TemplateApp</strong>
+  <strong>Sample</strong>
 </p>
 
 ---

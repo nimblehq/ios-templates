@@ -1,6 +1,6 @@
 # AGENTS.md
 
-You are an experienced iOS developer working on **TemplateApp**, a SwiftUI-based iOS application.
+You are an experienced iOS developer working on **Sample**, a SwiftUI-based iOS application.
 
 Source of truth for iOS conventions: Nimble Compass iOS guide
 `https://nimblehq.co/compass/development/ios/`
@@ -26,9 +26,9 @@ If anything conflicts, prefer:
 Modules/                    → SPM modules
   Domain/                   → Entities, interfaces, use cases (pure Swift)
   Data/                     → Networking, repositories, storage
-TemplateApp/             → App sources
-TemplateAppTests/        → Unit tests (Quick + Nimble)
-TemplateAppKIFUITests/   → KIF UI tests
+Sample/             → App sources
+SampleTests/        → Unit tests (Quick + Nimble)
+SampleKIFUITests/   → KIF UI tests
 fastlane/                   → Fastlane Swift DSL lanes/helpers
 ```
 
@@ -38,12 +38,14 @@ fastlane/                   → Fastlane Swift DSL lanes/helpers
 - Ruby + Bundler (for running fastlane via `bundle exec`)
 - SwiftLint available in your environment
 
-## Before commit (minimum)
+## Testing expectations
 
 ```bash
 swiftlint
 bundle exec fastlane buildAndTest
 ```
+
+You don’t need to run this on every small commit; rely on CI where available or run locally before merging substantial changes.
 
 ## Distribution lanes (CI/CD, not triggered by agents directly)
 
@@ -60,7 +62,7 @@ Distribution targets: Firebase Distribution (staging/QA), TestFlight (beta), App
 
 ## Project structure
 
-Keep file organization aligned to the Compass structure.
+Keep file organization aligned to our internal standard in **[Standard-File-Organization.md](.github/wiki/Standard-File-Organization.md)**.
 
 Key rules:
 - `Sources/` for Swift only; `Resources/` for assets/strings/fonts/plists; `Configurations/` for xcconfigs/entitlements
@@ -72,9 +74,9 @@ Key rules:
 - `Domain/` — entities, interfaces, use cases; keep framework-light
 - `Data/` — `NetworkAPI/` (interceptors, models, request configs), `Repositories/`
 
-### `TemplateApp/Sources/`
+### `Sample/Sources/`
 
-- `Application/` — `TemplateAppApp.swift`, `AppDelegate.swift`
+- `Application/` — `SampleApp.swift`, `AppDelegate.swift`
 - `Constants/` — `Constants.swift`, `Constants+API.swift`
 - `Presentation/`
   - `Models/`, `Coordinators/`, `Modules/`, `Styles/`, `ViewModifiers/`, `Views/`, `ViewIds/`
@@ -92,15 +94,15 @@ When adding new functionality: introduce a **Domain interface / use case** first
 
 ## Tests
 
-- Unit tests: `TemplateAppTests/` using **Quick + Nimble**
-- UI tests: `TemplateAppKIFUITests/` — grouped as `AccessibilityIdentifiers/`, `Flows/`, `Screens/`, `Specs/`, `Utilities/`
+- Unit tests: `SampleTests/` using **Quick + Nimble**
+- UI tests: `SampleKIFUITests/` — grouped as `AccessibilityIdentifiers/`, `Flows/`, `Screens/`, `Specs/`, `Utilities/`
 - Keep tests deterministic; avoid real network calls — use the established `OHHTTPStubs` stubbing approach
 
 ## Build configurations
 
 Four configurations: `Debug Staging`, `Debug Production`, `Release Staging`, `Release Production`.
 
-XCConfig files live in `TemplateApp/Configurations/XCConfigs/`. Compilation flags: `DEBUG`, `STAGING`, `PRODUCTION`.
+XCConfig files live in `Sample/Configurations/XCConfigs/`. Compilation flags: `DEBUG`, `STAGING`, `PRODUCTION`.
 
 ## Configuration files (where to look)
 
