@@ -72,7 +72,7 @@ The main usage of [Firebase](https://firebase.google.com/) for our team is `Fire
 
 #### Sourcery
 
-Swift code generator running on top of Stencil. [Sourcery](https://github.com/krzysztofzablocki/Sourcery) is used to generate Protocol's Mock for Unit Testing purposes. We include Sourcery in the `podfile` and add a shell script to Xcode Build Phase `./Pods/Sourcery/bin/sourcery`.
+Swift code generator running on top of Stencil. [Sourcery](https://github.com/krzysztofzablocki/Sourcery) is used to generate protocol mocks for unit testing purposes. Since the template no longer uses CocoaPods, Sourcery should be integrated via its standalone CLI or build tooling instead of a `Pods` directory.
 
 #### Wormholy
 
