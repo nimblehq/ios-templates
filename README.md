@@ -17,26 +17,41 @@ Our optimized iOS template for shipping SwiftUI apps powered by Tuist 4 and Swif
 
 ### Requirements
 
-- Ruby `3.1.2`
-- Xcode `15+`
-- Tuist (version managed via `.mise.toml` - install with `mise install`)
+- Ruby `3.1.2+`
+- Xcode `16+`
+- [mise](https://mise.jdx.dev/) – manages Tuist and xcbeautify versions via `.mise.toml`
 
 ### What's inside
 
 - ✅ SwiftUI-only interface – UIKit scaffolding has been removed
 - ✅ SPM-only dependencies – CocoaPods and Podfiles are no longer generated
 - ✅ Tuist 4.110.3 manifests using the latest `ProjectDescription` helpers
-- ✅ CI-ready scripts (GitHub Actions / Fastlane) aligned with the new setup
+- ✅ Clean modular architecture: Domain + Data layers as SPM frameworks
+- ✅ Dependency injection via [Factory](https://github.com/hmlongco/Factory)
+- ✅ BDD unit testing with [Quick](https://github.com/Quick/Quick) + [Nimble](https://github.com/Quick/Nimble); UI testing via KIF
+- ✅ Code quality tools: SwiftLint, SwiftFormat, Danger, xcov
+- ✅ Secret management via [Arkana](https://github.com/rogerluan/arkana)
+- ✅ Multi-platform CI/CD (GitHub Actions, Bitrise, CodeMagic) with Fastlane Swift DSL
+- ✅ Four build configurations: Debug/Release × Staging/Production
 
 ### Use the template
 
 1. Create your repository by pressing the `Use this template` button in this repository or create a new repository and use `nimblehq/ios-templates` as a repository template.
-2. Clone your repository
-3. Setup the project by running the following command in your terminal:
+2. Clone your repository.
+3. Install tool versions and Ruby dependencies:
     ```bash
-    swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make
+    mise install
+    bundle install
     ```
-4. Open the generated `<YourProject>.xcodeproj` (SPM dependencies appear in **Package Dependencies**)
+4. Generate the project by running the following command in your terminal:
+    ```bash
+    swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make \
+      --bundle-id-production com.example.app \
+      --bundle-id-staging com.example.app.staging \
+      --project-name YourProjectName
+    ```
+    This will substitute all placeholders, run `tuist generate`, install dependencies, and open the project automatically.
+5. Open `<YourProject>.xcodeproj` in Xcode (SPM dependencies appear in **Package Dependencies**).
 
 ## Full Documentation
 
