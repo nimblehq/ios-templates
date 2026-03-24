@@ -55,8 +55,14 @@ class SetUpIOSProject {
                 try createPlaceholderFiles()
             }
 
-            try step(title: "Setup interface") {
-                try SetUpInterface().perform(.swiftUI, projectName)
+            try step(title: "Setup SwiftUI interface") {
+                let swiftUIAppDirectory = "template/Tuist/Interfaces/SwiftUI/Sources/Application"
+                try fileManager.rename(
+                    file: "\(swiftUIAppDirectory)/App.swift",
+                    to: "\(swiftUIAppDirectory)/\(projectName)App.swift"
+                )
+                try fileManager.moveFiles(in: "template/Tuist/Interfaces/SwiftUI/Sources", to: "template/\(projectName)/Sources")
+                try fileManager.removeItems(in: "template/Tuist/Interfaces")
             }
 
             try step(title: "Replace package and package name within files") {
