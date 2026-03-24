@@ -9,7 +9,7 @@
 2. Clone your repository
 3. Setup the project by running the following command in your terminal:
     ```bash
-    swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make
+    swift run --package-path Scripts/iOSTemplateMaker iOSTemplateMaker make
     ```
 
 ## Options
@@ -19,11 +19,13 @@ Options are optional and will be prompted if not provided. Example is provided i
 - `--bundle-id-production`: The application's bundle id for production variant. (co.nimblehq.project)
 - `--bundle-id-staging`: The application's bundle id for staging variant. (co.nimblehq.project.staging)
 - `--project-name`: The name of the project. (Project)
-- `--minimum-version`: The minimum version of the iOS application. (14.0)
-- `--interface`: The user interface. (UIKit or SwiftUI)
+- `--minimum-version`: The minimum version of the iOS application. (16.0)
+- `--cicd`: The CI/CD service to configure. (github, bitrise, codemagic, none)
+- `--github-runner`: The GitHub Actions runner type. Only used when `--cicd=github`. (macos-latest, self-hosted)
+- `--setup-constants`: Flag to open `Constant.swift` for delivery constants setup after project generation.
 
 ### Example
 
 ```
-swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface SwiftUI
+swift run --package-path Scripts/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
 ```
