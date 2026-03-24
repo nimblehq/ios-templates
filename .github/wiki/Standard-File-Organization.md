@@ -1,6 +1,6 @@
 ## Project Structure
 
-To keep all current and upcoming iOS projects aligned, we standardize an iOS project’s file organization by following this below structure:
+To keep all current and upcoming iOS projects aligned, we standardize an iOS project's file organization by following this below structure:
 
 ### Common
 
@@ -11,13 +11,13 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   ├── Data/
 │   │   ├── Sources/
 │   │   │   ├── NetworkAPI/
-│   │   │   │   ├── Interceptors
-│   │   │   │   ├── Models
-│   │   │   │   ├── RequestConfigurations
 │   │   │   │   ├── Core/
 │   │   │   │   │   ├── NetworkAPIError.swift
 │   │   │   │   │   ├── NetworkAPIProtocol.swift
 │   │   │   │   │   └── RequestConfiguration.swift
+│   │   │   │   ├── Interceptors
+│   │   │   │   ├── Models
+│   │   │   │   ├── RequestConfigurations
 │   │   │   │   └── NetworkAPI.swift
 │   │   │   └── Repositories
 │   │   └── Tests/
@@ -27,7 +27,7 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   │           │   ├── DummyNetworkModel.swift
 │   │           │   └── DummyRequestConfiguration.swift
 │   │           ├── Specs/
-│   │           │   └── NetworkAPISpec.swift
+│   │           │   └── NetworkAPI
 │   │           └── Utilities/
 │   │               └── NetworkStubber.swift
 │   └── Domain/
@@ -39,77 +39,41 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │       └── Tests/
 │           ├── Resources
 │           └── Sources/
-│               └── DummySpec.swift
+│               └── Specs/
+│                   └── DummySpec.swift
 ├── {ProjectName}/
 │   ├── Configurations/
-│   │   ├── Plists
+│   │   ├── Plists/
+│   │   │   └── GoogleService/
+│   │   │       ├── Production
+│   │   │       └── Staging
 │   │   └── XCConfigs
 │   ├── Resources/
 │   │   ├── Assets
-│   │   ├── Languages
 │   │   └── LaunchScreen
 │   └── Sources/
-│       ├── Application/
-│       │   └── Varies by UI Interface
 │       ├── Constants/
 │       │   ├── Constants+API.swift
 │       │   └── Constants.swift
-│       ├── Presentations/
-│       │   └── Varies by UI Interaface
 │       └── Supports/
-│           ├── Builder/
-│           │   └── Builder.swift
-│           ├── Extensions/
-│           │   ├── Foundation
-│           │   └── UIKit
-│           └── Helpers/
-│               ├── Typealias
-│               └── UIKit
+│           └── Extensions/
+│               └── Foundation
 ├── {ProjectName}Tests/
 │   ├── Configurations/
 │   │   └── Plists
 │   ├── Resources
 │   └── Sources/
-│       ├── Dummy/
-│       │   ├── Data/
-│       │   │   └── Models
-│       │   ├── Domain/
-│       │   │   └── Entities
-│       │   └── Modules/
-│       │       └── Home
-│       ├── Mocks/
-│       │   ├── NetworkAPIMock.swift
-│       │   └── Sourcery/
-│       │       ├── AutoMockable.generated.swift
-│       │       └── HomeViewModelProtocolMock+Equatable.swift
-│       ├── Specs/
-│       │   ├── Presentation/
-│       │   │   ├── Modules
-│       │   │   └── Navigator
-│       │   └── Supports/
-│       │       └── Extensions
-│       └── Utilities/
-│           ├── Data+Decode.swift
-│           ├── String+Data.swift
-│           └── TestError.swift
+│       └── Specs/
+│           └── Supports/
+│               └── Extensions/
+│                   └── Foundation
 └── {ProjectName}KIFUITests/
     ├── Configurations/
     │   └── Plists
     └── Sources/
-        ├── AccessibilityIdentifiers/
-        │   ├── Login
-        │   └── Home
-        ├── Flows/
-        │   ├── Login
-        │   └── Home
-        ├── Screens/
-        │   ├── Login
-        │   └── Home
         ├── Specs/
-        │   ├── Login
-        │   └── Home
-        └── Utilities/
-            └── KIF+Swift.swift
+        │   └── Application
+        └── Utilities
 ```
 
 ### SwiftUI
@@ -117,53 +81,25 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 ```
 .
 └── {ProjectName}
-    └── Sources
-        ├── Application
-        │   ├── {ProjectName}App.swift
-        │   └── AppDelegate.swift
-        └── Presentation
-            ├── Models
-            │   └── ProductUIModel.swift
-            ├── Coordinators
-            │   └── AppCoordinator.swift
-            ├── Modules
-            │   ├── Home
-            │   └── Login
-            ├── Styles
-            │   └── RoundedButtonStyle.swift
-            ├── ViewModifiers
-            │   └── View+PrimaryNavigationBar.swift
-            ├── Views
-            │   └── SearchBarView.swift
-            └── ViewIds
-                └── ViewId.swift
-```
-
-### UIKit
-
-```
-.
-└── {ProjectName}
-    └── Sources
-        ├── Application
-        │   ├── AppDelegate.swift
-        │   ├── Application.swift
-        │   └── SceneDelegate.swift
-        └── Presentation
-            ├── Modules
-            │   ├── Home
-            │   └── Login
-            ├── Navigator
-            │   ├── Navigator+Scene.swift
-            │   ├── Navigator+Transition.swift
-            │   └── Navigator.swift
-            └── Views
-            │   ├── Button
-            │   ├── CollectionView
-            │   ├── TextField
-            │   └── Transition
-            └── ViewIds
-                └── ViewId.swift
+    └── Sources
+        ├── Application
+        │   └── {ProjectName}App.swift
+        └── Presentation
+            ├── Coordinators
+            │   └── AppCoordinator.swift
+            ├── Models
+            │   └── ProductUIModel.swift
+            ├── Modules
+            │   ├── Home
+            │   └── Login
+            ├── Styles
+            │   └── RoundedButtonStyle.swift
+            ├── ViewModifiers
+            │   └── View+PrimaryNavigationBar.swift
+            ├── Views
+            │   └── SearchBarView.swift
+            └── ViewIds
+                └── ViewId.swift
 ```
 
 ## README.md
@@ -190,7 +126,7 @@ This folder contains modules which represent targets in the project. Currently, 
 This folder contains the main sources of the project. There are three sub-folders:
 
 - Configurations: This folder contains only project configurations files, such as `Info.plist`, `.xconfig`, `.entitlements`, etc.
-- Resources: This folder contains only `resources` files, such as `.plist`, `.json`, `.tff` (fonts), `.storyboard`, `.strings`, `.der` (SSL certificates), etc.
+- Resources: This folder contains only `resources` files, such as `.plist`, `.json`, `.tff` (fonts), `.strings`, `.der` (SSL certificates), etc.
 - Sources: This folder contains only `.swift` files - the main source code of the project.
 
 ## {ProjectName}Tests
