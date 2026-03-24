@@ -69,7 +69,6 @@ jobs:
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
-      # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
 
     - name: Run Arkana
