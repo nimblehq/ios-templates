@@ -2,8 +2,6 @@
 
 To keep all current and upcoming iOS projects aligned, we standardize an iOS project's file organization by following this below structure:
 
-### Common
-
 ```
 .
 ├── README.md
@@ -52,9 +50,19 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   │   ├── Assets
 │   │   └── LaunchScreen
 │   └── Sources/
+│       ├── Application/
+│       │   └── {ProjectName}App.swift
 │       ├── Constants/
 │       │   ├── Constants+API.swift
 │       │   └── Constants.swift
+│       ├── Presentation/
+│       │   ├── Coordinators
+│       │   ├── Models
+│       │   ├── Modules
+│       │   ├── Styles
+│       │   ├── ViewIds
+│       │   ├── ViewModifiers
+│       │   └── Views
 │       └── Supports/
 │           └── Extensions/
 │               └── Foundation
@@ -74,32 +82,6 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
         ├── Specs/
         │   └── Application
         └── Utilities
-```
-
-### SwiftUI
-
-```
-.
-└── {ProjectName}
-    └── Sources
-        ├── Application
-        │   └── {ProjectName}App.swift
-        └── Presentation
-            ├── Coordinators
-            │   └── AppCoordinator.swift
-            ├── Models
-            │   └── ProductUIModel.swift
-            ├── Modules
-            │   ├── Home
-            │   └── Login
-            ├── Styles
-            │   └── RoundedButtonStyle.swift
-            ├── ViewModifiers
-            │   └── View+PrimaryNavigationBar.swift
-            ├── Views
-            │   └── SearchBarView.swift
-            └── ViewIds
-                └── ViewId.swift
 ```
 
 ## README.md
