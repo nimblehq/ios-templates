@@ -12,7 +12,7 @@ jobs:
     name: Verify
     runs-on: macos-latest
     env:
-      IS_CI: true
+      CI: true
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
@@ -28,6 +28,7 @@ jobs:
         swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make \
           --bundle-id-production co.nimblehq.ios.templates \
           --bundle-id-staging co.nimblehq.ios.templates.staging \
+          --bundle-id-dev co.nimblehq.ios.templates.dev \
           --project-name TemplateApp \
           --minimum-version 16.0 \
           --cicd github \

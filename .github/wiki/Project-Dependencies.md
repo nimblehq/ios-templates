@@ -5,6 +5,11 @@ The project normally contains:
 - Fastlane: is the easiest way to automate beta deployments and releases for the `iOS` (also `Android`) applications. 🚀 It handles all tedious tasks, such as generating screenshots, dealing with code signing, and releasing the application.
 - Swift Package Manager: the single source of truth for runtime dependencies. All shared libraries are declared in `Project.swift` and appear in Xcode's **Package Dependencies** section.
 
+Current template toolchain support:
+
+- Xcode `16.2+`
+- Swift `6.1+`
+
 ## Dependencies
 
 ### Bundler
@@ -67,7 +72,7 @@ The main usage of [Firebase](https://firebase.google.com/) for our team is `Fire
 
 #### Sourcery
 
-Swift code generator running on top of Stencil. [Sourcery](https://github.com/krzysztofzablocki/Sourcery) is used to generate Protocol's Mock for Unit Testing purposes. We include Sourcery in the `podfile` and add a shell script to Xcode Build Phase `./Pods/Sourcery/bin/sourcery`.
+Swift code generator running on top of Stencil. [Sourcery](https://github.com/krzysztofzablocki/Sourcery) is used to generate protocol mocks for unit testing purposes. Since the template no longer uses CocoaPods, Sourcery should be integrated via its standalone CLI or build tooling instead of a `Pods` directory.
 
 #### Wormholy
 

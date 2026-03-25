@@ -9,7 +9,9 @@
 ### Requirements
 
 - Ruby `3.1.2`
-- Xcode `15+`
+- Xcode `16.2+`
+- Swift `6.1+`
+- Tuist (version managed via `.mise.toml`)
 
 ### Install Dependencies
 
