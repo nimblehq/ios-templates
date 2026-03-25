@@ -76,5 +76,5 @@ dependencies/
 
 # Environment
 .env
-Scripts/Swift/iOSTemplateMaker/.*
+scripts/iOSTemplateMaker/.*
 .claude/
