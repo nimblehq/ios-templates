@@ -12,6 +12,7 @@ enum EnvironmentKey: String {
     case apiKey = "API_KEY_ID"
     case issuerId = "ISSUER_ID"
     case isCI = "CI"
+    case legacyIsCI = "IS_CI"
 }
 
 extension EnvironmentValue {

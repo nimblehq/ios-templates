@@ -96,7 +96,9 @@ class SetUpIOSProject {
             writeln()
             write("🚀 Done! App is ready to development 🙌", style: .success)
             try? openProject()
-        } catch {}
+        } catch {
+            exit(EXIT_FAILURE)
+        }
     }
 
     private func readArguments() {
@@ -221,12 +223,10 @@ class SetUpIOSProject {
     }
 
     private func promoteTemplateToRoot() throws {
-        // Remove root-level files that would conflict with template files
-        let templateFiles = (try? fileManager.contentsOfDirectory(atPath: "\(fileManager.currentDirectoryPath)/template")) ?? []
-        for file in templateFiles {
-            try? fileManager.removeItems(in: file)
-        }
-        try fileManager.moveFiles(in: "template", to: ".")
+        // Promote generated files over the repository template files in one pass.
+        // Overwrite is important here because files like README.md / AGENTS.md / CLAUDE.md
+        // already exist at the repo root while we are generating in-place during CI.
+        try fileManager.moveFiles(in: "template", to: ".", overwrite: true)
         try fileManager.removeItems(in: "template")
 
         // Use exact case-sensitive matching to avoid accidentally removing the generated project
