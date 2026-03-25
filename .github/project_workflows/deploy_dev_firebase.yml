@@ -1,4 +1,4 @@
-name: Deploy Staging Build To Firebase
+name: Deploy Dev Build To Firebase
 
 # SECRETS needed:
 ### SSH_PRIVATE_KEY for Match Repo
@@ -34,7 +34,6 @@ jobs:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v6
-    # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
 
@@ -68,7 +67,6 @@ jobs:
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
-      # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
       
     - name: Run Arkana
@@ -88,15 +86,15 @@ jobs:
       shell: bash
 
     - name: Build and Test
-      run: bundle exec fastlane buildAndTest
+      run: bundle exec fastlane buildAndTestDev
 
     - name: Match Ad-hoc
-      run: bundle exec fastlane syncAdHocStagingCodeSigning
+      run: bundle exec fastlane syncAdHocDevCodeSigning
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
 
     - name: Build App and Distribute to Firebase
-      run: bundle exec fastlane buildStagingAndUploadToFirebase
+      run: bundle exec fastlane buildDevAndUploadToFirebase
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
@@ -108,7 +106,7 @@ jobs:
           ${{ env.IPA_OUTPUT_PATH }}
           ${{ env.DSYM_OUTPUT_PATH }}
       env:
-        TAG_TYPE: Staging_Firebase
+        TAG_TYPE: Dev_Firebase
 
     - name: Remove keychain
       if: ${{ always() }}

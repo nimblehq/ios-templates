@@ -8,7 +8,6 @@
 enum EnvironmentKey: String {
 
     case matchRepo = "MATCH_REPO"
-    case stagingFirebaseAppId = "STAGING_FIREBASE_APP_ID"
     case teamId = "TEAM_ID"
     case apiKey = "API_KEY_ID"
     case issuerId = "ISSUER_ID"
