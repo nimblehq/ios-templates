@@ -62,5 +62,5 @@ Make sure the following secrets are set up.
     - fastlane/Matchfile
     - fastlane/Constants/Constants.rb
 3. Get APPSTORE_CONNECT_API_KEY base64 from AuthKey file (.p8) with `cat AuthKey_ABCDEFGH.p8 | base64`.
-4. Provide SECRETS noted in `yml` file in [Github Project's Setting](https://docs.github.com/en/actions/reference/encrypted-secrets)
+4. Provide the secrets noted in `yml` file in [Github Project's Setting](https://docs.github.com/en/actions/reference/encrypted-secrets)
 4. Push changes to Github
