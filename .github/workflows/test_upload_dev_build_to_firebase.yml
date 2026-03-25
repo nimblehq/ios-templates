@@ -54,14 +54,14 @@ jobs:
     - name: Install tools with mise
       uses: jdx/mise-action@v3
 
-    - name: Generate Template App
-      run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --bundle-id-dev co.nimblehq.ios.templates.dev --project-name TemplateApp
-
     - name: Configure Template App for Firebase upload
       run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make-test-firebase
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
         TEAM_ID: ${{ secrets.TEAM_ID }}
+
+    - name: Generate Template App
+      run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --bundle-id-dev co.nimblehq.ios.templates.dev --project-name TemplateApp
 
     - name: Set Up Test Project for Firebase
       run: bundle exec fastlane setUpTestProject

@@ -13,7 +13,6 @@ jobs:
     runs-on: macos-latest
     env:
       CI: true
-      IS_CI: true
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
