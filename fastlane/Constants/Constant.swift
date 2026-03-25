@@ -151,7 +151,7 @@ extension Constant {
 
         var appleTeamId: String {
             switch self {
-            case .dev: return appleDevTeamId
+            case .dev: return Constant.appleDevTeamId
             case .staging: return Constant.appleStagingTeamId
             case .production: return Constant.appleProductionTeamId
             }

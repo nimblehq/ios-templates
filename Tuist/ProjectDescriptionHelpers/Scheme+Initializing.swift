@@ -33,7 +33,7 @@ extension Scheme {
         let debugConfigName = BuildConfiguration.debugDev.name
         let releaseConfigName = BuildConfiguration.releaseDev.name
 
-        return Scheme(
+        return .scheme(
             name: "\(name) Dev",
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
