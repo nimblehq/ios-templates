@@ -101,8 +101,6 @@ class Fastfile: LaneFile {
         // TODO: - Make release notes
         Distribution.uploadToFirebase(environment: .dev, releaseNotes: "")
 
-        Symbol.uploadToCrashlytics(environment: .dev)
-
         Build.saveBuildContextToCI()
     }
 
