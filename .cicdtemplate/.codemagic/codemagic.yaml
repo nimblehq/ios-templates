@@ -6,6 +6,7 @@ workflows:
         groups:
           - fastlane
         xcode: latest
+        ruby: "3.2"
         firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
       triggering:
         events:
@@ -33,6 +34,7 @@ workflows:
         groups:
           - fastlane
         xcode: latest
+        ruby: "3.2"
       triggering:
         events:
           - push
@@ -59,6 +61,7 @@ workflows:
         groups:
           - fastlane
         xcode: latest
+        ruby: "3.2"
         firebase_service_account: $FIREBASE_SERVICE_ACCOUNT
       triggering:
         events:
@@ -86,6 +89,7 @@ workflows:
         groups:
           - fastlane
         xcode: latest
+        ruby: "3.2"
       triggering:
         events:
           - pull_request

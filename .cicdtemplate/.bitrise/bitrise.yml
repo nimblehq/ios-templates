@@ -2,6 +2,8 @@
 format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: ios
+tools:
+  ruby: "3.2:installed"
 trigger_map:
 - push_branch: develop
   workflow: deploy_staging

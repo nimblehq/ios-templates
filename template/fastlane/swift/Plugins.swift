@@ -11,7 +11,8 @@ import Foundation
    - app: Your app's Firebase App ID. You can find the App ID in the Firebase console, on the General Settings page
    - firebaseCliPath: **DEPRECATED!** This plugin no longer uses the Firebase CLI - Absolute path of the Firebase CLI command
    - debug: Print verbose debug output
-   - uploadTimeout: Amount of seconds before the upload will  timeout, if not completed
+   - uploadTimeout: Amount of seconds before the upload will timeout, if not completed
+   - uploadRetries: Maximum number of times the upload will retry, if not completed
    - groups: Group aliases used for distribution, separated by commas
    - groupsFile: Path to file containing group aliases used for distribution, separated by commas or newlines
    - testers: Email addresses of testers, separated by commas
@@ -43,6 +44,7 @@ public func firebaseAppDistribution(ipaPath: OptionalConfigValue<String?> = .fas
                                     firebaseCliPath: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     debug: OptionalConfigValue<Bool> = .fastlaneDefault(false),
                                     uploadTimeout: Int = 300,
+                                    uploadRetries: Int = 3,
                                     groups: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     groupsFile: OptionalConfigValue<String?> = .fastlaneDefault(nil),
                                     testers: OptionalConfigValue<String?> = .fastlaneDefault(nil),
@@ -71,6 +73,7 @@ let appArg = app.asRubyArgument(name: "app", type: nil)
 let firebaseCliPathArg = firebaseCliPath.asRubyArgument(name: "firebase_cli_path", type: nil)
 let debugArg = debug.asRubyArgument(name: "debug", type: nil)
 let uploadTimeoutArg = RubyCommand.Argument(name: "upload_timeout", value: uploadTimeout, type: nil)
+let uploadRetriesArg = RubyCommand.Argument(name: "upload_retries", value: uploadRetries, type: nil)
 let groupsArg = groups.asRubyArgument(name: "groups", type: nil)
 let groupsFileArg = groupsFile.asRubyArgument(name: "groups_file", type: nil)
 let testersArg = testers.asRubyArgument(name: "testers", type: nil)
@@ -99,6 +102,7 @@ appArg,
 firebaseCliPathArg,
 debugArg,
 uploadTimeoutArg,
+uploadRetriesArg,
 groupsArg,
 groupsFileArg,
 testersArg,

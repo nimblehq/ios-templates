@@ -45,7 +45,7 @@ fastlane/                       → Fastlane Swift DSL lanes/helpers
 ## Prerequisites
 
 - Xcode (latest stable unless project constraints say otherwise)
-- Ruby + Bundler (for running fastlane via `bundle exec`)
+- Ruby `3.2+` + Bundler (for running fastlane via `bundle exec`)
 - Tuist (installed via `mise`; see `.mise.toml`)
 - SwiftLint available in your environment (or via your team’s standard setup)
 
@@ -184,7 +184,7 @@ Tuist manifests in `Tuist/ProjectDescriptionHelpers/`:
 
 | File / Path | Purpose |
 |------------|---------|
-| `.mise.toml` | Tool versions (Tuist 4.110.3, xcbeautify) |
+| `.mise.toml` | Tool versions (Ruby 3.2, Tuist 4.110.3, xcbeautify) |
 | `Project.swift` | Root Tuist manifest (targets, schemes, packages) |
 | `Package.swift` | SPM dependency declarations |
 | `Tuist/ProjectDescriptionHelpers/` | Reusable Tuist helpers (see Build configurations above) |

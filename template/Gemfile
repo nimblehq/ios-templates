@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby ">= 3.2.0"
+
 gem 'arkana'
 gem "fastlane"
 gem "xcov"
