@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
 
@@ -33,10 +33,15 @@ jobs:
     name: Build
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v3
-    # Set fetch-depth (default: 1) to get whole tree
+    - uses: actions/checkout@v6
       with:
         fetch-depth: 0
+
+    - name: Create Release Note
+      run: |
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        echo "$(git log -1 | grep -o "\[.*")" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: Install SSH key
       uses: webfactory/ssh-agent@v0.7.0
@@ -62,14 +67,13 @@ jobs:
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Bundle install
-      # if: steps.bundleCache.outputs.cache-hit != 'true'
       run: bundle install
       
     - name: Run Arkana
       run: bundle exec arkana
 
     - name: Cache Pods
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       id: cocoapodCache
       with:
         path: Pods
@@ -95,7 +99,7 @@ jobs:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
         path: |
