@@ -42,16 +42,16 @@ Our optimized iOS template for shipping SwiftUI apps powered by Tuist 4 and Swif
 3. Install tool versions and Ruby dependencies:
     ```bash
     mise install
-    bundle install
     ```
 4. Generate the project by running the following command in your terminal:
     ```bash
     swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make \
       --bundle-id-production com.example.app \
       --bundle-id-staging com.example.app.staging \
+      --bundle-id-dev com.example.app.dev \
       --project-name YourProjectName
     ```
-    This will substitute all placeholders, run `tuist generate`, install dependencies, and open the project automatically.
+    This will substitute all placeholders, run `tuist generate`, install the project Ruby dependencies inside the generated app, and open the project automatically.
 5. Open `<YourProject>.xcodeproj` in Xcode (SPM dependencies appear in **Package Dependencies**).
 
 ## Full Documentation
