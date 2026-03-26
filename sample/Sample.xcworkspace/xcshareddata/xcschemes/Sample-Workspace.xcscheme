@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3C5CB0A9E1E29F7347C3AFBD"
+               BlueprintIdentifier = "372E276F143AFFAD2448C971"
                BuildableName = "Data.framework"
                BlueprintName = "Data"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Modules/Data/Data.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "154479324AB242590A6BB276"
+               BlueprintIdentifier = "59D7D2F02BF6A0D0E7F83454"
                BuildableName = "DataTests.xctest"
                BlueprintName = "DataTests"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Modules/Data/Data.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -42,10 +42,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "836CE02D14459445DA6F6BCA"
+               BlueprintIdentifier = "C538ACB2975E6B55AFA02B19"
                BuildableName = "Domain.framework"
                BlueprintName = "Domain"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Modules/Domain/Domain.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -56,10 +56,80 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EED8B50570C99D693C1442B9"
+               BlueprintIdentifier = "7FBD2F22544C231784C1A4D5"
                BuildableName = "DomainTests.xctest"
                BlueprintName = "DomainTests"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Modules/Domain/Domain.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "52E844066D197E3B81FA748F"
+               BuildableName = "Home.framework"
+               BlueprintName = "Home"
+               ReferencedContainer = "container:Modules/Features/Home/Home.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A414949769DD1845183AC5F6"
+               BuildableName = "HomeExample.app"
+               BlueprintName = "HomeExample"
+               ReferencedContainer = "container:Modules/Features/Home/Home.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A9EED54876D44D485F1EEB8D"
+               BuildableName = "HomeInterface.framework"
+               BlueprintName = "HomeInterface"
+               ReferencedContainer = "container:Modules/Features/Home/Home.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E3DD6237C3219FB2C5630130"
+               BuildableName = "HomeTesting.framework"
+               BlueprintName = "HomeTesting"
+               ReferencedContainer = "container:Modules/Features/Home/Home.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AF31213DA71B06E9B09EA3F0"
+               BuildableName = "HomeTests.xctest"
+               BlueprintName = "HomeTests"
+               ReferencedContainer = "container:Modules/Features/Home/Home.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -73,7 +143,21 @@
                BlueprintIdentifier = "0940194A5410D9F3713CA5E4"
                BuildableName = "Sample.app"
                BlueprintName = "Sample"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Sample/Sample.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "48597A8FF9851B106999980D"
+               BuildableName = "SampleKIFUITests.xctest"
+               BlueprintName = "SampleKIFUITests"
+               ReferencedContainer = "container:Sample/Sample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -87,7 +171,7 @@
                BlueprintIdentifier = "0EC7E0FF6972238953C4D7FA"
                BuildableName = "SampleTests.xctest"
                BlueprintName = "SampleTests"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Sample/Sample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -103,10 +187,10 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "154479324AB242590A6BB276"
+               BlueprintIdentifier = "59D7D2F02BF6A0D0E7F83454"
                BuildableName = "DataTests.xctest"
                BlueprintName = "DataTests"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Modules/Data/Data.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -114,10 +198,32 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EED8B50570C99D693C1442B9"
+               BlueprintIdentifier = "7FBD2F22544C231784C1A4D5"
                BuildableName = "DomainTests.xctest"
                BlueprintName = "DomainTests"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Modules/Domain/Domain.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AF31213DA71B06E9B09EA3F0"
+               BuildableName = "HomeTests.xctest"
+               BlueprintName = "HomeTests"
+               ReferencedContainer = "container:Modules/Features/Home/Home.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "48597A8FF9851B106999980D"
+               BuildableName = "SampleKIFUITests.xctest"
+               BlueprintName = "SampleKIFUITests"
+               ReferencedContainer = "container:Sample/Sample.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -128,7 +234,7 @@
                BlueprintIdentifier = "0EC7E0FF6972238953C4D7FA"
                BuildableName = "SampleTests.xctest"
                BlueprintName = "SampleTests"
-               ReferencedContainer = "container:Sample.xcodeproj">
+               ReferencedContainer = "container:Sample/Sample.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -146,10 +252,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3C5CB0A9E1E29F7347C3AFBD"
+            BlueprintIdentifier = "372E276F143AFFAD2448C971"
             BuildableName = "Data.framework"
             BlueprintName = "Data"
-            ReferencedContainer = "container:Sample.xcodeproj">
+            ReferencedContainer = "container:Modules/Data/Data.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>
@@ -162,10 +268,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3C5CB0A9E1E29F7347C3AFBD"
+            BlueprintIdentifier = "372E276F143AFFAD2448C971"
             BuildableName = "Data.framework"
             BlueprintName = "Data"
-            ReferencedContainer = "container:Sample.xcodeproj">
+            ReferencedContainer = "container:Modules/Data/Data.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
