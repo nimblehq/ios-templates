@@ -1,4 +1,4 @@
-To simplify setup for developers new to the application and to ensure a system that runs reproducibly reliable builds. The creation and setup of a new project will be faster and safer. It will require only the language runtime (`Ruby`) and the dependency manager installed as prerequisites.
+To simplify setup for developers new to the application and to ensure a system that runs reproducibly reliable builds. The creation and setup of a new project will be faster and safer. It will require only the language runtime (`Ruby 3.2+`) and the dependency manager installed as prerequisites.
 
 The project normally contains:
 
@@ -15,6 +15,8 @@ Current template toolchain support:
 ### Bundler
 
 [Bundler](https://bundler.io/) is a Ruby package manager used for CLI tooling such as `fastlane`, `xcov`, and `danger`. Keeping package versions the same on all development machines and Continuous Development machines reduces unnoticed bugs from occurring.
+
+The template now uses Ruby `3.2+` as its minimum baseline because `fastlane-plugin-firebase_app_distribution` `1.0.0` requires it. The repo exposes that baseline in both `.mise.toml` and `.ruby-version`.
 
 ### Fastlane
 

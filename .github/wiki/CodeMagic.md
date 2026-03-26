@@ -2,6 +2,8 @@
 
 Use the CodeMagic template to start a new project with CodeMagic as the CI/CD tool.
 
+The template sets each workflow to Ruby `3.2` so Bundler can install the current Fastlane and Firebase App Distribution plugin toolchain.
+
 ## Workflows and Steps
 
 Out of the box, the CodeMagic Template has the following workflows and steps:

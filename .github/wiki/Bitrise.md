@@ -1,6 +1,8 @@
 # Bitrise
 Use the Bitrise template to start a new project with Bitrise as the CI/CD tool.
 
+The template configures Bitrise with `tools.ruby: 3.2:installed` so the Fastlane + Firebase App Distribution toolchain runs on a compatible Ruby baseline.
+
 ## Workflows and Steps
 
 Out of the box, the Bitrise Template has the following workflows and steps:

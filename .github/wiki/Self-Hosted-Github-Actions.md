@@ -31,7 +31,7 @@ To install all the dependencies, follow these required steps:
     
     ![Download Xcode](assets/images/operations/self-hosted-github-actions/download-xcode.png)
     
-2. Launch `Terminal` to install Ruby with `gem update --system`. The current version used for writing this document is `gem install bundler:2.2.15`.
+2. Install Ruby `3.2+` and Bundler on the runner. The template now ships both `.ruby-version` and `.mise.toml`, so after checking out the repository you can use `mise install`, or install any compatible Ruby `3.2.x` manually and run `gem install bundler`.
 3. Connect Github Actions Runner to the machine.
 4. Trigger a run from Github Console or git push.
 5. During the first Github Actions runtime, some gems package will require machine password to install. This is referred to machine password in MacStadium when setting up the Mac.

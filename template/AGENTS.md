@@ -35,7 +35,7 @@ fastlane/                   → Fastlane Swift DSL lanes/helpers
 ## Prerequisites
 
 - Xcode (latest stable unless project constraints say otherwise)
-- Ruby + Bundler (for running fastlane via `bundle exec`)
+- Ruby `3.2+` + Bundler (for running fastlane via `bundle exec`)
 - SwiftLint available in your environment
 
 ## Testing expectations
@@ -108,7 +108,7 @@ XCConfig files live in `{PROJECT_NAME}/Configurations/XCConfigs/`. Compilation f
 
 | File / Path | Purpose |
 |------------|---------|
-| `.mise.toml` | Tool versions (xcbeautify, etc.) |
+| `.mise.toml` | Tool versions (Ruby 3.2, xcbeautify, etc.) |
 | `Package.swift` | SPM dependency declarations |
 | `fastlane/Fastfile.swift` | Lane definitions (Swift DSL) |
 | `fastlane/Constants/Constant.swift` | Project name, bundle IDs, device list, Firebase app IDs |

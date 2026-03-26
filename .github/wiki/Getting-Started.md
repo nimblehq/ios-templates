@@ -2,13 +2,18 @@
 
 - Xcode `16.2+`
 - Swift `6.1+`
-- Ruby `3.1.2`
+- Ruby `3.2+`
+- [mise](https://mise.jdx.dev/) _(recommended for installing Ruby, Tuist, and xcbeautify from `.mise.toml`)_
 
 ## Use the template
 
 1. Create your repository by pressing the `Use this template` button in this repository or create a new repository and use `nimblehq/ios-templates` as a repository template.
 2. Clone your repository
-3. Setup the project by running the following command in your terminal:
+3. Install the toolchain:
+    ```bash
+    mise install
+    ```
+4. Setup the project by running the following command in your terminal:
     ```bash
     swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make
     ```

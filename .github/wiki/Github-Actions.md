@@ -2,6 +2,8 @@
 
 Use the GitHub Actions template to start a new project with GitHub Actions as the CI/CD tool.
 
+The generated workflows install the shared toolchain from `.mise.toml`, including Ruby `3.2+`, before running Bundler and Fastlane.
+
 Out of the box, the template contains the following workflows:
 
 ## Workflows
@@ -30,14 +32,14 @@ There are currently 4 workflows:
 ### Test
 
 1. Check out the current version.
-2. Install dependencies via Bundler (Fastlane, Danger, etc.) and resolve SPM packages with Tuist/Xcode.
+2. Install the toolchain from `.mise.toml` and then install dependencies via Bundler (Fastlane, Danger, etc.).
 3. Run Test on staging scheme and show result on pull request's check.
 
 ### Deploy
 
 1. Proceed to 4 if this job is running after `Test` job
 2. Check out the current version.
-3. Install dependencies via Bundler (Fastlane, Danger, etc.) and resolve SPM packages with Tuist/Xcode.
+3. Install the toolchain from `.mise.toml` and then install dependencies via Bundler (Fastlane, Danger, etc.).
 4. Install provisioning profiles and certificates using Fastlane match.
 5. Build archive version of the specified scheme.
 6. Deploy to Firebase Distribution, TestFlight, or App Store.
@@ -60,7 +62,7 @@ Make sure the following secrets are set up.
 1. Following the setup instruction in `README.md`.
 2. Modify the files with project's values:
     - fastlane/Matchfile
-    - fastlane/Constants/Constants.rb
+    - fastlane/Constants/Constant.swift
 3. Get APPSTORE_CONNECT_API_KEY base64 from AuthKey file (.p8) with `cat AuthKey_ABCDEFGH.p8 | base64`.
 4. Provide the secrets noted in `yml` file in [Github Project's Setting](https://docs.github.com/en/actions/reference/encrypted-secrets)
 4. Push changes to Github
