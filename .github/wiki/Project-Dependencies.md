@@ -7,7 +7,7 @@ The project normally contains:
 
 Current template toolchain support:
 
-- Xcode `16.2+`
+- Xcode `26+`
 - Swift `6.1+`
 
 ## Dependencies

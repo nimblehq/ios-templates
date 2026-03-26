@@ -10,4 +10,9 @@ extension String {
     }
 }
 
-extension String: Error {}
+struct TemplateMakerError: LocalizedError {
+
+    let message: String
+
+    var errorDescription: String? { message }
+}

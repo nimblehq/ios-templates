@@ -85,7 +85,7 @@ func step(title: String, action: () throws -> Void) throws {
     do {
         try action()
     } catch {
-        let message = error as? String ?? error.localizedDescription
+        let message = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
         write(message, style: .error)
         throw error
     }

@@ -18,17 +18,21 @@ concurrency:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
       with:
         fetch-depth: 0
 
+    - name: Install SwiftLint
+      run: brew install swiftlint
+
+    - name: Show SwiftLint version
+      run: swiftlint version
+
     - name: Run SwiftLint
-      uses: docker://norionomura/swiftlint:0.53.0_swift-5.7
-      with:
-        args: swiftlint --strict
+      run: swiftlint --strict
 
   build:
     name: Build
@@ -69,7 +73,7 @@ jobs:
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
     - name: Install tools with mise
-      uses: jdx/mise-action@v3
+      uses: jdx/mise-action@v4.0.1
 
     - name: Configure Template App for Firebase upload
       run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make-test-firebase

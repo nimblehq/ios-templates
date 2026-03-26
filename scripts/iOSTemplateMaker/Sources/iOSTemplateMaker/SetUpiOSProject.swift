@@ -199,7 +199,9 @@ class SetUpIOSProject {
         }
 
         guard fileManager.fileExists(atPath: "template/\(projectNameNoSpace).xcodeproj") else {
-            throw "Tuist failed to generate \(projectNameNoSpace).xcodeproj. Try running manually: cd template && mise exec -- tuist generate"
+            throw TemplateMakerError(
+                message: "Tuist failed to generate \(projectNameNoSpace).xcodeproj. Try running manually: cd template && mise exec -- tuist generate"
+            )
         }
     }
 

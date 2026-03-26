@@ -1,6 +1,6 @@
 ## Requirements
 
-- Xcode `16.2+`
+- Xcode `26+`
 - Swift `6.1+`
 - Ruby `3.2+`
 - [mise](https://mise.jdx.dev/) _(recommended for installing Ruby, Tuist, and xcbeautify from `.mise.toml`)_
