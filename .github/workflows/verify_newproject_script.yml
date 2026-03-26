@@ -15,13 +15,13 @@ jobs:
       CI: true
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Copy mise config
       run: cp template/.mise.toml .mise.toml
 
     - name: Install tools with mise
-      uses: jdx/mise-action@v3
+      uses: jdx/mise-action@v4.0.1
 
     - name: Run iOSTemplateMaker
       run: |
