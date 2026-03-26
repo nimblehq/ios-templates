@@ -5,18 +5,17 @@
       location = "group:Modules"
       name = "Modules">
       <FileRef
+         location = "group:Auth/Auth.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Data/Data.xcodeproj">
       </FileRef>
       <FileRef
          location = "group:Domain/Domain.xcodeproj">
       </FileRef>
-      <Group
-         location = "group:Features"
-         name = "Features">
-         <FileRef
-            location = "group:Home/Home.xcodeproj">
-         </FileRef>
-      </Group>
+      <FileRef
+         location = "group:Home/Home.xcodeproj">
+      </FileRef>
    </Group>
    <FileRef
       location = "group:Sample/Sample.xcodeproj">

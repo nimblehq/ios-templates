@@ -6,6 +6,7 @@ let workspace = Workspace(
         "Sample",
         "Modules/Domain",
         "Modules/Data",
-        "Modules/Features/Home"
+        "Modules/Home",
+        "Modules/Auth"
     ]
 )
