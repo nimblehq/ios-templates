@@ -13,7 +13,7 @@ final class NetworkAPI: NetworkAPIProtocol {
         self.decoder = decoder
     }
 
-    func performRequest<T: Decodable>(
+    func performRequest<T: Decodable & Sendable>(
         _ configuration: RequestConfiguration,
         for type: T.Type
     ) async throws -> T {

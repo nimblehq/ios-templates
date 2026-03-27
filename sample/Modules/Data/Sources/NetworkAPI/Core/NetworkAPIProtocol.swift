@@ -7,7 +7,7 @@ import Foundation
 
 protocol NetworkAPIProtocol {
 
-    func performRequest<T: Decodable>(
+    func performRequest<T: Decodable & Sendable>(
         _ configuration: RequestConfiguration,
         for type: T.Type
     ) async throws -> T
@@ -15,7 +15,7 @@ protocol NetworkAPIProtocol {
 
 extension NetworkAPIProtocol {
 
-    func request<T: Decodable>(
+    func request<T: Decodable & Sendable>(
         session: Session,
         configuration: RequestConfiguration,
         decoder: JSONDecoder
