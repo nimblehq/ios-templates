@@ -55,7 +55,7 @@ If the extracted ID already starts with `#` (e.g. `#42`), use it as-is. If it is
 
 ## Step 3 — Stage and commit immediately
 
-Do **not** ask for approval. Generate the best commit message and commit straight away.
+If the changes obviously belong to one concern, proceed without asking for approval. If the diff appears to contain multiple unrelated changes (e.g. a feature addition mixed with an unrelated bug fix or refactor), stop and ask the user how to split the commit.
 
 1. Stage files **by name** (never use `git add -A` or `git add .`). Use `git add <file> [<file> ...]` for exactly the files that belong to this commit.
 2. Create the commit:
