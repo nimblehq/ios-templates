@@ -7,25 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002697F6A5007C5E1A1E387F /* AuthServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DCC2B5B2AB2651722A0952 /* AuthServiceMock.swift */; };
 		016AB1BDD4C214E19F2BF861 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 915B367BF1FCF45445D73774 /* Nimble */; };
 		2A21A21060EC5CD11B33B6A0 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; };
-		2C500BB5EF1CA2E693EB513F /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; };
 		56011461C62B04D32A592894 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E356C5859CA7C6594F8B662E /* SignInScreen.swift */; };
-		69AF3E959E75384082427505 /* AuthServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE626B72DFA92E09720F033 /* AuthServiceMock.swift */; };
-		6DA6FE013E8011AB08ED7B9C /* AuthTesting.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		77ADEED7654EBA4F6276B4E6 /* AuthExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC63BAFE2456C69C6F42FF /* AuthExampleApp.swift */; };
 		7CD0EE703B7A726CE8E703B1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4A9D6E7AE28024E3BD2E2 /* AuthService.swift */; };
 		87184693728170F6B00B67FC /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A32521103E800AA2CCB47 /* AuthError.swift */; };
 		89B98D6509BA2D560C9EDF8D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E766F21998F6827FD676EC /* User.swift */; };
 		91422B72B8431F4A6E4AE80F /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D349167F34BEE23A8B6BFBC /* SignInViewModel.swift */; };
-		9FD0E0B05397F67F37A1530A /* AuthTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */; };
 		A9ED2B3C2422F51B76B6C0E2 /* AuthServiceMockSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735243F112C20D694A0E88A1 /* AuthServiceMockSpec.swift */; };
 		AD382DD59BC85DF0D7CBC754 /* Auth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B80E15C46B6BE33C7552D287 /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984E0F401FD8105477F5A5A8 /* AuthScreen.swift */; };
 		DAD7CE164079502683E2DD1E /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = F0DE0640AB8F37B5823A9A14 /* Quick */; };
 		DD0C7D8E4061EA47B48A3B59 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4C5920E72A8D095AD14A9 /* SignUpScreen.swift */; };
 		F42073A1A98F2AF60F8938C8 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; };
-		F652D8628C214C79E590B768 /* AuthTesting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */; };
 		F890D0D17FCFEDA1C8C7EDD5 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E62A196B23A8D2783DAA8D /* AuthServiceProtocol.swift */; };
 		FCB56C2D2821254004AF5B57 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5417C63934D3E32B0C27E5 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -45,40 +41,9 @@
 			remoteGlobalIDString = CD1FF535BD66CAFC10C0E412;
 			remoteInfo = Auth;
 		};
-		8EACF005E6EC0E0B82A56E3C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DD0DF6CACA81AC66C3E75F1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 933843574E8168DD441FFB9C;
-			remoteInfo = AuthTesting;
-		};
-		AC17DEBD26B537767D8426B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DD0DF6CACA81AC66C3E75F1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CD1FF535BD66CAFC10C0E412;
-			remoteInfo = Auth;
-		};
-		F91B515478848FD870BFB065 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4DD0DF6CACA81AC66C3E75F1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 933843574E8168DD441FFB9C;
-			remoteInfo = AuthTesting;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		74EFA54B0DBD331F71819ADB /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A987588A60633AAE27D0F98A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -106,7 +71,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				AD382DD59BC85DF0D7CBC754 /* Auth.framework in Embed Frameworks */,
-				6DA6FE013E8011AB08ED7B9C /* AuthTesting.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,11 +79,9 @@
 
 /* Begin PBXFileReference section */
 		08AC63BAFE2456C69C6F42FF /* AuthExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthExampleApp.swift; sourceTree = "<group>"; };
+		15DCC2B5B2AB2651722A0952 /* AuthServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceMock.swift; sourceTree = "<group>"; };
 		233455BFFF9849E7E416C799 /* AuthExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthExample-Info.plist"; sourceTree = "<group>"; };
-		3B5098B4E6393EB4AD46B5F8 /* AuthTesting-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthTesting-Info.plist"; sourceTree = "<group>"; };
 		3D349167F34BEE23A8B6BFBC /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
-		3DE626B72DFA92E09720F033 /* AuthServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceMock.swift; sourceTree = "<group>"; };
-		5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthTesting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E0A32521103E800AA2CCB47 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		61E766F21998F6827FD676EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6BD4A9D6E7AE28024E3BD2E2 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -137,14 +99,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		464884B499FE2083EC8491F0 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2C500BB5EF1CA2E693EB513F /* Auth.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A4BD8A610793B85AB44D5EC4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -157,7 +111,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F42073A1A98F2AF60F8938C8 /* Auth.framework in Frameworks */,
-				9FD0E0B05397F67F37A1530A /* AuthTesting.framework in Frameworks */,
 				DAD7CE164079502683E2DD1E /* Quick in Frameworks */,
 				016AB1BDD4C214E19F2BF861 /* Nimble in Frameworks */,
 			);
@@ -168,7 +121,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A21A21060EC5CD11B33B6A0 /* Auth.framework in Frameworks */,
-				F652D8628C214C79E590B768 /* AuthTesting.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,7 +174,6 @@
 			children = (
 				8895FC8BB8C3644A2923E77A /* Auth.framework */,
 				9E8C0F6ABCEE929A4D133755 /* AuthExample.app */,
-				5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */,
 				CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */,
 			);
 			name = Products;
@@ -247,14 +198,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		57C272CA89D1C54E25000A90 /* Testing */ = {
-			isa = PBXGroup;
-			children = (
-				3DE626B72DFA92E09720F033 /* AuthServiceMock.swift */,
-			);
-			path = Testing;
-			sourceTree = "<group>";
-		};
 		886A512E3E2526CFCB0696BC /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,13 +208,20 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
+		902A5510DBA1046FD681D6F9 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				15DCC2B5B2AB2651722A0952 /* AuthServiceMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		979F65349794D0984634C212 /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				D889D2D65A9E44A4C8933E7A /* Derived */,
 				9D93978C62C6C0978B03739A /* Example */,
 				4AA6D29A73FB8BC6438EC478 /* Sources */,
-				57C272CA89D1C54E25000A90 /* Testing */,
 				35B0817A1CFA334D66DABC2F /* Tests */,
 			);
 			name = Project;
@@ -296,6 +246,7 @@
 		D33E856A86ED9BCD579FFBF4 /* AuthTests */ = {
 			isa = PBXGroup;
 			children = (
+				902A5510DBA1046FD681D6F9 /* Mocks */,
 				C60448913DCD6C00FE806EB4 /* Specs */,
 			);
 			path = AuthTests;
@@ -314,7 +265,6 @@
 			children = (
 				C857B2C600CA35873D2A9D32 /* Auth-Info.plist */,
 				233455BFFF9849E7E416C799 /* AuthExample-Info.plist */,
-				3B5098B4E6393EB4AD46B5F8 /* AuthTesting-Info.plist */,
 				EF08C43BB60D5CD101D7A686 /* AuthTests-Info.plist */,
 			);
 			path = InfoPlists;
@@ -353,7 +303,6 @@
 			);
 			dependencies = (
 				49ABAE717A7666336E0196E5 /* PBXTargetDependency */,
-				59FB6BBE1C761958D866208D /* PBXTargetDependency */,
 			);
 			name = AuthExample;
 			packageProductDependencies = (
@@ -375,7 +324,6 @@
 			);
 			dependencies = (
 				1A91DBB1BCF01EDB77E7A5AB /* PBXTargetDependency */,
-				BF812B67D773D5853D5F1804 /* PBXTargetDependency */,
 			);
 			name = AuthTests;
 			packageProductDependencies = (
@@ -385,27 +333,6 @@
 			productName = AuthTests;
 			productReference = CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		933843574E8168DD441FFB9C /* AuthTesting */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8CFCA00E923329CC626CA84A /* Build configuration list for PBXNativeTarget "AuthTesting" */;
-			buildPhases = (
-				DF20DADE798DF0CD0CEA7C63 /* Sources */,
-				44B7487C2B35E1D4772516F5 /* Resources */,
-				464884B499FE2083EC8491F0 /* Frameworks */,
-				74EFA54B0DBD331F71819ADB /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				60C9A91461EA1D7E136F8FCC /* PBXTargetDependency */,
-			);
-			name = AuthTesting;
-			packageProductDependencies = (
-			);
-			productName = AuthTesting;
-			productReference = 5642BA06A94EBFDDB6B192CB /* AuthTesting.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 		CD1FF535BD66CAFC10C0E412 /* Auth */ = {
 			isa = PBXNativeTarget;
@@ -452,7 +379,6 @@
 			targets = (
 				CD1FF535BD66CAFC10C0E412 /* Auth */,
 				389022281CAD102BD2710E83 /* AuthExample */,
-				933843574E8168DD441FFB9C /* AuthTesting */,
 				64266547C98E573BC9E38F40 /* AuthTests */,
 			);
 		};
@@ -460,13 +386,6 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		28B9571013076A423C2C0717 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		44B7487C2B35E1D4772516F5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -510,15 +429,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				002697F6A5007C5E1A1E387F /* AuthServiceMock.swift in Sources */,
 				A9ED2B3C2422F51B76B6C0E2 /* AuthServiceMockSpec.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DF20DADE798DF0CD0CEA7C63 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				69AF3E959E75384082427505 /* AuthServiceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,24 +456,6 @@
 			name = Auth;
 			target = CD1FF535BD66CAFC10C0E412 /* Auth */;
 			targetProxy = 0CA15BA4AA128518761D93EC /* PBXContainerItemProxy */;
-		};
-		59FB6BBE1C761958D866208D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AuthTesting;
-			target = 933843574E8168DD441FFB9C /* AuthTesting */;
-			targetProxy = F91B515478848FD870BFB065 /* PBXContainerItemProxy */;
-		};
-		60C9A91461EA1D7E136F8FCC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Auth;
-			target = CD1FF535BD66CAFC10C0E412 /* Auth */;
-			targetProxy = AC17DEBD26B537767D8426B8 /* PBXContainerItemProxy */;
-		};
-		BF812B67D773D5853D5F1804 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AuthTesting;
-			target = 933843574E8168DD441FFB9C /* AuthTesting */;
-			targetProxy = 8EACF005E6EC0E0B82A56E3C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -647,44 +541,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Debug Staging";
-		};
-		1A0BB6F3A15ECFAC379E74E5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Derived/InfoPlists/AuthTesting-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.sample.auth.testing;
-				PRODUCT_NAME = AuthTesting;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
-				SWIFT_COMPILATION_MODE = singlefile;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		20DDC7D342BEF8B179298518 /* Release Staging */ = {
 			isa = XCBuildConfiguration;
@@ -821,40 +677,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Release Staging";
-		};
-		590C000A33AAA0C56446EEFA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Derived/InfoPlists/AuthTesting-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.sample.auth.testing;
-				PRODUCT_NAME = AuthTesting;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 		67DD62886AE463754EF54B7F /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1090,44 +912,6 @@
 			};
 			name = "Release Production";
 		};
-		ADE1522DE6BF3E8F1347FE16 /* Debug Staging */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Derived/InfoPlists/AuthTesting-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.sample.auth.testing;
-				PRODUCT_NAME = AuthTesting;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
-				SWIFT_COMPILATION_MODE = singlefile;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Debug Staging";
-		};
 		B763899C9499C5426D22BD51 /* Debug Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1239,74 +1023,6 @@
 			};
 			name = "Release Production";
 		};
-		DB595DF389C510C822130E1D /* Release Production */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Derived/InfoPlists/AuthTesting-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.sample.auth.testing;
-				PRODUCT_NAME = AuthTesting;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Release Production";
-		};
-		E0E64B8A8F8D9021C5372B57 /* Release Staging */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Derived/InfoPlists/AuthTesting-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.sample.auth.testing;
-				PRODUCT_NAME = AuthTesting;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Release Staging";
-		};
 		E8C40414C81AFDAA56539F82 /* Debug Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1400,44 +1116,6 @@
 			};
 			name = Release;
 		};
-		EF5A98D342E85C53E7CDA6F1 /* Debug Production */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Derived/InfoPlists/AuthTesting-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.nimblehq.sample.auth.testing;
-				PRODUCT_NAME = AuthTesting;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = (
-					"$(inherited)",
-					DEBUG,
-				);
-				SWIFT_COMPILATION_MODE = singlefile;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = "Debug Production";
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1483,19 +1161,6 @@
 				CEAFC3CDAC35902E45EA70A1 /* Debug Staging */,
 				0124AEE43AD856DA3B06A710 /* Release Production */,
 				2CDD6BF42CEF48CEEDA3D3F3 /* Release Staging */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Release Production";
-		};
-		8CFCA00E923329CC626CA84A /* Build configuration list for PBXNativeTarget "AuthTesting" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1A0BB6F3A15ECFAC379E74E5 /* Debug */,
-				EF5A98D342E85C53E7CDA6F1 /* Debug Production */,
-				ADE1522DE6BF3E8F1347FE16 /* Debug Staging */,
-				590C000A33AAA0C56446EEFA /* Release */,
-				DB595DF389C510C822130E1D /* Release Production */,
-				E0E64B8A8F8D9021C5372B57 /* Release Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release Production";

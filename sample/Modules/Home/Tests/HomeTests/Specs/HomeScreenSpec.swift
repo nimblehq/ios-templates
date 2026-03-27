@@ -1,6 +1,5 @@
-import Home
-import HomeTesting
 import Nimble
+@testable import Home
 import Quick
 
 final class HomeScreenSpec: QuickSpec {

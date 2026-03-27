@@ -1,20 +1,20 @@
-import Auth
 import Foundation
+@testable import Auth
 
-public final class AuthServiceMock: AuthServiceProtocol {
+final class AuthServiceMock: AuthServiceProtocol {
 
-    public var currentUser: User?
-    public var shouldThrowOnSignIn: AuthError?
-    public var shouldThrowOnSignUp: AuthError?
+    var currentUser: User?
+    var shouldThrowOnSignIn: AuthError?
+    var shouldThrowOnSignUp: AuthError?
 
     // Call tracking
-    public private(set) var signInCallCount = 0
-    public private(set) var signUpCallCount = 0
-    public private(set) var signOutCallCount = 0
-    public private(set) var lastSignInEmail: String?
-    public private(set) var lastSignUpEmail: String?
+    private(set) var signInCallCount = 0
+    private(set) var signUpCallCount = 0
+    private(set) var signOutCallCount = 0
+    private(set) var lastSignInEmail: String?
+    private(set) var lastSignUpEmail: String?
 
-    public init() {}
+    init() {}
 
     public func signIn(email: String, password: String) async throws {
         signInCallCount += 1

@@ -25,21 +25,7 @@ let project = Project(
             settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
         ),
 
-        // 2. Testing — mocks and stubs; depends on Home.
-        .target(
-            name: "HomeTesting",
-            destinations: .iOS,
-            product: .framework,
-            bundleId: "co.nimblehq.sample.home.testing",
-            deploymentTargets: .iOS("16.0"),
-            sources: ["Testing/**"],
-            dependencies: [
-                .target(name: "Home")
-            ],
-            settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
-        ),
-
-        // 3. Tests — unit tests; depends on implementation + testing helpers.
+        // 2. Tests — unit tests; mocks live alongside specs in Tests/.
         .target(
             name: "HomeTests",
             destinations: .iOS,
@@ -49,13 +35,12 @@ let project = Project(
             sources: ["Tests/**"],
             dependencies: [
                 .target(name: "Home"),
-                .target(name: "HomeTesting"),
                 .package(product: "Quick"),
                 .package(product: "Nimble")
             ]
         ),
 
-        // 4. Example — standalone sandbox app for isolated feature development.
+        // 3. Example — standalone sandbox app for isolated feature development.
         .target(
             name: "HomeExample",
             destinations: .iOS,
@@ -68,8 +53,7 @@ let project = Project(
             ]),
             sources: ["Example/**"],
             dependencies: [
-                .target(name: "Home"),
-                .target(name: "HomeTesting")
+                .target(name: "Home")
             ]
         )
     ],

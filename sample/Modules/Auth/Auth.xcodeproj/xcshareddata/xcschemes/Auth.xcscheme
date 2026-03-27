@@ -28,20 +28,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "933843574E8168DD441FFB9C"
-               BuildableName = "AuthTesting.framework"
-               BlueprintName = "AuthTesting"
-               ReferencedContainer = "container:Auth.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "389022281CAD102BD2710E83"
                BuildableName = "AuthExample.app"
                BlueprintName = "AuthExample"

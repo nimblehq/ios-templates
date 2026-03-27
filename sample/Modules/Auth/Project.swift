@@ -22,21 +22,7 @@ let project = Project(
             settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
         ),
 
-        // 2. Testing — mocks and stubs; depends on Auth.
-        .target(
-            name: "AuthTesting",
-            destinations: .iOS,
-            product: .framework,
-            bundleId: "co.nimblehq.sample.auth.testing",
-            deploymentTargets: .iOS("16.0"),
-            sources: ["Testing/**"],
-            dependencies: [
-                .target(name: "Auth")
-            ],
-            settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
-        ),
-
-        // 3. Tests — unit tests using mocks from Testing target.
+        // 2. Tests — unit tests; mocks live alongside specs in Tests/.
         .target(
             name: "AuthTests",
             destinations: .iOS,
@@ -46,13 +32,12 @@ let project = Project(
             sources: ["Tests/**"],
             dependencies: [
                 .target(name: "Auth"),
-                .target(name: "AuthTesting"),
                 .package(product: "Quick"),
                 .package(product: "Nimble")
             ]
         ),
 
-        // 4. Example — standalone sandbox app for isolated auth development.
+        // 3. Example — standalone sandbox app for isolated auth development.
         .target(
             name: "AuthExample",
             destinations: .iOS,
@@ -65,8 +50,7 @@ let project = Project(
             ]),
             sources: ["Example/**"],
             dependencies: [
-                .target(name: "Auth"),
-                .target(name: "AuthTesting")
+                .target(name: "Auth")
             ]
         )
     ],

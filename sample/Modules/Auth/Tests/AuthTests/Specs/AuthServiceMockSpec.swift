@@ -1,5 +1,5 @@
-import AuthTesting
 import Nimble
+@testable import Auth
 import Quick
 
 final class AuthServiceMockSpec: QuickSpec {
