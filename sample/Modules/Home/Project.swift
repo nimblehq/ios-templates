@@ -18,7 +18,7 @@ let project = Project(
             product: .framework,
             bundleId: "co.nimblehq.sample.home",
             deploymentTargets: .iOS("16.0"),
-            sources: ["Sources/**"],
+            buildableFolders: ["Sources"],
             dependencies: [
                 .project(target: "Domain", path: "../Domain")
             ],
@@ -32,7 +32,7 @@ let project = Project(
             product: .unitTests,
             bundleId: "co.nimblehq.sample.home.tests",
             deploymentTargets: .iOS("16.0"),
-            sources: ["Tests/**"],
+            buildableFolders: ["Tests"],
             dependencies: [
                 .target(name: "Home"),
                 .package(product: "Quick"),
@@ -51,7 +51,7 @@ let project = Project(
                 "CFBundleName": "Home Example",
                 "UILaunchStoryboardName": ""
             ]),
-            sources: ["Example/**"],
+            buildableFolders: ["Example"],
             dependencies: [
                 .target(name: "Home")
             ]

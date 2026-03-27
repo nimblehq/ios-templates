@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		50861DAB04604481C622D817 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 523294667F5A5CADABA3D071 /* Nimble */; };
 		669109FCCE976FDDD077F5CD /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = F4EF7E2153D7591E87D15F47 /* Quick */; };
-		751E6322C0D8D5B9C34CB74F /* DummySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FCA22CD8A40DCE7853E4CC /* DummySpec.swift */; };
-		C0B41DF930A6F31F6AC6119C /* UseCaseFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CCC8E5B91B2897F7D97A45 /* UseCaseFactoryProtocol.swift */; };
 		EA587A92A5855CD22A768352 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD49F277B86481D3D105FAC8 /* Domain.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,13 +46,32 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		05FCA22CD8A40DCE7853E4CC /* DummySpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySpec.swift; sourceTree = "<group>"; };
-		22CCC8E5B91B2897F7D97A45 /* UseCaseFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseFactoryProtocol.swift; sourceTree = "<group>"; };
 		2F2831DAE4A3A6EFEDCFFB97 /* DomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CE88A21049076913ABA3B1 /* DomainTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DomainTests-Info.plist"; sourceTree = "<group>"; };
 		BD15A37E85BAE3A36B2CE72C /* Domain-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Domain-Info.plist"; sourceTree = "<group>"; };
 		FD49F277B86481D3D105FAC8 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		6E4013E9EE6B620B49423D2A /* Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		CD73C8EE8CDB1868F4D14F1B /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		2069052369677C3E97D5C897 /* Frameworks */ = {
@@ -77,14 +94,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0312E8562ED7D7FDA7627F90 /* UseCases */ = {
-			isa = PBXGroup;
-			children = (
-				22CCC8E5B91B2897F7D97A45 /* UseCaseFactoryProtocol.swift */,
-			);
-			path = UseCases;
-			sourceTree = "<group>";
-		};
 		0341B6BC3BB2B1CDE266CAF5 /* Derived */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,14 +111,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		28B694539E22431DAF52B883 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				0312E8562ED7D7FDA7627F90 /* UseCases */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
 		31AD0DDEDFC02FF4D89A76D4 = {
 			isa = PBXGroup;
 			children = (
@@ -118,28 +119,12 @@
 			);
 			sourceTree = "<group>";
 		};
-		4273B5210C3C65429A9E8CC1 /* Specs */ = {
-			isa = PBXGroup;
-			children = (
-				05FCA22CD8A40DCE7853E4CC /* DummySpec.swift */,
-			);
-			path = Specs;
-			sourceTree = "<group>";
-		};
-		80F9B11F810562AE87828A4E /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				C3153B94B07D57A9A14A7C6B /* Sources */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
 		8BFA263778496DF044218BBB /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				0341B6BC3BB2B1CDE266CAF5 /* Derived */,
-				28B694539E22431DAF52B883 /* Sources */,
-				80F9B11F810562AE87828A4E /* Tests */,
+				CD73C8EE8CDB1868F4D14F1B /* Sources */,
+				6E4013E9EE6B620B49423D2A /* Tests */,
 			);
 			name = Project;
 			sourceTree = "<group>";
@@ -151,14 +136,6 @@
 				75CE88A21049076913ABA3B1 /* DomainTests-Info.plist */,
 			);
 			path = InfoPlists;
-			sourceTree = "<group>";
-		};
-		C3153B94B07D57A9A14A7C6B /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				4273B5210C3C65429A9E8CC1 /* Specs */,
-			);
-			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +154,9 @@
 			);
 			dependencies = (
 				ADF6C4678B0E665162E1BE1A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6E4013E9EE6B620B49423D2A /* Tests */,
 			);
 			name = DomainTests;
 			packageProductDependencies = (
@@ -199,6 +179,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CD73C8EE8CDB1868F4D14F1B /* Sources */,
 			);
 			name = Domain;
 			packageProductDependencies = (
@@ -258,7 +241,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0B41DF930A6F31F6AC6119C /* UseCaseFactoryProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +248,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				751E6322C0D8D5B9C34CB74F /* DummySpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

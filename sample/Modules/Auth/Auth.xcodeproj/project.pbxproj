@@ -7,23 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		002697F6A5007C5E1A1E387F /* AuthServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DCC2B5B2AB2651722A0952 /* AuthServiceMock.swift */; };
 		016AB1BDD4C214E19F2BF861 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 915B367BF1FCF45445D73774 /* Nimble */; };
 		2A21A21060EC5CD11B33B6A0 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; };
-		56011461C62B04D32A592894 /* SignInScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E356C5859CA7C6594F8B662E /* SignInScreen.swift */; };
-		77ADEED7654EBA4F6276B4E6 /* AuthExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AC63BAFE2456C69C6F42FF /* AuthExampleApp.swift */; };
-		7CD0EE703B7A726CE8E703B1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD4A9D6E7AE28024E3BD2E2 /* AuthService.swift */; };
-		87184693728170F6B00B67FC /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A32521103E800AA2CCB47 /* AuthError.swift */; };
-		89B98D6509BA2D560C9EDF8D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E766F21998F6827FD676EC /* User.swift */; };
-		91422B72B8431F4A6E4AE80F /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D349167F34BEE23A8B6BFBC /* SignInViewModel.swift */; };
-		A9ED2B3C2422F51B76B6C0E2 /* AuthServiceMockSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735243F112C20D694A0E88A1 /* AuthServiceMockSpec.swift */; };
 		AD382DD59BC85DF0D7CBC754 /* Auth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B80E15C46B6BE33C7552D287 /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984E0F401FD8105477F5A5A8 /* AuthScreen.swift */; };
 		DAD7CE164079502683E2DD1E /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = F0DE0640AB8F37B5823A9A14 /* Quick */; };
-		DD0C7D8E4061EA47B48A3B59 /* SignUpScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF4C5920E72A8D095AD14A9 /* SignUpScreen.swift */; };
 		F42073A1A98F2AF60F8938C8 /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8895FC8BB8C3644A2923E77A /* Auth.framework */; };
-		F890D0D17FCFEDA1C8C7EDD5 /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E62A196B23A8D2783DAA8D /* AuthServiceProtocol.swift */; };
-		FCB56C2D2821254004AF5B57 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5417C63934D3E32B0C27E5 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,25 +66,43 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08AC63BAFE2456C69C6F42FF /* AuthExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthExampleApp.swift; sourceTree = "<group>"; };
-		15DCC2B5B2AB2651722A0952 /* AuthServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceMock.swift; sourceTree = "<group>"; };
 		233455BFFF9849E7E416C799 /* AuthExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthExample-Info.plist"; sourceTree = "<group>"; };
-		3D349167F34BEE23A8B6BFBC /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
-		5E0A32521103E800AA2CCB47 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
-		61E766F21998F6827FD676EC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		6BD4A9D6E7AE28024E3BD2E2 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		735243F112C20D694A0E88A1 /* AuthServiceMockSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceMockSpec.swift; sourceTree = "<group>"; };
 		8895FC8BB8C3644A2923E77A /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EF4C5920E72A8D095AD14A9 /* SignUpScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpScreen.swift; sourceTree = "<group>"; };
-		984E0F401FD8105477F5A5A8 /* AuthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreen.swift; sourceTree = "<group>"; };
 		9E8C0F6ABCEE929A4D133755 /* AuthExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A3E62A196B23A8D2783DAA8D /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
 		C857B2C600CA35873D2A9D32 /* Auth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Auth-Info.plist"; sourceTree = "<group>"; };
-		CB5417C63934D3E32B0C27E5 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		CF8FCFE4AC3B608B5042F210 /* AuthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AuthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E356C5859CA7C6594F8B662E /* SignInScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInScreen.swift; sourceTree = "<group>"; };
 		EF08C43BB60D5CD101D7A686 /* AuthTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AuthTests-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		01889CE5836B75F0EEF53C17 /* Sources */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		28CCDA91B1574F4CB57EB780 /* Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		333AACAF5FA9CED6AF6046EA /* Example */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A4BD8A610793B85AB44D5EC4 /* Frameworks */ = {
@@ -127,46 +133,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1119716C99064BC635E95C66 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				984E0F401FD8105477F5A5A8 /* AuthScreen.swift */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
-		18F42892436556C2AFCB0458 /* SignIn */ = {
-			isa = PBXGroup;
-			children = (
-				E356C5859CA7C6594F8B662E /* SignInScreen.swift */,
-				3D349167F34BEE23A8B6BFBC /* SignInViewModel.swift */,
-			);
-			path = SignIn;
-			sourceTree = "<group>";
-		};
 		2A27A72174666C885CDF6370 = {
 			isa = PBXGroup;
 			children = (
 				47BB2EF37CEDEF87800073AF /* Products */,
 				979F65349794D0984634C212 /* Project */,
 			);
-			sourceTree = "<group>";
-		};
-		35B0817A1CFA334D66DABC2F /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				D33E856A86ED9BCD579FFBF4 /* AuthTests */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		41FDC5D17180990CFAFFD802 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				6BD4A9D6E7AE28024E3BD2E2 /* AuthService.swift */,
-				A3E62A196B23A8D2783DAA8D /* AuthServiceProtocol.swift */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		47BB2EF37CEDEF87800073AF /* Products */ = {
@@ -179,77 +151,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4AA6D29A73FB8BC6438EC478 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				41FDC5D17180990CFAFFD802 /* Helpers */,
-				4C5CB2032911575E680B74F4 /* Models */,
-				FDB5810B27F839AF18CCBF97 /* Presentations */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		4C5CB2032911575E680B74F4 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				5E0A32521103E800AA2CCB47 /* AuthError.swift */,
-				61E766F21998F6827FD676EC /* User.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		886A512E3E2526CFCB0696BC /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				1119716C99064BC635E95C66 /* Auth */,
-				18F42892436556C2AFCB0458 /* SignIn */,
-				F15F0FFD2F76754BD9666B6C /* SignUp */,
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
-		902A5510DBA1046FD681D6F9 /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				15DCC2B5B2AB2651722A0952 /* AuthServiceMock.swift */,
-			);
-			path = Mocks;
-			sourceTree = "<group>";
-		};
 		979F65349794D0984634C212 /* Project */ = {
 			isa = PBXGroup;
 			children = (
 				D889D2D65A9E44A4C8933E7A /* Derived */,
-				9D93978C62C6C0978B03739A /* Example */,
-				4AA6D29A73FB8BC6438EC478 /* Sources */,
-				35B0817A1CFA334D66DABC2F /* Tests */,
+				333AACAF5FA9CED6AF6046EA /* Example */,
+				01889CE5836B75F0EEF53C17 /* Sources */,
+				28CCDA91B1574F4CB57EB780 /* Tests */,
 			);
 			name = Project;
-			sourceTree = "<group>";
-		};
-		9D93978C62C6C0978B03739A /* Example */ = {
-			isa = PBXGroup;
-			children = (
-				08AC63BAFE2456C69C6F42FF /* AuthExampleApp.swift */,
-			);
-			path = Example;
-			sourceTree = "<group>";
-		};
-		C60448913DCD6C00FE806EB4 /* Specs */ = {
-			isa = PBXGroup;
-			children = (
-				735243F112C20D694A0E88A1 /* AuthServiceMockSpec.swift */,
-			);
-			path = Specs;
-			sourceTree = "<group>";
-		};
-		D33E856A86ED9BCD579FFBF4 /* AuthTests */ = {
-			isa = PBXGroup;
-			children = (
-				902A5510DBA1046FD681D6F9 /* Mocks */,
-				C60448913DCD6C00FE806EB4 /* Specs */,
-			);
-			path = AuthTests;
 			sourceTree = "<group>";
 		};
 		D889D2D65A9E44A4C8933E7A /* Derived */ = {
@@ -270,23 +180,6 @@
 			path = InfoPlists;
 			sourceTree = "<group>";
 		};
-		F15F0FFD2F76754BD9666B6C /* SignUp */ = {
-			isa = PBXGroup;
-			children = (
-				8EF4C5920E72A8D095AD14A9 /* SignUpScreen.swift */,
-				CB5417C63934D3E32B0C27E5 /* SignUpViewModel.swift */,
-			);
-			path = SignUp;
-			sourceTree = "<group>";
-		};
-		FDB5810B27F839AF18CCBF97 /* Presentations */ = {
-			isa = PBXGroup;
-			children = (
-				886A512E3E2526CFCB0696BC /* Modules */,
-			);
-			path = Presentations;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -303,6 +196,9 @@
 			);
 			dependencies = (
 				49ABAE717A7666336E0196E5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				333AACAF5FA9CED6AF6046EA /* Example */,
 			);
 			name = AuthExample;
 			packageProductDependencies = (
@@ -325,6 +221,9 @@
 			dependencies = (
 				1A91DBB1BCF01EDB77E7A5AB /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				28CCDA91B1574F4CB57EB780 /* Tests */,
+			);
 			name = AuthTests;
 			packageProductDependencies = (
 				F0DE0640AB8F37B5823A9A14 /* Quick */,
@@ -346,6 +245,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				01889CE5836B75F0EEF53C17 /* Sources */,
 			);
 			name = Auth;
 			packageProductDependencies = (
@@ -413,15 +315,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CD0EE703B7A726CE8E703B1 /* AuthService.swift in Sources */,
-				F890D0D17FCFEDA1C8C7EDD5 /* AuthServiceProtocol.swift in Sources */,
-				87184693728170F6B00B67FC /* AuthError.swift in Sources */,
-				89B98D6509BA2D560C9EDF8D /* User.swift in Sources */,
-				B80E15C46B6BE33C7552D287 /* AuthScreen.swift in Sources */,
-				56011461C62B04D32A592894 /* SignInScreen.swift in Sources */,
-				91422B72B8431F4A6E4AE80F /* SignInViewModel.swift in Sources */,
-				DD0C7D8E4061EA47B48A3B59 /* SignUpScreen.swift in Sources */,
-				FCB56C2D2821254004AF5B57 /* SignUpViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,8 +322,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				002697F6A5007C5E1A1E387F /* AuthServiceMock.swift in Sources */,
-				A9ED2B3C2422F51B76B6C0E2 /* AuthServiceMockSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,7 +329,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77ADEED7654EBA4F6276B4E6 /* AuthExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

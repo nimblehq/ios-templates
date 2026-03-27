@@ -17,7 +17,7 @@ let project = Project(
             product: .framework,
             bundleId: "co.nimblehq.sample.data",
             deploymentTargets: .iOS("16.0"),
-            sources: ["Sources/**"],
+            buildableFolders: ["Sources"],
             dependencies: [
                 .project(target: "Domain", path: "../Domain"),
                 .package(product: "Alamofire")
@@ -35,7 +35,7 @@ let project = Project(
             product: .unitTests,
             bundleId: "co.nimblehq.sample.data.tests",
             deploymentTargets: .iOS("16.0"),
-            sources: ["Tests/**"],
+            buildableFolders: ["Tests"],
             dependencies: [
                 .target(name: "Data"),
                 .package(product: "Quick"),

@@ -17,7 +17,7 @@ let project = Project(
             product: .framework,
             bundleId: "co.nimblehq.sample.domain",
             deploymentTargets: .iOS("16.0"),
-            sources: ["Sources/**"],
+            buildableFolders: ["Sources"],
             settings: .settings(
                 base: [
                     "SKIP_INSTALL": "YES",
@@ -31,7 +31,7 @@ let project = Project(
             product: .unitTests,
             bundleId: "co.nimblehq.sample.domain.tests",
             deploymentTargets: .iOS("16.0"),
-            sources: ["Tests/**"],
+            buildableFolders: ["Tests"],
             dependencies: [
                 .target(name: "Domain"),
                 .package(product: "Quick"),

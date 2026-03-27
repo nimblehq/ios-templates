@@ -18,7 +18,7 @@ let project = Project(
             product: .framework,
             bundleId: "co.nimblehq.sample.auth",
             deploymentTargets: .iOS("16.0"),
-            sources: ["Sources/**"],
+            buildableFolders: ["Sources"],
             settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
         ),
 
@@ -29,7 +29,7 @@ let project = Project(
             product: .unitTests,
             bundleId: "co.nimblehq.sample.auth.tests",
             deploymentTargets: .iOS("16.0"),
-            sources: ["Tests/**"],
+            buildableFolders: ["Tests"],
             dependencies: [
                 .target(name: "Auth"),
                 .package(product: "Quick"),
@@ -48,7 +48,7 @@ let project = Project(
                 "CFBundleName": "Auth Example",
                 "UILaunchStoryboardName": ""
             ]),
-            sources: ["Example/**"],
+            buildableFolders: ["Example"],
             dependencies: [
                 .target(name: "Auth")
             ]
