@@ -18,21 +18,17 @@ concurrency:
 jobs:
   lint:
     name: Lint
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v6
       with:
         fetch-depth: 0
 
-    - name: Install SwiftLint
-      run: brew install swiftlint
-
-    - name: Show SwiftLint version
-      run: swiftlint version
-
     - name: Run SwiftLint
-      run: swiftlint --strict
+      uses: docker://norionomura/swiftlint:0.63.2_swift-6.1.3
+      with:
+        args: swiftlint --strict
 
   build:
     name: Build
