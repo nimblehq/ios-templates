@@ -1,7 +1,7 @@
 ---
 name: commit
 description: Generate and create a git commit following Nimble's Compass convention
-             ([#ID] Verb message). Auto-extracts issue ID from branch name.
+             ([ID] Verb message). Auto-extracts issue ID from branch name.
              Use when asked to commit the current work or create a git commit.
 ---
 
