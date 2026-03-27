@@ -62,7 +62,7 @@ If the changes obviously belong to one concern, proceed without asking for appro
 
 ```bash
 git commit -m "$(cat <<'EOF'
-[#593] Refactor repo structure
+[<ID>] <Verb> <specific message>
 EOF
 )"
 ```
