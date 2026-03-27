@@ -1,6 +1,7 @@
 import Foundation
 
 public enum AuthError: LocalizedError, Equatable {
+
     case invalidEmail
     case emptyPassword
     case invalidCredentials

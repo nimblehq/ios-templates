@@ -45,9 +45,7 @@ let project = Project(
                 .project(target: "Domain", path: "../Modules/Domain"),
                 // TMA features
                 .project(target: "Home", path: "../Modules/Home"),
-                .project(target: "HomeInterface", path: "../Modules/Home"),
                 .project(target: "Auth", path: "../Modules/Auth"),
-                .project(target: "AuthInterface", path: "../Modules/Auth"),
                 // Backend
                 .package(product: "Alamofire"),
                 .package(product: "JSONAPIMapper"),

@@ -1,8 +1,7 @@
-import HomeInterface
 import SwiftUI
 
 /// Home feature's root screen.
-public struct HomeScreen: HomeScreenProtocol {
+public struct HomeScreen: View {
 
     public init() {}
 

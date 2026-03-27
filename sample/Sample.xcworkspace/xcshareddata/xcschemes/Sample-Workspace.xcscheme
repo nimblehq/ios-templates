@@ -42,20 +42,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E17CF2E4E8681E8A1401C484"
-               BuildableName = "AuthInterface.framework"
-               BlueprintName = "AuthInterface"
-               ReferencedContainer = "container:Modules/Auth/Auth.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "933843574E8168DD441FFB9C"
                BuildableName = "AuthTesting.framework"
                BlueprintName = "AuthTesting"
@@ -157,20 +143,6 @@
                BlueprintIdentifier = "A414949769DD1845183AC5F6"
                BuildableName = "HomeExample.app"
                BlueprintName = "HomeExample"
-               ReferencedContainer = "container:Modules/Home/Home.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A9EED54876D44D485F1EEB8D"
-               BuildableName = "HomeInterface.framework"
-               BlueprintName = "HomeInterface"
                ReferencedContainer = "container:Modules/Home/Home.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

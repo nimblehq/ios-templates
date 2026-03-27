@@ -1,8 +1,7 @@
-import HomeInterface
 import SwiftUI
 
-/// Test double for `HomeScreenProtocol`.
-public struct HomeScreenMock: HomeScreenProtocol {
+/// Test double for `HomeScreen`.
+public struct HomeScreenMock: View {
 
     public init() {}
 

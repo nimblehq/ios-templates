@@ -1,4 +1,3 @@
-import AuthInterface
 import SwiftUI
 
 struct SignUpScreen: View {

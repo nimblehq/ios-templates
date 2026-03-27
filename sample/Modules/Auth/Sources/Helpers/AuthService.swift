@@ -1,4 +1,3 @@
-import AuthInterface
 import Foundation
 
 /// Local-storage implementation of `AuthServiceProtocol`.

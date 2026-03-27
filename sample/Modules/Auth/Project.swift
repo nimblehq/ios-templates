@@ -11,18 +11,7 @@ let project = Project(
         ]
     ),
     targets: [
-        // 1. Interface — public protocols and types; no dependencies.
-        .target(
-            name: "AuthInterface",
-            destinations: .iOS,
-            product: .framework,
-            bundleId: "co.nimblehq.sample.auth.interface",
-            deploymentTargets: .iOS("16.0"),
-            sources: ["Interface/**"],
-            settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
-        ),
-
-        // 2. Implementation — depends on Interface only (local storage, no Domain needed).
+        // 1. Implementation — local storage, no Domain needed.
         .target(
             name: "Auth",
             destinations: .iOS,
@@ -30,13 +19,10 @@ let project = Project(
             bundleId: "co.nimblehq.sample.auth",
             deploymentTargets: .iOS("16.0"),
             sources: ["Sources/**"],
-            dependencies: [
-                .target(name: "AuthInterface")
-            ],
             settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
         ),
 
-        // 3. Testing — mocks and stubs; depends only on Interface.
+        // 2. Testing — mocks and stubs; depends on Auth.
         .target(
             name: "AuthTesting",
             destinations: .iOS,
@@ -45,12 +31,12 @@ let project = Project(
             deploymentTargets: .iOS("16.0"),
             sources: ["Testing/**"],
             dependencies: [
-                .target(name: "AuthInterface")
+                .target(name: "Auth")
             ],
             settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
         ),
 
-        // 4. Tests — unit tests using mocks from Testing target.
+        // 3. Tests — unit tests using mocks from Testing target.
         .target(
             name: "AuthTests",
             destinations: .iOS,
@@ -66,7 +52,7 @@ let project = Project(
             ]
         ),
 
-        // 5. Example — standalone sandbox app for isolated auth development.
+        // 4. Example — standalone sandbox app for isolated auth development.
         .target(
             name: "AuthExample",
             destinations: .iOS,

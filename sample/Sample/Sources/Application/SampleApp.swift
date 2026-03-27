@@ -1,5 +1,4 @@
 import Auth
-import AuthInterface
 import Home
 import SwiftUI
 
@@ -28,7 +27,7 @@ private struct RootView: View {
         if isAuthenticated {
             HomeScreen()
         } else {
-            AuthRootView(authService: authService) {
+            AuthScreen(authService: authService) {
                 isAuthenticated = true
             }
         }

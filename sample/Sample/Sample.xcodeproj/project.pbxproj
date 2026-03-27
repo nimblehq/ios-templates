@@ -8,16 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		03026199223E36E740499AC1 /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943CC0C6834BED6BB5BEE16F /* Data.framework */; };
-		1E1A820AA4A039CFDF1236ED /* AuthInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E7EAD4EA8335FA128D97D7 /* AuthInterface.framework */; };
 		22C2815225328C204FB06BD5 /* Home.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 06DA879747C5921C3F73167F /* Home.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3316F4109CDE146DCCAA741D /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
 		43458A299F0267A1F811EB45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EC08C3A8E5386DCBC8747BD /* LaunchScreen.storyboard */; };
 		448EC6E6985784C0EF8B8D41 /* SampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB24A64F62F2216BDB317115 /* SampleApp.swift */; };
 		4B32CF5B51AEF56F0E26F136 /* OptionalUnwrapSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8A0397F340058194D8997 /* OptionalUnwrapSpec.swift */; };
-		4C3000E994DE5D4FD7874EEF /* HomeInterface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55E366ED0CB8E3714E911627 /* HomeInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4F96D920F85C44D6E7E6DDED /* Auth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0D0F5EE2EB59F4D0EEC5378 /* Auth.framework */; };
 		538E149657142A68228382B4 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 34C3DB9DFE99E1B0FEE702FA /* FirebaseCrashlytics */; };
-		5C403B4DC9AD6785F16C56AE /* AuthInterface.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 98E7EAD4EA8335FA128D97D7 /* AuthInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		691B6D4AC799E5D386259695 /* ApplicationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C516A64B86ADAC6B9D5C9CAD /* ApplicationSpec.swift */; };
 		6B26099D6D523D2D06B1961A /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E07E37E84EF9C86B2879155C /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		747B476E5B105E99521DEC25 /* Home.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DA879747C5921C3F73167F /* Home.framework */; };
@@ -27,7 +24,6 @@
 		868F2AF94B93602732FB89F6 /* JSONAPIMapper in Frameworks */ = {isa = PBXBuildFile; productRef = 76C0B6E5B684B6FE084E5ED2 /* JSONAPIMapper */; };
 		92DDF4BD61DA9556A8F23F33 /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6750D5853EF7B9DA92833F /* Optional+Unwrap.swift */; };
 		972151BF66A7E1C2FB7168B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E43C4AA8E2D3F6640F8A7D05 /* Assets.xcassets */; };
-		A017A2C1256E8707E50729F4 /* HomeInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E366ED0CB8E3714E911627 /* HomeInterface.framework */; };
 		A5A295A0D383112D0A9E1027 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 0ED1F3D7FFD10EAA79EDF897 /* KeychainAccess */; };
 		A69FFFDA06B413940073353F /* NimbleExtension in Frameworks */ = {isa = PBXBuildFile; productRef = A0EA82316BD12C54DDCA665E /* NimbleExtension */; };
 		AE672E43882C9104EC6C14D1 /* KIFSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78CBD58CEDBB40131CF66352 /* KIFSpec.swift */; };
@@ -69,11 +65,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7D794E6B5D912BD34E79A661 /* Auth.framework in Embed Frameworks */,
-				5C403B4DC9AD6785F16C56AE /* AuthInterface.framework in Embed Frameworks */,
 				D75353EC8BD8B5C067D02D23 /* Data.framework in Embed Frameworks */,
 				6B26099D6D523D2D06B1961A /* Domain.framework in Embed Frameworks */,
 				22C2815225328C204FB06BD5 /* Home.framework in Embed Frameworks */,
-				4C3000E994DE5D4FD7874EEF /* HomeInterface.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,7 +90,6 @@
 		25A091A3EF7BCD49300D52C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		29345AE11A906FF03B4B74CA /* SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		43244AEBEF2EB3249683DAB1 /* SampleKIFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleKIFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		55E366ED0CB8E3714E911627 /* HomeInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HomeInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59E5ACD09E228D69AB0251F4 /* DebugProduction.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugProduction.xcconfig; sourceTree = "<group>"; };
 		5E6750D5853EF7B9DA92833F /* Optional+Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Unwrap.swift"; sourceTree = "<group>"; };
 		6892DE518827AFFD5BEB9056 /* Constants+API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+API.swift"; sourceTree = "<group>"; };
@@ -105,7 +98,6 @@
 		78CBD58CEDBB40131CF66352 /* KIFSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIFSpec.swift; sourceTree = "<group>"; };
 		7FE8DB37C2A026EAF7F37D17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		943CC0C6834BED6BB5BEE16F /* Data.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Data.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		98E7EAD4EA8335FA128D97D7 /* AuthInterface.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthInterface.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F447A59897AC57DA9B8FA4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A5C2A651D7C2D54CC34A667F /* ReleaseStaging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseStaging.xcconfig; sourceTree = "<group>"; };
 		B0D0F5EE2EB59F4D0EEC5378 /* Auth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Auth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,11 +117,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F96D920F85C44D6E7E6DDED /* Auth.framework in Frameworks */,
-				1E1A820AA4A039CFDF1236ED /* AuthInterface.framework in Frameworks */,
 				03026199223E36E740499AC1 /* Data.framework in Frameworks */,
 				B9041FD1583EFAE1DD642CE1 /* Domain.framework in Frameworks */,
 				747B476E5B105E99521DEC25 /* Home.framework in Frameworks */,
-				A017A2C1256E8707E50729F4 /* HomeInterface.framework in Frameworks */,
 				E3642D0289460A0852A06F36 /* Alamofire in Frameworks */,
 				868F2AF94B93602732FB89F6 /* JSONAPIMapper in Frameworks */,
 				B40B742C7FEE2C5738698CB8 /* Kingfisher in Frameworks */,
@@ -379,11 +369,9 @@
 			isa = PBXGroup;
 			children = (
 				B0D0F5EE2EB59F4D0EEC5378 /* Auth.framework */,
-				98E7EAD4EA8335FA128D97D7 /* AuthInterface.framework */,
 				943CC0C6834BED6BB5BEE16F /* Data.framework */,
 				E07E37E84EF9C86B2879155C /* Domain.framework */,
 				06DA879747C5921C3F73167F /* Home.framework */,
-				55E366ED0CB8E3714E911627 /* HomeInterface.framework */,
 				6EA1FD221929BAD4DF20310A /* Sample.app */,
 				43244AEBEF2EB3249683DAB1 /* SampleKIFUITests.xctest */,
 				29345AE11A906FF03B4B74CA /* SampleTests.xctest */,

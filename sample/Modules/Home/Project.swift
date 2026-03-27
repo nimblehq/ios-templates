@@ -11,19 +11,7 @@ let project = Project(
         ]
     ),
     targets: [
-        // 1. Interface — public protocols and types; no dependencies.
-        //    Other features and the App depend on this, never on the implementation.
-        .target(
-            name: "HomeInterface",
-            destinations: .iOS,
-            product: .framework,
-            bundleId: "co.nimblehq.sample.home.interface",
-            deploymentTargets: .iOS("16.0"),
-            sources: ["Interface/**"],
-            settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
-        ),
-
-        // 2. Implementation — depends on Interface + Domain.
+        // 1. Implementation — depends on Domain.
         .target(
             name: "Home",
             destinations: .iOS,
@@ -32,14 +20,12 @@ let project = Project(
             deploymentTargets: .iOS("16.0"),
             sources: ["Sources/**"],
             dependencies: [
-                .target(name: "HomeInterface"),
                 .project(target: "Domain", path: "../Domain")
             ],
             settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
         ),
 
-        // 3. Testing — mocks and stubs; depends only on Interface.
-        //    Usable by any consumer without pulling in the full implementation.
+        // 2. Testing — mocks and stubs; depends on Home.
         .target(
             name: "HomeTesting",
             destinations: .iOS,
@@ -48,12 +34,12 @@ let project = Project(
             deploymentTargets: .iOS("16.0"),
             sources: ["Testing/**"],
             dependencies: [
-                .target(name: "HomeInterface")
+                .target(name: "Home")
             ],
             settings: .settings(base: ["SKIP_INSTALL": "YES", "ALWAYS_SEARCH_USER_PATHS": "NO"])
         ),
 
-        // 4. Tests — unit tests; depends on implementation + testing helpers.
+        // 3. Tests — unit tests; depends on implementation + testing helpers.
         .target(
             name: "HomeTests",
             destinations: .iOS,
@@ -69,7 +55,7 @@ let project = Project(
             ]
         ),
 
-        // 5. Example — standalone sandbox app for isolated feature development.
+        // 4. Example — standalone sandbox app for isolated feature development.
         .target(
             name: "HomeExample",
             destinations: .iOS,

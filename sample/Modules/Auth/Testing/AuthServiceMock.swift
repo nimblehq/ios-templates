@@ -1,4 +1,4 @@
-import AuthInterface
+import Auth
 import Foundation
 
 public final class AuthServiceMock: AuthServiceProtocol {
