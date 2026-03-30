@@ -8,8 +8,8 @@
 
 ### Requirements
 
-- Ruby `3.1.2`
-- Xcode `16.2+`
+- Ruby `3.2+`
+- Xcode `26+`
 - Swift `6.1+`
 - Tuist (version managed via `.mise.toml`)
 
