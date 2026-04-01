@@ -11,7 +11,8 @@ extension Target {
         // App + app tests
         targets.append(contentsOf: [
             .mainTarget(name: name, bundleId: bundleId),
-            .testsTarget(name: name, bundleId: bundleId)
+            .testsTarget(name: name, bundleId: bundleId),
+            .uiTestsTarget(name: name, bundleId: bundleId)
         ])
 
         return targets
@@ -42,7 +43,6 @@ extension Target {
                 .package(product: "KeychainAccess"),
                 // Tools
                 .package(product: "FirebaseCrashlytics"), // From firebase-ios-sdk
-                .package(product: "NimbleExtension"),
                 .package(product: "FactoryKit"), // Factory 2.5+ uses FactoryKit to avoid SPM naming conflicts
                 // Note: R.swift is a code generation tool, not a library dependency
                 // It will be added later as a build script when we add scripts incrementally
@@ -89,7 +89,14 @@ extension Target {
             resources: module.testsResources,
             dependencies: [
                 .target(name: module.name)
-            ]
+            ] + module.testDependencies,
+            settings: .settings(
+                base: [
+                    // ALWAYS_SEARCH_USER_PATHS: Disables deprecated traditional headermap style.
+                    // Set to NO to use modern separate headermaps and eliminate Xcode warnings.
+                    "ALWAYS_SEARCH_USER_PATHS": "NO"
+                ]
+            )
         )
 
         return [framework, testTarget]
@@ -106,11 +113,37 @@ extension Target {
             sources: ["\(targetName)/**"],
             dependencies: [
                 .target(name: name),
-                // Testing
-                .package(product: "Quick"),
-                .package(product: "Nimble"),
                 .package(product: "OHHTTPStubsSwift"), // From OHHTTPStubs package
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    // ALWAYS_SEARCH_USER_PATHS: Disables deprecated traditional headermap style.
+                    // Set to NO to use modern separate headermaps and eliminate Xcode warnings.
+                    "ALWAYS_SEARCH_USER_PATHS": "NO"
+                ]
+            )
+        )
+    }
+
+    fileprivate static func uiTestsTarget(name: String, bundleId: String) -> Target {
+        let targetName = "\(name)UITests"
+        return .target(
+            name: targetName,
+            destinations: .iOS,
+            product: .uiTests,
+            bundleId: "\(bundleId).uitests",
+            infoPlist: "\(targetName)/Configurations/Plists/Info.plist",
+            sources: ["\(targetName)/**"],
+            dependencies: [
+                .target(name: name)
+            ],
+            settings: .settings(
+                base: [
+                    // ALWAYS_SEARCH_USER_PATHS: Disables deprecated traditional headermap style.
+                    // Set to NO to use modern separate headermaps and eliminate Xcode warnings.
+                    "ALWAYS_SEARCH_USER_PATHS": "NO"
+                ]
+            )
         )
     }
 }

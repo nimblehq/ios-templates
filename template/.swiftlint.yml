@@ -1,7 +1,7 @@
 included:
   - {PROJECT_NAME}
   - {PROJECT_NAME}Tests
-  - {PROJECT_NAME}KIFUITests
+  - {PROJECT_NAME}UITests
 
 excluded:
   - {PROJECT_NAME}Tests/Sources/Mocks/Sourcery/AutoMockable.generated.swift
@@ -46,7 +46,6 @@ opt_in_rules:
   - multiline_function_chains
   - multiline_literal_brackets
   - multiline_parameters
-  - nimble_operator
   - number_separator
   - operator_usage_whitespace
   - overridden_super_call
@@ -54,8 +53,6 @@ opt_in_rules:
   - private_action
   - private_outlet
   - prohibited_super_call
-  - quick_discouraged_focused_test
-  - quick_discouraged_pending_test
   - reduce_into
   - redundant_nil_coalescing
   - single_test_class
@@ -68,7 +65,6 @@ opt_in_rules:
   - unowned_variable_capture
   - untyped_error_in_catch
   - vertical_parameter_alignment_on_call
-  - xct_specific_matcher
   - yoda_condition
 disabled_rules:
   - todo

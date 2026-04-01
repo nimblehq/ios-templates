@@ -9,6 +9,7 @@
 - [[Standard File Organization]]
 - [[Project Configurations]]
 - [[Project Dependencies]]
+- [[Testing Swift Testing and XCTest]]
 
 ## Infrastructure
 

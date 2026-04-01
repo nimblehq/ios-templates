@@ -9,7 +9,15 @@ extension Scheme {
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets([.testableTarget(target: "\(name)Tests")], configuration: debugConfigName),
+            testAction: TestAction.targets(
+                [
+                    .testableTarget(target: "\(name)Tests"),
+                    .testableTarget(target: "DataTests"),
+                    .testableTarget(target: "DomainTests"),
+                    .testableTarget(target: "\(name)UITests")
+                ],
+                configuration: debugConfigName
+            ),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName)
         )
@@ -23,7 +31,15 @@ extension Scheme {
             name: "\(name) Staging",
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets([.testableTarget(target: "\(name)Tests")], configuration: debugConfigName),
+            testAction: TestAction.targets(
+                [
+                    .testableTarget(target: "\(name)Tests"),
+                    .testableTarget(target: "DataTests"),
+                    .testableTarget(target: "DomainTests"),
+                    .testableTarget(target: "\(name)UITests")
+                ],
+                configuration: debugConfigName
+            ),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName)
         )
@@ -37,7 +53,15 @@ extension Scheme {
             name: "\(name) Dev",
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets([.testableTarget(target: "\(name)Tests")], configuration: debugConfigName),
+            testAction: TestAction.targets(
+                [
+                    .testableTarget(target: "\(name)Tests"),
+                    .testableTarget(target: "DataTests"),
+                    .testableTarget(target: "DomainTests"),
+                    .testableTarget(target: "\(name)UITests")
+                ],
+                configuration: debugConfigName
+            ),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName),
         )

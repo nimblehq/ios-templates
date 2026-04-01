@@ -29,7 +29,7 @@ Our optimized iOS template for shipping SwiftUI apps powered by Tuist 4 and Swif
 - ✅ Tuist 4.110.3 manifests using the latest `ProjectDescription` helpers
 - ✅ Clean modular architecture: Domain + Data layers as SPM frameworks
 - ✅ Dependency injection via [Factory](https://github.com/hmlongco/Factory)
-- ✅ BDD unit testing with [Quick](https://github.com/Quick/Quick) + [Nimble](https://github.com/Quick/Nimble); UI testing via KIF
+- ✅ Testing: Swift Testing for unit/integration-style tests; XCTest / XCUITest for UI tests
 - ✅ Code quality tools: SwiftLint, SwiftFormat, Danger, xcov
 - ✅ Secret management via [Arkana](https://github.com/rogerluan/arkana)
 - ✅ Multi-platform CI/CD (GitHub Actions, Bitrise, CodeMagic) with Fastlane Swift DSL

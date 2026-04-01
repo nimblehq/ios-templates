@@ -50,10 +50,6 @@ The main usage of [Firebase](https://firebase.google.com/) for our team is `Fire
 
 The main usage of [Firebase](https://firebase.google.com/) for our team is `Firebase Crashlytics` and `Firebase Distribution`. `Firebase Crashlytics` is used to track, prioritize, and fix stability issues that erode the app quality. `Firebase Distribution` is the primary method for QA and Client to download applications for testing and presenting purposes. In some projects, `Firebase Analytics` is being used to track and analyze users' behavior for marketing purposes.
 
-#### NimbleExtension
-
-[NimbleExtension](https://github.com/nimblehq/NimbleExtension) provides a collection of utility extensions commonly used across Nimble projects to reduce boilerplate and keep codebases consistent.
-
 #### R.swift
 
 [R.swift](https://github.com/mac-cain13/R.swift) generates strongly typed references to resources (images, colors, localized strings, storyboards, etc.), reducing runtime errors caused by typos in resource names.
@@ -87,6 +83,10 @@ Swift code generator running on top of Stencil. [Sourcery](https://github.com/kr
 #### ArkanaKeys / ArkanaKeysInterfaces
 
 [ArkanaKeys](https://github.com/nimblehq/arkana) manages environment-specific secrets and configuration values. It allows keeping sensitive data out of the repository while still providing a type-safe interface for accessing those values in the app.
+
+## Testing
+
+The template uses **Swift Testing** for unit and integration-style tests and **XCTest / XCUITest** for UI and performance tests. See [[Testing Swift Testing and XCTest]] for conventions and migration guidance.
 
 ### SwiftUI
 

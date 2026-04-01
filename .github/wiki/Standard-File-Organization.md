@@ -38,7 +38,7 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │           ├── Resources
 │           └── Sources/
 │               └── Specs/
-│                   └── DummySpec.swift
+│                   └── DomainSwiftTestingTests.swift
 ├── {ProjectName}/
 │   ├── Configurations/
 │   │   ├── Plists/
@@ -75,13 +75,12 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │           └── Supports/
 │               └── Extensions/
 │                   └── Foundation
-└── {ProjectName}KIFUITests/
+└── {ProjectName}UITests/
     ├── Configurations/
     │   └── Plists
     └── Sources/
-        ├── Specs/
-        │   └── Application
-        └── Utilities
+        └── Specs/
+            └── Application
 ```
 
 ## README.md
@@ -115,6 +114,6 @@ This folder contains the main sources of the project. There are three sub-folder
 
 This folder contains the unit testing and integration testing of the main project.
 
-## {ProjectName}KIFUITests
+## {ProjectName}UITests
 
-This folder contains the KIF UI testing of the main project. Use KIF instead of XCUITest for speed and reliability.
+This folder contains UI and performance tests using XCTest / XCUITest.

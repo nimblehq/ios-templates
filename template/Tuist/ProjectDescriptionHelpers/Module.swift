@@ -46,6 +46,18 @@ public enum Module: CaseIterable {
         ]
     }
 
+    public var testDependencies: [TargetDependency] {
+        switch self {
+        case .domain:
+            []
+        case .data:
+            [
+                .package(product: "Alamofire"),
+                .package(product: "OHHTTPStubsSwift")
+            ]
+        }
+    }
+
     public func bundleId(mainBundleId: String) -> String {
         "\(mainBundleId).\(name)"
     }

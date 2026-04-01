@@ -30,7 +30,7 @@ Temporary Items
 # to ignore any cookie cutter generated files and directories
 
 cookiecutter.json
-{{ cookiecutter.*
+\{\{cookiecutter.*
 
 # Xcode
 #

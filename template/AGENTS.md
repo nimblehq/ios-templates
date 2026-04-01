@@ -27,8 +27,8 @@ Modules/                    → SPM modules
   Domain/                   → Entities, interfaces, use cases (pure Swift)
   Data/                     → Networking, repositories, storage
 {PROJECT_NAME}/             → App sources
-{PROJECT_NAME}Tests/        → Unit tests (Quick + Nimble)
-{PROJECT_NAME}KIFUITests/   → KIF UI tests
+{PROJECT_NAME}Tests/        → Unit tests (Swift Testing)
+{PROJECT_NAME}UITests/      → UI tests (XCTest / XCUITest)
 fastlane/                   → Fastlane Swift DSL lanes/helpers
 ```
 
@@ -94,8 +94,8 @@ When adding new functionality: introduce a **Domain interface / use case** first
 
 ## Tests
 
-- Unit tests: `{PROJECT_NAME}Tests/` using **Quick + Nimble**
-- UI tests: `{PROJECT_NAME}KIFUITests/` — grouped as `AccessibilityIdentifiers/`, `Flows/`, `Screens/`, `Specs/`, `Utilities/`
+- Unit and integration-style tests: `{PROJECT_NAME}Tests/` using **Swift Testing**
+- UI and performance tests: `{PROJECT_NAME}UITests/` using **XCTest / XCUITest**
 - Keep tests deterministic; avoid real network calls — use the established `OHHTTPStubs` stubbing approach
 
 ## Build configurations

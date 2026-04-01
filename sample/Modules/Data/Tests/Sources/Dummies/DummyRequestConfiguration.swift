@@ -21,7 +21,7 @@ struct DummyRequestConfiguration: RequestConfiguration {
 extension DummyRequestConfiguration: RequestConfigurationStubable {
 
     var sampleData: Data {
-        DummyNetworkModel.json.data(using: .utf8) ?? Data()
+        DummyNetworkModel.json.data(using: .utf8) ?? Foundation.Data()
     }
 
     var path: String {

@@ -42,11 +42,8 @@ extension Project {
                 .package(url: "https://github.com/kishikawakatsumi/KeychainAccess.git", from: "4.2.2"),
                 // Tools
                 .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "12.11.0"),
-                .package(url: "https://github.com/nimblehq/NimbleExtension.git", .branch("master")),
                 .package(url: "https://github.com/hmlongco/Factory.git", from: "2.5.3"),
                 // Testing
-                .package(url: "https://github.com/Quick/Quick.git", from: "7.6.2"),
-                .package(url: "https://github.com/Quick/Nimble.git", from: "14.0.0"),
                 .package(url: "https://github.com/AliSoftware/OHHTTPStubs.git", from: "9.1.0"),
             ],
             settings: .settings(
