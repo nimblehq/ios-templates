@@ -7,10 +7,12 @@ name: Test Upload Dev Build to Firebase
 ### TEAM_ID
 
 on:
-  pull_request
-  
+  push:
+    branches:
+      - develop
+
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
