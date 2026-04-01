@@ -7,39 +7,6 @@ import Testing
 @testable import Data
 @testable import Domain
 
-private final class MockNetworkAPI: NetworkAPIProtocol, @unchecked Sendable {
-
-    var responses: [MockResult] = []
-    private(set) var requestedConfigurations: [RequestConfiguration] = []
-
-    func performRequest<T: Decodable & Sendable>(
-        _ configuration: RequestConfiguration,
-        for type: T.Type
-    ) async throws -> T {
-        requestedConfigurations.append(configuration)
-
-        guard responses.isEmpty == false else {
-            throw NetworkAPIError.generic
-        }
-
-        switch responses.removeFirst() {
-        case let .success(value):
-            guard let value = value as? T else {
-                throw NetworkAPIError.generic
-            }
-            return value
-        case let .failure(error):
-            throw error
-        }
-    }
-}
-
-private enum MockResult {
-
-    case success(Any)
-    case failure(Error)
-}
-
 @Suite("WeatherRepository")
 struct WeatherRepositorySpec {
 
@@ -72,6 +39,8 @@ struct WeatherRepositorySpec {
                         windSpeed10M: 12.4,
                         isDay: 1
                     ),
+                    // Keep nested forecast initializer readable without broad lint disables.
+                    // swiftlint:disable:next multiline_arguments_one_per_line
                     daily: .init(
                         time: [
                             "2026-03-27",
