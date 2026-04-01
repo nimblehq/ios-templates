@@ -207,10 +207,6 @@ workflows:
         inputs:
         - scheme: $BITRISE_SCHEME
     - fastlane@3:
-        title: Sync Development Staging code signing
-        inputs:
-        - lane: syncDevelopmentStagingCodeSigning
-    - fastlane@3:
         title: Sync Ad Hoc Staging code signing
         inputs:
         - lane: syncAdHocStagingCodeSigning
