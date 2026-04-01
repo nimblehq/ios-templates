@@ -1,5 +1,13 @@
 ---
-format_version: '11'
+# SECRETS needed:
+### SSH_RSA_PRIVATE_KEY
+### MATCH_PASSWORD
+### API_KEY_ID
+### ISSUER_ID
+### APPSTORE_CONNECT_API_KEY
+### FIREBASE_TOKEN
+
+format_version: '26'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: ios
 tools:
@@ -7,9 +15,9 @@ tools:
 trigger_map:
 - push_branch: develop
   workflow: deploy_staging
-- push_branch: master
-  workflow: deploy_app_store
 - push_branch: main
+  workflow: deploy_testflight
+- push_branch: master
   workflow: deploy_app_store
 - push_branch: release
   workflow: deploy_release_firebase
@@ -29,29 +37,92 @@ workflows:
             echo "Gem cache directory: $RBENV_DIR"
             envman add --key GEM_CACHE_PATH --value $RBENV_DIR
         title: Set GEM_CACHE_PATH env var
-    - git-clone@6.1: {}
-    - cache-pull@2: {}
-    - xcode-test@4.0: {}
-    - fastlane-match@0:
+    - git-clone@8: {}
+    - restore-cache@3:
         inputs:
-        - type: appstore
-        - team_id: "$TEAM_ID"
-        - decrypt_password: "$MATCH_PASSWORD"
-        - git_url: "$MATCH_REPO_URL"
-        - app_id: "$BUNDLE_ID"
+        - key: |-
+            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ checksum "Gemfile.lock" }}
+            spm-project-
+    - xcode-test@6:
+        inputs:
+        - scheme: $BITRISE_SCHEME
+    - fastlane@3:
+        title: Sync App Store code signing
+        inputs:
+        - lane: syncAppStoreCodeSigning
     - fastlane@3:
         title: Build and upload Production app to App Store
         inputs:
-        - lane: buildAndUploadToAppStoreLane
-    - deploy-to-bitrise-io:
+        - lane: buildAndUploadToAppStore
+    - fastlane@3:
+        title: Remove CI keychain
         inputs:
-        - deploy_path: $BUILD_PATH
+        - lane: removeKeychain
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BUILD_PATH"
         is_always_run: false
-    - cache-push@2:
+    - save-cache@1:
         inputs:
-        - cache_paths: |-
+        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
+            ~/Library/Developer/Xcode/DerivedData
+    envs:
+    - opts:
+        is_expand: false
+      BUNDLE_ID: {BUNDLE_ID_PRODUCTION}
+    - opts:
+        is_expand: false
+      BITRISE_SCHEME: {PROJECT_NAME}
+  deploy_testflight:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - script@1:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -ex
+            RBENV_DIR="`cd $(rbenv which ruby)/../..;pwd`"
+            echo "Gem cache directory: $RBENV_DIR"
+            envman add --key GEM_CACHE_PATH --value $RBENV_DIR
+        title: Set GEM_CACHE_PATH env var
+    - git-clone@8: {}
+    - restore-cache@3:
+        inputs:
+        - key: |-
+            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ checksum "Gemfile.lock" }}
+            spm-project-
+    - xcode-test@6:
+        inputs:
+        - scheme: $BITRISE_SCHEME
+    - fastlane@3:
+        title: Sync App Store code signing
+        inputs:
+        - lane: syncAppStoreCodeSigning
+    - fastlane@3:
+        title: Build and upload Production app to TestFlight
+        inputs:
+        - lane: buildAndUploadToTestFlight
+    - fastlane@3:
+        title: Remove CI keychain
+        inputs:
+        - lane: removeKeychain
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BUILD_PATH"
+        is_always_run: false
+    - save-cache@1:
+        inputs:
+        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - paths: |-
+            $BITRISE_CACHE_DIR
+            $GEM_CACHE_PATH
+            ~/Library/Developer/Xcode/DerivedData
     envs:
     - opts:
         is_expand: false
@@ -72,29 +143,39 @@ workflows:
             echo "Gem cache directory: $RBENV_DIR"
             envman add --key GEM_CACHE_PATH --value $RBENV_DIR
         title: Set GEM_CACHE_PATH env var
-    - git-clone@6.1: {}
-    - cache-pull@2: {}
-    - xcode-test@4.0: {}
-    - fastlane-match@0:
+    - git-clone@8: {}
+    - restore-cache@3:
         inputs:
-        - type: appstore
-        - team_id: "$TEAM_ID"
-        - app_id: "$BUNDLE_ID"
-        - git_url: "$MATCH_REPO_URL"
-        - decrypt_password: "$MATCH_PASSWORD"
+        - key: |-
+            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ checksum "Gemfile.lock" }}
+            spm-project-
+    - xcode-test@6:
+        inputs:
+        - scheme: $BITRISE_SCHEME
+    - fastlane@3:
+        title: Sync Ad Hoc Production code signing
+        inputs:
+        - lane: syncAdHocProductionCodeSigning
     - fastlane@3:
         title: Build and Upload Production App
         inputs:
-        - lane: buildProductionAndUploadToFirebaseLane
-    - deploy-to-bitrise-io:
+        - lane: buildProductionAndUploadToFirebase
+    - fastlane@3:
+        title: Remove CI keychain
         inputs:
-        - deploy_path: $BUILD_PATH
+        - lane: removeKeychain
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BUILD_PATH"
         is_always_run: false
-    - cache-push@2:
+    - save-cache@1:
         inputs:
-        - cache_paths: |-
+        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
+            ~/Library/Developer/Xcode/DerivedData
     envs:
     - opts:
         is_expand: false
@@ -115,29 +196,43 @@ workflows:
             echo "Gem cache directory: $RBENV_DIR"
             envman add --key GEM_CACHE_PATH --value $RBENV_DIR
         title: Set GEM_CACHE_PATH env var
-    - git-clone@6.1: {}
-    - cache-pull@2: {}
-    - xcode-test@4.0: {}
-    - fastlane-match@0:
+    - git-clone@8: {}
+    - restore-cache@3:
         inputs:
-        - type: adhoc
-        - team_id: "$TEAM_ID"
-        - app_id: "$BUNDLE_ID"
-        - git_url: "$MATCH_REPO_URL"
-        - decrypt_password: "$MATCH_PASSWORD"
+        - key: |-
+            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ checksum "Gemfile.lock" }}
+            spm-project-
+    - xcode-test@6:
+        inputs:
+        - scheme: $BITRISE_SCHEME
+    - fastlane@3:
+        title: Sync Development Staging code signing
+        inputs:
+        - lane: syncDevelopmentStagingCodeSigning
+    - fastlane@3:
+        title: Sync Ad Hoc Staging code signing
+        inputs:
+        - lane: syncAdHocStagingCodeSigning
     - fastlane@3:
         title: Build and Upload Staging App
         inputs:
-        - lane: buildStagingAndUploadToFirebaseLane
-    - deploy-to-bitrise-io:
+        - lane: buildStagingAndUploadToFirebase
+    - fastlane@3:
+        title: Remove CI keychain
         inputs:
-        - deploy_path: $BUILD_PATH
+        - lane: removeKeychain
+    - deploy-to-bitrise-io@2:
+        inputs:
+        - deploy_path: "$BUILD_PATH"
         is_always_run: false
-    - cache-push@2:
+    - save-cache@1:
         inputs:
-        - cache_paths: |-
+        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
+            ~/Library/Developer/Xcode/DerivedData
     envs:
     - opts:
         is_expand: false
@@ -158,22 +253,29 @@ workflows:
             echo "Gem cache directory: $RBENV_DIR"
             envman add --key GEM_CACHE_PATH --value $RBENV_DIR
         title: Set GEM_CACHE_PATH env var
-    - git-clone@6.1: {}
-    - cache-pull@2: {}
+    - git-clone@8: {}
+    - restore-cache@3:
+        inputs:
+        - key: |-
+            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ checksum "Gemfile.lock" }}
+            spm-project-
     - fastlane@3:
         inputs:
-        - lane: buildAndTestLane
+        - lane: buildAndTest
     - fastlane@3:
         inputs:
-        - lane: cleanUpOutputLane
+        - lane: cleanUpOutput
     - danger@2:
         inputs:
         - github_api_token: "$DANGER_GITHUB_API_TOKEN"
-    - cache-push@2:
+    - save-cache@1:
         inputs:
-        - cache_paths: |-
+        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
+            ~/Library/Developer/Xcode/DerivedData
     envs:
     - opts:
         is_expand: false
