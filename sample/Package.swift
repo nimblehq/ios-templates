@@ -24,6 +24,7 @@ let package = Package(
         
         // Tools
         .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "12.11.0"),
+        .package(url: "https://github.com/pmusolino/Wormholy.git", from: "2.3.0"),
         // Note: R.swift is a code generation tool, not a library dependency
         // .package(url: "https://github.com/mac-cain13/R.swift.git", from: "7.0.0"),
         .package(url: "https://github.com/hmlongco/Factory.git", from: "2.5.3"),

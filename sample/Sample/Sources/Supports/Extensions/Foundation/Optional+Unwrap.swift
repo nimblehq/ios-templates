@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension Optional where Wrapped == String {
+public extension Optional where Wrapped == String {
 
     var string: String { self ?? "" }
 }

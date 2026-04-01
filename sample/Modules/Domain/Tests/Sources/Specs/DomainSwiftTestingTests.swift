@@ -9,8 +9,8 @@ import Testing
 @Suite("Domain")
 struct DomainSwiftTestingTests {
 
-    @Test("UseCaseFactoryProtocol metatype is accessible from the Domain module")
-    func useCaseFactoryProtocolMetatypeIsAccessible() {
-        _ = UseCaseFactoryProtocol.self
+    @Test("FetchWeatherUseCaseProtocol metatype is accessible from the Domain module")
+    func fetchWeatherUseCaseProtocolMetatypeIsAccessible() {
+        _ = FetchWeatherUseCaseProtocol.self
     }
 }

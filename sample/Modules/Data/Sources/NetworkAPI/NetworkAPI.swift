@@ -5,12 +5,12 @@
 import Alamofire
 import Foundation
 
-final class NetworkAPI: NetworkAPIProtocol {
+struct NetworkAPI: NetworkAPIProtocol, @unchecked Sendable {
 
-    private let decoder: JSONDecoder
+    private let session: Session
 
-    init(decoder: JSONDecoder = JSONDecoder()) {
-        self.decoder = decoder
+    init(session: Session = Session()) {
+        self.session = session
     }
 
     func performRequest<T: Decodable & Sendable>(
@@ -18,9 +18,8 @@ final class NetworkAPI: NetworkAPIProtocol {
         for type: T.Type
     ) async throws -> T {
         try await request(
-            session: Session(),
-            configuration: configuration,
-            decoder: decoder
+            session: session,
+            configuration: configuration
         )
     }
 }

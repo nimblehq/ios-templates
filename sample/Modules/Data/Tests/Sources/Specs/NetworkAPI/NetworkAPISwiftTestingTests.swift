@@ -15,7 +15,7 @@ enum NetworkAPISwiftTestingTests {
 
         @Test(.tags(.networkIntegration))
         func performRequestDecodesPayload() async throws {
-            let requestConfiguration = DummyRequestConfiguration()
+            let requestConfiguration = DummyRequestConfiguration.dummy
             let networkAPI = NetworkAPI()
 
             NetworkStubber.stub(requestConfiguration)
@@ -35,7 +35,7 @@ enum NetworkAPISwiftTestingTests {
 
         @Test(.tags(.networkIntegration))
         func performRequestThrows() async {
-            let requestConfiguration = DummyRequestConfiguration()
+            let requestConfiguration = DummyRequestConfiguration.dummy
             let networkAPI = NetworkAPI()
 
             NetworkStubber.stub(requestConfiguration, data: Foundation.Data(), statusCode: 400)
