@@ -268,14 +268,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		08F2D569973B869BA5522F11 /* Specs */ = {
-			isa = PBXGroup;
-			children = (
-				A16200000000000000000015 /* DomainSwiftTestingTests.swift */,
-			);
-			path = Specs;
-			sourceTree = "<group>";
-		};
 		182637B35C1EBA619776687E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,7 +333,7 @@
 		35D7BB8207E7B5C40D7FCAA5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				08F2D569973B869BA5522F11 /* Specs */,
+				A16200000000000000000015 /* DomainSwiftTestingTests.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -426,17 +418,9 @@
 		A16300000000000000000044 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A16300000000000000000045 /* Specs */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
-		A16300000000000000000045 /* Specs */ = {
-			isa = PBXGroup;
-			children = (
 				A16300000000000000000046 /* Application */,
 			);
-			path = Specs;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		A16300000000000000000046 /* Application */ = {
@@ -463,14 +447,6 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		6AD55997BCC9490D2862A7F0 /* Specs */ = {
-			isa = PBXGroup;
-			children = (
-				74C2B197EB65FBDAED6CA38D /* Supports */,
-			);
-			path = Specs;
-			sourceTree = "<group>";
-		};
 		6FD21C4D7AF886FE8D7EC1DD /* Modules */ = {
 			isa = PBXGroup;
 			children = (
@@ -491,7 +467,7 @@
 		7AF4BFD29E469AFBF278912E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				6AD55997BCC9490D2862A7F0 /* Specs */,
+				74C2B197EB65FBDAED6CA38D /* Supports */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -544,7 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				2FD8307AC2FE707D7220C4E8 /* Dummies */,
-				CA4189AA9EDB925156177A3B /* Specs */,
+				51C68C305BF22E84BECB6093 /* NetworkAPI */,
 				82167E654C693C38E41B1B87 /* Utilities */,
 			);
 			path = Sources;
@@ -713,14 +689,6 @@
 				0FED59B28688202535C340B9 /* Optional+Unwrap.swift */,
 			);
 			path = Foundation;
-			sourceTree = "<group>";
-		};
-		CA4189AA9EDB925156177A3B /* Specs */ = {
-			isa = PBXGroup;
-			children = (
-				51C68C305BF22E84BECB6093 /* NetworkAPI */,
-			);
-			path = Specs;
 			sourceTree = "<group>";
 		};
 		E95F78462A655F0FAE2BFC2F /* Application */ = {

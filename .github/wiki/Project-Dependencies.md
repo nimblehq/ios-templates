@@ -86,7 +86,7 @@ Swift code generator running on top of Stencil. [Sourcery](https://github.com/kr
 
 ## Testing
 
-The template uses **Swift Testing** for unit and integration-style tests and **XCTest / XCUITest** for UI and performance tests. See [[Testing Swift Testing and XCTest]] for conventions and migration guidance.
+The template uses **Swift Testing** for unit and integration-style tests and **XCTest / XCUITest** for UI and performance tests. See [[Testing Swift Testing and XCTest]] for current conventions and [[Migrating Legacy Tests to Swift Testing]] for legacy migration guidance.
 
 ### SwiftUI
 

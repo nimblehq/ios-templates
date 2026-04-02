@@ -135,7 +135,7 @@ Follow the template’s testing style and directory expectations:
 
 - Unit tests live in `{ProjectName}Tests/` (Swift Testing).
 - UI tests live in `{ProjectName}UITests/` and follow the Compass-like grouping:
-  - `AccessibilityIdentifiers/`, `Flows/`, `Screens/`, `Specs/`, `Utilities/`
+  - `AccessibilityIdentifiers/`, `Flows/`, `Screens/`, `Utilities/`, and feature folders such as `Application/`
 
 Keep tests deterministic and avoid real network calls; use the repo’s established stubbing/mocking approach.
 
@@ -156,7 +156,8 @@ Key wiki articles in `.github/wiki/`:
 - `Project-Configurations.md` — Build configs, xcconfig, compilation flags
 - `Project-Dependencies.md` — Full dependency list
 - `Standard-File-Organization.md` — File structure conventions
-- `Testing-Swift-Testing-and-XCTest.md` — Swift Testing + XCTest conventions and Quick/Nimble mapping
+- `Testing-Swift-Testing-and-XCTest.md` — Swift Testing + XCTest conventions
+- `Migrating-Legacy-Tests-to-Swift-Testing.md` — Legacy Quick/Nimble to Swift Testing migration guide
 
 ## Key dependencies
 

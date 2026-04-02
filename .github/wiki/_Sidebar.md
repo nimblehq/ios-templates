@@ -10,6 +10,7 @@
 - [[Project Configurations]]
 - [[Project Dependencies]]
 - [[Testing Swift Testing and XCTest]]
+- [[Migrating Legacy Tests to Swift Testing]]
 
 ## Infrastructure
 

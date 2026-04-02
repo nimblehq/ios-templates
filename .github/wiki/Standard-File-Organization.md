@@ -24,8 +24,7 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   │           ├── Dummies/
 │   │           │   ├── DummyNetworkModel.swift
 │   │           │   └── DummyRequestConfiguration.swift
-│   │           ├── Specs/
-│   │           │   └── NetworkAPI
+│   │           ├── NetworkAPI/
 │   │           └── Utilities/
 │   │               └── NetworkStubber.swift
 │   └── Domain/
@@ -37,8 +36,7 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │       └── Tests/
 │           ├── Resources
 │           └── Sources/
-│               └── Specs/
-│                   └── DomainSwiftTestingTests.swift
+│               └── DomainSwiftTestingTests.swift
 ├── {ProjectName}/
 │   ├── Configurations/
 │   │   ├── Plists/
@@ -71,16 +69,14 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   │   └── Plists
 │   ├── Resources
 │   └── Sources/
-│       └── Specs/
-│           └── Supports/
-│               └── Extensions/
-│                   └── Foundation
+│       └── Supports/
+│           └── Extensions/
+│               └── Foundation
 └── {ProjectName}UITests/
     ├── Configurations/
     │   └── Plists
     └── Sources/
-        └── Specs/
-            └── Application
+        └── Application
 ```
 
 ## README.md
