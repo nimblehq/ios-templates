@@ -6,6 +6,7 @@
 ### ISSUER_ID
 ### APPSTORE_CONNECT_API_KEY
 ### FIREBASE_TOKEN
+### DANGER_GITHUB_API_TOKEN
 
 format_version: '26'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
@@ -41,9 +42,9 @@ workflows:
     - restore-cache@3:
         inputs:
         - key: |-
-            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
-            spm-project-{{ checksum "Gemfile.lock" }}
-            spm-project-
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-
     - xcode-test@6:
         inputs:
         - scheme: $BITRISE_SCHEME
@@ -59,13 +60,14 @@ workflows:
         title: Remove CI keychain
         inputs:
         - lane: removeKeychain
+        is_always_run: true
     - deploy-to-bitrise-io@2:
         inputs:
         - deploy_path: "$BUILD_PATH"
         is_always_run: false
     - save-cache@1:
         inputs:
-        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - key: spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
         - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
@@ -94,9 +96,9 @@ workflows:
     - restore-cache@3:
         inputs:
         - key: |-
-            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
-            spm-project-{{ checksum "Gemfile.lock" }}
-            spm-project-
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-
     - xcode-test@6:
         inputs:
         - scheme: $BITRISE_SCHEME
@@ -112,13 +114,14 @@ workflows:
         title: Remove CI keychain
         inputs:
         - lane: removeKeychain
+        is_always_run: true
     - deploy-to-bitrise-io@2:
         inputs:
         - deploy_path: "$BUILD_PATH"
         is_always_run: false
     - save-cache@1:
         inputs:
-        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - key: spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
         - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
@@ -147,9 +150,9 @@ workflows:
     - restore-cache@3:
         inputs:
         - key: |-
-            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
-            spm-project-{{ checksum "Gemfile.lock" }}
-            spm-project-
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-
     - xcode-test@6:
         inputs:
         - scheme: $BITRISE_SCHEME
@@ -165,13 +168,14 @@ workflows:
         title: Remove CI keychain
         inputs:
         - lane: removeKeychain
+        is_always_run: true
     - deploy-to-bitrise-io@2:
         inputs:
         - deploy_path: "$BUILD_PATH"
         is_always_run: false
     - save-cache@1:
         inputs:
-        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - key: spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
         - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
@@ -200,9 +204,9 @@ workflows:
     - restore-cache@3:
         inputs:
         - key: |-
-            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
-            spm-project-{{ checksum "Gemfile.lock" }}
-            spm-project-
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-
     - xcode-test@6:
         inputs:
         - scheme: $BITRISE_SCHEME
@@ -218,13 +222,14 @@ workflows:
         title: Remove CI keychain
         inputs:
         - lane: removeKeychain
+        is_always_run: true
     - deploy-to-bitrise-io@2:
         inputs:
         - deploy_path: "$BUILD_PATH"
         is_always_run: false
     - save-cache@1:
         inputs:
-        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - key: spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
         - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
@@ -253,9 +258,9 @@ workflows:
     - restore-cache@3:
         inputs:
         - key: |-
-            spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
-            spm-project-{{ checksum "Gemfile.lock" }}
-            spm-project-
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}
+            spm-project-{{ getenv "BITRISE_SCHEME" }}-
     - fastlane@3:
         inputs:
         - lane: buildAndTest
@@ -267,7 +272,7 @@ workflows:
         - github_api_token: "$DANGER_GITHUB_API_TOKEN"
     - save-cache@1:
         inputs:
-        - key: spm-project-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
+        - key: spm-project-{{ getenv "BITRISE_SCHEME" }}-{{ checksum "Gemfile.lock" }}-{{ checksum "**/Package.resolved" }}
         - paths: |-
             $BITRISE_CACHE_DIR
             $GEM_CACHE_PATH
