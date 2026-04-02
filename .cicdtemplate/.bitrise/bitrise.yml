@@ -18,8 +18,6 @@ trigger_map:
   workflow: deploy_staging
 - push_branch: main
   workflow: deploy_testflight
-- push_branch: master
-  workflow: deploy_app_store
 - push_branch: release
   workflow: deploy_release_firebase
 - push_branch: "*"
@@ -80,6 +78,8 @@ workflows:
         is_expand: false
       BITRISE_SCHEME: {PROJECT_NAME}
   deploy_testflight:
+    after_run:
+    - deploy_app_store
     steps:
     - activate-ssh-key@4:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
