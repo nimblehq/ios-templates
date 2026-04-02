@@ -1,0 +1,6 @@
+package_manager: spm
+environments:
+  - Staging
+  - Release
+global_secrets:
+environment_secrets:

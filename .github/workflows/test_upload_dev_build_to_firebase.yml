@@ -1,0 +1,94 @@
+name: Test Upload Dev Build to Firebase
+
+# SECRETS needed:
+### SSH_PRIVATE_KEY for Match Repo
+### MATCH_PASS
+### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
+### TEAM_ID
+
+on:
+  push:
+    branches:
+      - develop
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: macOS-latest
+    env:
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 60
+      FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+
+    - name: Create Release Note
+      run: |
+        echo "Here is: "
+        echo "RELEASE_NOTES="$((git log -1 --merges | grep "\[") | grep . && echo "" || echo $(git log -1 --merges --format=%B))""
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        echo "$((git log -1 --merges | grep "\[") | grep . && echo "" || echo $(git log -1 --merges --format=%B))" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Install Firebase-Tools
+      run: |
+        yarn global add firebase-tools
+        echo "$(yarn global bin)" >> $GITHUB_PATH
+
+    - name: Read Google Service Account
+      id: firebase_service_account
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'firebase_service_account.json'
+        encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
+
+    - name: Install tools with mise
+      uses: jdx/mise-action@v4.0.1
+
+    - name: Configure Template App for Firebase upload
+      run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make-test-firebase
+      env:
+        MATCH_REPO: ${{ secrets.MATCH_REPO }}
+        TEAM_ID: ${{ secrets.TEAM_ID }}
+
+    - name: Generate Template App
+      run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --bundle-id-dev co.nimblehq.ios.templates.dev --project-name TemplateApp
+
+    - name: Set Up Test Project for Firebase
+      run: bundle exec fastlane setUpTestProject
+
+    - name: Sync Ad Hoc Code Signing
+      run: bundle exec fastlane syncAdHocDevCodeSigning
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+    - name: Build Dev App and Distribute to Firebase
+      run: bundle exec fastlane buildDevAndUploadToFirebase
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
+        path: |
+          ${{ env.IPA_OUTPUT_PATH }}
+          ${{ env.DSYM_OUTPUT_PATH }}
+      env:
+        TAG_TYPE: Dev_Firebase
+
+    - name: Remove keychain
+      if: ${{ always() }}
+      run: bundle exec fastlane removeKeychain
+      continue-on-error: true

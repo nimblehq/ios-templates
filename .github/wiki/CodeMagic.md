@@ -2,6 +2,8 @@
 
 Use the CodeMagic template to start a new project with CodeMagic as the CI/CD tool.
 
+The template sets each workflow to Ruby `3.2` so Bundler can install the current Fastlane and Firebase App Distribution plugin toolchain.
+
 ## Workflows and Steps
 
 Out of the box, the CodeMagic Template has the following workflows and steps:
@@ -9,7 +11,7 @@ Out of the box, the CodeMagic Template has the following workflows and steps:
 | test                        | deploy_app_store                                        | deploy_staging_firebase                             | deploy_release_firebase                               |
 | --------------------------- | ------------------------------------------------------- | --------------------------------------------------- | ----------------------------------------------------- |
 | Install bundle              | Install bundle                                          | Install bundle                                      | Install bundle                                        |
-| Run CocoaPods install       | Run CocoaPods install                                   | Run CocoaPods install                               | Run CocoaPods install                                 |
+| Resolve SPM dependencies    | Resolve SPM dependencies                                | Resolve SPM dependencies                            | Resolve SPM dependencies                              |
 | Fastlane - Build and Test   | Fastlane - Build and Test                               | Fastlane - Build and Test                           | Fastlane - Build and Test                             |
 | Fastlane - Clean Up Xcov    | Fastlane Match                                          | Fastlane Match                                      | Fastlane Match                                        |
 | Fastlane - Build and deploy | Fastlane - Build and Upload Production App to App Store | Fastlane - Build and Upload Staging App to Firebase | Fastlane: Build and Upload Production App to Firebase |
@@ -52,7 +54,7 @@ Out of the box, the CodeMagic Template has the following workflows and steps:
 
 ```
 ROOT
-├── ExampleApp.xcworkspace
+├── ExampleApp.xcodeproj
 ├── codemagic.yaml
 ├──...
 ```

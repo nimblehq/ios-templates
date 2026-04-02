@@ -1,6 +1,0 @@
-package_manager: cocoapods
-environments:
-  - Staging
-  - Release
-global_secrets:
-environment_secrets:

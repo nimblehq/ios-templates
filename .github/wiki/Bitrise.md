@@ -1,6 +1,8 @@
 # Bitrise
 Use the Bitrise template to start a new project with Bitrise as the CI/CD tool.
 
+The template configures Bitrise with `tools.ruby: 3.2:installed` so the Fastlane + Firebase App Distribution toolchain runs on a compatible Ruby baseline.
+
 ## Workflows and Steps
 
 Out of the box, the Bitrise Template has the following workflows and steps:
@@ -9,7 +11,7 @@ Out of the box, the Bitrise Template has the following workflows and steps:
 |---------------------------|---------------------------------------------------------|-----------------------------------------|-------------------------------------------|
 | Git Clone Repository      | Git Clone Repository                                    | Git Clone Repository                    | Git Clone Repository                      |
 | Bitrise.io Cache:Pull     | Bitrise.io Cache:Pull                                   | Bitrise.io Cache:Pull                   | Bitrise.io Cache:Pull                     |
-| Run CocoaPods install     | Run CocoaPods install                                   | Run CocoaPods install                   | Run CocoaPods install                     |
+| Resolve SPM dependencies  | Resolve SPM dependencies                                | Resolve SPM dependencies                | Resolve SPM dependencies                  |
 | Fastlane - Build and Test | Xcode Test for iOS                                      | Xcode Test for iOS                      | Xcode Test for iOS                        |
 | Fastlane - Clean Up Xcov  | Fastlane Match                                          | Fastlane Match                          | Fastlane Match                            |
 | Danger                    | Fastlane - Build and Upload Production App to App Store | Fastlane - Build and Upload Staging App | Fastlane: Build and Upload Production App |
@@ -26,7 +28,7 @@ Out of the box, the Bitrise Template has the following workflows and steps:
 ## Environment and Secrets
 ### App Environtment Variables
 - BITRISE_PROJECT_PATH
-> e.g., ExampleApp.xcodeproj or in case you're using CocoaPod, it is ExampleApp.xcworkspace.
+> e.g., ExampleApp.xcodeproj.
 
 - TEAM_ID
 > This is your Apple Team ID (e.g., T3T4E84BAA), you can find it in `Membership` at Apple developer portal.
@@ -62,7 +64,7 @@ All four workflows have their own variables:
 > Final project directory structure
 ```
 ROOT
-├── ExampleApp.xcworkspace
+├── ExampleApp.xcodeproj
 ├── bitrise.yml
 ├──...
 ```

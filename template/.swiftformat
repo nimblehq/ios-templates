@@ -1,0 +1,17 @@
+# file options
+--exclude Pods, Generated, **/*.generated.swift, fastlane/swift, ArkanaKeys
+
+# rules
+--disable fileHeader
+--disable initCoderUnavailable
+--disable trailingCommas
+--disable wrapEnumCases
+--disable wrapMultilineStatementBraces
+--disable wrapSwitchCases
+--disable blankLinesAtStartOfScope
+--stripunusedargs closure-only
+--extensionacl on-declarations
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--maxwidth 120

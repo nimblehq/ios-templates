@@ -1,0 +1,35 @@
+name: Verify New Project Script
+
+on:
+  pull_request
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: macos-latest
+    env:
+      CI: true
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v6
+
+    - name: Copy mise config
+      run: cp template/.mise.toml .mise.toml
+
+    - name: Install tools with mise
+      uses: jdx/mise-action@v4.0.1
+
+    - name: Run iOSTemplateMaker
+      run: |
+        swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make \
+          --bundle-id-production co.nimblehq.ios.templates \
+          --bundle-id-staging co.nimblehq.ios.templates.staging \
+          --bundle-id-dev co.nimblehq.ios.templates.dev \
+          --project-name TemplateApp \
+          --minimum-version 16.0 \
+          --cicd github \
+          --github-runner macos-latest

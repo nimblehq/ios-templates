@@ -10,7 +10,8 @@ name: Test Upload Build to TestFlight
 ### TEAM_ID
 
 on:
-  pull_request
+  # Disabled by default; keep only for manual runs when needed.
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -20,11 +21,17 @@ jobs:
   build:
     name: Build
     runs-on: macOS-latest
+    env:
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 60
+      FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
+
+    - name: Install tools with mise
+      uses: jdx/mise-action@v4.0.1
 
     - name: Install SSH key
       uses: webfactory/ssh-agent@v0.7.0
@@ -34,20 +41,20 @@ jobs:
     - name: Bundle install
       run: bundle install
 
-    - name: Cache Pods
-      uses: actions/cache@v3
-      id: cocoapodCache
+    - name: Cache SPM Packages
+      uses: actions/cache@v4
+      id: spmCache
       with:
-        path: Pods
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        path: .build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
         restore-keys: |
-          ${{ runner.os }}-pods-
+          ${{ runner.os }}-spm-
 
     - name: Start Install Script for Template App
-      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp --interface UIKit
+      run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
 
     - name: Start Setup Script for Template App TestFlight Upload
-      run: swift run --package-path Scripts/Swift/iOSTemplateMaker iOSTemplateMaker make-test-test-flight
+      run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make-test-test-flight
       env:
         MATCH_REPO: ${{ secrets.MATCH_REPO }}
         API_KEY_ID: ${{ secrets.API_KEY_ID }}

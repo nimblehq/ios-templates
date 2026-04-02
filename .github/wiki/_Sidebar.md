@@ -3,7 +3,6 @@
 - [[Home]]
 - [[Getting Started]]
 - [[Deliverable Configurations]]
-- [[Selecting User Interface]]
 
 ## Architecture
 
@@ -18,6 +17,10 @@
 - [[Bitrise]]
 - [[CodeMagic]]
 - [[Fastlane]]
+
+## AI & Agents
+
+- [[Creating AGENTS-CLAUDE for Projects]]
 
 ## Operations
 

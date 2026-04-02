@@ -1,9 +1,0 @@
-sources:
-  - {PROJECT_NAME}/Sources
-templates:
-  - tools/sourcery/templates
-output:
-  {PROJECT_NAME}Tests/Sources/Mocks/Sourcery 
-args:
-  autoMockableTestableImports:
-    - {PROJECT_NAME}

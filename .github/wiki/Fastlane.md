@@ -1,5 +1,7 @@
 Fastlane is a part of the automation tool for the development and release process of the project. By converting to Fastlane.swift, we can now write our configuration using Xcode in Swift - the language we know and love from the world of iOS development. This document will mention some crucial parts of the pipeline.
 
+All Fastlane commands in this template are expected to run through Bundler on Ruby `3.2+`.
+
 <img src="assets/images/infrastructure/fastlane/fastlane.png" width=300>
 
 ## Fastfile
