@@ -156,11 +156,7 @@ git log --oneline -1
 git push
 ```
 
-4. Replace `<sha>` in the reply with the real short SHA, then post it:
-
-### 3e — Post the reply
-
-Use `in_reply_to` on the PR comments endpoint — more reliable than the `/replies` endpoint, which 404s when the target comment is itself a reply:
+4. Replace `<sha>` in the reply with the real short SHA, then post it using `in_reply_to` on the PR comments endpoint — more reliable than the `/replies` endpoint, which 404s when the target comment is itself a reply:
 
 ```bash
 gh api repos/OWNER/REPO/pulls/PULL_NUMBER/comments \
