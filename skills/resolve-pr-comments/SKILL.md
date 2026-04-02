@@ -224,3 +224,4 @@ Done — X thread(s) resolved.
 - If a thread has already been resolved when you try to resolve it, skip silently and continue.
 - If `gh api` returns an error posting a reply, show the error and ask the user how to proceed — do not auto-retry.
 - If the PR has no unresolved threads, report that immediately and stop.
+- Pagination limits: `reviewThreads(first: 100)` and `comments(first: 20)` — on PRs with more than 100 review threads, or threads with more than 20 replies, results will be truncated. For PRs near these limits, process threads in batches using a comment URL instead of a PR URL.
