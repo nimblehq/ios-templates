@@ -1,162 +1,117 @@
+---
+name: resolve-pr-comments
+description: Guided workflow to address, reply to, and resolve GitHub PR review threads — one at a time, collaboratively. Use when the user says `/resolve-pr-comments` optionally followed by a PR URL or a comment URL.
+disable-model-invocation: true
+triggers:
+  - /resolve-pr-comments
+  - resolve PR comments
+  - address PR review
+  - respond to code review
+  - reply to PR thread
+---
+
 # resolve-pr-comments
 
 Guided workflow to address, reply to, and resolve GitHub PR review threads — one at a time, collaboratively.
 
-## Trigger
+---
 
-Use when the user says `/resolve-pr-comments` optionally followed by a PR URL or a comment URL.
+## Fetch Threads Workflow
+
+Retrieve unresolved review threads from GitHub.
+
+### Workflow: Fetch Unresolved Threads
+
+1. Parse the URL provided by the user:
+   - **PR URL** (`/pull/123`) — process all unresolved threads
+   - **Comment URL** (`/pull/123#discussion_r<ID>`) — process that single thread
+   - If no URL is provided, ask the user before proceeding
+2. Extract `owner`, `repo`, and `pull_number` from the URL
+3. Use `gh` CLI to fetch review threads for the PR
+4. Filter to threads where `isResolved == false`
+5. If a comment URL was given, further filter to the thread containing the comment with `databaseId == <ID>`
+6. If no unresolved threads exist, report that immediately and stop
+7. **Validation:** Threads fetched; unresolved threads identified; pagination limits noted (>100 threads or >20 comments per thread may be truncated — use comment URL to process in batches)
 
 ---
 
-## Input
+## Per-Thread Resolution Workflow
 
-The user provides either:
-- **PR URL**: `https://github.com/owner/repo/pull/123` — process all unresolved threads
-- **Comment URL**: `https://github.com/owner/repo/pull/123#discussion_r<id>` — process that single thread
+Work through each unresolved thread collaboratively.
 
-If no URL is provided, ask the user for one before proceeding.
+### Workflow: Resolve a Thread
 
-Extract `owner`, `repo`, and `pull_number` from the URL.
+For each unresolved thread, display context then work through steps 1–6:
 
----
-
-## Step 1 — Fetch threads
-
-### Single comment URL (fragment `#discussion_r<ID>`)
-
-Extract the numeric comment ID from the fragment. Use GraphQL to find the review thread that contains it:
-
-```bash
-gh api graphql -f query='
-  query {
-    repository(owner: "OWNER", name: "REPO") {
-      pullRequest(number: PR_NUM) {
-        reviewThreads(first: 100) {
-          nodes {
-            id
-            isResolved
-            path
-            diffHunk
-            comments(first: 20) {
-              nodes {
-                databaseId
-                author { login }
-                body
-                createdAt
-              }
-            }
-          }
-        }
-      }
-    }
-  }'
-```
-
-Filter to the thread whose `comments.nodes` contains a node with `databaseId == <ID>`.
-
-### PR URL (all threads)
-
-Use the same GraphQL query above. Filter to nodes where `isResolved == false`.
-
----
-
-## Step 2 — Display thread context
-
-For each thread, display clearly:
-
+**Display format:**
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Thread: <path>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Diff hunk:
-<diffHunk>
-
 Comments:
-  [author] createdAt
-  > body
-
   [author] createdAt
   > body
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
----
+#### Step 1 — Analyze and propose
 
-## Step 3 — Per-thread loop
-
-For each unresolved thread, work through these steps in order:
-
-### 3a — Analyze and propose
-
-Claude reads the file at `path` to get current context, then proposes one of:
+Read the file at `path` to get current context, then propose one of:
 
 - **"No code change needed."** — explain what reply to send and why no change is required
 - **"Code change needed."** — describe the change; ask: *"Should I make this change?"*
 
 Wait for user confirmation or adjustment before proceeding.
 
-### 3b — Implement (if code change)
+#### Step 2 — Implement (if code change)
 
 Make the code change. **Do not commit or push yet.**
 
-### 3c — Draft commit message and reply, then confirm
+#### Step 3 — Draft commit message and reply, then confirm
 
-Compose both drafts and present them together for user approval:
+Compose both drafts and present them together for user approval.
 
-**Commit message:** follow the Nimble Compass convention (`[#ID] Verb message`). Derive the ID from the branch name using the same rules as the `/commit` skill.
+**Commit message:** Use the `/commit` skill convention (`[#ID] Verb message`). Derive the issue ID from the branch name (e.g. `chore/609-add-skill` → `#609`).
 
-**Reply:** vary the phrasing naturally based on the nature of the comment — examples:
+**Reply:** Vary the phrasing naturally based on the nature of the comment:
   - `"Good catch, fixed in <sha>."`
   - `"Good point, updated in <sha>."`
   - `"Agreed, refactored in <sha>."`
   - `"Done, updated in <sha>."`
   - `"Fixed in <sha>."`
-  - `"Updated in <sha>."`
-  - Use your judgment — pick whichever fits the tone of the original comment. Avoid repeating the same opener across multiple threads in the same PR.
-  - Use a placeholder like `<sha>` since the commit hasn't happened yet.
+  - Avoid repeating the same opener across multiple threads in the same PR.
+  - Use `<sha>` as a placeholder since the commit hasn't happened yet.
 
-For a **no-code-change** reply: brief factual explanation, 1–2 sentences max. If referencing a specific piece of code, include it as a code block with a comment on the first line showing the file path, line number, and a link to that file on GitHub:
+**No-code-change reply:** Brief factual explanation, 1–2 sentences. If referencing a specific piece of code, first use search or read to locate the snippet and determine the correct line number(s), then include it as a code block:
   ````
   ```{language inferred from file extension}
   // {path}, line {N} — https://github.com/OWNER/REPO/blob/BRANCH/path/to/file#LN
   relevant code here...
   ```
   ````
-  Use the current branch name for the link. Include only the most relevant lines — keep the snippet short.
+  Use the current branch name for the link. Keep the snippet short.
 
-No emoji unless the user adds them.
+No emoji unless the user uses them first.
 
-Show both drafts to the user at once:
+Show both drafts at once:
 
-> **Commit message:** `"[#595] Fix commit description format"`
+> **Commit message:** `"[#609] Fix wording in skill documentation"`
 > **Reply:** `"Good point, updated in <sha>."`
 > Does this look good?
 
 Wait for explicit approval (or edits) before proceeding.
 
-### 3d — Commit, push, then post the reply
+#### Step 4 — Commit and push
 
 Once the user approves:
 
-1. Commit using the approved message:
+1. Stage and commit using the `/commit` skill with the approved message
+2. Capture the short SHA: `git log --oneline -1`
+3. Push: `git push`
 
-```bash
-git add <files> && git commit -m "APPROVED COMMIT MESSAGE"
-```
+#### Step 5 — Post the reply
 
-2. Capture the short SHA:
-
-```bash
-git log --oneline -1
-```
-
-3. Push:
-
-```bash
-git push
-```
-
-4. Replace `<sha>` in the reply with the real short SHA, then post it using `in_reply_to` on the PR comments endpoint — more reliable than the `/replies` endpoint, which 404s when the target comment is itself a reply:
+Replace `<sha>` in the reply with the real short SHA, then post using `in_reply_to` (more reliable than the `/replies` endpoint, which 404s when the target comment is itself a reply):
 
 ```bash
 gh api repos/OWNER/REPO/pulls/PULL_NUMBER/comments \
@@ -165,11 +120,11 @@ gh api repos/OWNER/REPO/pulls/PULL_NUMBER/comments \
   -F in_reply_to=COMMENT_DATABASE_ID
 ```
 
-`COMMENT_DATABASE_ID` is the `databaseId` of the **first comment** in the thread (the root). `PULL_NUMBER` is the PR number extracted from the URL.
+`COMMENT_DATABASE_ID` is the `databaseId` of the **thread's top-level comment** (the oldest comment in the thread). `PULL_NUMBER` is the PR number extracted from the URL.
 
-### 3e — Mark thread resolved (conditional)
+#### Step 6 — Mark thread resolved (conditional)
 
-Only resolve the thread if the reply is conclusive — i.e. a code fix was made, or the explanation fully closes the discussion with no open questions.
+Only resolve if the reply is conclusive — a code fix was made, or the explanation fully closes the discussion with no open questions.
 
 **Do not resolve** if:
 - The reply asks a follow-up question or invites further discussion
@@ -177,8 +132,6 @@ Only resolve the thread if the reply is conclusive — i.e. a code fix was made,
 - The user's reply draft suggests the thread should stay open
 
 Ask the user: **"Should I mark this thread as resolved?"** if it's ambiguous.
-
-When resolving:
 
 ```bash
 gh api graphql -f query='
@@ -189,24 +142,16 @@ gh api graphql -f query='
   }'
 ```
 
----
-
-## Step 4 — Completion
-
-After all threads are processed, report:
-
-```
-Done — X thread(s) resolved.
-```
+**Validation:** Code change implemented (if required); commit pushed; reply posted with real SHA; thread resolved if conclusive
 
 ---
 
-## Reply conventions (Nimble Compass)
+## Reply Conventions
 
 | Situation | Reply format |
 |-----------|-------------|
-| Code changed | Vary naturally: `"Good catch, fixed in <sha>."` / `"Good point, updated in <sha>."` / `"Agreed, refactored in <sha>."` / `"Fixed in <sha>."` etc. — match the tone, don't repeat the same opener across threads |
-| No code change, explanation needed | Brief factual explanation, 1–2 sentences |
+| Code changed | Vary naturally: `"Good catch, fixed in <sha>."` / `"Good point, updated in <sha>."` / `"Agreed, refactored in <sha>."` — match the tone, avoid repeating openers |
+| No code change | Brief factual explanation, 1–2 sentences |
 | Declined / won't fix | Polite explanation of why, 1–2 sentences |
 
 - Never post a reply without user approval
@@ -215,9 +160,21 @@ Done — X thread(s) resolved.
 
 ---
 
-## Error handling
+## Error Handling
 
-- If a thread has already been resolved when you try to resolve it, skip silently and continue.
-- If `gh api` returns an error posting a reply, show the error and ask the user how to proceed — do not auto-retry.
-- If the PR has no unresolved threads, report that immediately and stop.
-- Pagination limits: `reviewThreads(first: 100)` and `comments(first: 20)` — on PRs with more than 100 review threads, or threads with more than 20 replies, results will be truncated. For PRs near these limits, process threads in batches using a comment URL instead of a PR URL.
+| Error | Action |
+|-------|--------|
+| Thread already resolved | Skip silently and continue |
+| `gh api` error posting reply | Show the error and ask the user how to proceed — do not auto-retry |
+| No unresolved threads | Report immediately and stop |
+| >100 threads or >20 comments per thread | Results may be truncated — use a comment URL to process in batches |
+
+---
+
+## Output Artifacts
+
+| When you ask for... | You get... |
+|---------------------|------------|
+| PR URL | All unresolved threads processed one at a time |
+| Comment URL | That single thread addressed |
+| Completion | `Done — X thread(s) resolved.` summary |
