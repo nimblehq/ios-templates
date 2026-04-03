@@ -56,7 +56,7 @@ Comments:
 
 #### Step 1 — Analyze and propose
 
-Read the file at `path` to get current context, then propose one of:
+Reads the file at `path` to get current context, then proposes one of:
 
 - **"No code change needed."** — explain what reply to send and why no change is required
 - **"Code change needed."** — describe the change; ask: *"Should I make this change?"*
