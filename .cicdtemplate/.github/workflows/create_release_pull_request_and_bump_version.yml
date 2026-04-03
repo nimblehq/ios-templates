@@ -3,6 +3,15 @@ name: Create the Release pull request and Bump the next version
 on:
   workflow_dispatch:
     inputs:
+      jobToRun:
+        description: 'Select a job to execute'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - bumpVersion
+          - release
       nextVersion:
         description: "Next version (eg. 1.0.0)"
         required: true
@@ -14,6 +23,7 @@ concurrency:
 
 jobs:
   create_release_pull_request:
+    if: ${{ github.event.inputs.jobToRun == 'release' || github.event.inputs.jobToRun == 'all' }}
     name: Create Release Pull Request
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -35,6 +45,7 @@ jobs:
           assignee: bot-nimble
 
   create_bump_version_pull_request:
+    if: ${{ github.event.inputs.jobToRun == 'bumpVersion' || github.event.inputs.jobToRun == 'all' }}
     name: Bump Version Pull Request
     runs-on: macos-latest
     timeout-minutes: 30
@@ -62,8 +73,19 @@ jobs:
 
       - name: Bump version
         run: |
+          set -euo pipefail
           filename=$(find . -maxdepth 1 -name "*.xcodeproj" -exec basename {} .xcodeproj \; | head -n 1)
-          sed -i "" "s/MARKETING_VERSION = .*/MARKETING_VERSION = ${{ github.event.inputs.nextVersion }};/g" $filename.xcodeproj/project.pbxproj
+          pbxproj="$filename.xcodeproj/project.pbxproj"
+          if [[ -z "$filename" ]]; then
+            echo "Error: no .xcodeproj found in root directory"
+            exit 1
+          fi
+          if ! grep -q "MARKETING_VERSION" "$pbxproj"; then
+            echo "Error: MARKETING_VERSION not found in $pbxproj"
+            exit 1
+          fi
+          sed -i "" "s/MARKETING_VERSION = [^;]*/MARKETING_VERSION = ${{ github.event.inputs.nextVersion }}/g" "$pbxproj"
+          echo "MARKETING_VERSION updated to ${{ github.event.inputs.nextVersion }} in $pbxproj"
       
       - name: Set up Git
         run: |

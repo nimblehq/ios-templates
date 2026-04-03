@@ -82,7 +82,7 @@ enum Constant {
 
     // MARK: - Build and Version
 
-    static let manualVersion: String = EnvironmentParser.string(key: "MANUAL_VERSION")
+    static let manualVersion: String = "1.0.0"
 
     // MARK: - Device
 
