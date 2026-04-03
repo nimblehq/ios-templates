@@ -41,7 +41,7 @@ Work through each unresolved thread collaboratively.
 
 ### Workflow: Resolve a Thread
 
-For each unresolved thread, display context then work through steps 1–6:
+For each unresolved thread, display context then work through steps 1–7:
 
 **Display format:**
 ```
@@ -63,11 +63,22 @@ Reads the file at `path` to get current context, then proposes one of:
 
 Wait for user confirmation or adjustment before proceeding.
 
-#### Step 2 — Implement (if code change)
+#### Step 2 — Verify branch
+
+Fetch the PR's head ref and confirm the local checkout matches:
+
+```bash
+gh pr view PULL_NUMBER --repo OWNER/REPO --json headRefName --jq '.headRefName'
+git branch --show-current
+```
+
+If the two values differ, stop and tell the user: the local branch does not match the PR branch and they must switch before proceeding.
+
+#### Step 3 — Implement (if code change)
 
 Make the code change. **Do not commit or push yet.**
 
-#### Step 3 — Draft commit message and reply, then confirm
+#### Step 4 — Draft commit message and reply, then confirm
 
 Compose both drafts and present them together for user approval.
 
@@ -101,7 +112,7 @@ Show both drafts at once:
 
 Wait for explicit approval (or edits) before proceeding.
 
-#### Step 4 — Commit and push
+#### Step 5 — Commit and push
 
 Once the user approves:
 
@@ -109,7 +120,7 @@ Once the user approves:
 2. Capture the short SHA: `git log --oneline -1`
 3. Push: `git push`
 
-#### Step 5 — Post the reply
+#### Step 6 — Post the reply
 
 Replace `<sha>` in the reply with the real short SHA, then post using `in_reply_to` (more reliable than the `/replies` endpoint, which 404s when the target comment is itself a reply):
 
@@ -122,7 +133,7 @@ gh api repos/OWNER/REPO/pulls/PULL_NUMBER/comments \
 
 `COMMENT_DATABASE_ID` is the `databaseId` of the **thread's top-level comment** in the thread (oldest in the thread). `PULL_NUMBER` is the PR number extracted from the URL.
 
-#### Step 6 — Mark thread resolved (conditional)
+#### Step 7 — Mark thread resolved (conditional)
 
 Only resolve if the reply is conclusive — a code fix was made, or the explanation fully closes the discussion with no open questions.
 
