@@ -120,7 +120,7 @@ gh api repos/OWNER/REPO/pulls/PULL_NUMBER/comments \
   -F in_reply_to=COMMENT_DATABASE_ID
 ```
 
-`COMMENT_DATABASE_ID` is the `databaseId` of the **thread's top-level comment** (the oldest comment in the thread). `PULL_NUMBER` is the PR number extracted from the URL.
+`COMMENT_DATABASE_ID` is the `databaseId` of the **thread's top-level comment** in the thread (oldest in the thread). `PULL_NUMBER` is the PR number extracted from the URL.
 
 #### Step 6 — Mark thread resolved (conditional)
 
