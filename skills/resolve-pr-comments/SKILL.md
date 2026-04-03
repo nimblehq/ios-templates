@@ -44,7 +44,7 @@ Work through each unresolved thread collaboratively.
 For each unresolved thread, display context then work through the steps below. Steps 2–5 apply only when a code change is needed; skip them otherwise.
 
 **Display format:**
-```
+```text
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Thread: <path>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -66,7 +66,7 @@ Wait for user confirmation or adjustment before proceeding.
 **If no code change:** Draft the reply now, then skip to Step 6.
 
 Brief factual explanation, 1–2 sentences. If referencing a specific piece of code, first use search or read to locate the snippet and determine the correct line number(s), then include it as a code block:
-  ````
+  ````markdown
   ```{language inferred from file extension}
   // {path}, line {N} — https://github.com/OWNER/REPO/blob/BRANCH/path/to/file#LN
   relevant code here...
