@@ -11,11 +11,15 @@
 		04DED82F81FAABE856CDD4B6 /* NetworkStubber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059C15DB43A088E7CEDCBAE2 /* NetworkStubber.swift */; };
 		07088992E0ABAC9DE8B9CDBE /* NetworkAPIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B52A71E1543239FA293EE5 /* NetworkAPIProtocol.swift */; };
 		09111503B3814633D659F06B /* DummyRequestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A222CB34D64142C1FF7760D /* DummyRequestConfiguration.swift */; };
+		11A7E0C2B4D6F8091A2B3C4D /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
 		0BBD3599422254801C200528 /* Constants+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824E2AB8BFAA3849931F33AE /* Constants+API.swift */; };
+		22B8F1D3C5E7A9012B3C4D5E /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 18F5A0AE0627651DDA63CBE0 /* Nimble */; };
 		0E2183805A67EBF9085073E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 286DD4D76E2452C79E8648EE /* Assets.xcassets */; };
 		22296CE8499F72BF141B7D5F /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07E37E84EF9C86B2879155C /* Domain.framework */; };
+		33C9A2E4D6F8B0123C4D5E6F /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 66FCD51709CBE3456F708192 /* OHHTTPStubs */; };
 		307686EDE057509B66FFC845 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5DC698257D79F99DC62A11 /* Constants.swift */; };
 		3316F4109CDE146DCCAA741D /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
+		44DAB3F5E7A9C1234D5E6F70 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
 		42F6AD7F0C0D3463775B80E0 /* UseCaseFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE21B903703DF03A9851E7D3 /* UseCaseFactoryProtocol.swift */; };
 		4A4A55ECFCC1F1CF7E0B65BD /* DummySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184120E152561351469C4E21 /* DummySpec.swift */; };
 		4B32CF5B51AEF56F0E26F136 /* OptionalUnwrapSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8A0397F340058194D8997 /* OptionalUnwrapSpec.swift */; };
@@ -43,6 +47,7 @@
 		DE136AF9C4C5401DC3BCF78D /* Optional+Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FED59B28688202535C340B9 /* Optional+Unwrap.swift */; };
 		E3642D0289460A0852A06F36 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E4C03B04B78A507440A85268 /* Alamofire */; };
 		EB33D0A59DE13A7CFB56B5B6 /* RequestConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEB7F1C339498236454DF1 /* RequestConfiguration.swift */; };
+		55EBC406F8BAD2345E6F7081 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 18F5A0AE0627651DDA63CBE0 /* Nimble */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,6 +235,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				896A5C45EAC7EC4209B9218D /* Data.framework in Frameworks */,
+				11A7E0C2B4D6F8091A2B3C4D /* Quick in Frameworks */,
+				22B8F1D3C5E7A9012B3C4D5E /* Nimble in Frameworks */,
+				33C9A2E4D6F8B0123C4D5E6F /* OHHTTPStubs in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,6 +246,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22296CE8499F72BF141B7D5F /* Domain.framework in Frameworks */,
+				44DAB3F5E7A9C1234D5E6F70 /* Quick in Frameworks */,
+				55EBC406F8BAD2345E6F7081 /* Nimble in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -766,6 +776,9 @@
 			);
 			name = DataTests;
 			packageProductDependencies = (
+				B1CA1588ECB9A47697260A17 /* Quick */,
+				18F5A0AE0627651DDA63CBE0 /* Nimble */,
+				66FCD51709CBE3456F708192 /* OHHTTPStubs */,
 			);
 			productName = DataTests;
 			productReference = 6F7020EE066553E9B7ADCB04 /* DataTests.xctest */;
@@ -829,6 +842,8 @@
 			);
 			name = DomainTests;
 			packageProductDependencies = (
+				B1CA1588ECB9A47697260A17 /* Quick */,
+				18F5A0AE0627651DDA63CBE0 /* Nimble */,
 			);
 			productName = DomainTests;
 			productReference = D46C25B9DF44A7CBA6BC4FE0 /* DomainTests.xctest */;
@@ -2021,6 +2036,10 @@
 		482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OHHTTPStubsSwift;
+		};
+		66FCD51709CBE3456F708192 /* OHHTTPStubs */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OHHTTPStubs;
 		};
 		76C0B6E5B684B6FE084E5ED2 /* JSONAPIMapper */ = {
 			isa = XCSwiftPackageProductDependency;

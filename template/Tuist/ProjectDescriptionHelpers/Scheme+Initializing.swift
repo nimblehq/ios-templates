@@ -9,7 +9,7 @@ extension Scheme {
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets([.testableTarget(target: "\(name)Tests")], configuration: debugConfigName),
+            testAction: TestAction.targets(testTargets(for: name), configuration: debugConfigName),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName)
         )
@@ -23,7 +23,7 @@ extension Scheme {
             name: "\(name) Staging",
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets([.testableTarget(target: "\(name)Tests")], configuration: debugConfigName),
+            testAction: TestAction.targets(testTargets(for: name), configuration: debugConfigName),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName)
         )
@@ -37,9 +37,17 @@ extension Scheme {
             name: "\(name) Dev",
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets([.testableTarget(target: "\(name)Tests")], configuration: debugConfigName),
+            testAction: TestAction.targets(testTargets(for: name), configuration: debugConfigName),
             runAction: .runAction(configuration: debugConfigName),
             archiveAction: .archiveAction(configuration: releaseConfigName),
         )
+    }
+
+    private static func testTargets(for name: String) -> [TestableTarget] {
+        [
+            .testableTarget(target: "\(Module.domain.name)\(Constant.testsPath)"),
+            .testableTarget(target: "\(Module.data.name)\(Constant.testsPath)"),
+            .testableTarget(target: "\(name)Tests")
+        ]
     }
 }
