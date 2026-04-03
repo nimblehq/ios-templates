@@ -41,7 +41,7 @@ Work through each unresolved thread collaboratively.
 
 ### Workflow: Resolve a Thread
 
-For each unresolved thread, display context then work through steps 1–7:
+For each unresolved thread, display context then work through the steps below. Steps 2–5 apply only when a code change is needed; skip them otherwise.
 
 **Display format:**
 ```
@@ -62,6 +62,23 @@ Reads the file at `path` to get current context, then proposes one of:
 - **"Code change needed."** — describe the change; ask: *"Should I make this change?"*
 
 Wait for user confirmation or adjustment before proceeding.
+
+**If no code change:** Draft the reply now, then skip to Step 6.
+
+Brief factual explanation, 1–2 sentences. If referencing a specific piece of code, first use search or read to locate the snippet and determine the correct line number(s), then include it as a code block:
+  ````
+  ```{language inferred from file extension}
+  // {path}, line {N} — https://github.com/OWNER/REPO/blob/BRANCH/path/to/file#LN
+  relevant code here...
+  ```
+  ````
+  Use the current branch name for the link. Keep the snippet short.
+
+No emoji unless the user uses them first. Wait for user approval before posting.
+
+---
+
+**If code change — continue with Steps 2–7:**
 
 #### Step 2 — Verify branch
 
@@ -92,15 +109,6 @@ Compose both drafts and present them together for user approval.
   - `"Fixed in <sha>."`
   - Avoid repeating the same opener across multiple threads in the same PR.
   - Use `<sha>` as a placeholder since the commit hasn't happened yet.
-
-**No-code-change reply:** Brief factual explanation, 1–2 sentences. If referencing a specific piece of code, first use search or read to locate the snippet and determine the correct line number(s), then include it as a code block:
-  ````
-  ```{language inferred from file extension}
-  // {path}, line {N} — https://github.com/OWNER/REPO/blob/BRANCH/path/to/file#LN
-  relevant code here...
-  ```
-  ````
-  Use the current branch name for the link. Keep the snippet short.
 
 No emoji unless the user uses them first.
 
