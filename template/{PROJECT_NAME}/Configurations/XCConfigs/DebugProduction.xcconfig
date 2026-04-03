@@ -1,4 +1,4 @@
-#include "Base.xcconfig"
+#include "BaseConfig.xcconfig"
 
 BUILD_ACTIVE_RESOURCES_ONLY = YES
 DEBUG_INFORMATION_FORMAT = dwarf
