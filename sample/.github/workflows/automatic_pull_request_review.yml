@@ -32,8 +32,11 @@ jobs:
         touch .env
         echo $ENV | base64 --decode > .env
 
-    - name: Bundle install
-      run: bundle install --path vendor/bundle
+    - name: Setup CI environment
+      uses: ./.github/actions/setup-ci-environment
+      with:
+        bundler-cache: "false"
+        bundle-install-command: "bundle install --path vendor/bundle"
       
     - name: Run Arkana
       run: bundle exec arkana

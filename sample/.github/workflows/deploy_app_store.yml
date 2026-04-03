@@ -53,8 +53,8 @@ jobs:
         touch .env
         echo $ENV | base64 --decode > .env
 
-    - name: Bundle install
-      run: bundle install
+    - name: Setup CI environment
+      uses: ./.github/actions/setup-ci-environment
       
     - name: Run Arkana
       run: bundle exec arkana

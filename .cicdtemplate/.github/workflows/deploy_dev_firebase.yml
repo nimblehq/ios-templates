@@ -66,8 +66,8 @@ jobs:
         fileName: 'firebase_service_account.json'
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
 
-    - name: Bundle install
-      run: bundle install
+    - name: Setup CI environment
+      uses: ./.github/actions/setup-ci-environment
       
     - name: Run Arkana
       run: bundle exec arkana
