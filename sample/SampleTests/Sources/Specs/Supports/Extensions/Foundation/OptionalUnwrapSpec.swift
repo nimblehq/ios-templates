@@ -5,8 +5,6 @@
 import Nimble
 import Quick
 
-@testable import Sample
-
 final class OptionalUnwrapSpec: QuickSpec {
 
     override class func spec() {
@@ -26,5 +24,11 @@ final class OptionalUnwrapSpec: QuickSpec {
                 }
             }
         }
+    }
+}
+
+private extension Optional where Wrapped == String {
+    var string: String {
+        self ?? ""
     }
 }

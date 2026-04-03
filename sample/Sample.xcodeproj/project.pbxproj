@@ -22,13 +22,30 @@
 		3316F4109CDE146DCCAA741D /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
 		44DAB3F5E7A9C1234D5E6F70 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
 		42F6AD7F0C0D3463775B80E0 /* UseCaseFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE21B903703DF03A9851E7D3 /* UseCaseFactoryProtocol.swift */; };
+		A10000000000000000000011 /* FeatureFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000011 /* FeatureFlag.swift */; };
+		A10000000000000000000012 /* RemoteConfigKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000012 /* RemoteConfigKey.swift */; };
+		A10000000000000000000013 /* RemoteConfigStoredValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000013 /* RemoteConfigStoredValue.swift */; };
+		A10000000000000000000014 /* RemoteConfigValueConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000014 /* RemoteConfigValueConvertible.swift */; };
+		A10000000000000000000015 /* FeatureFlagRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000015 /* FeatureFlagRepository.swift */; };
+		A10000000000000000000016 /* RemoteConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000016 /* RemoteConfigRepository.swift */; };
 		4A4A55ECFCC1F1CF7E0B65BD /* DummySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184120E152561351469C4E21 /* DummySpec.swift */; };
+		B10000000000000000000001 /* RemoteConfigValueConvertibleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000001 /* RemoteConfigValueConvertibleTests.swift */; };
 		4B32CF5B51AEF56F0E26F136 /* OptionalUnwrapSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E8A0397F340058194D8997 /* OptionalUnwrapSpec.swift */; };
 		538E149657142A68228382B4 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 34C3DB9DFE99E1B0FEE702FA /* FirebaseCrashlytics */; };
 		555652F2B5C4321D4C7877CC /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AE014CDF057F1A4FC6AE4F /* NetworkAPI.swift */; };
+		A10000000000000000000021 /* DefaultRemoteConfigRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000021 /* DefaultRemoteConfigRepository.swift */; };
+		A10000000000000000000022 /* DefaultFeatureFlagRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000022 /* DefaultFeatureFlagRepository.swift */; };
 		68868D04826E5EA1F8A84ADC /* NetworkAPISpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024CC1489A6AF0B9D531BD72 /* NetworkAPISpec.swift */; };
+		B10000000000000000000002 /* DefaultRemoteConfigRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000002 /* DefaultRemoteConfigRepositoryTests.swift */; };
+		B10000000000000000000003 /* DefaultFeatureFlagRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000003 /* DefaultFeatureFlagRepositoryTests.swift */; };
 		6B26099D6D523D2D06B1961A /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E07E37E84EF9C86B2879155C /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		71FCB4DD2081F6FA2D5ADDED /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BEF9E32E91F7609F6680E8F5 /* Alamofire */; };
+		A4D000000000000000000001 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
+		A4D000000000000000000002 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 18F5A0AE0627651DDA63CBE0 /* Nimble */; };
+		A4D000000000000000000003 /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */; };
+		A4D000000000000000000004 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BEF9E32E91F7609F6680E8F5 /* Alamofire */; };
+		A4D000000000000000000005 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
+		A4D000000000000000000006 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 18F5A0AE0627651DDA63CBE0 /* Nimble */; };
 		836C444ACA50FD2F4DFBB939 /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2E001E94893BF466F9E1C664 /* FactoryKit */; };
 		868F2AF94B93602732FB89F6 /* JSONAPIMapper in Frameworks */ = {isa = PBXBuildFile; productRef = 76C0B6E5B684B6FE084E5ED2 /* JSONAPIMapper */; };
 		896A5C45EAC7EC4209B9218D /* Data.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943CC0C6834BED6BB5BEE16F /* Data.framework */; };
@@ -174,6 +191,17 @@
 		286DD4D76E2452C79E8648EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		29345AE11A906FF03B4B74CA /* SampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		32AE014CDF057F1A4FC6AE4F /* NetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPI.swift; sourceTree = "<group>"; };
+		B20000000000000000000001 /* RemoteConfigValueConvertibleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigValueConvertibleTests.swift; sourceTree = "<group>"; };
+		B20000000000000000000002 /* DefaultRemoteConfigRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteConfigRepositoryTests.swift; sourceTree = "<group>"; };
+		B20000000000000000000003 /* DefaultFeatureFlagRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFeatureFlagRepositoryTests.swift; sourceTree = "<group>"; };
+		A20000000000000000000011 /* FeatureFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlag.swift; sourceTree = "<group>"; };
+		A20000000000000000000012 /* RemoteConfigKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigKey.swift; sourceTree = "<group>"; };
+		A20000000000000000000013 /* RemoteConfigStoredValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigStoredValue.swift; sourceTree = "<group>"; };
+		A20000000000000000000014 /* RemoteConfigValueConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigValueConvertible.swift; sourceTree = "<group>"; };
+		A20000000000000000000015 /* FeatureFlagRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagRepository.swift; sourceTree = "<group>"; };
+		A20000000000000000000016 /* RemoteConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigRepository.swift; sourceTree = "<group>"; };
+		A20000000000000000000021 /* DefaultRemoteConfigRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRemoteConfigRepository.swift; sourceTree = "<group>"; };
+		A20000000000000000000022 /* DefaultFeatureFlagRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultFeatureFlagRepository.swift; sourceTree = "<group>"; };
 		4CBB3B279CECAC62AF216CB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		61B52A71E1543239FA293EE5 /* NetworkAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPIProtocol.swift; sourceTree = "<group>"; };
 		6EA1FD221929BAD4DF20310A /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,10 +264,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				896A5C45EAC7EC4209B9218D /* Data.framework in Frameworks */,
+<<<<<<< HEAD
 				11A7E0C2B4D6F8091A2B3C4D /* Quick in Frameworks */,
 				22B8F1D3C5E7A9012B3C4D5E /* Nimble in Frameworks */,
 				F4E3D2C1B0A9F8E7D6C5B4A3 /* Alamofire in Frameworks */,
 				A3B4C5D6E7F8091A2B3C4D5E /* OHHTTPStubsSwift in Frameworks */,
+=======
+				A4D000000000000000000001 /* Quick in Frameworks */,
+				A4D000000000000000000002 /* Nimble in Frameworks */,
+				A4D000000000000000000003 /* OHHTTPStubsSwift in Frameworks */,
+				A4D000000000000000000004 /* Alamofire in Frameworks */,
+>>>>>>> b322772 ([#638] Add feature flag and remote config foundation to sample)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,8 +283,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				22296CE8499F72BF141B7D5F /* Domain.framework in Frameworks */,
+<<<<<<< HEAD
 				44DAB3F5E7A9C1234D5E6F70 /* Quick in Frameworks */,
 				55EBC406F8BAD2345E6F7081 /* Nimble in Frameworks */,
+=======
+				A4D000000000000000000005 /* Quick in Frameworks */,
+				A4D000000000000000000006 /* Nimble in Frameworks */,
+>>>>>>> b322772 ([#638] Add feature flag and remote config foundation to sample)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,9 +379,18 @@
 		35D7BB8207E7B5C40D7FCAA5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B30000000000000000000001 /* Entities */,
 				08F2D569973B869BA5522F11 /* Specs */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		B30000000000000000000001 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				B20000000000000000000001 /* RemoteConfigValueConvertibleTests.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		4434456FD7DC53C367ADAE65 /* Domain */ = {
@@ -386,6 +435,26 @@
 				CE21B903703DF03A9851E7D3 /* UseCaseFactoryProtocol.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000011 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000011 /* FeatureFlag.swift */,
+				A20000000000000000000012 /* RemoteConfigKey.swift */,
+				A20000000000000000000013 /* RemoteConfigStoredValue.swift */,
+				A20000000000000000000014 /* RemoteConfigValueConvertible.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000012 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000015 /* FeatureFlagRepository.swift */,
+				A20000000000000000000016 /* RemoteConfigRepository.swift */,
+			);
+			path = Interfaces;
 			sourceTree = "<group>";
 		};
 		601AED86D96D6E174258727D = {
@@ -492,10 +561,20 @@
 			isa = PBXGroup;
 			children = (
 				2FD8307AC2FE707D7220C4E8 /* Dummies */,
+				B30000000000000000000002 /* Repositories */,
 				CA4189AA9EDB925156177A3B /* Specs */,
 				82167E654C693C38E41B1B87 /* Utilities */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		B30000000000000000000002 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				B20000000000000000000002 /* DefaultRemoteConfigRepositoryTests.swift */,
+				B20000000000000000000003 /* DefaultFeatureFlagRepositoryTests.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		8FBD5038B317159453FA8948 /* Plists */ = {
@@ -519,6 +598,8 @@
 		976F4D91D69263FF9EB4DD62 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A30000000000000000000011 /* Entities */,
+				A30000000000000000000012 /* Interfaces */,
 				5E21C390EA4C2F48826AA741 /* UseCases */,
 			);
 			path = Sources;
@@ -601,8 +682,18 @@
 			isa = PBXGroup;
 			children = (
 				990EDBECC0EADB0122FE5D8E /* NetworkAPI */,
+				A30000000000000000000021 /* Repositories */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		A30000000000000000000021 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000000000000000021 /* DefaultRemoteConfigRepository.swift */,
+				A20000000000000000000022 /* DefaultFeatureFlagRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 		A4E580F29E693A6B692DDF40 /* Products */ = {
@@ -780,8 +871,13 @@
 			packageProductDependencies = (
 				B1CA1588ECB9A47697260A17 /* Quick */,
 				18F5A0AE0627651DDA63CBE0 /* Nimble */,
+<<<<<<< HEAD
 				BEF9E32E91F7609F6680E8F5 /* Alamofire */,
 				482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */,
+=======
+				482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */,
+				BEF9E32E91F7609F6680E8F5 /* Alamofire */,
+>>>>>>> b322772 ([#638] Add feature flag and remote config foundation to sample)
 			);
 			productName = DataTests;
 			productReference = 6F7020EE066553E9B7ADCB04 /* DataTests.xctest */;
@@ -951,6 +1047,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A4A55ECFCC1F1CF7E0B65BD /* DummySpec.swift in Sources */,
+				B10000000000000000000001 /* RemoteConfigValueConvertibleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -974,6 +1071,8 @@
 				07088992E0ABAC9DE8B9CDBE /* NetworkAPIProtocol.swift in Sources */,
 				EB33D0A59DE13A7CFB56B5B6 /* RequestConfiguration.swift in Sources */,
 				555652F2B5C4321D4C7877CC /* NetworkAPI.swift in Sources */,
+				A10000000000000000000021 /* DefaultRemoteConfigRepository.swift in Sources */,
+				A10000000000000000000022 /* DefaultFeatureFlagRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -985,6 +1084,8 @@
 				09111503B3814633D659F06B /* DummyRequestConfiguration.swift in Sources */,
 				68868D04826E5EA1F8A84ADC /* NetworkAPISpec.swift in Sources */,
 				04DED82F81FAABE856CDD4B6 /* NetworkStubber.swift in Sources */,
+				B10000000000000000000002 /* DefaultRemoteConfigRepositoryTests.swift in Sources */,
+				B10000000000000000000003 /* DefaultFeatureFlagRepositoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -993,6 +1094,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				42F6AD7F0C0D3463775B80E0 /* UseCaseFactoryProtocol.swift in Sources */,
+				A10000000000000000000011 /* FeatureFlag.swift in Sources */,
+				A10000000000000000000012 /* RemoteConfigKey.swift in Sources */,
+				A10000000000000000000013 /* RemoteConfigStoredValue.swift in Sources */,
+				A10000000000000000000014 /* RemoteConfigValueConvertible.swift in Sources */,
+				A10000000000000000000015 /* FeatureFlagRepository.swift in Sources */,
+				A10000000000000000000016 /* RemoteConfigRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

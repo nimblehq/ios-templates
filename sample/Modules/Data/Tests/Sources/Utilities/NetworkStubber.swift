@@ -23,7 +23,7 @@ enum NetworkStubber {
         data: Foundation.Data? = nil,
         statusCode: Int32 = 200
     ) {
-        stub(condition: isPath(request.path)) { _ in
+        OHHTTPStubsSwift.stub(condition: isPath(request.path)) { _ in
             HTTPStubsResponse(
                 data: data ?? request.sampleData,
                 statusCode: statusCode,
