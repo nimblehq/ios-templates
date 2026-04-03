@@ -39,8 +39,8 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Bundle install
-      run: bundle install
+    - name: Setup CI environment
+      uses: ./.github/actions/setup-ci-environment
 
     - name: Add device and regenerate profiles with match
       run: bundle exec fastlane addDevicesGenerateProfiles
