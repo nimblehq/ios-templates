@@ -8,7 +8,6 @@ concurrency:
 
 jobs:
   create_release_pull_request:
-    if: ${{ github.event.inputs.jobToRun == 'release' || github.event.inputs.jobToRun == 'all' }}
     name: Create Release Pull Request
     runs-on: ubuntu-latest
     timeout-minutes: 30
