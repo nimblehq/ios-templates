@@ -1,7 +1,3 @@
-//
-//  TokenSet.swift
-//
-
 import Domain
 import Foundation
 

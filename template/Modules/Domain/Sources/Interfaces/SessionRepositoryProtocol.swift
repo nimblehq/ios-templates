@@ -1,8 +1,3 @@
-//
-//  SessionRepositoryProtocol.swift
-//
-
-/// Local session persistence operations.
 public protocol SessionRepositoryProtocol: Sendable {
 
     func hasActiveSession() -> Bool

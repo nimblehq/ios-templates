@@ -1,10 +1,7 @@
-//
-//  SessionRepository.swift
-//
-
 import Domain
 import KeychainAccess
 
+// TODO: Make this as an actor
 final class SessionRepository: SessionRepositoryProtocol {
 
     private enum Key {
@@ -29,13 +26,13 @@ final class SessionRepository: SessionRepositoryProtocol {
     }
 
     func save(tokenSet: any TokenSetProtocol) throws {
-        let concrete = TokenSet(
+        let token = TokenSet(
             accessToken: tokenSet.accessToken,
             refreshToken: tokenSet.refreshToken,
             expiresAt: tokenSet.expiresAt,
             tokenType: tokenSet.tokenType
         )
-        let data = try encoder.encode(concrete)
+        let data = try encoder.encode(token)
         try keychain.set(data, key: Key.tokenSet)
     }
 

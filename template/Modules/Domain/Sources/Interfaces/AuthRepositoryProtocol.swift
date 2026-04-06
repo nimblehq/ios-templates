@@ -1,8 +1,3 @@
-//
-//  AuthRepositoryProtocol.swift
-//
-
-/// Provider-agnostic authentication operations.
 public protocol AuthRepositoryProtocol: Sendable {
 
     func logIn(username: String, password: String) async throws -> any TokenSetProtocol

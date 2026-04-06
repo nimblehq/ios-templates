@@ -1,11 +1,4 @@
-//
-//  TokenSetProtocol.swift
-//
-
 import Foundation
-
-/// Provider-agnostic token set contract.
-/// Any auth vendor's token response can conform to this protocol.
 public protocol TokenSetProtocol: Sendable {
 
     var accessToken: String { get }
