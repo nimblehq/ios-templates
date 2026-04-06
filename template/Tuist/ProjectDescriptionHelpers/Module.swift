@@ -1,13 +1,16 @@
 import ProjectDescription
 
 public enum Module: CaseIterable {
-    case domain
+
     case data
+    case domain
+    case model
 
     public var name: String {
         switch self {
-        case .domain: "Domain"
         case .data: "Data"
+        case .domain: "Domain"
+        case .model: "Model"
         }
     }
 
@@ -20,6 +23,7 @@ public enum Module: CaseIterable {
                 .target(name: Module.domain.name),
                 .package(product: "Alamofire")
             ]
+        case .model: []
         }
     }
 

@@ -78,3 +78,9 @@ dependencies/
 .env
 scripts/iOSTemplateMaker/.*
 .claude/
+
+# Argus
+.argus/debug/
+.argus/continue-here.md
+.argus/guardrails.md
+.argus/handoff.md
