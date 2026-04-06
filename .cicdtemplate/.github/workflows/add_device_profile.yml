@@ -39,11 +39,8 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Install tools with mise
-      uses: jdx/mise-action@v4.0.1
-
-    - name: Bundle install
-      run: bundle install
+    - name: Setup CI environment
+      uses: ./.github/actions/setup-ci-environment
 
     - name: Add device and regenerate profiles with match
       run: bundle exec fastlane addDevicesGenerateProfiles
