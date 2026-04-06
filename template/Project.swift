@@ -50,6 +50,7 @@ extension Project {
                 .package(url: "https://github.com/AliSoftware/OHHTTPStubs.git", from: "9.1.0"),
             ],
             settings: .settings(
+                base: ["MARKETING_VERSION": "1.0.0"],
                 configurations: BuildConfiguration.allCases.map { $0.createConfiguration(projectName: name) },
                 defaultSettings: .none
             ),
