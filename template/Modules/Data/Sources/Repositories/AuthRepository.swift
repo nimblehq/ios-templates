@@ -3,6 +3,7 @@
 //
 
 import Domain
+import Model
 
 final class AuthRepository: AuthRepositoryProtocol {
 

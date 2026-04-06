@@ -1,5 +1,5 @@
-import Domain
 import Foundation
+import Model
 
 struct TokenSet: TokenSetProtocol, Codable {
 

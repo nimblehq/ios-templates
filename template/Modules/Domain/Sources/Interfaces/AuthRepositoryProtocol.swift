@@ -1,3 +1,5 @@
+import Model
+
 public protocol AuthRepositoryProtocol: Sendable {
 
     func logIn(username: String, password: String) async throws -> any TokenSetProtocol

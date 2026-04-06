@@ -1,5 +1,6 @@
 import Domain
 import KeychainAccess
+import Model
 
 // TODO: Make this as an actor
 final class SessionRepository: SessionRepositoryProtocol {

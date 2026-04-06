@@ -1,3 +1,5 @@
+import Model
+
 public protocol SessionRepositoryProtocol: Sendable {
 
     func hasActiveSession() -> Bool

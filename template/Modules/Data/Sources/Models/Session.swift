@@ -1,8 +1,4 @@
-//
-//  Session.swift
-//
-
-import Domain
+import Model
 
 struct Session: SessionProtocol {
 

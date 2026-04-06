@@ -16,14 +16,17 @@ public enum Module: CaseIterable {
 
     public var dependencies: [TargetDependency] {
         switch self {
-        case .domain: []
+        case .model: []
+        case .domain:
+            [
+                .target(name: Module.model.name)
+            ]
         case .data:
-            // Data depends on Domain and Alamofire
             [
                 .target(name: Module.domain.name),
+                .target(name: Module.model.name),
                 .package(product: "Alamofire")
             ]
-        case .model: []
         }
     }
 
