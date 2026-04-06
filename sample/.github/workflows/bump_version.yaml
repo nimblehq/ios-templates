@@ -1,52 +1,16 @@
-name: Create the Release pull request and Bump the next version
+name: Bump app version
 
 on:
   workflow_dispatch:
     inputs:
-      jobToRun:
-        description: 'Select a job to execute'
-        required: false
-        default: 'all'
-        type: choice
-        options:
-          - all
-          - bumpVersion
-          - release
       nextVersion:
         description: "Next version (eg. 1.0.0)"
         required: true
         type: string
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  create_release_pull_request:
-    if: ${{ github.event.inputs.jobToRun == 'release' || github.event.inputs.jobToRun == 'all' }}
-    name: Create Release Pull Request
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Get release version
-        run: |
-          filename=$(find . -maxdepth 1 -name "*.xcodeproj" -exec basename {} .xcodeproj \; | head -n 1)
-          release_version=$(sed -n 's/.*MARKETING_VERSION *= *\([^;]*\);.*/\1/p' "$filename.xcodeproj/project.pbxproj" | head -n 1 | sed 's/^[^=]*=\s*//' | tr -d ' ')
-          echo $release_version
-          echo "RELEASE_VERSION=$release_version" >> "$GITHUB_ENV"
-
-      - uses: nimblehq/github-actions-workflows/create_release_pull_request@0.1.10
-        with:
-          release_version: ${{ env.RELEASE_VERSION }}
-          changelog_configuration: ".github/workflows/configs/changelog-config.json"
-          assignee: bot-nimble
-
   create_bump_version_pull_request:
-    if: ${{ github.event.inputs.jobToRun == 'bumpVersion' || github.event.inputs.jobToRun == 'all' }}
-    name: Bump Version Pull Request
+    name: Create Bump Version Pull Request
     runs-on: macos-latest
     timeout-minutes: 30
     permissions:
@@ -75,11 +39,11 @@ jobs:
         run: |
           set -euo pipefail
           filename=$(find . -maxdepth 1 -name "*.xcodeproj" -exec basename {} .xcodeproj \; | head -n 1)
-          pbxproj="$filename.xcodeproj/project.pbxproj"
           if [[ -z "$filename" ]]; then
             echo "Error: no .xcodeproj found in root directory"
             exit 1
           fi
+          pbxproj="$filename.xcodeproj/project.pbxproj"
           if ! grep -q "MARKETING_VERSION" "$pbxproj"; then
             echo "Error: MARKETING_VERSION not found in $pbxproj"
             exit 1
@@ -101,6 +65,6 @@ jobs:
       - name: Create pull request
         run: |
           echo -e "## What happened 👀\n\nBump version to ${{ github.event.inputs.nextVersion }}" > body
-          export body=$(cat body) ; gh pr create --draft -B develop -H chore/bump-version-to-${{ github.event.inputs.nextVersion }} -t '[Chore] Bump version to ${{ github.event.inputs.nextVersion }}' -b "$body"
+          export body=$(cat body) ; gh pr create --draft -B ${{ github.ref_name }} -H chore/bump-version-to-${{ github.event.inputs.nextVersion }} -t '[Chore] Bump version to ${{ github.event.inputs.nextVersion }}' -b "$body"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
