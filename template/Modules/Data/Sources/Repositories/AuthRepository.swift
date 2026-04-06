@@ -14,21 +14,18 @@ final class AuthRepository: AuthRepositoryProtocol {
     }
 
     func logIn(username: String, password: String) async throws -> any TokenSetProtocol {
-        // TODO: Replace with actual auth provider endpoint
-        let configuration = <#RequestConfiguration#>
+        let configuration = AuthRequestConfiguration.logIn(username: username, password: password)
         let response: TokenSet = try await networkAPI.performRequest(configuration, for: TokenSet.self)
         return response
     }
 
     func logOut(accessToken: String) async throws {
-        // TODO: Replace with actual auth provider endpoint
-        let configuration = <#RequestConfiguration#>
+        let configuration = AuthRequestConfiguration.logOut(accessToken: accessToken)
         _ = try await networkAPI.performRequest(configuration, for: EmptyResponse.self)
     }
 
     func refreshToken(_ refreshToken: String) async throws -> any TokenSetProtocol {
-        // TODO: Replace with actual auth provider endpoint
-        let configuration = <#RequestConfiguration#>
+        let configuration = AuthRequestConfiguration.refreshToken(refreshToken)
         let response: TokenSet = try await networkAPI.performRequest(configuration, for: TokenSet.self)
         return response
     }
