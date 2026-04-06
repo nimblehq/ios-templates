@@ -16,7 +16,8 @@
 		22B8F1D3C5E7A9012B3C4D5E /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 18F5A0AE0627651DDA63CBE0 /* Nimble */; };
 		0E2183805A67EBF9085073E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 286DD4D76E2452C79E8648EE /* Assets.xcassets */; };
 		22296CE8499F72BF141B7D5F /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07E37E84EF9C86B2879155C /* Domain.framework */; };
-		33C9A2E4D6F8B0123C4D5E6F /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 66FCD51709CBE3456F708192 /* OHHTTPStubs */; };
+		F4E3D2C1B0A9F8E7D6C5B4A3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BEF9E32E91F7609F6680E8F5 /* Alamofire */; };
+		A3B4C5D6E7F8091A2B3C4D5E /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */; };
 		307686EDE057509B66FFC845 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5DC698257D79F99DC62A11 /* Constants.swift */; };
 		3316F4109CDE146DCCAA741D /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
 		44DAB3F5E7A9C1234D5E6F70 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = B1CA1588ECB9A47697260A17 /* Quick */; };
@@ -237,7 +238,8 @@
 				896A5C45EAC7EC4209B9218D /* Data.framework in Frameworks */,
 				11A7E0C2B4D6F8091A2B3C4D /* Quick in Frameworks */,
 				22B8F1D3C5E7A9012B3C4D5E /* Nimble in Frameworks */,
-				33C9A2E4D6F8B0123C4D5E6F /* OHHTTPStubs in Frameworks */,
+				F4E3D2C1B0A9F8E7D6C5B4A3 /* Alamofire in Frameworks */,
+				A3B4C5D6E7F8091A2B3C4D5E /* OHHTTPStubsSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,7 +780,8 @@
 			packageProductDependencies = (
 				B1CA1588ECB9A47697260A17 /* Quick */,
 				18F5A0AE0627651DDA63CBE0 /* Nimble */,
-				66FCD51709CBE3456F708192 /* OHHTTPStubs */,
+				BEF9E32E91F7609F6680E8F5 /* Alamofire */,
+				482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */,
 			);
 			productName = DataTests;
 			productReference = 6F7020EE066553E9B7ADCB04 /* DataTests.xctest */;
@@ -1210,9 +1213,11 @@
 		43F15B66502A91B76FDA8D19 /* Debug Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SampleTests/Configurations/Plists/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = SampleTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sample";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1224,9 +1229,11 @@
 		4BB5DC76B86371B93845AE1E /* Debug Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SampleTests/Configurations/Plists/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = SampleTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sample";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1286,9 +1293,11 @@
 		52F56E907402DEE345334D82 /* Release Staging */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SampleTests/Configurations/Plists/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = SampleTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sample";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1796,9 +1805,11 @@
 		F8D890567CC66EFFF56E4EC6 /* Release Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = SampleTests/Configurations/Plists/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_BUNDLE_IDENTIFIER}";
 				PRODUCT_NAME = SampleTests;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sample";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -2036,10 +2047,6 @@
 		482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OHHTTPStubsSwift;
-		};
-		66FCD51709CBE3456F708192 /* OHHTTPStubs */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = OHHTTPStubs;
 		};
 		76C0B6E5B684B6FE084E5ED2 /* JSONAPIMapper */ = {
 			isa = XCSwiftPackageProductDependency;
