@@ -50,15 +50,18 @@ extension Int: RemoteConfigValueConvertible {
     public static func makeRemoteConfigValue(from storedValue: RemoteConfigStoredValue) -> Int? {
         switch storedValue {
         case let .bool(value):
-            value ? 1 : 0
+            return value ? 1 : 0
         case let .string(value):
-            Int(value.trimmingCharacters(in: .whitespacesAndNewlines))
+            return Int(value.trimmingCharacters(in: .whitespacesAndNewlines))
         case let .int(value):
-            value
+            return value
         case let .double(value):
-            Int(value)
+            guard value.isFinite else {
+                return nil
+            }
+            return Int(exactly: value)
         case let .data(value):
-            String(data: value, encoding: .utf8).flatMap(Int.init)
+            return String(data: value, encoding: .utf8).flatMap(Int.init)
         }
     }
 }
