@@ -45,9 +45,9 @@ extension Scheme {
 
     private static func testTargets(for name: String) -> [TestableTarget] {
         [
-            .testableTarget(target: "\(Module.domain.name)\(Constant.testsPath)"),
-            .testableTarget(target: "\(Module.data.name)\(Constant.testsPath)"),
-            .testableTarget(target: "\(name)Tests")
+            .testableTarget(target: TargetReference(stringLiteral: Module.domain.name + Constant.testsPath)),
+            .testableTarget(target: TargetReference(stringLiteral: Module.data.name + Constant.testsPath)),
+            .testableTarget(target: TargetReference(stringLiteral: "\(name)Tests"))
         ]
     }
 }
