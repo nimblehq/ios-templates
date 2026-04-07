@@ -13,11 +13,11 @@ jobs:
     name: Pull request review by Danger
     runs-on: [self-hosted, macOS]
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
       with:
         fetch-depth: 0
 
-    - uses: actions/cache@v4
+    - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # actions/cache@v4.3.0
       id: bunlderCache
       with:
         path: vendor/bundle
@@ -26,7 +26,7 @@ jobs:
           ${{ runner.os }}-gems-
 
     - name: Install tools with mise
-      uses: jdx/mise-action@v4.0.1
+      uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # jdx/mise-action@v4.0.1
 
     - name: Setup ENV file
       env:

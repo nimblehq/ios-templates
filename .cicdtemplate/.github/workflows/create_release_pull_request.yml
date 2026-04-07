@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
 
       - name: Get release version
         run: |
@@ -22,7 +22,7 @@ jobs:
           echo $release_version
           echo "RELEASE_VERSION=$release_version" >> "$GITHUB_ENV"
 
-      - uses: nimblehq/github-actions-workflows/create_release_pull_request@0.1.10
+      - uses: nimblehq/github-actions-workflows/create_release_pull_request@d2f913f1faba9dd814eb0cab86147d2bab6e0e34 # nimblehq/github-actions-workflows/create_release_pull_request@v0.1.10
         with:
           release_version: ${{ env.RELEASE_VERSION }}
           changelog_configuration: ".github/workflows/configs/changelog-config.json"
