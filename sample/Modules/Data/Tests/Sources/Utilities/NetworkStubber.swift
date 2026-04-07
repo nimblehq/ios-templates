@@ -2,11 +2,13 @@
 //  NetworkStubber.swift
 //
 
+import Foundation
 import OHHTTPStubs
+import OHHTTPStubsSwift
 
 protocol RequestConfigurationStubable {
 
-    var sampleData: Data { get }
+    var sampleData: Foundation.Data { get }
     var path: String { get }
 }
 
@@ -16,12 +18,12 @@ enum NetworkStubber {
         HTTPStubs.removeAllStubs()
     }
 
-    static func stub(
+    static func addStub(
         _ request: RequestConfigurationStubable,
-        data: Data? = nil,
+        data: Foundation.Data? = nil,
         statusCode: Int32 = 200
     ) {
-        OHHTTPStubs.stub(condition: isPath(request.path)) { _ in
+        stub(condition: isPath(request.path)) { _ in
             HTTPStubsResponse(
                 data: data ?? request.sampleData,
                 statusCode: statusCode,

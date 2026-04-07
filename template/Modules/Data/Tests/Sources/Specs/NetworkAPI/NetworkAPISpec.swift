@@ -2,6 +2,7 @@
 //  NetworkAPISpec.swift
 //
 
+import Foundation
 import Nimble
 import Quick
 
@@ -30,7 +31,7 @@ final class NetworkAPISpec: AsyncSpec {
                 context("when network returns value") {
 
                     beforeEach {
-                        NetworkStubber.stub(requestConfiguration)
+                        NetworkStubber.addStub(requestConfiguration)
                         networkAPI = NetworkAPI()
                     }
 
@@ -46,7 +47,7 @@ final class NetworkAPISpec: AsyncSpec {
                 context("when network returns error") {
 
                     beforeEach {
-                        NetworkStubber.stub(requestConfiguration, data: Data(), statusCode: 400)
+                        NetworkStubber.addStub(requestConfiguration, data: Foundation.Data(), statusCode: 400)
                         networkAPI = NetworkAPI()
                     }
 

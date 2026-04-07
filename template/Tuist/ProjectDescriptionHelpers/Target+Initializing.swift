@@ -87,12 +87,25 @@ extension Target {
             bundleId: module.testBundleId(mainBundleId: bundleId),
             sources: module.testsSources,
             resources: module.testsResources,
-            dependencies: [
-                .target(name: module.name)
-            ]
+            dependencies: moduleTestDependencies(for: module)
         )
 
         return [framework, testTarget]
+    }
+
+    fileprivate static func moduleTestDependencies(for module: Module) -> [TargetDependency] {
+        var dependencies: [TargetDependency] = [
+            .target(name: module.name),
+            .package(product: "Quick"),
+            .package(product: "Nimble")
+        ]
+
+        if module == .data {
+            dependencies.append(.package(product: "Alamofire"))
+            dependencies.append(.package(product: "OHHTTPStubsSwift"))
+        }
+
+        return dependencies
     }
 
     fileprivate static func testsTarget(name: String, bundleId: String) -> Target {
@@ -110,7 +123,14 @@ extension Target {
                 .package(product: "Quick"),
                 .package(product: "Nimble"),
                 .package(product: "OHHTTPStubsSwift"), // From OHHTTPStubs package
-            ]
+            ],
+            settings: .settings(
+                base: [
+                    // Host app binary must load for `@testable import` (e.g. app-only extensions).
+                    "BUNDLE_LOADER": "$(TEST_HOST)",
+                    "TEST_HOST": "$(BUILT_PRODUCTS_DIR)/\(name).app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/\(name)"
+                ]
+            )
         )
     }
 }
