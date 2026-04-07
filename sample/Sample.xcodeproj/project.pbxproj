@@ -264,17 +264,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				896A5C45EAC7EC4209B9218D /* Data.framework in Frameworks */,
-<<<<<<< HEAD
-				11A7E0C2B4D6F8091A2B3C4D /* Quick in Frameworks */,
-				22B8F1D3C5E7A9012B3C4D5E /* Nimble in Frameworks */,
-				F4E3D2C1B0A9F8E7D6C5B4A3 /* Alamofire in Frameworks */,
-				A3B4C5D6E7F8091A2B3C4D5E /* OHHTTPStubsSwift in Frameworks */,
-=======
 				A4D000000000000000000001 /* Quick in Frameworks */,
 				A4D000000000000000000002 /* Nimble in Frameworks */,
 				A4D000000000000000000003 /* OHHTTPStubsSwift in Frameworks */,
 				A4D000000000000000000004 /* Alamofire in Frameworks */,
->>>>>>> b322772 ([#638] Add feature flag and remote config foundation to sample)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,13 +276,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22296CE8499F72BF141B7D5F /* Domain.framework in Frameworks */,
-<<<<<<< HEAD
-				44DAB3F5E7A9C1234D5E6F70 /* Quick in Frameworks */,
-				55EBC406F8BAD2345E6F7081 /* Nimble in Frameworks */,
-=======
 				A4D000000000000000000005 /* Quick in Frameworks */,
 				A4D000000000000000000006 /* Nimble in Frameworks */,
->>>>>>> b322772 ([#638] Add feature flag and remote config foundation to sample)
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -871,13 +859,8 @@
 			packageProductDependencies = (
 				B1CA1588ECB9A47697260A17 /* Quick */,
 				18F5A0AE0627651DDA63CBE0 /* Nimble */,
-<<<<<<< HEAD
-				BEF9E32E91F7609F6680E8F5 /* Alamofire */,
-				482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */,
-=======
 				482BFB794A61E294D2F8B274 /* OHHTTPStubsSwift */,
 				BEF9E32E91F7609F6680E8F5 /* Alamofire */,
->>>>>>> b322772 ([#638] Add feature flag and remote config foundation to sample)
 			);
 			productName = DataTests;
 			productReference = 6F7020EE066553E9B7ADCB04 /* DataTests.xctest */;
