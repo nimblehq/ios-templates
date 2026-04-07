@@ -14,15 +14,18 @@ extension Bool: RemoteConfigValueConvertible {
     public static func makeRemoteConfigValue(from storedValue: RemoteConfigStoredValue) -> Bool? {
         switch storedValue {
         case let .bool(value):
-            value
+            return value
         case let .string(value):
-            value.normalizedRemoteConfigBoolean
+            return value.normalizedRemoteConfigBoolean
         case let .int(value):
-            value != 0
+            return value != 0
         case let .double(value):
-            value != 0
+            guard value.isFinite else {
+                return nil
+            }
+            return value != 0
         case let .data(value):
-            String(data: value, encoding: .utf8)?.normalizedRemoteConfigBoolean
+            return String(data: value, encoding: .utf8)?.normalizedRemoteConfigBoolean
         }
     }
 }
@@ -61,7 +64,9 @@ extension Int: RemoteConfigValueConvertible {
             }
             return Int(exactly: value)
         case let .data(value):
-            return String(data: value, encoding: .utf8).flatMap(Int.init)
+            return String(data: value, encoding: .utf8)
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .flatMap(Int.init)
         }
     }
 }
@@ -79,7 +84,9 @@ extension Double: RemoteConfigValueConvertible {
         case let .double(value):
             value
         case let .data(value):
-            String(data: value, encoding: .utf8).flatMap(Double.init)
+            String(data: value, encoding: .utf8)
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .flatMap(Double.init)
         }
     }
 }
