@@ -99,7 +99,8 @@ extension Target {
         var dependencies: [TargetDependency] = [
             .target(name: module.name),
             .package(product: "Quick"),
-            .package(product: "Nimble")
+            .package(product: "Nimble"),
+			.package(product: "FactoryKit")
         ]
 
         if module == .data {
