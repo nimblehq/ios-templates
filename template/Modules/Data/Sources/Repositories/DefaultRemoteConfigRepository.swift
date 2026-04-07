@@ -4,13 +4,6 @@
 
 import Domain
 
-public protocol RemoteConfigSource: Sendable {
-
-    func refresh() async throws
-
-    func value(forKey key: String) async -> RemoteConfigStoredValue?
-}
-
 public actor DefaultRemoteConfigRepository: RemoteConfigRepository {
 
     private let source: any RemoteConfigSource
