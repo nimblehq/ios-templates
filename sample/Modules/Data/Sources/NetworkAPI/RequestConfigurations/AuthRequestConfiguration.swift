@@ -31,16 +31,16 @@ enum AuthRequestConfiguration: RequestConfiguration {
 
     var parameters: Parameters? {
         switch self {
-        case .logIn(let username, let password):
+        case let .logIn(username, password):
             [
                 "username": username,
                 "password": password
             ]
-        case .logOut(let accessToken):
+        case let .logOut(accessToken):
             [
                 "access_token": accessToken
             ]
-        case .refreshToken(let refreshToken):
+        case let .refreshToken(refreshToken):
             [
                 "refresh_token": refreshToken
             ]
@@ -49,7 +49,7 @@ enum AuthRequestConfiguration: RequestConfiguration {
 
     var headers: HTTPHeaders? {
         switch self {
-        case .logOut(let accessToken):
+        case let .logOut(accessToken):
             [.authorization(bearerToken: accessToken)]
         default:
             nil
