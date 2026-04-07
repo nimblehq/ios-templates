@@ -5,6 +5,7 @@
 import Foundation
 
 public enum RemoteConfigStoredValue: Equatable, Sendable {
+
     case bool(Bool)
     case string(String)
     case int(Int)
