@@ -19,6 +19,7 @@ extension Target {
 }
 
 extension Target {
+    
     fileprivate static func mainTarget(name: String, bundleId: String) -> Target {
         return .target(
             name: name,

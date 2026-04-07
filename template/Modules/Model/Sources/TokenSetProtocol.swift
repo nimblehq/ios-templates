@@ -1,4 +1,5 @@
 import Foundation
+
 public protocol TokenSetProtocol: Sendable {
 
     var accessToken: String { get }

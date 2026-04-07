@@ -78,6 +78,3 @@ dependencies/
 .env
 scripts/iOSTemplateMaker/.*
 .claude/
-
-# Argus
-.argus
