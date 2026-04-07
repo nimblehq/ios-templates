@@ -1,23 +1,30 @@
 import ProjectDescription
 
 public enum Module: CaseIterable {
-    case domain
+
     case data
+    case domain
+    case model
 
     public var name: String {
         switch self {
-        case .domain: "Domain"
         case .data: "Data"
+        case .domain: "Domain"
+        case .model: "Model"
         }
     }
 
     public var dependencies: [TargetDependency] {
         switch self {
-        case .domain: []
+        case .model: []
+        case .domain:
+            [
+                .target(name: Module.model.name)
+            ]
         case .data:
-            // Data depends on Domain and Alamofire
             [
                 .target(name: Module.domain.name),
+                .target(name: Module.model.name),
                 .package(product: "Alamofire")
             ]
         }

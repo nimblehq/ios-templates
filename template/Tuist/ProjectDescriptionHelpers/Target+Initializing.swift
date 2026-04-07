@@ -4,7 +4,7 @@ extension Target {
     public static func makeTargets(name: String, bundleId: String) -> [Target] {
         var targets: [Target] = []
 
-        // Framework modules (Data, Domain) + their unit tests
+        // Framework modules (Data, Domain, Model) + their unit tests
         let moduleTargets = Module.allCases.flatMap { frameworkTargets(module: $0, bundleId: bundleId) }
         targets.append(contentsOf: moduleTargets)
 
@@ -19,6 +19,7 @@ extension Target {
 }
 
 extension Target {
+    
     fileprivate static func mainTarget(name: String, bundleId: String) -> Target {
         return .target(
             name: name,
@@ -33,6 +34,7 @@ extension Target {
                 // Internal modules
                 .target(name: Module.data.name),
                 .target(name: Module.domain.name),
+                .target(name: Module.model.name),
                 // Backend
                 .package(product: "Alamofire"),
                 .package(product: "JSONAPIMapper"),
