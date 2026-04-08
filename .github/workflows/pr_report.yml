@@ -37,7 +37,12 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.PR_REPORT_SLACK_BOT_TOKEN }}
           SLACK_CHANNEL_ID: ${{ secrets.PR_REPORT_SLACK_CHANNEL_ID }}
           PR_REPORT_TS_FILE: .pr_report_ts
-        run: python3 scripts/pr_report.py
+        run: |
+          if [ -z "$SLACK_BOT_TOKEN" ]; then
+            echo "Slack secrets not configured, skipping report"
+            exit 0
+          fi
+          python3 scripts/pr_report.py
 
       - name: Save daily TS cache
         if: always()
