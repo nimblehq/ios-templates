@@ -1,4 +1,5 @@
 import FactoryKit
+import Domain
 
 extension Container {
 
@@ -8,5 +9,9 @@ extension Container {
 
     public var userDefaultsManager: Factory<UserDefaultsManagerProtocol> {
         self { UserDefaultsManager() }.singleton
+    }
+
+    public var sessionRepository: Factory<SessionRepositoryProtocol> {
+        self { SessionRepository() }.singleton
     }
 }

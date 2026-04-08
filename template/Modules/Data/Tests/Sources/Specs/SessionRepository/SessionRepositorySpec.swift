@@ -3,6 +3,7 @@
 //
 
 import FactoryKit
+import Foundation
 import Nimble
 import Quick
 
