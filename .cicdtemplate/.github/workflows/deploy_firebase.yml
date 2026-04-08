@@ -1,0 +1,123 @@
+name: Deploy to Firebase
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+        description: 'Environment name (e.g., Production, Staging, Dev)'
+      build_and_test_lane:
+        required: true
+        type: string
+        description: 'Fastlane lane for building and testing'
+      code_signing_lane:
+        required: true
+        type: string
+        description: 'Fastlane lane for ad-hoc code signing'
+      build_and_upload_lane:
+        required: true
+        type: string
+        description: 'Fastlane lane for building and uploading to Firebase'
+      tag_type:
+        required: true
+        type: string
+        description: 'Tag type for artifact naming'
+      create_release_note:
+        required: false
+        type: boolean
+        default: false
+        description: 'Whether to create a release note from git log'
+      install_firebase_tools:
+        required: false
+        type: boolean
+        default: false
+        description: 'Whether to install Firebase CLI tools via yarn'
+
+# SECRETS needed:
+### SSH_PRIVATE_KEY for Match Repo
+### MATCH_PASS
+### FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64
+### ENV
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+    - uses: ./.github/actions/swiftlint
+
+  build:
+    name: Build
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+
+    - name: Create Release Note
+      if: ${{ inputs.create_release_note }}
+      run: |
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        echo "$(git log -1 | grep -o "\[.*")" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Install Firebase-Tools
+      if: ${{ inputs.install_firebase_tools }}
+      run: |
+        yarn global add firebase-tools
+        echo "$(yarn global bin)" >> $GITHUB_PATH
+
+    - name: Setup ENV file
+      env:
+        ENV: ${{ secrets.ENV }}
+      run: |
+        echo "$ENV" > .env
+
+    - name: Read Google Service Account
+      id: firebase_service_account
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'firebase_service_account.json'
+        encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
+
+    - name: Setup CI environment
+      uses: ./.github/actions/setup-ci-environment
+
+    - name: Run Arkana
+      run: bundle exec arkana
+
+    - name: Build and Test
+      run: bundle exec fastlane ${{ inputs.build_and_test_lane }}
+
+    - name: Match Ad-hoc
+      run: bundle exec fastlane ${{ inputs.code_signing_lane }}
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+    - name: Build ${{ inputs.environment }} App and Distribute to Firebase
+      run: bundle exec fastlane ${{ inputs.build_and_upload_lane }}
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, inputs.tag_type) }}
+        path: |
+          ${{ env.IPA_OUTPUT_PATH }}
+          ${{ env.DSYM_OUTPUT_PATH }}
+
+    - name: Remove keychain
+      if: ${{ always() }}
+      run: bundle exec fastlane removeKeychain
+      continue-on-error: true
