@@ -23,8 +23,7 @@ actor SessionRepository: SessionRepositoryProtocol {
         let storable = TokenSet(
             accessToken: tokenSet.accessToken,
             refreshToken: tokenSet.refreshToken,
-            expiresAt: tokenSet.expiresAt,
-            tokenType: tokenSet.tokenType
+            expiresAt: tokenSet.expiresAt
         )
         try keychainManager.set(storable, for: .userToken)
     }

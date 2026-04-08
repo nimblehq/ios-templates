@@ -45,8 +45,7 @@ final class SessionRepositorySpec: AsyncSpec {
                         let tokenSet = TokenSet(
                             accessToken: "access",
                             refreshToken: "refresh",
-                            expiresAt: nil,
-                            tokenType: "Bearer"
+                            expiresAt: nil
                         )
                         try await repository.save(tokenSet: tokenSet)
                     }
@@ -96,11 +95,6 @@ final class SessionRepositorySpec: AsyncSpec {
                         let result = await repository.currentTokenSet()
                         expect(result?.expiresAt) == expiresAt
                     }
-
-                    it("returns the saved token type") {
-                        let result = await repository.currentTokenSet()
-                        expect(result?.tokenType) == "Bearer"
-                    }
                 }
             }
 
@@ -111,7 +105,6 @@ final class SessionRepositorySpec: AsyncSpec {
                         accessToken: "first-access",
                         refreshToken: "first-refresh",
                         expiresAt: nil,
-                        tokenType: "Bearer"
                     )
                     try await repository.save(tokenSet: first)
 
@@ -119,7 +112,6 @@ final class SessionRepositorySpec: AsyncSpec {
                         accessToken: "second-access",
                         refreshToken: "second-refresh",
                         expiresAt: nil,
-                        tokenType: "Bearer"
                     )
                     try await repository.save(tokenSet: second)
 
@@ -136,7 +128,6 @@ final class SessionRepositorySpec: AsyncSpec {
                         accessToken: "access",
                         refreshToken: "refresh",
                         expiresAt: nil,
-                        tokenType: "Bearer"
                     )
                     try await repository.save(tokenSet: tokenSet)
                 }
