@@ -60,6 +60,23 @@ final class StarterFlowControllerSpec: AsyncSpec {
                     expect(didActivateDemoSession) == true
                     expect(state) == .signedIn
                 }
+
+                context("when activating demo session fails") {
+
+                    beforeEach {
+                        await sessionManager.setShouldFailActivation(true)
+                    }
+
+                    it("keeps showing the signed-out flow") {
+                        let currentController = controller!
+                        await controller.continueWithDemoSession()
+
+                        let didActivateDemoSession = await sessionManager.didActivateDemoSession
+                        let state = await MainActor.run { currentController.state }
+                        expect(didActivateDemoSession) == true
+                        expect(state) == .signedOut
+                    }
+                }
             }
 
             describe("its signOut") {
@@ -77,6 +94,23 @@ final class StarterFlowControllerSpec: AsyncSpec {
                     expect(didClearSession) == true
                     expect(state) == .signedOut
                 }
+
+                context("when clearing session fails") {
+
+                    beforeEach {
+                        await sessionManager.setShouldFailClearSession(true)
+                    }
+
+                    it("keeps showing the signed-in flow") {
+                        let currentController = controller!
+                        await controller.signOut()
+
+                        let didClearSession = await sessionManager.didClearSession
+                        let state = await MainActor.run { currentController.state }
+                        expect(didClearSession) == true
+                        expect(state) == .signedIn
+                    }
+                }
             }
         }
     }
@@ -84,25 +118,46 @@ final class StarterFlowControllerSpec: AsyncSpec {
 
 private actor StarterFlowSessionManagerSpy: StarterFlowSessionManaging {
 
+    enum SampleError: Error {
+
+        case failed
+    }
+
     private(set) var hasSession = false
     private(set) var didActivateDemoSession = false
     private(set) var didClearSession = false
+    private(set) var shouldFailActivation = false
+    private(set) var shouldFailClearSession = false
 
     func hasActiveSession() -> Bool {
         hasSession
     }
 
-    func activateDemoSession() {
+    func activateDemoSession() throws {
         didActivateDemoSession = true
+        if shouldFailActivation {
+            throw SampleError.failed
+        }
         hasSession = true
     }
 
-    func clearSession() {
+    func clearSession() throws {
         didClearSession = true
+        if shouldFailClearSession {
+            throw SampleError.failed
+        }
         hasSession = false
     }
 
     func setHasActiveSession(_ hasSession: Bool) {
         self.hasSession = hasSession
+    }
+
+    func setShouldFailActivation(_ shouldFailActivation: Bool) {
+        self.shouldFailActivation = shouldFailActivation
+    }
+
+    func setShouldFailClearSession(_ shouldFailClearSession: Bool) {
+        self.shouldFailClearSession = shouldFailClearSession
     }
 }
