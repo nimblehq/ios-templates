@@ -241,6 +241,12 @@ def main():
 
     if not any(grouped.values()):
         print("No actionable PRs found.")
+        empty_message = "No actionable PRs today."
+        if existing_ts:
+            update_message(token, channel_id, existing_ts, empty_message)
+        else:
+            new_ts = post_message(token, channel_id, empty_message)
+            save_daily_ts(ts_file, today, new_ts)
         return
 
     for cat in PRIORITY:

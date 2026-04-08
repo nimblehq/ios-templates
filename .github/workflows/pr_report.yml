@@ -3,6 +3,8 @@ name: PR Report
 on:
   workflow_dispatch:
   push:
+  schedule:
+    - cron: '0 2 * * 1-5' # weekdays at 9 AM ICT (UTC+7)
 
 permissions:
   contents: read
@@ -15,14 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
 
       - name: Get today's date
         id: date
         run: echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Restore daily TS cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache/restore@v5.0.4
         with:
           path: .pr_report_ts
           key: pr-report-ts-${{ steps.date.outputs.date }}-${{ github.run_id }}
@@ -46,7 +48,7 @@ jobs:
 
       - name: Save daily TS cache
         if: always()
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache/save@v5.0.4
         with:
           path: .pr_report_ts
           key: pr-report-ts-${{ steps.date.outputs.date }}-${{ github.run_id }}
