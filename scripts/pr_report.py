@@ -106,7 +106,7 @@ def categorize(pr, repo):
     if mergeable == "CONFLICTING":
         return Category.FIX_CONFLICT
 
-    if mergeable == "UNKNOWN":
+    if mergeable in ("UNKNOWN", "MERGEABLE"):
         if get_mergeable_state(repo, pr["number"]) == "behind":
             return Category.NEEDS_REBASE
 
