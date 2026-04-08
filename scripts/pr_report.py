@@ -239,6 +239,10 @@ def main():
             continue
         grouped[categorize(pr, repo)].append(pr)
 
+    if not any(grouped.values()):
+        print("No actionable PRs found.")
+        return
+
     for cat in PRIORITY:
         if grouped[cat]:
             print(f"\n  {SLACK_LABEL[cat]}: {len(grouped[cat])}")
