@@ -231,10 +231,10 @@ class SetUpIOSProject {
         try fileManager.moveFiles(in: "template", to: ".", overwrite: true)
         try fileManager.removeItems(in: "template")
 
-        // Use exact case-sensitive matching to avoid accidentally removing the generated project
-        // folder when its name is a case-insensitive match of a repo directory (e.g. "Sample" vs "sample")
+        // Use exact case-sensitive matching so we only clean up known repository folders
+        // after promoting the template to the root.
         let rootContents = (try? fileManager.contentsOfDirectory(atPath: fileManager.currentDirectoryPath)) ?? []
-        for name in ["sample", "scripts", ".github", ".git/index"] where rootContents.contains(name) {
+        for name in ["scripts", ".github", ".git/index"] where rootContents.contains(name) {
             try fileManager.removeItems(in: name)
         }
         try safeShell("git reset")
