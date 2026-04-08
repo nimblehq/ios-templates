@@ -1,0 +1,20 @@
+name: SwiftLint
+description: Run SwiftLint in Docker.
+
+inputs:
+  image:
+    description: Docker image to run SwiftLint with.
+    required: false
+    default: "norionomura/swiftlint:0.63.2_swift-6.1.3"
+  args:
+    description: Args passed to swiftlint.
+    required: false
+    default: "swiftlint --strict"
+
+runs:
+  using: composite
+  steps:
+    - name: Run SwiftLint
+      uses: docker://${{ inputs.image }}
+      with:
+        args: ${{ inputs.args }}

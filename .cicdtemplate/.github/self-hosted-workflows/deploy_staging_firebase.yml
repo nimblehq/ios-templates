@@ -23,11 +23,7 @@ jobs:
       uses: actions/checkout@v6
       with:
         fetch-depth: 0
-
-    - name: Run SwiftLint
-      uses: docker://norionomura/swiftlint:0.53.0_swift-5.7
-      with:
-        args: swiftlint --strict
+    - uses: ./.github/actions/swiftlint
 
   build:
     name: Build
