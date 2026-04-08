@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct SignedOutView: View {
+
     var onContinue: () -> Void = {}
 
     var body: some View {

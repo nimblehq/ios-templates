@@ -83,6 +83,7 @@ final class StarterFlowControllerSpec: AsyncSpec {
 }
 
 private actor StarterFlowSessionManagerSpy: StarterFlowSessionManaging {
+
     private(set) var hasSession = false
     private(set) var didActivateDemoSession = false
     private(set) var didClearSession = false

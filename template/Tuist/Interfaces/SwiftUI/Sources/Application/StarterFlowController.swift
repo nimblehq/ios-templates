@@ -2,7 +2,9 @@ import SwiftUI
 
 @MainActor
 final class StarterFlowController: ObservableObject {
+
     enum State: Equatable {
+
         case loading
         case signedOut
         case signedIn

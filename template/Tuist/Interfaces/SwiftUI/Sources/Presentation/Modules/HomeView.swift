@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
+
     var onSignOut: () -> Void = {}
 
     var body: some View {

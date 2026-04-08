@@ -2,6 +2,7 @@ import SwiftUI
 
 @MainActor
 struct AppRootView: View {
+
     @StateObject private var controller: StarterFlowController
 
     init() {
