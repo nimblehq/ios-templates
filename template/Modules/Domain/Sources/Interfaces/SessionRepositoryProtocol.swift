@@ -2,8 +2,8 @@ import Model
 
 public protocol SessionRepositoryProtocol: Sendable {
 
-    func hasActiveSession() -> Bool
-    func currentTokenSet() -> (any TokenSetProtocol)?
-    func save(tokenSet: any TokenSetProtocol) throws
-    func clearSession() throws
+    func hasActiveSession() async -> Bool
+    func currentTokenSet() async -> (any TokenSetProtocol)?
+    func save(tokenSet: any TokenSetProtocol) async throws
+    func clearSession() async throws
 }
