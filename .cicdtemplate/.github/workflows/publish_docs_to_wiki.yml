@@ -31,7 +31,7 @@ jobs:
       TARGET_WIKI_DIR: tmp_wiki
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
 
       - name: Validate wiki publishing configuration
         run: |
