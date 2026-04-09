@@ -35,6 +35,8 @@ For requests in the current repository, do not ask for owner or repo unless Git 
 
 Prefer defaulting to the current repository over asking broad clarifying questions.
 
+For device requests, ask for `simulator` vs `device` early if the user did not specify it, because CI signing availability materially changes whether the install can succeed.
+
 ## Validate Prerequisites
 
 Before installing, confirm:
@@ -44,9 +46,13 @@ Before installing, confirm:
 - Tophat exposes the `gha` provider
 - the helper scripts in `scripts/` are available from the skill directory
 
+For `destination=device`, also confirm the repository already has a CI workflow that produces a signed device-installable artifact.
+
 Use `/Applications/Tophat.app/Contents/MacOS/tophatctl` as the Tophat CLI path. Require Tophat to be installed and running. Require a GitHub personal access token to already be configured in Tophat's GitHub Actions extension settings. Require the GitHub Actions provider ID `gha` to be present in `tophatctl list providers`. Here, `gha` is Tophat's provider ID for the GitHub Actions extension.
 
 If `gh` is not authenticated, the GitHub PAT is not configured in Tophat, or `gha` is not installed, stop and tell the user what is missing. Do not fall back to GitHub MCP, raw REST calls, or another artifact provider.
+
+For device installs, do not assume local Xcode automatic signing has any effect on CI. CI must already have access to signing assets and the workflow must already be able to produce a signed device build.
 
 ## Default Behavior
 
@@ -62,7 +68,45 @@ This keeps the skill useful for both developer and PM flows, while minimizing un
 
 ## Resolve The Build
 
-Resolve the user's target into a concrete artifact. Use `gh` when you need to inspect PRs, workflows, runs, or artifacts. Use `scripts/gha.py list-artifacts` when you want the local helper to list non-expired artifacts for the current repo or a chosen ref.
+Resolve the user's target into a concrete artifact. Use `gh` when you need to inspect PRs, workflows, runs, or artifacts. Use `scripts/gha.py list-artifacts` when you want the local helper to list non-expired artifacts for the current repo or a chosen selector.
+
+When using `gh run list --json`, only request fields that `gh` actually supports in the current CLI. For workflow runs, prefer the stable set:
+
+- `databaseId`
+- `headBranch`
+- `headSha`
+- `name`
+- `status`
+- `conclusion`
+- `createdAt`
+- `updatedAt`
+- `url`
+- `workflowDatabaseId`
+
+Do not assume REST field names work in `gh run list --json`. For example, `id`, `head_branch`, and `head_sha` are not valid there.
+
+Do not assume `headRefOid` exists in `gh pr view --json`. When you need a PR head SHA, prefer `gh api repos/<owner>/<repo>/pulls/<number>` and read `head.ref` plus `head.sha`.
+
+Do not request `artifacts` from `gh run view --json`. If you need artifacts for a workflow run, use `scripts/gha.py list-artifacts --run-id <database-id>` or call the artifact API shape directly instead of relying on `gh run view`.
+
+Prefer this fallback order when resolving an artifact:
+
+1. If the user gave an explicit artifact ID, install it directly.
+2. If the user gave a workflow run ID, list artifacts and match `artifact.workflow_run.id`.
+3. If the user gave a PR number, resolve the PR head branch and head SHA, then list artifacts for that head.
+4. If the user gave a branch or commit SHA, list artifacts and match branch and-or SHA.
+5. Only inspect workflow runs with `gh run list` when you need workflow metadata to decide whether to trigger a new build.
+6. Trigger a workflow only when no matching non-expired artifact exists or the user explicitly asked for a rebuild.
+
+`scripts/gha.py list-artifacts` supports these selectors:
+
+- `--ref <branch>`
+- `--sha <commit-or-prefix>`
+- `--pr <number>`
+- `--run-id <database-id>`
+- `--platform ios|android`
+
+The helper must be treated as the authoritative artifact fallback because it uses the repository artifact API shape directly. It should paginate through repository artifacts instead of assuming the first page contains the desired result.
 
 If a workflow must be triggered, add workflow inputs when required.
 
@@ -70,9 +114,11 @@ If multiple artifacts exist, match by platform or ask the user which artifact to
 
 When the repository follows an artifact naming convention tied to commit SHA, prefer an existing artifact for the target commit before triggering a new workflow.
 
+For `destination=device`, only use workflows that are already configured to sign for device installation. Do not require any specific signing toolchain from this skill. Do not use this skill to create certificates, provisioning profiles, or signing configuration from scratch during a normal install request.
+
 ## Create The Tophat Recipe
 
-Create a temporary recipe in `tmp/` with `scripts/make_recipe.py`. The provider ID must be `gha`, and the recipe must include:
+Create a temporary recipe in `tmp/` with the filename convention `tophat-recipe-<artifact-id>.json`. Use `scripts/make_recipe.py` directly only when you need the raw JSON helper. Prefer `scripts/install_artifact.py` for the full caller flow so recipe naming, cleanup, and user-facing status stay consistent. The provider ID must be `gha`, and the recipe must include:
 
 - `owner`
 - `repo`
@@ -84,11 +130,13 @@ Do not use another provider from this skill.
 
 ## Install
 
-Install through `scripts/install_with_tophat.py` using the temporary recipe. After `tophatctl` returns a result, remove the temporary recipe unless the user explicitly wants to keep it for debugging.
+Prefer `scripts/install_artifact.py` for the install flow. It should create `tmp/tophat-recipe-<artifact-id>.json`, call `scripts/install_with_tophat.py`, print the user-facing status, and remove the temporary recipe unless the user explicitly wants to keep it for debugging.
 
-When the install succeeds, report the branch or PR, workflow run, artifact ID, platform, and destination that were used.
+On a normal successful install, print one concise green success line that includes the source, artifact ID, platform, and destination when present. On the known timeout case, do not claim the build is fully installed; report that installation may still be in progress in Tophat instead.
 
 `scripts/install_with_tophat.py` should treat the known `tophatctl` timeout as "install may still be in progress in Tophat" instead of a definitive failure.
+
+If the user asks for a device install but the repository has no known signed-device CI path, stop and explain that a signed device artifact must exist first. Recommend `simulator` as the fallback destination when appropriate.
 
 ## Reference Notes
 

@@ -4,6 +4,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 from gha import infer_owner_repo_from_git
 
@@ -17,6 +18,71 @@ def parse_key_value(item: str) -> tuple[str, str]:
     if not key:
         raise argparse.ArgumentTypeError(f"missing key in: {item}")
     return key, value
+
+
+def build_provider_parameters(
+    provider: str,
+    owner: str | None,
+    repo: str | None,
+    artifact_id: str | None,
+    extra_parameters: dict[str, str] | None = None,
+) -> dict[str, str]:
+    provider_parameters = dict(extra_parameters or {})
+
+    if provider != "gha":
+        return provider_parameters
+
+    if not owner or not repo:
+        inferred = infer_owner_repo_from_git()
+        if inferred:
+            inferred_owner, inferred_repo = inferred
+            owner = owner or inferred_owner
+            repo = repo or inferred_repo
+
+    missing = [
+        name
+        for name, value in (
+            ("owner", owner),
+            ("repo", repo),
+            ("artifact-id", artifact_id),
+        )
+        if not value
+    ]
+    if missing:
+        missing_list = ", ".join(missing)
+        raise ValueError(
+            f"provider 'gha' requires --owner, --repo, and --artifact-id; missing: {missing_list}"
+        )
+
+    return {
+        "owner": owner,
+        "repo": repo,
+        "artifact_id": artifact_id,
+        **provider_parameters,
+    }
+
+
+def build_recipe(
+    provider: str,
+    platform: str,
+    destination: str | None,
+    provider_parameters: dict[str, str],
+    launch_arguments: list[str] | None = None,
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "artifactProviderID": provider,
+            "artifactProviderParameters": provider_parameters,
+            "launchArguments": list(launch_arguments or []),
+            "platformHint": platform,
+            "destinationHint": destination,
+        }
+    ]
+
+
+def write_recipe(recipe: list[dict[str, Any]], output_path: Path) -> None:
+    output = json.dumps(recipe, indent=2) + "\n"
+    output_path.write_text(output)
 
 
 def main() -> int:
@@ -60,54 +126,29 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    provider_parameters = dict(args.param)
+    try:
+        provider_parameters = build_provider_parameters(
+            provider=args.provider,
+            owner=args.owner,
+            repo=args.repo,
+            artifact_id=args.artifact_id,
+            extra_parameters=dict(args.param),
+        )
+    except ValueError as exc:
+        parser.error(str(exc))
 
-    if args.provider == "gha":
-        if not args.owner or not args.repo:
-            inferred = infer_owner_repo_from_git()
-            if inferred:
-                inferred_owner, inferred_repo = inferred
-                args.owner = args.owner or inferred_owner
-                args.repo = args.repo or inferred_repo
-
-        missing = [
-            name
-            for name, value in (
-                ("owner", args.owner),
-                ("repo", args.repo),
-                ("artifact-id", args.artifact_id),
-            )
-            if not value
-        ]
-        if missing:
-            parser.error(
-                "provider 'gha' requires --owner, --repo, and --artifact-id; "
-                f"missing: {', '.join(missing)}"
-            )
-        provider_parameters = {
-            "owner": args.owner,
-            "repo": args.repo,
-            "artifact_id": args.artifact_id,
-            **provider_parameters,
-        }
-
-    recipe = [
-        {
-            "artifactProviderID": args.provider,
-            "artifactProviderParameters": provider_parameters,
-            "launchArguments": args.launch_arg,
-            "platformHint": args.platform,
-            "destinationHint": args.destination,
-        }
-    ]
-
-    output = json.dumps(recipe, indent=2) + "\n"
+    recipe = build_recipe(
+        provider=args.provider,
+        platform=args.platform,
+        destination=args.destination,
+        provider_parameters=provider_parameters,
+        launch_arguments=args.launch_arg,
+    )
 
     if args.output:
-        path = Path(args.output)
-        path.write_text(output)
+        write_recipe(recipe, Path(args.output))
     else:
-        sys.stdout.write(output)
+        sys.stdout.write(json.dumps(recipe, indent=2) + "\n")
 
     return 0
 
