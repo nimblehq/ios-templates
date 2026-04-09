@@ -17,12 +17,8 @@ final class LandingViewModel: ObservableObject {
 
     @Published private(set) var state: State = .loading
 
-    private let sessionRepository: any SessionRepositoryProtocol
+    @Injected(\.sessionRepository) private var sessionRepository: any SessionRepositoryProtocol
     private var hasRestoredSession = false
-
-    init(sessionRepository: any SessionRepositoryProtocol = Container.shared.sessionRepository()) {
-        self.sessionRepository = sessionRepository
-    }
 
     func restoreSessionIfNeeded() async {
         guard !hasRestoredSession else { return }
@@ -44,9 +40,7 @@ final class LandingViewModel: ObservableObject {
         do {
             try await sessionRepository.clearSession()
             state = .signedOut
-        } catch {
-            state = .signedIn
-        }
+        } catch {}
     }
 }
 
