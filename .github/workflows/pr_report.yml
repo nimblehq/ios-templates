@@ -1,0 +1,54 @@
+name: PR Report
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '0 2 * * 1-5' # weekdays at 9 AM ICT (UTC+7)
+
+permissions:
+  contents: read
+  pull-requests: read
+  actions: write
+
+jobs:
+  report:
+    name: Post PR Report to Slack
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
+
+      - name: Get today's date
+        id: date
+        run: echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Restore daily TS cache
+        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache/restore@v5.0.4
+        with:
+          path: .pr_report_ts
+          key: pr-report-ts-${{ steps.date.outputs.date }}-${{ github.run_id }}
+          restore-keys: |
+            pr-report-ts-${{ steps.date.outputs.date }}-
+
+      - name: Run PR Report
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USER: ${{ github.actor }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_BOT_TOKEN: ${{ secrets.PR_REPORT_SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.PR_REPORT_SLACK_CHANNEL_ID }}
+          PR_REPORT_TS_FILE: .pr_report_ts
+        run: |
+          if [ -z "$SLACK_BOT_TOKEN" ]; then
+            echo "Slack secrets not configured, skipping report"
+            exit 0
+          fi
+          python3 scripts/pr_report.py
+
+      - name: Save daily TS cache
+        if: always()
+        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache/save@v5.0.4
+        with:
+          path: .pr_report_ts
+          key: pr-report-ts-${{ steps.date.outputs.date }}-${{ github.run_id }}
