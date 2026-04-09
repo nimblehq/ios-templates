@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
       with:
         fetch-depth: 0
     - uses: ./.github/actions/swiftlint
@@ -32,13 +32,13 @@ jobs:
     runs-on: [self-hosted, macOS]
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v6
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
     # Set fetch-depth (default: 1) to get whole tree
       with:
         fetch-depth: 0
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.7.0
+      uses: webfactory/ssh-agent@836c84ec59a0e7bc0eabc79988384eb567561ee2 # webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -50,7 +50,7 @@ jobs:
         echo $ENV | base64 --decode > .env
 
     - name: Install tools with mise
-      uses: jdx/mise-action@v4.0.1
+      uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # jdx/mise-action@v4.0.1
 
     - name: Bundle install
       run: bundle install
@@ -75,7 +75,7 @@ jobs:
         BUMP_APP_STORE_BUILD_NUMBER: "true"
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # actions/upload-artifact@v4.6.2
       with:
         name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, env.TAG_TYPE) }}
         path: |
