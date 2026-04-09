@@ -1,0 +1,101 @@
+name: Build and Deploy to Firebase
+description: Composite action that builds, tests, signs, and deploys an iOS app to Firebase
+
+inputs:
+  environment:
+    required: true
+    description: 'Environment name (e.g., Production, Staging, Dev)'
+  build_and_test_lane:
+    required: true
+    description: 'Fastlane lane for building and testing'
+  code_signing_lane:
+    required: true
+    description: 'Fastlane lane for ad-hoc code signing'
+  build_and_upload_lane:
+    required: true
+    description: 'Fastlane lane for building and uploading to Firebase'
+  tag_type:
+    required: true
+    description: 'Tag type for artifact naming'
+  ssh_private_key:
+    required: true
+    description: 'SSH private key for Match repo'
+  match_password:
+    required: true
+    description: 'Match password for code signing'
+  firebase_credentials_base64:
+    required: true
+    description: 'Base64-encoded Firebase service account JSON'
+  env_file:
+    required: true
+    description: 'Content of the .env file'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Create Release Note
+      shell: bash
+      run: |
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
+        echo "$(git log -1 | grep -o "\[.*")" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    - name: Install SSH key
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ inputs.ssh_private_key }}
+
+    - name: Install Firebase-Tools
+      shell: bash
+      run: |
+        yarn global add firebase-tools
+        echo "$(yarn global bin)" >> $GITHUB_PATH
+
+    - name: Setup ENV file
+      shell: bash
+      run: |
+        echo "${{ inputs.env_file }}" > .env
+
+    - name: Read Google Service Account
+      id: firebase_service_account
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'firebase_service_account.json'
+        encodedString: ${{ inputs.firebase_credentials_base64 }}
+
+    - name: Setup CI environment
+      uses: ./.github/actions/setup-ci-environment
+
+    - name: Run Arkana
+      shell: bash
+      run: bundle exec arkana
+
+    - name: Build and Test
+      shell: bash
+      run: bundle exec fastlane ${{ inputs.build_and_test_lane }}
+
+    - name: Match Ad-hoc
+      shell: bash
+      run: bundle exec fastlane ${{ inputs.code_signing_lane }}
+      env:
+        MATCH_PASSWORD: ${{ inputs.match_password }}
+
+    - name: Build ${{ inputs.environment }} App and Distribute to Firebase
+      shell: bash
+      run: bundle exec fastlane ${{ inputs.build_and_upload_lane }}
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, inputs.tag_type) }}
+        path: |
+          ${{ env.IPA_OUTPUT_PATH }}
+          ${{ env.DSYM_OUTPUT_PATH }}
+
+    - name: Remove keychain
+      if: ${{ always() }}
+      shell: bash
+      run: bundle exec fastlane removeKeychain
+      continue-on-error: true

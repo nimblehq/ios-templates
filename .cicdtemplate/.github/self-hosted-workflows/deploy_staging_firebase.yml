@@ -11,13 +11,22 @@ concurrency:
 
 jobs:
   deploy:
-    uses: ./.github/workflows/deploy_firebase.yml
-    with:
-      environment: Staging
-      build_and_test_lane: buildAndTest
-      code_signing_lane: syncAdHocStagingCodeSigning
-      build_and_upload_lane: buildStagingAndUploadToFirebase
-      tag_type: Staging_Firebase
-      create_release_note: true
-      install_firebase_tools: true
-    secrets: inherit
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          
+      - name: Build and Deploy to Firebase
+        uses: ./.github/actions/build-and-deploy-firebase
+        with:
+          environment: Staging
+          build_and_test_lane: buildAndTest
+          code_signing_lane: syncAdHocStagingCodeSigning
+          build_and_upload_lane: buildStagingAndUploadToFirebase
+          tag_type: Staging_Firebase
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          match_password: ${{ secrets.MATCH_PASSWORD }}
+          firebase_credentials_base64: ${{ secrets.FIREBASE_CREDENTIALS_BASE64 }}
+          env_file: ${{ secrets.ENV_FILE }}
