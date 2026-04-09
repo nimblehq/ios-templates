@@ -5,91 +5,91 @@ import Testing
 
 @testable import {PROJECT_NAME}
 
-@Suite("StarterFlowController")
-struct StarterFlowControllerTests {
+@Suite("LandingViewModel")
+struct LandingViewModelTests {
 
     @Test("shows the signed-out flow when no active session exists")
     @MainActor
     func restoreSessionIfNeededShowsTheSignedOutFlowWhenNoActiveSessionExists() async {
-        let (_, controller) = makeSUT()
+        let (_, viewModel) = makeSUT()
 
-        await controller.restoreSessionIfNeeded()
+        await viewModel.restoreSessionIfNeeded()
 
-        #expect(controller.state == .signedOut)
+        #expect(viewModel.state == .signedOut)
     }
 
     @Test("shows the signed-in flow when an active session exists")
     @MainActor
     func restoreSessionIfNeededShowsTheSignedInFlowWhenAnActiveSessionExists() async {
-        let (sessionManager, controller) = makeSUT()
-        await sessionManager.setHasActiveSession(true)
+        let (sessionRepository, viewModel) = makeSUT()
+        await sessionRepository.setHasActiveSession(true)
 
-        await controller.restoreSessionIfNeeded()
+        await viewModel.restoreSessionIfNeeded()
 
-        #expect(controller.state == .signedIn)
+        #expect(viewModel.state == .signedIn)
     }
 
     @Test("activates a demo session and shows the signed-in flow")
     @MainActor
     func continueWithDemoSessionActivatesADemoSessionAndShowsTheSignedInFlow() async {
-        let (sessionManager, controller) = makeSUT()
+        let (sessionRepository, viewModel) = makeSUT()
 
-        await controller.continueWithDemoSession()
+        await viewModel.continueWithDemoSession()
 
-        let didActivateDemoSession = await sessionManager.didActivateDemoSession
+        let didActivateDemoSession = await sessionRepository.didActivateDemoSession
 
         #expect(didActivateDemoSession == true)
-        #expect(controller.state == .signedIn)
+        #expect(viewModel.state == .signedIn)
     }
 
     @Test("keeps showing the signed-out flow when activating demo session fails")
     @MainActor
     func continueWithDemoSessionKeepsShowingTheSignedOutFlowWhenActivationFails() async {
-        let (sessionManager, controller) = makeSUT()
-        await sessionManager.setShouldFailActivation(true)
+        let (sessionRepository, viewModel) = makeSUT()
+        await sessionRepository.setShouldFailActivation(true)
 
-        await controller.continueWithDemoSession()
+        await viewModel.continueWithDemoSession()
 
-        let didActivateDemoSession = await sessionManager.didActivateDemoSession
+        let didActivateDemoSession = await sessionRepository.didActivateDemoSession
 
         #expect(didActivateDemoSession == true)
-        #expect(controller.state == .signedOut)
+        #expect(viewModel.state == .signedOut)
     }
 
     @Test("clears the session and shows the signed-out flow")
     @MainActor
     func signOutClearsTheSessionAndShowsTheSignedOutFlow() async {
-        let (sessionManager, controller) = makeSUT()
-        await controller.continueWithDemoSession()
+        let (sessionRepository, viewModel) = makeSUT()
+        await viewModel.continueWithDemoSession()
 
-        await controller.signOut()
+        await viewModel.signOut()
 
-        let didClearSession = await sessionManager.didClearSession
+        let didClearSession = await sessionRepository.didClearSession
 
         #expect(didClearSession == true)
-        #expect(controller.state == .signedOut)
+        #expect(viewModel.state == .signedOut)
     }
 
     @Test("keeps showing the signed-in flow when clearing session fails")
     @MainActor
     func signOutKeepsShowingTheSignedInFlowWhenClearingSessionFails() async {
-        let (sessionManager, controller) = makeSUT()
-        await controller.continueWithDemoSession()
-        await sessionManager.setShouldFailClearSession(true)
+        let (sessionRepository, viewModel) = makeSUT()
+        await viewModel.continueWithDemoSession()
+        await sessionRepository.setShouldFailClearSession(true)
 
-        await controller.signOut()
+        await viewModel.signOut()
 
-        let didClearSession = await sessionManager.didClearSession
+        let didClearSession = await sessionRepository.didClearSession
 
         #expect(didClearSession == true)
-        #expect(controller.state == .signedIn)
+        #expect(viewModel.state == .signedIn)
     }
 
     @MainActor
-    private func makeSUT() -> (sessionRepository: SessionRepositorySpy, controller: StarterFlowController) {
+    private func makeSUT() -> (sessionRepository: SessionRepositorySpy, viewModel: LandingViewModel) {
         let sessionRepository = SessionRepositorySpy()
-        let controller = StarterFlowController(sessionRepository: sessionRepository)
-        return (sessionRepository, controller)
+        let viewModel = LandingViewModel(sessionRepository: sessionRepository)
+        return (sessionRepository, viewModel)
     }
 }
 

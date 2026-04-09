@@ -6,7 +6,7 @@ import Model
 import SwiftUI
 
 @MainActor
-final class StarterFlowController: ObservableObject {
+final class LandingViewModel: ObservableObject {
 
     enum State: Equatable {
 
