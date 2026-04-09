@@ -99,6 +99,34 @@ struct NetworkAPITests {
 - Use `defer { NetworkStubber.removeAllStubs() }` right after `addStub` — ensures cleanup runs even if the test throws.
 - `NetworkStubber` modifies global OHHTTPStubs state — mark the enclosing suite `.serialized` to prevent interference between parallel tests.
 
+## FactoryKit overrides in tests
+
+When a test overrides a Factory registration, the override is global — it persists until explicitly reset and will affect other tests.
+
+Use `push`/`pop` to isolate registrations within a suite:
+
+```swift
+@Suite("DefaultHomeViewModel")
+struct DefaultHomeViewModelTests {
+
+    init() {
+        Container.shared.manager.push()
+        Container.shared.homeRepository.register { StubHomeRepository() }
+    }
+
+    deinit {
+        Container.shared.manager.pop()
+    }
+
+    @Test("loads items on appear")
+    func loadsItemsOnAppear() async { ... }
+}
+```
+
+- `push()` snapshots the container's current registrations before the suite runs.
+- `pop()` restores them, undoing any overrides — prevents leakage into other tests.
+- Prefer `push`/`pop` over `Container.shared.reset()` to avoid wiping registrations set up by other suites running in the same process.
+
 ## Shared test doubles in `Dummies/`
 
 For test doubles reused across multiple test files in a module, place them in `Tests/Sources/Dummies/`:
@@ -143,6 +171,7 @@ Reserve real integration dependencies (database, keychain, network) for dedicate
 - **Do** conform stubs to the domain protocol directly.
 - **Do** use `actor` for stubs with async protocols or mutable state.
 - **Do** use `defer { NetworkStubber.removeAllStubs() }` immediately after `addStub` — guarantees cleanup even if the test throws.
+- **Do** call `Container.shared.manager.push()` in `init` and `.pop()` in `deinit` when overriding Factory registrations.
 - **Don't** use mock generation libraries.
 - **Don't** create shared stubs unless they're genuinely reused across files.
 - **Don't** put stub logic in production code.
