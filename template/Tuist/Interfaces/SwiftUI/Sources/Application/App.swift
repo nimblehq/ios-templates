@@ -5,7 +5,7 @@ struct {PROJECT_NAME}App: App {
 
     var body: some Scene {
         WindowGroup {
-            AppRootView()
+            LandingView()
         }
     }
 }
