@@ -86,14 +86,14 @@ struct LandingViewModelTests {
     }
 
     @MainActor
-    private func makeSUT() -> (sessionRepository: SessionRepositorySpy, viewModel: LandingViewModel) {
-        let sessionRepository = SessionRepositorySpy()
+    private func makeSUT() -> (sessionRepository: SessionRepositoryMock, viewModel: LandingViewModel) {
+        let sessionRepository = SessionRepositoryMock()
         let viewModel = LandingViewModel(sessionRepository: sessionRepository)
         return (sessionRepository, viewModel)
     }
 }
 
-private actor SessionRepositorySpy: SessionRepositoryProtocol {
+private actor SessionRepositoryMock: SessionRepositoryProtocol {
 
     enum SampleError: Error {
 
