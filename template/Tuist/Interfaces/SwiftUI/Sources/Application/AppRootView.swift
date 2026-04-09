@@ -19,7 +19,7 @@ struct AppRootView: View {
                 ProgressView("Restoring session...")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .signedOut:
-                SignedOutView {
+                SignOutView {
                     Task {
                         await controller.continueWithDemoSession()
                     }
