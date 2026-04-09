@@ -77,22 +77,27 @@ private actor StubRemoteConfigSource: RemoteConfigSource {
 For tests that exercise the actual network layer (e.g. `NetworkAPI`), use the existing `NetworkStubber`:
 
 ```swift
-@Test("returns the response when network succeeds")
-func returnsTheResponseWhenNetworkSucceeds() async throws {
-    let config = DummyRequestConfiguration()
-    NetworkStubber.addStub(config)
-    let networkAPI = NetworkAPI()
+@Suite("NetworkAPI", .serialized)
+struct NetworkAPITests {
 
-    let response = try await networkAPI.performRequest(config, for: DummyNetworkModel.self)
+    @Test("returns the response when network succeeds")
+    func returnsTheResponseWhenNetworkSucceeds() async throws {
+        let config = DummyRequestConfiguration()
+        NetworkStubber.addStub(config)
+        let networkAPI = NetworkAPI()
 
-    #expect(response.message == "Hello")
-    NetworkStubber.removeAllStubs()
+        let response = try await networkAPI.performRequest(config, for: DummyNetworkModel.self)
+
+        #expect(response.message == "Hello")
+        NetworkStubber.removeAllStubs()
+    }
 }
 ```
 
 - `NetworkStubber` lives in `Modules/Data/Tests/Sources/Utilities/NetworkStubber.swift`.
 - `DummyRequestConfiguration` lives in `Modules/Data/Tests/Sources/Dummies/DummyRequestConfiguration.swift`.
 - Always call `NetworkStubber.removeAllStubs()` after each test.
+- `NetworkStubber` modifies global OHHTTPStubs state — mark the enclosing suite `.serialized` to prevent interference between parallel tests.
 
 ## Shared test doubles in `Dummies/`
 
