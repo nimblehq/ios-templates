@@ -41,7 +41,7 @@ runs:
         echo "EOF" >> $GITHUB_ENV
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@v0.7.0
+      uses: webfactory/ssh-agent@836c84ec59a0e7bc0eabc79988384eb567561ee2 # webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ inputs.ssh_private_key }}
 
@@ -58,7 +58,7 @@ runs:
 
     - name: Read Google Service Account
       id: firebase_service_account
-      uses: timheuer/base64-to-file@v1.2
+      uses: timheuer/base64-to-file@adaa40c0c581f276132199d4cf60afa07ce60eac # timheuer/base64-to-file@v1.2
       with:
         fileName: 'firebase_service_account.json'
         encodedString: ${{ inputs.firebase_credentials_base64 }}
@@ -87,7 +87,7 @@ runs:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.firebase_service_account.outputs.filePath }}
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # actions/upload-artifact@v4.6.2
       with:
         name: ${{ format('v{0}({1})-{2}', env.VERSION_NUMBER, env.BUILD_NUMBER, inputs.tag_type) }}
         path: |
