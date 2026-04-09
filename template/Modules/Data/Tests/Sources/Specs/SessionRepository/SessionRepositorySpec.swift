@@ -22,7 +22,7 @@ final class SessionRepositorySpec: AsyncSpec {
 
             beforeEach {
                 keychainManager = KeychainManagerMock()
-                Container.shared.keychainManager.register { keychainManager }
+                Container.shared.keychainManager.register { [keychainManager] in keychainManager! }
                 repository = SessionRepository()
             }
 
