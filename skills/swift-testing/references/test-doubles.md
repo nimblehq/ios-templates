@@ -142,6 +142,7 @@ Reserve real integration dependencies (database, keychain, network) for dedicate
 - **Do** define stubs inline as `private` types at the bottom of the test file.
 - **Do** conform stubs to the domain protocol directly.
 - **Do** use `actor` for stubs with async protocols or mutable state.
+- **Do** use `defer { NetworkStubber.removeAllStubs() }` immediately after `addStub` — guarantees cleanup even if the test throws.
 - **Don't** use mock generation libraries.
 - **Don't** create shared stubs unless they're genuinely reused across files.
 - **Don't** put stub logic in production code.
