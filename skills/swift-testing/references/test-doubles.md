@@ -84,19 +84,19 @@ struct NetworkAPITests {
     func returnsTheResponseWhenNetworkSucceeds() async throws {
         let config = DummyRequestConfiguration()
         NetworkStubber.addStub(config)
+        defer { NetworkStubber.removeAllStubs() }
         let networkAPI = NetworkAPI()
 
         let response = try await networkAPI.performRequest(config, for: DummyNetworkModel.self)
 
         #expect(response.message == "Hello")
-        NetworkStubber.removeAllStubs()
     }
 }
 ```
 
 - `NetworkStubber` lives in `Modules/Data/Tests/Sources/Utilities/NetworkStubber.swift`.
 - `DummyRequestConfiguration` lives in `Modules/Data/Tests/Sources/Dummies/DummyRequestConfiguration.swift`.
-- Always call `NetworkStubber.removeAllStubs()` after each test.
+- Use `defer { NetworkStubber.removeAllStubs() }` right after `addStub` — ensures cleanup runs even if the test throws.
 - `NetworkStubber` modifies global OHHTTPStubs state — mark the enclosing suite `.serialized` to prevent interference between parallel tests.
 
 ## Shared test doubles in `Dummies/`

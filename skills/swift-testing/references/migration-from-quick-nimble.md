@@ -129,6 +129,7 @@ struct NetworkAPITests {
         func returnsTheResponseWhenNetworkSucceeds() async throws {
             let requestConfiguration = DummyRequestConfiguration()
             NetworkStubber.addStub(requestConfiguration)
+            defer { NetworkStubber.removeAllStubs() }
             let networkAPI = NetworkAPI()
 
             let response = try await networkAPI.performRequest(
@@ -137,13 +138,13 @@ struct NetworkAPITests {
             )
 
             #expect(response.message == "Hello")
-            NetworkStubber.removeAllStubs()
         }
 
         @Test("throws an error when network fails")
         func throwsAnErrorWhenNetworkFails() async {
             let requestConfiguration = DummyRequestConfiguration()
             NetworkStubber.addStub(requestConfiguration, data: Foundation.Data(), statusCode: 400)
+            defer { NetworkStubber.removeAllStubs() }
             let networkAPI = NetworkAPI()
 
             #expect(throws: (any Error).self) {
@@ -152,7 +153,6 @@ struct NetworkAPITests {
                     for: DummyNetworkModel.self
                 )
             }
-            NetworkStubber.removeAllStubs()
         }
     }
 }
@@ -162,7 +162,7 @@ Key changes:
 - `AsyncSpec` class replaced with `struct` suite — no special base class needed.
 - `describe/context/it` replaced with nested `@Suite` structs and `@Test` functions.
 - `beforeEach` setup inlined into each test (struct suite gives fresh instance per test).
-- `afterEach` cleanup inlined at end of test.
+- `afterEach` cleanup replaced with `defer { NetworkStubber.removeAllStubs() }` right after `addStub` — ensures cleanup runs even if the test throws.
 - `expect(x) == y` replaced with `#expect(x == y)`.
 - `await expect { }.to(throwError())` replaced with `#expect(throws:) { try await ... }`.
 - Mutable `var` declarations replaced with `let` inside each test.
