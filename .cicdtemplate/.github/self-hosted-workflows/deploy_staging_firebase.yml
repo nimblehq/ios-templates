@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint
-        uses: ./.github/actions/swiftlint  
+        uses: ./.github/actions/swiftlint
           
       - name: Build and Deploy to Firebase
         uses: ./.github/actions/build-and-deploy-firebase
