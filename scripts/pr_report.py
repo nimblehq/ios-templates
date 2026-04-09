@@ -68,8 +68,10 @@ def list_prs(repo):
         "number", "title", "url", "author",
         "reviewDecision", "mergeable", "statusCheckRollup", "isDraft",
     ])
-    output = gh("pr", "list", "--repo", repo, "--state", "open", "--limit", "100", "--json", fields)
-    return json.loads(output) if output else []
+    output = gh("pr", "list", "--repo", repo, "--state", "open", "--limit", "50", "--json", fields)
+    if output is None:
+        raise RuntimeError("Failed to fetch PRs from GitHub.")
+    return json.loads(output)
 
 
 def get_mergeable_state(repo, pr_number):
@@ -226,7 +228,11 @@ def main():
                 existing_ts = stored_ts
 
     print(f"Fetching PRs in {repo}...")
-    prs = list_prs(repo)
+    try:
+        prs = list_prs(repo)
+    except RuntimeError as e:
+        print(f"❌ {e}", file=sys.stderr)
+        sys.exit(1)
 
     if not prs:
         print("No open PRs found.")
