@@ -62,7 +62,7 @@ This keeps the skill useful for both developer and PM flows, while minimizing un
 
 ## Resolve The Build
 
-Resolve the user's target into a concrete artifact. Use `gh` when you need to inspect PRs, workflows, runs, or artifacts. Use `scripts/gha list-artifacts` when you want the local helper to list non-expired artifacts for the current repo or a chosen ref.
+Resolve the user's target into a concrete artifact. Use `gh` when you need to inspect PRs, workflows, runs, or artifacts. Use `scripts/gha.py list-artifacts` when you want the local helper to list non-expired artifacts for the current repo or a chosen ref.
 
 If a workflow must be triggered, add workflow inputs when required.
 
