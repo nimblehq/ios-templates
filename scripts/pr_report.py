@@ -94,9 +94,12 @@ def ci_passing(pr):
     for check in pr.get("statusCheckRollup") or []:
         conclusion = check.get("conclusion") or ""
         status = check.get("status") or ""
-        if conclusion in ("FAILURE", "ERROR", "TIMED_OUT", "CANCELLED"):
+        state = check.get("state") or ""
+        if state in ("ERROR", "FAILURE", "PENDING", "EXPECTED"):
             return False
-        if not conclusion and status in ("IN_PROGRESS", "QUEUED", "PENDING"):
+        if conclusion in ("ACTION_REQUIRED", "FAILURE", "TIMED_OUT", "CANCELLED", "STALE", "STARTUP_FAILURE"):
+            return False
+        if not conclusion and status in ("IN_PROGRESS", "QUEUED", "PENDING", "REQUESTED", "WAITING"):
             return False
     return True
 
