@@ -1,25 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
-import importlib.util
 import json
 import sys
-from importlib.machinery import SourceFileLoader
 from pathlib import Path
 
-
-def load_gha_module():
-    gha_path = Path(__file__).with_name("gha")
-    loader = SourceFileLoader("gha_helpers", str(gha_path))
-    spec = importlib.util.spec_from_loader("gha_helpers", loader)
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Could not load helpers from {gha_path}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-GHA = load_gha_module()
+from gha import infer_owner_repo_from_git
 
 
 def parse_key_value(item: str) -> tuple[str, str]:
@@ -78,7 +64,7 @@ def main() -> int:
 
     if args.provider == "gha":
         if not args.owner or not args.repo:
-            inferred = GHA.infer_owner_repo_from_git()
+            inferred = infer_owner_repo_from_git()
             if inferred:
                 inferred_owner, inferred_repo = inferred
                 args.owner = args.owner or inferred_owner
