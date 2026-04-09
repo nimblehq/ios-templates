@@ -13,6 +13,7 @@ Environment variables:
     PR_REPORT_TS_FILE     Path to file storing DATE:TS (default: .pr_report_ts)
 """
 
+import html
 import json
 import os
 import subprocess
@@ -158,7 +159,7 @@ def render_slack(grouped, token):
         if prs:
             parts.append(f"{SLACK_EMOJI[cat]} *{SLACK_LABEL[cat]}*")
             for pr in prs:
-                line = f"- <{pr['url']}|{pr['title']}>"
+                line = f"- <{pr['url']}|{html.escape(pr['title'], quote=False)}>"
                 if cat in TAG_AUTHOR:
                     author = (pr.get("author") or {}).get("login", "")
                     if author:
