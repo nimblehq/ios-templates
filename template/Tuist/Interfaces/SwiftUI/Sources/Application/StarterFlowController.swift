@@ -1,3 +1,8 @@
+import Data
+import Domain
+import FactoryKit
+import Foundation
+import Model
 import SwiftUI
 
 @MainActor
@@ -12,23 +17,23 @@ final class StarterFlowController: ObservableObject {
 
     @Published private(set) var state: State = .loading
 
-    private let sessionManager: any StarterFlowSessionManaging
+    private let sessionRepository: any SessionRepositoryProtocol
     private var hasRestoredSession = false
 
-    init(sessionManager: any StarterFlowSessionManaging = StarterFlowSessionManager()) {
-        self.sessionManager = sessionManager
+    init(sessionRepository: any SessionRepositoryProtocol = Container.shared.sessionRepository()) {
+        self.sessionRepository = sessionRepository
     }
 
     func restoreSessionIfNeeded() async {
         guard !hasRestoredSession else { return }
 
         hasRestoredSession = true
-        state = await sessionManager.hasActiveSession() ? .signedIn : .signedOut
+        state = await sessionRepository.hasActiveSession() ? .signedIn : .signedOut
     }
 
     func continueWithDemoSession() async {
         do {
-            try await sessionManager.activateDemoSession()
+            try await sessionRepository.save(tokenSet: DemoTokenSet())
             state = .signedIn
         } catch {
             state = .signedOut
@@ -37,10 +42,17 @@ final class StarterFlowController: ObservableObject {
 
     func signOut() async {
         do {
-            try await sessionManager.clearSession()
+            try await sessionRepository.clearSession()
             state = .signedOut
         } catch {
             state = .signedIn
         }
     }
+}
+
+private struct DemoTokenSet: TokenSetProtocol {
+
+    let accessToken = "demo-access-token"
+    let refreshToken = "demo-refresh-token"
+    let expiresAt = Calendar.current.date(byAdding: .day, value: 30, to: Date())
 }

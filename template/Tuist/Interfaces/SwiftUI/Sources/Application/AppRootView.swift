@@ -16,7 +16,7 @@ struct AppRootView: View {
         Group {
             switch controller.state {
             case .loading:
-                ProgressView("Restoring session...")
+                Color.clear
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .signedOut:
                 SignOutView {

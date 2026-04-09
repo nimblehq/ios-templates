@@ -1,3 +1,6 @@
+import Domain
+import Foundation
+import Model
 import Testing
 
 @testable import {PROJECT_NAME}
@@ -83,14 +86,14 @@ struct StarterFlowControllerTests {
     }
 
     @MainActor
-    private func makeSUT() -> (sessionManager: StarterFlowSessionManagerSpy, controller: StarterFlowController) {
-        let sessionManager = StarterFlowSessionManagerSpy()
-        let controller = StarterFlowController(sessionManager: sessionManager)
-        return (sessionManager, controller)
+    private func makeSUT() -> (sessionRepository: SessionRepositorySpy, controller: StarterFlowController) {
+        let sessionRepository = SessionRepositorySpy()
+        let controller = StarterFlowController(sessionRepository: sessionRepository)
+        return (sessionRepository, controller)
     }
 }
 
-private actor StarterFlowSessionManagerSpy: StarterFlowSessionManaging {
+private actor SessionRepositorySpy: SessionRepositoryProtocol {
 
     enum SampleError: Error {
 
@@ -102,16 +105,22 @@ private actor StarterFlowSessionManagerSpy: StarterFlowSessionManaging {
     private(set) var didClearSession = false
     private(set) var shouldFailActivation = false
     private(set) var shouldFailClearSession = false
+    private var tokenSet: (any TokenSetProtocol)?
 
     func hasActiveSession() -> Bool {
         hasSession
     }
 
-    func activateDemoSession() throws {
+    func currentTokenSet() -> (any TokenSetProtocol)? {
+        tokenSet
+    }
+
+    func save(tokenSet: any TokenSetProtocol) throws {
         didActivateDemoSession = true
         if shouldFailActivation {
             throw SampleError.failed
         }
+        self.tokenSet = tokenSet
         hasSession = true
     }
 
@@ -120,6 +129,7 @@ private actor StarterFlowSessionManagerSpy: StarterFlowSessionManaging {
         if shouldFailClearSession {
             throw SampleError.failed
         }
+        tokenSet = nil
         hasSession = false
     }
 
