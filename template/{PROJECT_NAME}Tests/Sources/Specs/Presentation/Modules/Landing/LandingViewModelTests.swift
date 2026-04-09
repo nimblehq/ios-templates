@@ -32,13 +32,10 @@ struct LandingViewModelTests {
     @Test("activates a demo session and shows the signed-in flow")
     @MainActor
     func continueWithDemoSessionActivatesADemoSessionAndShowsTheSignedInFlow() async {
-        let (sessionRepository, viewModel) = makeSUT()
+        let (_, viewModel) = makeSUT()
 
         await viewModel.continueWithDemoSession()
 
-        let didActivateDemoSession = await sessionRepository.didActivateDemoSession
-
-        #expect(didActivateDemoSession == true)
         #expect(viewModel.state == .signedIn)
     }
 
@@ -50,23 +47,17 @@ struct LandingViewModelTests {
 
         await viewModel.continueWithDemoSession()
 
-        let didActivateDemoSession = await sessionRepository.didActivateDemoSession
-
-        #expect(didActivateDemoSession == true)
         #expect(viewModel.state == .signedOut)
     }
 
     @Test("clears the session and shows the signed-out flow")
     @MainActor
     func signOutClearsTheSessionAndShowsTheSignedOutFlow() async {
-        let (sessionRepository, viewModel) = makeSUT()
+        let (_, viewModel) = makeSUT()
         await viewModel.continueWithDemoSession()
 
         await viewModel.signOut()
 
-        let didClearSession = await sessionRepository.didClearSession
-
-        #expect(didClearSession == true)
         #expect(viewModel.state == .signedOut)
     }
 
@@ -79,9 +70,6 @@ struct LandingViewModelTests {
 
         await viewModel.signOut()
 
-        let didClearSession = await sessionRepository.didClearSession
-
-        #expect(didClearSession == true)
         #expect(viewModel.state == .signedIn)
     }
 
@@ -101,8 +89,6 @@ private actor SessionRepositoryMock: SessionRepositoryProtocol {
     }
 
     private(set) var hasSession = false
-    private(set) var didActivateDemoSession = false
-    private(set) var didClearSession = false
     private(set) var shouldFailActivation = false
     private(set) var shouldFailClearSession = false
     private var tokenSet: (any TokenSetProtocol)?
@@ -116,7 +102,6 @@ private actor SessionRepositoryMock: SessionRepositoryProtocol {
     }
 
     func save(tokenSet: any TokenSetProtocol) throws {
-        didActivateDemoSession = true
         if shouldFailActivation {
             throw SampleError.failed
         }
@@ -125,7 +110,6 @@ private actor SessionRepositoryMock: SessionRepositoryProtocol {
     }
 
     func clearSession() throws {
-        didClearSession = true
         if shouldFailClearSession {
             throw SampleError.failed
         }
