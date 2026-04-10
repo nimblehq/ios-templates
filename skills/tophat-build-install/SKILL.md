@@ -1,6 +1,6 @@
 ---
 name: tophat-build-install
-description: Find, build, and install mobile artifacts for the current repository through GitHub Actions and Tophat. Use when an agent or model needs to help developers, PMs, or reviewers test in-progress work without stashing local changes, switching branches, building locally, or waiting for a manually shared QA build. Handle requests like "install the latest build from main", "install PR #123 on my simulator", or "build this branch and install it". Infer the current GitHub repository from `git remote -v` or `git remote get-url origin` by default. This skill is GitHub Actions only and requires `gh` CLI for build lookup and workflow dispatch.
+description: Find, build, and install mobile artifacts for the current repository through GitHub Actions and Tophat. Use when an agent or model needs to help developers, PMs, or reviewers test in-progress work without stashing local changes, switching branches, building locally, or waiting for a manually shared QA build. Handle requests like "install the latest build from main", "install PR #123 on my simulator", or "build this branch and install it". Infer the current GitHub repository from `git remote -v` or `git remote get-url origin` by default, then canonicalize it with `gh repo view` before artifact lookups. This skill is GitHub Actions only and requires `gh` CLI for build lookup and workflow dispatch.
 ---
 
 # Tophat Build Install
@@ -20,7 +20,7 @@ This skill supports GitHub Actions artifacts only. Require `gh` for GitHub looku
 Collect only the missing inputs.
 
 - Platform: `ios` or `android`.
-- Repository: derive owner and repo from the current checkout first. Prefer `git remote get-url origin`, then fall back to `git remote -v`. Ask only if there is no usable GitHub remote.
+- Repository: derive owner and repo from the current checkout first. Prefer `git remote get-url origin`, then fall back to `git remote -v`. Canonicalize the inferred repo with `gh repo view <owner>/<repo> --json nameWithOwner` before using any Actions API path. Ask only if there is no usable GitHub remote.
 - Source selector: branch, PR number, workflow run ID, or explicit artifact ID.
 - Workflow: workflow file or workflow name when a new build must be triggered.
 - Artifact choice: artifact name when a run publishes multiple artifacts.
@@ -59,16 +59,19 @@ For device installs, do not assume local Xcode automatic signing has any effect 
 Use this decision order:
 
 1. Infer `owner/repo` from the current checkout.
-2. Determine the target ref or artifact from the user request.
-3. If the user gave an explicit artifact ID, install it directly.
-4. Otherwise, look for an existing matching artifact before triggering a new build.
-5. Trigger a workflow only when no suitable artifact already exists or when the user explicitly asks for a rebuild.
+2. Canonicalize that repository with `gh repo view` and use `nameWithOwner` for all later GitHub API calls.
+3. Determine the target ref or artifact from the user request.
+4. If the user gave an explicit artifact ID, install it directly.
+5. Otherwise, look for an existing matching artifact before triggering a new build.
+6. Trigger a workflow only when no suitable artifact already exists or when the user explicitly asks for a rebuild.
 
 This keeps the skill useful for both developer and PM flows, while minimizing unnecessary builds.
 
 ## Resolve The Build
 
 Resolve the user's target into a concrete artifact. Use `gh` when you need to inspect PRs, workflows, runs, or artifacts. Use `scripts/gha.py list-artifacts` when you want the local helper to list non-expired artifacts for the current repo or a chosen selector.
+
+Before calling any Actions artifact endpoint, canonicalize the repository with `gh repo view <repo> --json nameWithOwner,url`. A stale Git remote can still resolve to a different canonical repository on GitHub, and the Actions API must use that canonical `nameWithOwner`.
 
 When using `gh run list --json`, only request fields that `gh` actually supports in the current CLI. For workflow runs, prefer the stable set:
 
@@ -107,6 +110,10 @@ Prefer this fallback order when resolving an artifact:
 - `--platform ios|android`
 
 The helper must be treated as the authoritative artifact fallback because it uses the repository artifact API shape directly. It should paginate through repository artifacts instead of assuming the first page contains the desired result.
+
+If an artifact endpoint returns `404`, do not stop immediately. First confirm whether `gh repo view` resolves the repository to a different `nameWithOwner`, then retry the artifact lookup with that canonical repository. If the canonical repository still returns `404`, explain whether the repository exists but exposes no accessible artifact API, or whether the original repo path itself was stale.
+
+When recent successful runs exist but each run's artifact endpoint returns zero artifacts, say that explicitly. That is a different outcome from "artifact lookup failed" and usually means the workflow distributed the build elsewhere or did not upload an Actions artifact.
 
 If a workflow must be triggered, add workflow inputs when required.
 

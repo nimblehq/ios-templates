@@ -88,9 +88,23 @@ def run_gh_json_with_repo_hint(args: list[str], repo: str) -> Any:
             raise
         raise SystemExit(
             "GitHub artifact lookup returned 404 for "
-            f"{repo}. Check that the repository exists, your gh auth can access it, "
-            "and GitHub Actions artifacts are available for that repository."
+            f"{repo}. The repository exists if `gh repo view {repo}` succeeds, "
+            "so this usually means the artifact API path is unavailable, not accessible "
+            "to your token, or the original repo path was stale before canonicalization."
         ) from exc
+
+
+def canonicalize_repo(repo: str) -> tuple[str, bool]:
+    try:
+        payload = run_gh_json(["repo", "view", repo, "--json", "nameWithOwner"])
+    except SystemExit as exc:
+        raise SystemExit(
+            f"GitHub repository lookup failed for {repo}. "
+            "Check that the repository exists and your gh auth can access it."
+        ) from exc
+
+    canonical_repo = payload.get("nameWithOwner") or repo
+    return canonical_repo, canonical_repo != repo
 
 
 def normalize_sha(value: str) -> str:
@@ -219,6 +233,10 @@ def list_artifacts(
     run_id: int | None,
     platform: str,
 ) -> int:
+    repo, repo_was_canonicalized = canonicalize_repo(repo)
+    if repo_was_canonicalized:
+        print(f"Using canonical GitHub repository: {repo}", file=sys.stderr)
+
     if pr is not None:
         pr_ref, pr_sha = resolve_pr_ref(repo, pr)
         ref = ref or pr_ref

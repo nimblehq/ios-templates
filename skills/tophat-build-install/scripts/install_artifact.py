@@ -26,6 +26,7 @@ def format_success_message(
     artifact_id: str,
     platform: str,
     destination: str | None,
+    repo: str | None,
 ) -> str:
     parts = [
         f"Installed build successfully: {source}",
@@ -34,6 +35,8 @@ def format_success_message(
     ]
     if destination:
         parts.append(destination)
+    if repo:
+        parts.append(repo)
     return " · ".join(parts)
 
 
@@ -42,6 +45,7 @@ def format_pending_message(
     artifact_id: str,
     platform: str,
     destination: str | None,
+    repo: str | None,
 ) -> str:
     parts = [
         f"Install is still in progress in Tophat: {source}",
@@ -50,6 +54,8 @@ def format_pending_message(
     ]
     if destination:
         parts.append(destination)
+    if repo:
+        parts.append(repo)
     return " · ".join(parts)
 
 
@@ -150,6 +156,7 @@ def main() -> int:
                     artifact_id=args.artifact_id,
                     platform=args.platform,
                     destination=args.destination,
+                    repo=args.repo,
                 ),
                 GREEN,
             )
@@ -166,6 +173,7 @@ def main() -> int:
                     artifact_id=args.artifact_id,
                     platform=args.platform,
                     destination=args.destination,
+                    repo=args.repo,
                 ),
                 YELLOW,
             )
