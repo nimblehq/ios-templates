@@ -10,16 +10,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
+      with:
+        fetch-depth: 0
+    - uses: ./.github/actions/swiftlint
+
   deploy:
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS]
     steps:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
         with:
           fetch-depth: 0
-
-      - name: Lint
-        uses: ./.github/actions/swiftlint
 
       - name: Build and Deploy to Firebase
         uses: ./.github/actions/build-and-deploy-firebase
