@@ -1,11 +1,11 @@
 ## Overview
 
-New unit and integration tests use **Swift Testing** (`import Testing`). Existing **Quick + Nimble** specs (`*Spec.swift`) are retained as-is and migrated only on request.
+New unit and integration tests use **Swift Testing** (`import Testing`).
+Legacy Quick + Nimble guidance lives in [[Legacy Quick Nimble Migration]].
 
 | Framework | File suffix | Location |
 |-----------|------------|----------|
 | Swift Testing | `*Tests.swift` | `Tests/Sources/` mirroring production path |
-| Quick + Nimble | `*Spec.swift` | `Tests/Sources/Specs/` |
 
 ## File Placement
 
@@ -71,7 +71,7 @@ private actor StubRemoteConfigSource: RemoteConfigSource {
 
 ## AI Skill
 
-The `/swift-testing` Claude Code skill provides detailed references for assertions, traits, parameterized tests, async testing, test doubles, and Quick + Nimble migration:
+The `skills/swift-testing` agent skill provides detailed references for assertions, traits, parameterized tests, async testing, and test doubles:
 
 ```
 skills/swift-testing/
@@ -82,6 +82,7 @@ skills/swift-testing/
     ├── traits-and-tags.md
     ├── parameterized-testing.md
     ├── async-testing.md
-    ├── test-doubles.md
-    └── migration-from-quick-nimble.md
+    └── test-doubles.md
 ```
+
+For older projects still on Quick + Nimble, use [[Legacy Quick Nimble Migration]].

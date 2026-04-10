@@ -24,8 +24,10 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   │           ├── Dummies/
 │   │           │   ├── DummyNetworkModel.swift
 │   │           │   └── DummyRequestConfiguration.swift
-│   │           ├── Specs/
-│   │           │   └── NetworkAPI
+│   │           ├── NetworkAPI/
+│   │           │   └── NetworkAPITests.swift
+│   │           ├── Repositories/
+│   │           │   └── DefaultFeatureFlagRepositoryTests.swift
 │   │           └── Utilities/
 │   │               └── NetworkStubber.swift
 │   └── Domain/
@@ -37,8 +39,8 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │       └── Tests/
 │           ├── Resources
 │           └── Sources/
-│               └── Specs/
-│                   └── DummySpec.swift
+│               └── Entities/
+│                   └── RemoteConfigValueConvertibleTests.swift
 ├── {ProjectName}/
 │   ├── Configurations/
 │   │   ├── Plists/
@@ -71,17 +73,16 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   │   └── Plists
 │   ├── Resources
 │   └── Sources/
-│       └── Specs/
-│           └── Supports/
-│               └── Extensions/
-│                   └── Foundation
-└── {ProjectName}KIFUITests/
+│       └── Supports/
+│           └── Extensions/
+│               └── Foundation/
+│                   └── OptionalUnwrapTests.swift
+└── {ProjectName}UITests/
     ├── Configurations/
     │   └── Plists
     └── Sources/
-        ├── Specs/
-        │   └── Application
-        └── Utilities
+        └── Application/
+            └── ApplicationUITests.swift
 ```
 
 ## README.md
@@ -115,6 +116,6 @@ This folder contains the main sources of the project. There are three sub-folder
 
 This folder contains the unit testing and integration testing of the main project.
 
-## {ProjectName}KIFUITests
+## {ProjectName}UITests
 
-This folder contains the KIF UI testing of the main project. Use KIF instead of XCUITest for speed and reliability.
+This folder contains the UI testing of the main project. Use XCTest / XCUITest conventions and organize files by feature instead of legacy `Specs/` directories.

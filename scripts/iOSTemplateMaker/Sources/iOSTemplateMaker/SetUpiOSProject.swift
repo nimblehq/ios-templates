@@ -166,7 +166,7 @@ class SetUpIOSProject {
 
     private func replaceFileStructure() throws {
         try fileManager.rename(file: "template/\(CONSTANT_PROJECT_NAME)Tests", to: "template/\(projectNameNoSpace)Tests")
-        try fileManager.rename(file: "template/\(CONSTANT_PROJECT_NAME)KIFUITests", to: "template/\(projectNameNoSpace)KIFUITests")
+        try fileManager.rename(file: "template/\(CONSTANT_PROJECT_NAME)UITests", to: "template/\(projectNameNoSpace)UITests")
         try fileManager.rename(file: "template/\(CONSTANT_PROJECT_NAME)", to: "template/\(projectNameNoSpace)")
     }
 

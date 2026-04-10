@@ -30,8 +30,6 @@ let package = Package(
         .package(url: "https://github.com/hmlongco/Factory.git", from: "2.5.3"),
         
         // Testing
-        .package(url: "https://github.com/Quick/Quick.git", from: "7.6.2"),
-        .package(url: "https://github.com/Quick/Nimble.git", from: "14.0.0"),
         .package(url: "https://github.com/AliSoftware/OHHTTPStubs.git", from: "9.1.0"), // Provides OHHTTPStubsSwift product
     ]
 )

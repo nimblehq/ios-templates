@@ -11,7 +11,8 @@ extension Target {
         // App + app tests
         targets.append(contentsOf: [
             .mainTarget(name: name, bundleId: bundleId),
-            .testsTarget(name: name, bundleId: bundleId)
+            .testsTarget(name: name, bundleId: bundleId),
+            .uiTestsTarget(name: name, bundleId: bundleId)
         ])
 
         return targets
@@ -87,9 +88,15 @@ extension Target {
             destinations: .iOS,
             product: .unitTests,
             bundleId: module.testBundleId(mainBundleId: bundleId),
+            deploymentTargets: .iOS("{TARGET_VERSION}"),
             sources: module.testsSources,
             resources: module.testsResources,
-            dependencies: moduleTestDependencies(for: module)
+            dependencies: moduleTestDependencies(for: module),
+            settings: .settings(
+                base: [
+                    "ALWAYS_SEARCH_USER_PATHS": "NO"
+                ]
+            )
         )
 
         return [framework, testTarget]
@@ -98,9 +105,7 @@ extension Target {
     fileprivate static func moduleTestDependencies(for module: Module) -> [TargetDependency] {
         var dependencies: [TargetDependency] = [
             .target(name: module.name),
-            .package(product: "Quick"),
-            .package(product: "Nimble"),
-			.package(product: "FactoryKit")
+            .package(product: "FactoryKit")
         ]
 
         if module == .data {
@@ -118,20 +123,42 @@ extension Target {
             destinations: .iOS,
             product: .unitTests,
             bundleId: bundleId,
+            deploymentTargets: .iOS("{TARGET_VERSION}"),
             infoPlist: "\(targetName)/Configurations/Plists/Info.plist",
             sources: ["\(targetName)/**"],
             dependencies: [
                 .target(name: name),
                 // Testing
-                .package(product: "Quick"),
-                .package(product: "Nimble"),
                 .package(product: "OHHTTPStubsSwift"), // From OHHTTPStubs package
             ],
             settings: .settings(
                 base: [
                     // Host app binary must load for `@testable import` (e.g. app-only extensions).
+                    "ALWAYS_SEARCH_USER_PATHS": "NO",
                     "BUNDLE_LOADER": "$(TEST_HOST)",
                     "TEST_HOST": "$(BUILT_PRODUCTS_DIR)/\(name).app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/\(name)"
+                ]
+            )
+        )
+    }
+
+    fileprivate static func uiTestsTarget(name: String, bundleId: String) -> Target {
+        let targetName = "\(name)UITests"
+        return .target(
+            name: targetName,
+            destinations: .iOS,
+            product: .uiTests,
+            bundleId: "\(bundleId).uitests",
+            deploymentTargets: .iOS("{TARGET_VERSION}"),
+            infoPlist: "\(targetName)/Configurations/Plists/Info.plist",
+            sources: ["\(targetName)/Sources/**"],
+            dependencies: [
+                .target(name: name)
+            ],
+            settings: .settings(
+                base: [
+                    "ALWAYS_SEARCH_USER_PATHS": "NO",
+                    "TEST_TARGET_NAME": .string(name)
                 ]
             )
         )

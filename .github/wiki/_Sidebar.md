@@ -7,6 +7,8 @@
 ## Architecture
 
 - [[Standard File Organization]]
+- [[Testing]]
+- [[Legacy Quick Nimble Migration]]
 - [[Project Configurations]]
 - [[Project Dependencies]]
 - [[Swift Testing]]

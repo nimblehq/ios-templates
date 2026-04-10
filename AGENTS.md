@@ -37,7 +37,7 @@ Scripts/Swift/iOSTemplateMaker/  → Template generator CLI (Swift Package)
 Modules/                        → SPM modules (Domain/Data)
 {ProjectName}/                  → App template
 {ProjectName}Tests/             → Unit tests template
-{ProjectName}KIFUITests/        → UI tests template
+{ProjectName}UITests/           → UI tests template
 fastlane/                       → Fastlane Swift DSL lanes/helpers
 .github/                        → CI workflows + wiki docs under .github/wiki/
 ```
@@ -133,9 +133,9 @@ Key rules:
 
 Follow the template’s testing style and directory expectations:
 
-- Unit tests live in `{ProjectName}Tests/` (Quick + Nimble in this repo’s default setup).
-- UI tests live in `{ProjectName}KIFUITests/` and follow the Compass-like grouping:
-  - `AccessibilityIdentifiers/`, `Flows/`, `Screens/`, `Specs/`, `Utilities/`
+- Unit tests live in `{ProjectName}Tests/` and use **Swift Testing**.
+- UI tests live in `{ProjectName}UITests/` and use **XCTest / XCUITest**.
+- UI tests should be grouped by feature or responsibility, for example `Application/`, `Flows/`, `Screens/`, and `Utilities/`.
 
 Keep tests deterministic and avoid real network calls; use the repo’s established stubbing/mocking approach.
 
@@ -167,7 +167,8 @@ Key wiki articles in `.github/wiki/`:
 | KeychainAccess | 4.x | Secure storage |
 | Firebase iOS SDK | 11.x | Crashlytics, Distribution |
 | JSONMapper | 1.x | JSON mapping |
-| Quick + Nimble | 7.x / 13.x | BDD unit testing |
+| Swift Testing | Built into Xcode 16+ / Swift 6.1+ | Unit and integration testing |
+| XCTest / XCUITest | Built into Xcode | UI and performance testing |
 | OHHTTPStubs | 9.x | Network mocking in tests |
 
 ## Build configurations
