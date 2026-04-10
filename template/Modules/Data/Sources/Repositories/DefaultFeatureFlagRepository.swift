@@ -3,14 +3,13 @@
 //
 
 import Domain
+import FactoryKit
 
 public struct DefaultFeatureFlagRepository: FeatureFlagRepository, Sendable {
 
-    private let remoteConfigRepository: any RemoteConfigRepository
+    @Injected(\.remoteConfigRepository) private var remoteConfigRepository
 
-    public init(remoteConfigRepository: any RemoteConfigRepository) {
-        self.remoteConfigRepository = remoteConfigRepository
-    }
+    public init() {}
 
     public func refresh() async throws {
         try await remoteConfigRepository.refresh()
