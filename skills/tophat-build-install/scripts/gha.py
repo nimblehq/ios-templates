@@ -8,14 +8,16 @@ import sys
 from typing import Any
 
 
+GITHUB_REMOTE_PATTERNS = (
+    r"^git@github\.com:(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?$",
+    r"^https://github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?$",
+    r"^ssh://git@github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?$",
+)
+
+
 def parse_github_owner_repo(remote_url: str) -> tuple[str, str] | None:
     remote_url = remote_url.strip()
-    patterns = (
-        r"^git@github\.com:(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?$",
-        r"^https://github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?$",
-        r"^ssh://git@github\.com/(?P<owner>[^/]+)/(?P<repo>[^/]+?)(?:\.git)?$",
-    )
-    for pattern in patterns:
+    for pattern in GITHUB_REMOTE_PATTERNS:
         match = re.match(pattern, remote_url)
         if match:
             return match.group("owner"), match.group("repo")
@@ -23,11 +25,7 @@ def parse_github_owner_repo(remote_url: str) -> tuple[str, str] | None:
 
 
 def infer_owner_repo_from_git() -> tuple[str, str] | None:
-    preferred_remotes = ("origin", "upstream")
-    checked = set()
-
-    for remote in preferred_remotes:
-        checked.add(remote)
+    for remote in ("origin", "upstream"):
         result = subprocess.run(
             ["git", "remote", "get-url", remote],
             check=False,
@@ -52,11 +50,7 @@ def infer_owner_repo_from_git() -> tuple[str, str] | None:
         parts = line.split()
         if len(parts) < 2:
             continue
-        remote_name = parts[0]
-        remote_url = parts[1]
-        if remote_name in checked:
-            continue
-        parsed = parse_github_owner_repo(remote_url)
+        parsed = parse_github_owner_repo(parts[1])
         if parsed:
             return parsed
 
@@ -79,55 +73,34 @@ def run_gh_json(args: list[str]) -> Any:
         raise SystemExit(f"Failed to parse gh JSON output: {exc}") from exc
 
 
-def run_gh_json_with_repo_hint(args: list[str], repo: str) -> Any:
-    try:
-        return run_gh_json(args)
-    except SystemExit as exc:
-        message = str(exc)
-        if "Not Found (HTTP 404)" not in message:
-            raise
-        raise SystemExit(
-            "GitHub artifact lookup returned 404 for "
-            f"{repo}. The repository exists if `gh repo view {repo}` succeeds, "
-            "so this usually means the artifact API path is unavailable, not accessible "
-            "to your token, or the original repo path was stale before canonicalization."
-        ) from exc
+def is_not_found_error(message: str) -> bool:
+    return "Not Found (HTTP 404)" in message
 
 
-def canonicalize_repo(repo: str) -> tuple[str, bool]:
-    try:
-        payload = run_gh_json(["repo", "view", repo, "--json", "nameWithOwner"])
-    except SystemExit as exc:
-        raise SystemExit(
-            f"GitHub repository lookup failed for {repo}. "
-            "Check that the repository exists and your gh auth can access it."
-        ) from exc
-
+def canonicalize_repo(repo: str) -> str:
+    payload = run_gh_json(["repo", "view", repo, "--json", "nameWithOwner"])
     canonical_repo = payload.get("nameWithOwner") or repo
-    return canonical_repo, canonical_repo != repo
+    if canonical_repo != repo:
+        print(f"Using canonical GitHub repository: {canonical_repo}", file=sys.stderr)
+    return canonical_repo
 
 
 def normalize_sha(value: str) -> str:
     return value.strip().lower()
 
 
-def sha_matches(head_sha: str, requested_sha: str) -> bool:
+def sha_matches(actual_sha: str, requested_sha: str) -> bool:
     if not requested_sha:
         return True
-    normalized_head = normalize_sha(head_sha)
-    normalized_requested = normalize_sha(requested_sha)
-    return normalized_head.startswith(normalized_requested)
+    return normalize_sha(actual_sha).startswith(normalize_sha(requested_sha))
 
 
 def workflow_run_matches_ref(workflow_run: dict[str, Any], ref: str, sha: str) -> bool:
     head_branch = workflow_run.get("head_branch") or workflow_run.get("headBranch") or ""
     head_sha = workflow_run.get("head_sha") or workflow_run.get("headSha") or ""
-
     if ref and head_branch != ref:
         return False
-    if not sha_matches(head_sha, sha):
-        return False
-    return True
+    return sha_matches(head_sha, sha)
 
 
 def list_repo_artifacts(repo: str) -> list[dict[str, Any]]:
@@ -135,26 +108,33 @@ def list_repo_artifacts(repo: str) -> list[dict[str, Any]]:
     page = 1
 
     while True:
-        payload = run_gh_json_with_repo_hint(
-            [
-                "api",
-                f"repos/{repo}/actions/artifacts",
-                "-F",
-                "per_page=100",
-                "-F",
-                f"page={page}",
-            ],
-            repo=repo,
-        )
+        try:
+            payload = run_gh_json(
+                [
+                    "api",
+                    f"repos/{repo}/actions/artifacts",
+                    "-F",
+                    "per_page=100",
+                    "-F",
+                    f"page={page}",
+                ]
+            )
+        except SystemExit as exc:
+            if page == 1 and is_not_found_error(str(exc)):
+                print(
+                    "GitHub repository artifact API returned 404. "
+                    "Falling back to recent workflow runs.",
+                    file=sys.stderr,
+                )
+                return list_all_run_artifacts(repo)
+            raise
         page_artifacts = payload.get("artifacts", [])
         if not page_artifacts:
-            break
+            return artifacts
         artifacts.extend(page_artifacts)
         if len(page_artifacts) < 100:
-            break
+            return artifacts
         page += 1
-
-    return artifacts
 
 
 def list_runs(repo: str, ref: str) -> list[dict[str, Any]]:
@@ -166,7 +146,7 @@ def list_runs(repo: str, ref: str) -> list[dict[str, Any]]:
         "--limit",
         "100",
         "--json",
-        "databaseId,headBranch,headSha,name,status,conclusion,createdAt,updatedAt,url",
+        "databaseId,headBranch,headSha",
     ]
     if ref:
         args.extend(["--branch", ref])
@@ -177,10 +157,7 @@ def list_runs(repo: str, ref: str) -> list[dict[str, Any]]:
 
 
 def list_run_artifacts(repo: str, run_id: int) -> list[dict[str, Any]]:
-    payload = run_gh_json_with_repo_hint(
-        ["api", f"repos/{repo}/actions/runs/{run_id}/artifacts"],
-        repo=repo,
-    )
+    payload = run_gh_json(["api", f"repos/{repo}/actions/runs/{run_id}/artifacts"])
     artifacts = payload.get("artifacts", [])
     for artifact in artifacts:
         workflow_run = artifact.get("workflow_run") or {}
@@ -190,27 +167,44 @@ def list_run_artifacts(repo: str, run_id: int) -> list[dict[str, Any]]:
 
 
 def list_matching_run_artifacts(repo: str, ref: str, sha: str) -> list[dict[str, Any]]:
-    runs = list_runs(repo, ref=ref)
-    matching_runs = [
-        run
-        for run in runs
-        if workflow_run_matches_ref(run, ref=ref, sha=sha)
-    ]
-
     artifacts: list[dict[str, Any]] = []
-    for run in matching_runs:
+
+    for run in list_runs(repo, ref=ref):
+        if not workflow_run_matches_ref(run, ref=ref, sha=sha):
+            continue
+
         run_id = run.get("databaseId")
         if not run_id:
             continue
-        run_artifacts = list_run_artifacts(repo, int(run_id))
-        for artifact in run_artifacts:
+
+        for artifact in list_run_artifacts(repo, int(run_id)):
             workflow_run = artifact.get("workflow_run") or {}
             if "head_branch" not in workflow_run and run.get("headBranch"):
                 workflow_run["head_branch"] = run.get("headBranch")
             if "head_sha" not in workflow_run and run.get("headSha"):
                 workflow_run["head_sha"] = run.get("headSha")
             artifact["workflow_run"] = workflow_run
-        artifacts.extend(run_artifacts)
+            artifacts.append(artifact)
+
+    return artifacts
+
+
+def list_all_run_artifacts(repo: str) -> list[dict[str, Any]]:
+    artifacts: list[dict[str, Any]] = []
+
+    for run in list_runs(repo, ref=""):
+        run_id = run.get("databaseId")
+        if not run_id:
+            continue
+
+        for artifact in list_run_artifacts(repo, int(run_id)):
+            workflow_run = artifact.get("workflow_run") or {}
+            if "head_branch" not in workflow_run and run.get("headBranch"):
+                workflow_run["head_branch"] = run.get("headBranch")
+            if "head_sha" not in workflow_run and run.get("headSha"):
+                workflow_run["head_sha"] = run.get("headSha")
+            artifact["workflow_run"] = workflow_run
+            artifacts.append(artifact)
 
     return artifacts
 
@@ -225,6 +219,46 @@ def resolve_pr_ref(repo: str, pr: int) -> tuple[str, str]:
     return head_ref, head_sha
 
 
+def artifact_matches(
+    artifact: dict[str, Any],
+    ref: str,
+    sha: str,
+    run_id: int | None,
+    platform: str,
+) -> bool:
+    if artifact.get("expired"):
+        return False
+
+    workflow_run = artifact.get("workflow_run") or {}
+    if run_id is not None and workflow_run.get("id") != run_id:
+        return False
+    if not workflow_run_matches_ref(workflow_run, ref=ref, sha=sha):
+        return False
+    if platform and platform.lower() not in (artifact.get("name") or "").lower():
+        return False
+    return True
+
+
+def print_artifacts(artifacts: list[dict[str, Any]]) -> None:
+    for artifact in sorted(
+        artifacts,
+        key=lambda item: item.get("created_at") or "",
+        reverse=True,
+    ):
+        workflow_run = artifact.get("workflow_run") or {}
+        print(
+            "\t".join(
+                [
+                    str(artifact.get("id", "")),
+                    artifact.get("name") or "",
+                    workflow_run.get("head_branch") or "",
+                    (workflow_run.get("head_sha") or "")[:7],
+                    artifact.get("created_at") or "",
+                ]
+            )
+        )
+
+
 def list_artifacts(
     repo: str,
     ref: str,
@@ -233,9 +267,7 @@ def list_artifacts(
     run_id: int | None,
     platform: str,
 ) -> int:
-    repo, repo_was_canonicalized = canonicalize_repo(repo)
-    if repo_was_canonicalized:
-        print(f"Using canonical GitHub repository: {repo}", file=sys.stderr)
+    repo = canonicalize_repo(repo)
 
     if pr is not None:
         pr_ref, pr_sha = resolve_pr_ref(repo, pr)
@@ -248,53 +280,20 @@ def list_artifacts(
         artifacts = list_matching_run_artifacts(repo, ref=ref, sha=sha)
     else:
         artifacts = list_repo_artifacts(repo)
-    filtered_artifacts: list[dict[str, Any]] = []
 
-    for artifact in artifacts:
-        if artifact.get("expired"):
-            continue
-
-        workflow_run = artifact.get("workflow_run") or {}
-        workflow_run_id = workflow_run.get("id")
-        head_branch = workflow_run.get("head_branch") or ""
-        head_sha = workflow_run.get("head_sha") or ""
-        name = artifact.get("name") or ""
-
-        if run_id is not None and workflow_run_id != run_id:
-            continue
-
-        if not workflow_run_matches_ref(workflow_run, ref=ref, sha=sha):
-            continue
-
-        if platform and platform.lower() not in name.lower():
-            continue
-
-        filtered_artifacts.append(artifact)
-
-    filtered_artifacts.sort(
-        key=lambda artifact: artifact.get("created_at") or "",
-        reverse=True,
-    )
-
-    for artifact in filtered_artifacts:
-        workflow_run = artifact.get("workflow_run") or {}
-        name = artifact.get("name") or ""
-        head_branch = workflow_run.get("head_branch") or ""
-        head_sha = workflow_run.get("head_sha") or ""
-        short_sha = head_sha[:7]
-        created_at = artifact.get("created_at") or ""
-        print(
-            "\t".join(
-                [
-                    str(artifact.get("id", "")),
-                    name,
-                    head_branch,
-                    short_sha,
-                    created_at,
-                ]
+    print_artifacts(
+        [
+            artifact
+            for artifact in artifacts
+            if artifact_matches(
+                artifact,
+                ref=ref,
+                sha=sha,
+                run_id=run_id,
+                platform=platform,
             )
-        )
-
+        ]
+    )
     return 0
 
 
@@ -315,16 +314,8 @@ def main() -> int:
         default="",
         help="Commit SHA or prefix to match against the artifact workflow run.",
     )
-    list_parser.add_argument(
-        "--pr",
-        type=int,
-        help="PR number to resolve to its current head branch and SHA.",
-    )
-    list_parser.add_argument(
-        "--run-id",
-        type=int,
-        help="Workflow run ID to match against artifact.workflow_run.id.",
-    )
+    list_parser.add_argument("--pr", type=int, help="PR number to resolve.")
+    list_parser.add_argument("--run-id", type=int, help="Workflow run database ID.")
     list_parser.add_argument(
         "--platform",
         default="",
@@ -334,25 +325,25 @@ def main() -> int:
 
     args = parser.parse_args()
 
-    if args.command == "list-artifacts":
-        repo = args.repo
-        if not repo:
-            inferred = infer_owner_repo_from_git()
-            if not inferred:
-                raise SystemExit("Could not infer GitHub repository from git remotes.")
-            owner, repository = inferred
-            repo = f"{owner}/{repository}"
-        return list_artifacts(
-            repo=repo,
-            ref=args.ref,
-            sha=args.sha,
-            pr=args.pr,
-            run_id=args.run_id,
-            platform=args.platform,
-        )
+    if args.command != "list-artifacts":
+        parser.print_help(sys.stderr)
+        return 1
 
-    parser.print_help(sys.stderr)
-    return 1
+    repo = args.repo
+    if not repo:
+        inferred = infer_owner_repo_from_git()
+        if not inferred:
+            raise SystemExit("Could not infer GitHub repository from git remotes.")
+        repo = "/".join(inferred)
+
+    return list_artifacts(
+        repo=repo,
+        ref=args.ref,
+        sha=args.sha,
+        pr=args.pr,
+        run_id=args.run_id,
+        platform=args.platform,
+    )
 
 
 if __name__ == "__main__":
