@@ -13,6 +13,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "monday"
+      time: "02:00" # 9 AM UTC+7
     groups:
       github-actions:
         applies-to: version-updates
