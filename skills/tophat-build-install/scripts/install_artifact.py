@@ -21,41 +21,20 @@ def colorize(message: str, color: str) -> str:
     return f"{color}{message}{RESET}"
 
 
-def format_success_message(
+def format_status_message(
+    prefix: str,
     source: str,
     artifact_id: str,
     platform: str,
     destination: str | None,
-    repo: str | None,
 ) -> str:
     parts = [
-        f"Installed build successfully: {source}",
+        f"{prefix}: {source}",
         f"artifact {artifact_id}",
         platform,
     ]
     if destination:
         parts.append(destination)
-    if repo:
-        parts.append(repo)
-    return " · ".join(parts)
-
-
-def format_pending_message(
-    source: str,
-    artifact_id: str,
-    platform: str,
-    destination: str | None,
-    repo: str | None,
-) -> str:
-    parts = [
-        f"Install is still in progress in Tophat: {source}",
-        f"artifact {artifact_id}",
-        platform,
-    ]
-    if destination:
-        parts.append(destination)
-    if repo:
-        parts.append(repo)
     return " · ".join(parts)
 
 
@@ -151,12 +130,12 @@ def main() -> int:
     if result.status == STATUS_INSTALLED:
         print(
             colorize(
-                format_success_message(
+                format_status_message(
+                    prefix="Installed build successfully",
                     source=args.source,
                     artifact_id=args.artifact_id,
                     platform=args.platform,
                     destination=args.destination,
-                    repo=args.repo,
                 ),
                 GREEN,
             )
@@ -168,12 +147,12 @@ def main() -> int:
             print(result.stderr, file=sys.stderr)
         print(
             colorize(
-                format_pending_message(
+                format_status_message(
+                    prefix="Install is still in progress in Tophat",
                     source=args.source,
                     artifact_id=args.artifact_id,
                     platform=args.platform,
                     destination=args.destination,
-                    repo=args.repo,
                 ),
                 YELLOW,
             )

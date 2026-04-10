@@ -27,6 +27,14 @@ class InstallResult:
 
 
 def install_recipe(recipe_path: Path) -> InstallResult:
+    if not Path(TOPHATCTL_PATH).exists():
+        return InstallResult(
+            status=STATUS_FAILED,
+            returncode=1,
+            stdout="",
+            stderr=f"Tophat CLI not found at {TOPHATCTL_PATH}",
+        )
+
     result = subprocess.run(
         [TOPHATCTL_PATH, "install", str(recipe_path)],
         check=False,
@@ -68,7 +76,10 @@ def install_recipe(recipe_path: Path) -> InstallResult:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Install a Tophat recipe file and treat the known CLI timeout as in-progress."
+        description=(
+            "Install a Tophat recipe file with "
+            f"{TOPHATCTL_PATH} and treat the known CLI timeout as in-progress."
+        )
     )
     parser.add_argument("recipe", help="Path to a Tophat recipe JSON file.")
     args = parser.parse_args()
