@@ -1,5 +1,5 @@
-import FactoryKit
 import Domain
+import FactoryKit
 
 extension Container {
 
@@ -29,5 +29,9 @@ extension Container {
 
     public var sessionRepository: Factory<SessionRepositoryProtocol> {
         self { SessionRepository() }.singleton
+    }
+
+    public var checkForceUpdateUseCase: Factory<any CheckForceUpdateUseCaseProtocol> {
+        self { CheckForceUpdateUseCase() }
     }
 }

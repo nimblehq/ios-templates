@@ -127,6 +127,7 @@ extension Target {
                 .package(product: "Nimble"),
                 .package(product: "FactoryKit"),
                 .package(product: "OHHTTPStubsSwift"), // From OHHTTPStubs package
+                .package(product: "FactoryKit"),
             ],
             settings: .settings(
                 base: [
