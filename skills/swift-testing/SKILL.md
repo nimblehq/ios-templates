@@ -105,7 +105,6 @@ Load the appropriate reference file based on the task:
 | Data-driven / parameterized tests | `references/parameterized-testing.md` |
 | Async/await, callbacks, confirmations | `references/async-testing.md` |
 | Creating stubs, fakes, network mocks | `references/test-doubles.md` |
-| Converting Quick+Nimble specs | `references/migration-from-quick-nimble.md` |
 
 ## Verification Checklist
 
