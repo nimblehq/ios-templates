@@ -100,7 +100,7 @@ extension Target {
             .target(name: module.name),
             .package(product: "Quick"),
             .package(product: "Nimble"),
-			.package(product: "FactoryKit")
+            .package(product: "FactoryKit")
         ]
 
         if module == .data {

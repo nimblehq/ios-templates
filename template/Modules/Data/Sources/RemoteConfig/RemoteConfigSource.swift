@@ -1,10 +1,10 @@
 //
-//  ConfigSource.swift
+//  RemoteConfigSource.swift
 //
 
 import Domain
 
-public protocol ConfigSource: Sendable {
+public protocol RemoteConfigSource: Sendable {
 
     func refresh() async throws
 

@@ -6,9 +6,9 @@ import Domain
 
 public actor DefaultRemoteConfigRepository: RemoteConfigRepository {
 
-    private let source: any ConfigSource
+    private let source: any RemoteConfigSource
 
-    public init(source: any ConfigSource) {
+    public init(source: any RemoteConfigSource) {
         self.source = source
     }
 

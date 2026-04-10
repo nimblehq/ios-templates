@@ -69,6 +69,26 @@ struct LandingViewModelTests {
         }
     }
 
+    @Test("shows the force update screen when a force update is required")
+    func showsTheForceUpdateScreenWhenAForceUpdateIsRequired() async {
+        await Self.withSUT(forceUpdateRequired: true) { _, _, viewModel in
+            await viewModel.restoreSessionIfNeeded()
+
+            #expect(viewModel.state == .forceUpdateRequired)
+            #expect(viewModel.startupConfigLoadResult == .refreshed)
+        }
+    }
+
+    @Test("skips the session check when a force update is required")
+    func skipsTheSessionCheckWhenAForceUpdateIsRequired() async {
+        await Self.withSUT(forceUpdateRequired: true) { sessionRepository, _, viewModel in
+            await viewModel.restoreSessionIfNeeded()
+
+            #expect(viewModel.state == .forceUpdateRequired)
+            #expect(await sessionRepository.hasActiveSessionCallCount() == 0)
+        }
+    }
+
     @Test("activates a demo session and shows the signed-in flow")
     func activatesADemoSessionAndShowsTheSignedInFlow() async {
         await Self.withSUT { _, _, viewModel in
@@ -116,6 +136,7 @@ struct LandingViewModelTests {
     private static func withSUT(
         startupConfigLoadResult: StartupConfigLoadResult = .refreshed,
         cancelFirstCall: Bool = false,
+        forceUpdateRequired: Bool = false,
         _ test: @MainActor (SessionRepositoryMock, StartupConfigLoaderMock, LandingViewModel) async -> Void
     ) async {
         Container.shared.reset()
@@ -127,6 +148,9 @@ struct LandingViewModelTests {
         )
         Container.shared.loadStartupConfigUseCase.register { startupConfigLoader }
         Container.shared.sessionRepository.register { sessionRepository }
+
+        let checkForceUpdateUseCase = CheckForceUpdateUseCaseMock(shouldForceUpdate: forceUpdateRequired)
+        Container.shared.checkForceUpdateUseCase.register { checkForceUpdateUseCase }
 
         let viewModel = LandingViewModel()
         defer {
@@ -145,12 +169,18 @@ private actor SessionRepositoryMock: SessionRepositoryProtocol {
     }
 
     private(set) var hasSession = false
+    private(set) var hasActiveSessionCallCountValue = 0
     private(set) var shouldFailActivation = false
     private(set) var shouldFailClearSession = false
     private var tokenSet: (any TokenSetProtocol)?
 
     func hasActiveSession() -> Bool {
-        hasSession
+        hasActiveSessionCallCountValue += 1
+        return hasSession
+    }
+
+    func hasActiveSessionCallCount() -> Int {
+        hasActiveSessionCallCountValue
     }
 
     func currentTokenSet() -> (any TokenSetProtocol)? {
@@ -198,7 +228,7 @@ private actor StartupConfigLoaderMock: LoadStartupConfigUseCaseProtocol {
         self.shouldCancelFirstCall = shouldCancelFirstCall
     }
 
-    func callAsFunction() async throws(CancellationError) -> StartupConfigLoadResult {
+    func execute() async throws -> StartupConfigLoadResult {
         callCountValue += 1
 
         if shouldCancelFirstCall, !didCancelFirstCall {

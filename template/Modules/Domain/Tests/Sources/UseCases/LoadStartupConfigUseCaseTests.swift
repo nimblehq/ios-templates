@@ -10,7 +10,7 @@ struct LoadStartupConfigUseCaseTests {
         let repository = StubRemoteConfigRepository()
         let useCase = LoadStartupConfigUseCase(remoteConfigRepository: repository)
 
-        let result = try? await useCase()
+        let result = try? await useCase.execute()
 
         #expect(result == .refreshed)
         #expect(await repository.refreshCallCount() == 1)
@@ -21,7 +21,7 @@ struct LoadStartupConfigUseCaseTests {
         let repository = StubRemoteConfigRepository(shouldFailRefresh: true)
         let useCase = LoadStartupConfigUseCase(remoteConfigRepository: repository)
 
-        let result = try? await useCase()
+        let result = try? await useCase.execute()
 
         #expect(result == .usedLocalDefaults)
         #expect(await repository.refreshCallCount() == 1)
