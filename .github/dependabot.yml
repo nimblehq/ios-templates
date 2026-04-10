@@ -1,11 +1,19 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directories:
+      - "/"
+      - "/.cicdtemplate/.github/workflows"
+      - "/.cicdtemplate/.github/self-hosted-workflows"
+      - "/.github/actions/setup-ci-environment"
+      - "/.github/actions/swiftlint"
+      - "/.cicdtemplate/.github/actions/build-and-deploy-firebase"
+      - "/.cicdtemplate/.github/actions/setup-ci-environment"
+      - "/.cicdtemplate/.github/actions/swiftlint"
     schedule:
       interval: "weekly"
-
-  - package-ecosystem: "github-actions"
-    directory: "/.cicdtemplate"
-    schedule:
-      interval: "weekly"
+      day: "monday"
+    groups:
+      github-actions:
+        applies-to: version-updates
+        group-by: dependency-name
