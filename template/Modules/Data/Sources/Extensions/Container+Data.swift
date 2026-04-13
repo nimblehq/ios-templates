@@ -11,12 +11,12 @@ extension Container {
         self { UserDefaultsManager() }.singleton
     }
 
-    public var remoteConfigSource: Factory<RemoteConfigSource> {
-        self { InMemoryRemoteConfigSource() }.singleton
+    public var configSource: Factory<ConfigSource> {
+        self { InMemoryConfigSource() }.singleton
     }
 
     public var remoteConfigRepository: Factory<RemoteConfigRepository> {
-        self { DefaultRemoteConfigRepository(source: self.remoteConfigSource()) }.singleton
+        self { DefaultRemoteConfigRepository(source: self.configSource()) }.singleton
     }
 
     public var loadStartupConfigUseCase: Factory<LoadStartupConfigUseCaseProtocol> {

@@ -25,14 +25,13 @@ final class LandingViewModel: ObservableObject {
     func restoreSessionIfNeeded() async {
         guard !hasRestoredSession else { return }
 
-        hasRestoredSession = true
         do {
-            startupConfigLoadResult = try await loadStartupConfigUseCase.execute()
+            startupConfigLoadResult = try await loadStartupConfigUseCase()
         } catch is CancellationError {
             return
-        } catch {
-            startupConfigLoadResult = .usedLocalDefaults
         }
+
+        hasRestoredSession = true
         state = await sessionRepository.hasActiveSession() ? .signedIn : .signedOut
     }
 

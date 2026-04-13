@@ -6,22 +6,22 @@ import Testing
 struct LoadStartupConfigUseCaseTests {
 
     @Test("returns refreshed when startup config refresh succeeds")
-    func executeReturnsRefreshedWhenStartupConfigRefreshSucceeds() async {
+    func callAsFunctionReturnsRefreshedWhenStartupConfigRefreshSucceeds() async {
         let repository = StubRemoteConfigRepository()
         let useCase = LoadStartupConfigUseCase(remoteConfigRepository: repository)
 
-        let result = try? await useCase.execute()
+        let result = try? await useCase()
 
         #expect(result == .refreshed)
         #expect(await repository.refreshCallCount() == 1)
     }
 
     @Test("returns local defaults when startup config refresh fails")
-    func executeReturnsLocalDefaultsWhenStartupConfigRefreshFails() async {
+    func callAsFunctionReturnsLocalDefaultsWhenStartupConfigRefreshFails() async {
         let repository = StubRemoteConfigRepository(shouldFailRefresh: true)
         let useCase = LoadStartupConfigUseCase(remoteConfigRepository: repository)
 
-        let result = try? await useCase.execute()
+        let result = try? await useCase()
 
         #expect(result == .usedLocalDefaults)
         #expect(await repository.refreshCallCount() == 1)

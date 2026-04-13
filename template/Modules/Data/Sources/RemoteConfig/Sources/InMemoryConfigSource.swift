@@ -1,10 +1,10 @@
 //
-//  InMemoryRemoteConfigSource.swift
+//  InMemoryConfigSource.swift
 //
 
 import Domain
 
-public actor InMemoryRemoteConfigSource: RemoteConfigSource {
+public actor InMemoryConfigSource: ConfigSource {
 
     private let values: [String: RemoteConfigStoredValue]
 
