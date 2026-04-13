@@ -1,5 +1,5 @@
-import FactoryKit
 import Domain
+import FactoryKit
 
 extension Container {
 
@@ -17,10 +17,6 @@ extension Container {
 
     public var remoteConfigRepository: Factory<RemoteConfigRepository> {
         self { DefaultRemoteConfigRepository(source: self.remoteConfigSource()) }.singleton
-    }
-
-    public var loadStartupConfigUseCase: Factory<LoadStartupConfigUseCaseProtocol> {
-        self { LoadStartupConfigUseCase(remoteConfigRepository: self.remoteConfigRepository()) }.singleton
     }
 
     public var featureFlagRepository: Factory<FeatureFlagRepository> {

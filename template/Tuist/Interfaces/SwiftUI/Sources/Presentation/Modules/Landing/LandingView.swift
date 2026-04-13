@@ -4,12 +4,9 @@ import SwiftUI
 struct LandingView: View {
 
     @StateObject private var viewModel: LandingViewModel
+    @Environment(\.openURL) private var openURL
 
-    init() {
-        _viewModel = StateObject(wrappedValue: LandingViewModel())
-    }
-
-    init(viewModel: LandingViewModel) {
+    init(viewModel: LandingViewModel = LandingViewModel()) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
@@ -23,6 +20,8 @@ struct LandingView: View {
                 SignOutView(onContinue: continueWithDemoSession)
             case .signedIn:
                 HomeView(onSignOut: signOut)
+            case .forceUpdateRequired:
+                ForceUpdateView(onUpdate: openAppStore)
             }
         }
         .task {
@@ -40,5 +39,9 @@ struct LandingView: View {
         Task {
             await viewModel.signOut()
         }
+    }
+
+    private func openAppStore() {
+        openURL(Constants.appStoreURL)
     }
 }

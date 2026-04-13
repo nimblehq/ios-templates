@@ -50,6 +50,24 @@ final class LandingViewModelSpec: QuickSpec {
                 }
             }
 
+            it("shows the force update screen when a force update is required") {
+                await Self.withSUT(forceUpdateRequired: true) { _, _, viewModel in
+                    await viewModel.restoreSessionIfNeeded()
+
+                    expect(viewModel.state).to(equal(.forceUpdateRequired))
+                }
+            }
+
+            it("skips the session check when a force update is required") {
+                await Self.withSUT(forceUpdateRequired: true) { sessionRepository, _, viewModel in
+                    await sessionRepository.setHasActiveSession(true)
+
+                    await viewModel.restoreSessionIfNeeded()
+
+                    expect(viewModel.state).to(equal(.forceUpdateRequired))
+                }
+            }
+
             it("activates a demo session and shows the signed-in flow") {
                 await Self.withSUT { _, _, viewModel in
                     await viewModel.continueWithDemoSession()
@@ -94,6 +112,7 @@ final class LandingViewModelSpec: QuickSpec {
     @MainActor
     private static func withSUT(
         startupConfigLoadResult: StartupConfigLoadResult = .refreshed,
+        forceUpdateRequired: Bool = false,
         _ test: @MainActor (SessionRepositoryMock, StartupConfigLoaderMock, LandingViewModel) async -> Void
     ) async {
         Container.shared.reset()
@@ -102,6 +121,9 @@ final class LandingViewModelSpec: QuickSpec {
         let startupConfigLoader = StartupConfigLoaderMock(result: startupConfigLoadResult)
         Container.shared.loadStartupConfigUseCase.register { startupConfigLoader }
         Container.shared.sessionRepository.register { sessionRepository }
+
+        let checkForceUpdateUseCase = CheckForceUpdateUseCaseMock(shouldForceUpdate: forceUpdateRequired)
+        Container.shared.checkForceUpdateUseCase.register { checkForceUpdateUseCase }
 
         let viewModel = LandingViewModel()
         defer {
