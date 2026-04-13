@@ -14,4 +14,24 @@ extension Container {
     public var sessionRepository: Factory<SessionRepositoryProtocol> {
         self { SessionRepository() }.singleton
     }
+
+    public var tokenRefreshCoordinator: Factory<TokenRefreshCoordinator> {
+        self {
+            TokenRefreshCoordinator(
+                sessionRepository: self.sessionRepository(),
+                refreshClient: DefaultRefreshTokenClient()
+            )
+        }
+        .singleton
+    }
+
+    public var authenticationInterceptor: Factory<AuthenticationInterceptor> {
+        self { AuthenticationInterceptor(coordinator: self.tokenRefreshCoordinator()) }
+            .singleton
+    }
+
+    public var networkAPI: Factory<NetworkAPI> {
+        self { NetworkAPI(authenticationInterceptor: self.authenticationInterceptor()) }
+            .singleton
+    }
 }
