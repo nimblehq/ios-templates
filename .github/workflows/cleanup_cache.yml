@@ -4,14 +4,15 @@ on:
     types:
       - closed
 
-permissions:
-  actions: write
-  contents: read
-
 jobs:
   cleanup_cache:
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps:
+      - name: Check out code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
+        with:
+          fetch-depth: 1
+
       - name: Cleanup
         run: |
           gh extension install actions/gh-actions-cache
