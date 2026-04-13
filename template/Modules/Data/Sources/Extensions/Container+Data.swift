@@ -19,19 +19,11 @@ extension Container {
         self { DefaultRemoteConfigRepository(source: self.remoteConfigSource()) }.singleton
     }
 
-    public var loadStartupConfigUseCase: Factory<LoadStartupConfigUseCaseProtocol> {
-        self { LoadStartupConfigUseCase(remoteConfigRepository: self.remoteConfigRepository()) }.singleton
-    }
-
     public var featureFlagRepository: Factory<FeatureFlagRepository> {
         self { DefaultFeatureFlagRepository() }.singleton
     }
 
     public var sessionRepository: Factory<SessionRepositoryProtocol> {
         self { SessionRepository() }.singleton
-    }
-
-    public var checkForceUpdateUseCase: Factory<any CheckForceUpdateUseCaseProtocol> {
-        self { CheckForceUpdateUseCase() }
     }
 }

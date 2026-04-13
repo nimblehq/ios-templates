@@ -37,7 +37,7 @@ final class LandingViewModel: ObservableObject {
             startupConfigLoadResult = .usedLocalDefaults
         }
 
-        guard !(await checkForceUpdateUseCase.execute()) else {
+        guard !(await checkForceUpdateUseCase()) else {
             state = .forceUpdateRequired
             return
         }

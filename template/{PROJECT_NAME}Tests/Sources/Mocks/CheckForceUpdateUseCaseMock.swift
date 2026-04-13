@@ -4,7 +4,7 @@ struct CheckForceUpdateUseCaseMock: CheckForceUpdateUseCaseProtocol {
 
     let shouldForceUpdate: Bool
 
-    func execute() async -> Bool {
+    func callAsFunction() async -> Bool {
         shouldForceUpdate
     }
 }

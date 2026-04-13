@@ -2,32 +2,42 @@
 //  CheckForceUpdateUseCase.swift
 //
 
-import FactoryKit
 import Foundation
 
 public protocol CheckForceUpdateUseCaseProtocol: Sendable {
 
     /// Returns `true` when the installed version is below the remote-configured minimum,
     /// indicating the user must update before continuing.
-    func execute() async -> Bool
+    func callAsFunction() async -> Bool
 }
 
-public struct CheckForceUpdateUseCase: CheckForceUpdateUseCaseProtocol {
+private func defaultCurrentVersion() -> AppVersion {
+    let string = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+    return AppVersion(string: string) ?? AppVersion(major: 1, minor: 0, patch: 0)
+}
 
-    @Injected(\.remoteConfigRepository) private var remoteConfigRepository: any RemoteConfigRepository
+struct CheckForceUpdateUseCase: CheckForceUpdateUseCaseProtocol, Sendable {
+
+    private let remoteConfigRepository: any RemoteConfigRepository
     private let currentVersion: AppVersion
 
-    public init(
-        currentVersion: AppVersion = {
-            let string = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-            return AppVersion(string: string) ?? AppVersion(major: 1, minor: 0, patch: 0)
-        }()
-    ) {
+    init(remoteConfigRepository: any RemoteConfigRepository, currentVersion: AppVersion = defaultCurrentVersion()) {
+        self.remoteConfigRepository = remoteConfigRepository
         self.currentVersion = currentVersion
     }
 
-    public func execute() async -> Bool {
+    func callAsFunction() async -> Bool {
         let minimumVersion = await remoteConfigRepository.value(for: .minimumAppVersion)
         return currentVersion < minimumVersion
     }
+}
+
+public func makeCheckForceUpdateUseCase(
+    remoteConfigRepository: any RemoteConfigRepository,
+    currentVersion: AppVersion = defaultCurrentVersion()
+) -> any CheckForceUpdateUseCaseProtocol {
+    CheckForceUpdateUseCase(
+        remoteConfigRepository: remoteConfigRepository,
+        currentVersion: currentVersion
+    )
 }

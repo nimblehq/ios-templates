@@ -6,11 +6,7 @@ struct LandingView: View {
     @StateObject private var viewModel: LandingViewModel
     @Environment(\.openURL) private var openURL
 
-    init() {
-        _viewModel = StateObject(wrappedValue: LandingViewModel())
-    }
-
-    init(viewModel: LandingViewModel) {
+    init(viewModel: LandingViewModel = LandingViewModel()) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
