@@ -1,7 +1,13 @@
 name: Verify New Project Script
 
 on:
-  pull_request
+  pull_request:
+    paths-ignore:
+      - README.md
+      - AGENTS.md
+      - .github/wiki/**
+      - template/README.md
+      - template/AGENTS.md
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -27,6 +33,14 @@ jobs:
       with:
         bundler-cache: "false"
         run-bundle-install: "false"
+
+    - name: Cache iOSTemplateMaker Build
+      uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache@v5.0.4
+      with:
+        path: scripts/iOSTemplateMaker/.build
+        key: ${{ runner.os }}-iostemplatemaker-${{ hashFiles('scripts/iOSTemplateMaker/Package.swift', 'scripts/iOSTemplateMaker/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-iostemplatemaker-
 
     - name: Run iOSTemplateMaker
       run: |
