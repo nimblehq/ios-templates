@@ -8,16 +8,31 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 ├── Modules/
 │   ├── Data/
 │   │   ├── Sources/
+│   │   │   ├── Extensions/
+│   │   │   │   └── Container+Data.swift
+│   │   │   ├── Managers/
+│   │   │   │   ├── KeychainManager/
+│   │   │   │   │   ├── KeychainManager.swift
+│   │   │   │   │   └── ...
+│   │   │   │   └── UserDefaultsManager/
+│   │   │   │       ├── UserDefaultsManager.swift
+│   │   │   │       └── ...
+│   │   │   ├── Models/
+│   │   │   │   ├── AuthSession.swift
+│   │   │   │   └── TokenSet.swift
 │   │   │   ├── NetworkAPI/
 │   │   │   │   ├── Core/
 │   │   │   │   │   ├── NetworkAPIError.swift
 │   │   │   │   │   ├── NetworkAPIProtocol.swift
 │   │   │   │   │   └── RequestConfiguration.swift
-│   │   │   │   ├── Interceptors
-│   │   │   │   ├── Models
-│   │   │   │   ├── RequestConfigurations
-│   │   │   │   └── NetworkAPI.swift
-│   │   │   └── Repositories
+│   │   │   │   ├── Interceptors/
+│   │   │   │   ├── Models/
+│   │   │   │   ├── NetworkAPI.swift
+│   │   │   │   └── RequestConfigurations/
+│   │   │   │       └── AuthRequestConfiguration.swift
+│   │   │   └── Repositories/
+│   │   │       ├── AuthRepository.swift
+│   │   │       └── ...
 │   │   └── Tests/
 │   │       ├── Resources
 │   │       └── Sources/
@@ -28,12 +43,27 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 │   │           │   └── NetworkAPI
 │   │           └── Utilities/
 │   │               └── NetworkStubber.swift
-│   └── Domain/
+│   ├── Domain/
+│   │   ├── Sources/
+│   │   │   ├── Entities/
+│   │   │   │   ├── RemoteConfigKey.swift
+│   │   │   │   └── ...
+│   │   │   ├── Interfaces/
+│   │   │   │   ├── AuthRepositoryProtocol.swift
+│   │   │   │   └── ...
+│   │   │   └── UseCases/
+│   │   │       └── UseCaseFactoryProtocol.swift
+│   │   └── Tests/
+│   │       ├── Resources/
+│   │       └── Sources/
+│   │           ├── Entities/
+│   │           │   └── RemoteConfigValueConvertibleTests.swift
+│   │           └── Specs/
+│   │               └── DummySpec.swift
+│   └── Model/
 │       ├── Sources/
-│       │   ├── Entities
-│       │   ├── Interfaces
-│       │   └── UseCases/
-│       │       └── UseCaseFactoryProtocol.swift
+│       │   ├── AuthState.swift
+│       │   └── ...
 │       └── Tests/
 │           ├── Resources
 │           └── Sources/
@@ -101,6 +131,9 @@ This folder contains modules which represent targets in the project. Currently, 
   - Tests: This folder contains the unit testing.
 - Domain: This folder contains source files and Unit Test for the `Domain` target.
   - Sources: This folder contains only `.swift` files - the main source code of the module.
+  - Tests: This folder contains the unit testing.
+- Model: This folder contains source files and Unit Tests for the `Model` target.
+  - Sources: This folder contains only `.swift` files, the module's main source code.
   - Tests: This folder contains the unit testing.
 
 ## {ProjectName}
