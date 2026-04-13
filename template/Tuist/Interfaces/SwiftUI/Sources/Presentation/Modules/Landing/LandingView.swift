@@ -1,10 +1,15 @@
 import SwiftUI
 
+@MainActor
 struct LandingView: View {
 
     @StateObject private var viewModel: LandingViewModel
 
-    init(viewModel: LandingViewModel = LandingViewModel()) {
+    init() {
+        _viewModel = StateObject(wrappedValue: LandingViewModel())
+    }
+
+    init(viewModel: LandingViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 

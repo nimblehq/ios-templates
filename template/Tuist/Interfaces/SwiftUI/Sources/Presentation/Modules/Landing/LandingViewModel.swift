@@ -16,12 +16,20 @@ final class LandingViewModel: ObservableObject {
     }
 
     @Published private(set) var state: State = .loading
+    private(set) var startupConfigLoadResult: StartupConfigLoadResult?
 
+    @Injected(\.loadStartupConfigUseCase) private var loadStartupConfigUseCase: any LoadStartupConfigUseCaseProtocol
     @Injected(\.sessionRepository) private var sessionRepository: any SessionRepositoryProtocol
     private var hasRestoredSession = false
 
     func restoreSessionIfNeeded() async {
         guard !hasRestoredSession else { return }
+
+        do {
+            startupConfigLoadResult = try await loadStartupConfigUseCase()
+        } catch is CancellationError {
+            return
+        }
 
         hasRestoredSession = true
         state = await sessionRepository.hasActiveSession() ? .signedIn : .signedOut

@@ -1,40 +1,78 @@
+import Testing
+
 import Domain
 import FactoryKit
 import Foundation
 import Model
-import Testing
 
 @testable import {PROJECT_NAME}
 
-@Suite("LandingViewModel")
+@Suite("LandingViewModel", .serialized)
 struct LandingViewModelTests {
 
     @Test("shows the signed-out flow when no active session exists")
-    @MainActor
-    func restoreSessionIfNeededShowsTheSignedOutFlowWhenNoActiveSessionExists() async {
-        await withSUT { _, viewModel in
+    func showsTheSignedOutFlowWhenNoActiveSessionExists() async {
+        await Self.withSUT { _, _, viewModel in
             await viewModel.restoreSessionIfNeeded()
 
             #expect(viewModel.state == .signedOut)
+            #expect(viewModel.startupConfigLoadResult == .refreshed)
         }
     }
 
     @Test("shows the signed-in flow when an active session exists")
-    @MainActor
-    func restoreSessionIfNeededShowsTheSignedInFlowWhenAnActiveSessionExists() async {
-        await withSUT { sessionRepository, viewModel in
+    func showsTheSignedInFlowWhenAnActiveSessionExists() async {
+        await Self.withSUT { sessionRepository, _, viewModel in
             await sessionRepository.setHasActiveSession(true)
 
             await viewModel.restoreSessionIfNeeded()
 
             #expect(viewModel.state == .signedIn)
+            #expect(viewModel.startupConfigLoadResult == .refreshed)
+        }
+    }
+
+    @Test("falls back to local defaults before showing the signed-out flow")
+    func fallsBackToLocalDefaultsBeforeShowingTheSignedOutFlow() async {
+        await Self.withSUT(startupConfigLoadResult: .usedLocalDefaults) { _, loader, viewModel in
+            await viewModel.restoreSessionIfNeeded()
+
+            #expect(viewModel.state == .signedOut)
+            #expect(viewModel.startupConfigLoadResult == .usedLocalDefaults)
+            #expect(await loader.callCount() == 1)
+        }
+    }
+
+    @Test("retries restoration after cancellation")
+    func retriesRestorationAfterCancellation() async {
+        await Self.withSUT(cancelFirstCall: true) { _, loader, viewModel in
+            await viewModel.restoreSessionIfNeeded()
+
+            #expect(viewModel.state == .loading)
+            #expect(viewModel.startupConfigLoadResult == nil)
+            #expect(await loader.callCount() == 1)
+
+            await viewModel.restoreSessionIfNeeded()
+
+            #expect(viewModel.state == .signedOut)
+            #expect(viewModel.startupConfigLoadResult == .refreshed)
+            #expect(await loader.callCount() == 2)
+        }
+    }
+
+    @Test("loads startup config only once")
+    func loadsStartupConfigOnlyOnce() async {
+        await Self.withSUT { _, loader, viewModel in
+            await viewModel.restoreSessionIfNeeded()
+            await viewModel.restoreSessionIfNeeded()
+
+            #expect(await loader.callCount() == 1)
         }
     }
 
     @Test("activates a demo session and shows the signed-in flow")
-    @MainActor
-    func continueWithDemoSessionActivatesADemoSessionAndShowsTheSignedInFlow() async {
-        await withSUT { _, viewModel in
+    func activatesADemoSessionAndShowsTheSignedInFlow() async {
+        await Self.withSUT { _, _, viewModel in
             await viewModel.continueWithDemoSession()
 
             #expect(viewModel.state == .signedIn)
@@ -42,9 +80,8 @@ struct LandingViewModelTests {
     }
 
     @Test("keeps showing the signed-out flow when activating demo session fails")
-    @MainActor
-    func continueWithDemoSessionKeepsShowingTheSignedOutFlowWhenActivationFails() async {
-        await withSUT { sessionRepository, viewModel in
+    func keepsShowingTheSignedOutFlowWhenActivatingDemoSessionFails() async {
+        await Self.withSUT { sessionRepository, _, viewModel in
             await sessionRepository.setShouldFailActivation(true)
 
             await viewModel.continueWithDemoSession()
@@ -54,9 +91,8 @@ struct LandingViewModelTests {
     }
 
     @Test("clears the session and shows the signed-out flow")
-    @MainActor
-    func signOutClearsTheSessionAndShowsTheSignedOutFlow() async {
-        await withSUT { _, viewModel in
+    func clearsTheSessionAndShowsTheSignedOutFlow() async {
+        await Self.withSUT { _, _, viewModel in
             await viewModel.continueWithDemoSession()
 
             await viewModel.signOut()
@@ -66,9 +102,8 @@ struct LandingViewModelTests {
     }
 
     @Test("keeps showing the signed-in flow when clearing session fails")
-    @MainActor
-    func signOutKeepsShowingTheSignedInFlowWhenClearingSessionFails() async {
-        await withSUT { sessionRepository, viewModel in
+    func keepsShowingTheSignedInFlowWhenClearingSessionFails() async {
+        await Self.withSUT { sessionRepository, _, viewModel in
             await viewModel.continueWithDemoSession()
             await sessionRepository.setShouldFailClearSession(true)
 
@@ -79,12 +114,19 @@ struct LandingViewModelTests {
     }
 
     @MainActor
-    private func withSUT(
-        _ test: @MainActor (SessionRepositoryMock, LandingViewModel) async -> Void
+    private static func withSUT(
+        startupConfigLoadResult: StartupConfigLoadResult = .refreshed,
+        cancelFirstCall: Bool = false,
+        _ test: @MainActor (SessionRepositoryMock, StartupConfigLoaderMock, LandingViewModel) async -> Void
     ) async {
         Container.shared.reset()
 
         let sessionRepository = SessionRepositoryMock()
+        let startupConfigLoader = StartupConfigLoaderMock(
+            result: startupConfigLoadResult,
+            shouldCancelFirstCall: cancelFirstCall
+        )
+        Container.shared.loadStartupConfigUseCase.register { startupConfigLoader }
         Container.shared.sessionRepository.register { sessionRepository }
 
         let viewModel = LandingViewModel()
@@ -92,7 +134,7 @@ struct LandingViewModelTests {
             Container.shared.reset()
         }
 
-        await test(sessionRepository, viewModel)
+        await test(sessionRepository, startupConfigLoader, viewModel)
     }
 }
 
@@ -142,5 +184,33 @@ private actor SessionRepositoryMock: SessionRepositoryProtocol {
 
     func setShouldFailClearSession(_ shouldFailClearSession: Bool) {
         self.shouldFailClearSession = shouldFailClearSession
+    }
+}
+
+private actor StartupConfigLoaderMock: LoadStartupConfigUseCaseProtocol {
+
+    private let result: StartupConfigLoadResult
+    private let shouldCancelFirstCall: Bool
+    private var didCancelFirstCall = false
+    private var callCountValue = 0
+
+    init(result: StartupConfigLoadResult, shouldCancelFirstCall: Bool = false) {
+        self.result = result
+        self.shouldCancelFirstCall = shouldCancelFirstCall
+    }
+
+    func callAsFunction() async throws(CancellationError) -> StartupConfigLoadResult {
+        callCountValue += 1
+
+        if shouldCancelFirstCall, !didCancelFirstCall {
+            didCancelFirstCall = true
+            throw CancellationError()
+        }
+
+        return result
+    }
+
+    func callCount() -> Int {
+        callCountValue
     }
 }
