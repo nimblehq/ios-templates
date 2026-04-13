@@ -37,7 +37,7 @@ jobs:
         fetch-depth: 1
 
     - name: Install SSH key
-      uses: webfactory/ssh-agent@836c84ec59a0e7bc0eabc79988384eb567561ee2 # webfactory/ssh-agent@v0.7.0
+      uses: webfactory/ssh-agent@e83874834305fe9a4a2997156cb26c5de65a8555 # webfactory/ssh-agent@v0.10.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
