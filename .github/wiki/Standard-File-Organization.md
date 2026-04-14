@@ -124,17 +124,11 @@ To keep all current and upcoming iOS projects aligned, we standardize an iOS pro
 
 ## Modules
 
-This folder contains modules which represent targets in the project. Currently, it contains `Data` and `Domain` folder.
+This folder contains modules which represent targets in the project. Currently, it contains `Data`, `Domain` and `Model` folder.
 
-- Data: This folder contains two subfolders
-  - Sources: This folder contains only `.swift` files - the main source code of the module.
-  - Tests: This folder contains the unit testing.
-- Domain: This folder contains source files and Unit Test for the `Domain` target.
-  - Sources: This folder contains only `.swift` files - the main source code of the module.
-  - Tests: This folder contains the unit testing.
-- Model: This folder contains source files and Unit Tests for the `Model` target.
-  - Sources: This folder contains only `.swift` files, the module's main source code.
-  - Tests: This folder contains the unit testing.
+- Data: Contains the detailed implementation of repositories to provide data, Network layer for making API request...
+- Domain: Contains the use cases, shareable business logics, and protocols of repositories.
+- Model: Contains the models are used in the application.
 
 ## {ProjectName}
 
