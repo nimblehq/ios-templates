@@ -47,6 +47,8 @@ All four workflows have their own variables:
 
 *Depending on which workflow, the value of those variables may differ from other workflows.*
 
+The Fastlane build lanes use Bitrise's `BITRISE_BUILD_NUMBER` when setting the app build number.
+
 ### Secrets
 
 - MATCH_PASSWORD

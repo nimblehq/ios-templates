@@ -42,6 +42,8 @@ Out of the box, the CodeMagic Template has the following workflows and steps:
 | BUMP_APP_STORE_BUILD_NUMBER | The boolean flag to determine if the Fastlane should bump the app store build number. |
 | GITHUB_TOKEN                | The token of GitHub to run Danger.                           |
 
+The Fastlane build lanes use Codemagic's project-level build counter (`PROJECT_BUILD_NUMBER`) when setting the app build number.
+
 ## Installation
 
 1. Follow the setup instruction in [`README.md`](https://github.com/nimblehq/ios-templates#readme).

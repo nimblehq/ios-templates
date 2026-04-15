@@ -39,7 +39,7 @@ jobs:
     - name: Checkout Repo
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
       with:
-        fetch-depth: 0
+        fetch-depth: 1
 
     - name: Cache iOSTemplateMaker Build
       uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache@v5.0.4
@@ -81,6 +81,7 @@ jobs:
     - name: Setup CI environment
       uses: ./.github/actions/setup-ci-environment
 
+    # Run `make-test-firebase` before `make` — `make` removes `scripts/` when promoting the template.
     - name: Configure Template App for Firebase upload
       run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make-test-firebase
       env:

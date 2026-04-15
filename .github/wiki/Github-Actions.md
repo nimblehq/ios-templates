@@ -44,6 +44,8 @@ There are currently 4 workflows:
 5. Build archive version of the specified scheme.
 6. Deploy to Firebase Distribution, TestFlight, or App Store.
 
+The deploy workflows use `GITHUB_RUN_NUMBER` as the build counter, so they only need a shallow checkout instead of the full git history.
+
 # Installation
 
 ## Environment Secrets

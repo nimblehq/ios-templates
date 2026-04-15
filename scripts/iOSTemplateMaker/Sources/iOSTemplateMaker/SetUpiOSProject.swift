@@ -134,12 +134,17 @@ class SetUpIOSProject {
         }
         
         if bundleIdDev.isEmpty {
-            tryMoveDown()
-            bundleIdDev = ask(
-                "Which is the bundle ID for the dev environment?",
-                note: "Ex: com.example.project.dev",
-                onValidate: validatePackageName
-            )
+            if isCI {
+                bundleIdDev = inferDevBundleId()
+                write("Auto-filled dev bundle ID for CI: \(bundleIdDev)", style: .warning)
+            } else {
+                tryMoveDown()
+                bundleIdDev = ask(
+                    "Which is the bundle ID for the dev environment?",
+                    note: "Ex: com.example.project.dev",
+                    onValidate: validatePackageName
+                )
+            }
         }
 
         if projectName.isEmpty {
@@ -277,5 +282,17 @@ class SetUpIOSProject {
         let valid = version ~= versionRegex
 
         return valid ? nil : "Please pick a valid version with pattern {x.y}"
+    }
+
+    private func inferDevBundleId() -> String {
+        if bundleIdStaging.hasSuffix(".staging") {
+            return String(bundleIdStaging.dropLast(".staging".count)) + ".dev"
+        }
+
+        if !bundleIdProduction.isEmpty {
+            return "\(bundleIdProduction).dev"
+        }
+
+        return "\(bundleIdStaging).dev"
     }
 }

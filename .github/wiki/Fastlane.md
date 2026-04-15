@@ -146,3 +146,5 @@ The `Test` helps build and test the application.
 ### Version.swift
 
 The `Version` manages the application's build number and version number.
+
+When the app is built on CI, the Fastlane lanes prefer the CI provider's build counter instead of counting git commits. The template falls back to the commit count for local runs or when the CI build number is unavailable.
