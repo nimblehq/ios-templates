@@ -111,12 +111,14 @@ A stream that never calls `finish()` will stall its consumer indefinitely.
 
 ```swift
 AsyncThrowingStream { continuation in
-    do {
-        let data = try await fetch()
-        continuation.yield(data)
-        continuation.finish()          // ✓ Normal exit
-    } catch {
-        continuation.finish(throwing: error)   // ✓ Error exit
+    Task {
+        do {
+            let data = try await fetch()
+            continuation.yield(data)
+            continuation.finish()          // ✓ Normal exit
+        } catch {
+            continuation.finish(throwing: error)   // ✓ Error exit
+        }
     }
     // If there were an early return path, finish() must appear there too
 }
@@ -126,10 +128,12 @@ Use `defer` to guarantee finish:
 
 ```swift
 AsyncThrowingStream { continuation in
-    defer { continuation.finish() }
+    Task {
+        defer { continuation.finish() }
 
-    guard let data = try? await fetch() else { return }
-    continuation.yield(data)
+        guard let data = try? await fetch() else { return }
+        continuation.yield(data)
+    }
 }
 ```
 

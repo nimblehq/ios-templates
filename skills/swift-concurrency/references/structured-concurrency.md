@@ -182,17 +182,18 @@ React synchronously to cancellation (e.g., to cancel a legacy callback API):
 
 ```swift
 func fetchLegacy(url: URL) async throws -> Data {
+    var request: URLSessionDataTask?
     try await withTaskCancellationHandler {
         try await withCheckedThrowingContinuation { continuation in
-            let request = legacySession.dataTask(with: url) { data, _, error in
+            request = legacySession.dataTask(with: url) { data, _, error in
                 if let data { continuation.resume(returning: data) }
                 else { continuation.resume(throwing: error ?? URLError(.unknown)) }
             }
-            request.resume()
+            request?.resume()
         }
     } onCancel: {
         // Called synchronously on cancellation
-        request.cancel()   // Cancel the legacy task
+        request?.cancel()   // Cancel the legacy task
     }
 }
 ```
