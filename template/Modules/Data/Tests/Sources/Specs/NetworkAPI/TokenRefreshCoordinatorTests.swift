@@ -38,20 +38,14 @@ struct TokenRefreshCoordinatorTests {
     }
 
     @Test("throws missingToken when there is no session")
-    func throwsMissingTokenWhenThereIsNoSession() async {
+    func throwsMissingTokenWhenThereIsNoSession() async throws {
         let repository = MockSessionRepository(token: nil)
         let client = CountingRefreshClient(outcome: .success(refreshedToken))
         let coordinator = TokenRefreshCoordinator(sessionRepository: repository, refreshClient: client)
 
-        var caught: APIAuthenticationError?
-        do {
-            _ = try await coordinator.validAccessToken()
-        } catch let error as APIAuthenticationError {
-            caught = error
-        } catch {
-            Issue.record("Expected APIAuthenticationError, got \(error)")
+        await #expect(throws: APIAuthenticationError.missingToken) {
+            try await coordinator.validAccessToken()
         }
-        #expect(caught == .missingToken)
     }
 
     @Test("persists tokens returned from refresh")
@@ -68,7 +62,7 @@ struct TokenRefreshCoordinatorTests {
     }
 
     @Test("clears the session when refresh responds with 401")
-    func clearsSessionWhenRefreshRespondsWith401() async {
+    func clearsSessionWhenRefreshRespondsWith401() async throws {
         let repository = MockSessionRepository(token: initialToken)
         let unauthorized = AFError.responseValidationFailed(
             reason: .unacceptableStatusCode(code: 401)
@@ -76,33 +70,22 @@ struct TokenRefreshCoordinatorTests {
         let client = CountingRefreshClient(outcome: .failure(unauthorized))
         let coordinator = TokenRefreshCoordinator(sessionRepository: repository, refreshClient: client)
 
-        var caught: APIAuthenticationError?
-        do {
+        await #expect(throws: APIAuthenticationError.refreshTokenExpired) {
             try await coordinator.refresh()
-        } catch let error as APIAuthenticationError {
-            caught = error
-        } catch {
-            Issue.record("Expected APIAuthenticationError, got \(error)")
         }
-        #expect(caught == .refreshTokenExpired)
 
         let stored = await repository.currentTokenSet()
         #expect(stored == nil)
     }
 
     @Test("clears the session after refresh retries are exhausted")
-    func clearsSessionAfterRefreshRetriesExhausted() async {
+    func clearsSessionAfterRefreshRetriesExhausted() async throws {
         let repository = MockSessionRepository(token: initialToken)
         let client = CountingRefreshClient(outcome: .failure(URLError(.cannotConnectToHost)))
         let coordinator = TokenRefreshCoordinator(sessionRepository: repository, refreshClient: client)
 
-        var caughtError: APIAuthenticationError?
-        do {
+        let caughtError = await #expect(throws: APIAuthenticationError.self) {
             try await coordinator.refresh()
-        } catch let error as APIAuthenticationError {
-            caughtError = error
-        } catch {
-            Issue.record("Expected APIAuthenticationError, got \(error)")
         }
         
         if case .refreshFailed(_, let attemptCount) = caughtError {
@@ -114,6 +97,151 @@ struct TokenRefreshCoordinatorTests {
         let stored = await repository.currentTokenSet()
         #expect(stored == nil)
         #expect(await client.performRefreshCount() == TokenRefreshConfiguration.default.maxRetryAttempts + 1)
+    }
+
+    // MARK: - Concurrent Access Tests
+
+    @Test("concurrent validAccessToken calls wait for single refresh operation")
+    func concurrentValidAccessTokenCallsWaitForSingleRefresh() async throws {
+        let repository = MockSessionRepository(token: initialToken)
+        let delayedClient = DelayedRefreshClient(outcome: .success(refreshedToken), delay: 0.1)
+        let coordinator = TokenRefreshCoordinator(
+            sessionRepository: repository,
+            refreshClient: delayedClient,
+            configuration: TokenRefreshConfiguration(maxRetryAttempts: 1, baseBackoffSeconds: 0.1)
+        )
+
+        let refreshTask = Task {
+            try await coordinator.refresh()
+        }
+
+        try await Task.sleep(nanoseconds: 50_000_000)
+
+        async let token1 = coordinator.validAccessToken()
+        async let token2 = coordinator.validAccessToken()
+        async let token3 = coordinator.validAccessToken()
+
+        try await refreshTask.value
+
+        let (t1, t2, t3) = try await (token1, token2, token3)
+        #expect(t1 == "access-new")
+        #expect(t2 == "access-new")
+        #expect(t3 == "access-new")
+
+        #expect(await delayedClient.performRefreshCount() == 1)
+    }
+
+    @Test("concurrent refresh calls share single operation")
+    func concurrentRefreshCallsShareSingleOperation() async throws {
+        let repository = MockSessionRepository(token: initialToken)
+        let delayedClient = DelayedRefreshClient(outcome: .success(refreshedToken), delay: 0.1)
+        let coordinator = TokenRefreshCoordinator(
+            sessionRepository: repository,
+            refreshClient: delayedClient,
+            configuration: TokenRefreshConfiguration(maxRetryAttempts: 1, baseBackoffSeconds: 0.1)
+        )
+
+        async let refresh1 = coordinator.refresh()
+        async let refresh2 = coordinator.refresh()
+        async let refresh3 = coordinator.refresh()
+
+        try await refresh1
+        try await refresh2
+        try await refresh3
+
+        #expect(await delayedClient.performRefreshCount() == 1)
+
+        let stored = await repository.currentTokenSet()
+        #expect(stored?.accessToken == "access-new")
+    }
+
+    @Test("proactive refresh triggers when token is close to expiration")
+    func proactiveRefreshTriggersWhenTokenCloseToExpiration() async throws {
+        let soonToExpireToken = TokenSet(
+            accessToken: "access",
+            refreshToken: "refresh",
+            expiresAt: Date().addingTimeInterval(30)
+        )
+        let repository = MockSessionRepository(token: soonToExpireToken)
+        let client = CountingRefreshClient(outcome: .success(refreshedToken))
+        let coordinator = TokenRefreshCoordinator(
+            sessionRepository: repository,
+            refreshClient: client,
+            configuration: TokenRefreshConfiguration(
+                maxRetryAttempts: 1,
+                baseBackoffSeconds: 0.1,
+                proactiveRefreshThreshold: 60.0
+            )
+        )
+
+        let token = try await coordinator.validAccessToken()
+        #expect(token == "access") // Returns current token immediately
+
+        try await Task.sleep(nanoseconds: 100_000_000)
+
+        #expect(await client.performRefreshCount() == 1)
+    }
+
+    @Test("proactive refresh does not trigger when token is not expiring soon")
+    func proactiveRefreshDoesNotTriggerWhenTokenNotExpiringSoon() async throws {
+        let longLivedToken = TokenSet(
+            accessToken: "access",
+            refreshToken: "refresh",
+            expiresAt: Date().addingTimeInterval(3600)
+        )
+        let repository = MockSessionRepository(token: longLivedToken)
+        let client = CountingRefreshClient(outcome: .success(refreshedToken))
+        let coordinator = TokenRefreshCoordinator(
+            sessionRepository: repository,
+            refreshClient: client,
+            configuration: TokenRefreshConfiguration(
+                maxRetryAttempts: 1,
+                baseBackoffSeconds: 0.1,
+                proactiveRefreshThreshold: 60.0
+            )
+        )
+
+        let token = try await coordinator.validAccessToken()
+        #expect(token == "access")
+
+        try await Task.sleep(nanoseconds: 100_000_000)
+
+        #expect(await client.performRefreshCount() == 0)
+    }
+
+    @Test("refresh backoff delays increase exponentially")
+    func refreshBackoffDelaysIncreaseExponentially() async throws {
+        let repository = MockSessionRepository(token: initialToken)
+        let client = TimingRefreshClient(outcome: .failure(URLError(.cannotConnectToHost)))
+        let startTime = Date()
+        let coordinator = TokenRefreshCoordinator(
+            sessionRepository: repository,
+            refreshClient: client,
+            configuration: TokenRefreshConfiguration(
+                maxRetryAttempts: 2,
+                baseBackoffSeconds: 0.1
+            )
+        )
+
+        var caughtError: APIAuthenticationError?
+        do {
+            try await coordinator.refresh()
+        } catch let error as APIAuthenticationError {
+            caughtError = error
+        }
+
+        let endTime = Date()
+        let totalDuration = endTime.timeIntervalSince(startTime)
+
+        #expect(totalDuration >= 0.25)
+
+        #expect(await client.performRefreshCount() == 3)
+        
+        if case .refreshFailed(_, let attemptCount) = caughtError {
+            #expect(attemptCount == 3)
+        } else {
+            Issue.record("Expected refreshFailed error")
+        }
     }
 }
 
@@ -174,5 +302,74 @@ private actor CountingRefreshClient: RefreshTokenClient {
 
     func performRefreshCount() -> Int {
         count
+    }
+}
+
+private actor DelayedRefreshClient: RefreshTokenClient {
+
+    enum Outcome {
+        case success(TokenSet)
+        case failure(Error)
+    }
+
+    private let outcome: Outcome
+    private let delay: TimeInterval
+    private var count = 0
+
+    init(outcome: Outcome, delay: TimeInterval) {
+        self.outcome = outcome
+        self.delay = delay
+    }
+
+    func performRefresh(refreshToken: String) async throws -> any TokenSetProtocol {
+        count += 1
+        try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+        
+        switch outcome {
+        case .success(let token):
+            return token
+        case .failure(let error):
+            throw error
+        }
+    }
+
+    func performRefreshCount() -> Int {
+        count
+    }
+}
+
+private actor TimingRefreshClient: RefreshTokenClient {
+
+    enum Outcome {
+        case success(TokenSet)
+        case failure(Error)
+    }
+
+    private let outcome: Outcome
+    private var count = 0
+    private var callTimes: [Date] = []
+
+    init(outcome: Outcome) {
+        self.outcome = outcome
+    }
+
+    func performRefresh(refreshToken: String) async throws -> any TokenSetProtocol {
+        count += 1
+        callTimes.append(Date())
+        
+        switch outcome {
+        case .success(let token):
+            return token
+        case .failure(let error):
+            throw error
+        }
+    }
+
+    func performRefreshCount() -> Int {
+        count
+    }
+    
+    func getCallTimes() -> [Date] {
+        callTimes
     }
 }

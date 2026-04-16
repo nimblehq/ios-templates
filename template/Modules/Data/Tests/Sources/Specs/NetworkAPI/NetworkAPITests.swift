@@ -27,23 +27,19 @@ struct NetworkAPITests {
     }
 
     @Test("performRequest throws when the network returns an error status")
-    func performRequestThrowsOnErrorStatus() async {
+    func performRequestThrowsOnErrorStatus() async throws {
         let requestConfiguration = DummyRequestConfiguration()
         NetworkStubber.addStub(requestConfiguration, data: Foundation.Data(), statusCode: 400)
         defer { NetworkStubber.removeAllStubs() }
 
         let networkAPI = NetworkAPI()
 
-        var didThrow = false
-        do {
-            _ = try await networkAPI.performRequest(
+        await #expect(throws: (any Error).self) {
+            try await networkAPI.performRequest(
                 requestConfiguration,
                 for: DummyNetworkModel.self
             )
-        } catch {
-            didThrow = true
         }
-        #expect(didThrow)
     }
 
     @Test("performAuthenticatedRequest matches performRequest when no interceptor is configured")

@@ -18,22 +18,4 @@ public enum APIAuthenticationError: Error, Equatable {
     ///   - underlyingError: Description of the underlying error that caused the failure
     ///   - attemptCount: Total number of refresh attempts made
     case refreshFailed(underlyingError: String, attemptCount: Int)
-    
-    /// A network-related error occurred during authentication.
-    /// - Parameter: Description of the network error
-    case networkError(String)
-    
-    public static func == (lhs: APIAuthenticationError, rhs: APIAuthenticationError) -> Bool {
-        switch (lhs, rhs) {
-        case (.missingToken, .missingToken),
-             (.refreshTokenExpired, .refreshTokenExpired):
-            return true
-        case (.refreshFailed(let lhsError, let lhsCount), .refreshFailed(let rhsError, let rhsCount)):
-            return lhsError == rhsError && lhsCount == rhsCount
-        case (.networkError(let lhsError), .networkError(let rhsError)):
-            return lhsError == rhsError
-        default:
-            return false
-        }
-    }
 }

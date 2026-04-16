@@ -4,6 +4,7 @@
 
 import Alamofire
 import Domain
+import Model
 import Foundation
 
 /// Configuration for token refresh retry behavior.
@@ -14,23 +15,27 @@ public struct TokenRefreshConfiguration {
     /// Base delay in seconds for exponential backoff calculation.
     public let baseBackoffSeconds: Double
     
-    /// Default configuration with 2 retry attempts and 1 second base backoff.
+    /// Threshold in seconds before token expiration to trigger proactive refresh.
+    /// Set to 0 to disable proactive refresh.
+    public let proactiveRefreshThreshold: TimeInterval
+    
+    /// Default configuration with 2 retry attempts, 1 second base backoff, and 60 second proactive refresh threshold.
     public static let `default` = TokenRefreshConfiguration(
         maxRetryAttempts: 2,
-        baseBackoffSeconds: 1.0
+        baseBackoffSeconds: 1.0,
+        proactiveRefreshThreshold: 60.0
     )
     
-    public init(maxRetryAttempts: Int, baseBackoffSeconds: Double) {
+    public init(maxRetryAttempts: Int, baseBackoffSeconds: Double, proactiveRefreshThreshold: TimeInterval = 60.0) {
         self.maxRetryAttempts = maxRetryAttempts
         self.baseBackoffSeconds = baseBackoffSeconds
+        self.proactiveRefreshThreshold = proactiveRefreshThreshold
     }
 }
 
 /// Coordinates token refresh operations to ensure that concurrent callers share a single in-flight refresh request.
-public actor TokenRefreshCoordinator {
+public actor TokenRefreshCoordinator: TokenRefreshCoordinatorProtocol {
 
-    /// Maximum number of retry attempts for failed refresh operations.
-    public static let maxRetryAttempts = 2
     private static let nanosecondsPerSecond: UInt64 = 1_000_000_000
     
     private let configuration: TokenRefreshConfiguration
@@ -38,8 +43,7 @@ public actor TokenRefreshCoordinator {
     private let sessionRepository: any SessionRepositoryProtocol
     private let refreshClient: any RefreshTokenClient
 
-    private var isRefreshing = false
-    private var pendingContinuations: [CheckedContinuation<Void, any Error>] = []
+    private var refreshTask: Task<any TokenSetProtocol, Error>?
 
     public init(
         sessionRepository: any SessionRepositoryProtocol,
@@ -52,18 +56,23 @@ public actor TokenRefreshCoordinator {
     }
 
     /// Returns the current access token, waiting if a refresh is already in progress.
+    /// Proactively refreshes the token if it's close to expiration.
     ///
     /// - Returns: The current valid access token
     /// - Throws: `APIAuthenticationError.missingToken` if no token set is available
     public func validAccessToken() async throws -> String {
-        if isRefreshing {
-            try await withCheckedThrowingContinuation { continuation in
-                pendingContinuations.append(continuation)
-            }
+        if let refreshTask {
+            _ = try await refreshTask.value
         }
 
         guard let tokenSet = await sessionRepository.currentTokenSet() else {
             throw APIAuthenticationError.missingToken
+        }
+
+        if shouldProactivelyRefresh(tokenSet) {
+            Task {
+                try? await refresh()
+            }
         }
 
         return tokenSet.accessToken
@@ -73,38 +82,22 @@ public actor TokenRefreshCoordinator {
     ///
     /// - Throws: `APIAuthenticationError` for authentication-specific failures, or the underlying network error
     public func refresh() async throws {
-        if isRefreshing {
-            try await withCheckedThrowingContinuation { continuation in
-                pendingContinuations.append(continuation)
-            }
+        if let existingTask = refreshTask {
+            _ = try await existingTask.value
             return
         }
 
-        isRefreshing = true
-
-        do {
+        let task = Task<any TokenSetProtocol, Error> {
             try await performRefresh()
-            resumeAll(throwing: nil)
-        } catch {
-            resumeAll(throwing: error)
-            throw error
         }
+        
+        refreshTask = task
+        defer { refreshTask = nil }
+        
+        _ = try await task.value
     }
 
-    private func resumeAll(throwing error: (any Error)?) {
-        isRefreshing = false
-        let continuations = pendingContinuations
-        pendingContinuations = []
-        for continuation in continuations {
-            if let error {
-                continuation.resume(throwing: error)
-            } else {
-                continuation.resume()
-            }
-        }
-    }
-
-    private func performRefresh() async throws {
+    private func performRefresh() async throws -> any TokenSetProtocol {
         guard let currentTokenSet = await sessionRepository.currentTokenSet() else {
             await clearSessionIgnoringError()
             throw APIAuthenticationError.missingToken
@@ -123,7 +116,7 @@ public actor TokenRefreshCoordinator {
                     refreshToken: currentTokenSet.refreshToken
                 )
                 try await sessionRepository.save(tokenSet: newTokenSet)
-                return
+                return newTokenSet
             } catch {
                 if let afError = error.asAFError, afError.responseCode == 401 {
                     await clearSessionIgnoringError()
@@ -148,5 +141,15 @@ public actor TokenRefreshCoordinator {
     private func calculateBackoffDelay(for attempt: Int) -> UInt64 {
         let backoffSeconds = configuration.baseBackoffSeconds * pow(2.0, Double(attempt - 1))
         return UInt64(backoffSeconds * Double(Self.nanosecondsPerSecond))
+    }
+    
+    private func shouldProactivelyRefresh(_ tokenSet: any TokenSetProtocol) -> Bool {
+        guard configuration.proactiveRefreshThreshold > 0,
+              let expiresAt = tokenSet.expiresAt else {
+            return false
+        }
+        
+        let timeUntilExpiration = expiresAt.timeIntervalSinceNow
+        return timeUntilExpiration > 0 && timeUntilExpiration <= configuration.proactiveRefreshThreshold
     }
 }

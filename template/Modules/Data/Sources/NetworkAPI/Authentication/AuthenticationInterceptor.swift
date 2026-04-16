@@ -13,9 +13,9 @@ import Foundation
 /// 2. **Response Retry**: Automatically retries requests that fail with 401 status after refreshing the token
 public final class AuthenticationInterceptor: RequestInterceptor {
 
-    private let coordinator: TokenRefreshCoordinator
+    private let coordinator: any TokenRefreshCoordinatorProtocol
 
-    public init(coordinator: TokenRefreshCoordinator) {
+    public init(coordinator: any TokenRefreshCoordinatorProtocol) {
         self.coordinator = coordinator
     }
 
