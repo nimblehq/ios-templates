@@ -105,6 +105,7 @@ extension Target {
 
         if module == .data {
             dependencies.append(.package(product: "Alamofire"))
+            dependencies.append(.package(product: "FirebaseRemoteConfig"))
             dependencies.append(.package(product: "OHHTTPStubsSwift"))
         }
 
