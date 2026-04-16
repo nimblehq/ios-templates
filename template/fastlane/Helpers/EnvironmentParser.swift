@@ -14,6 +14,10 @@ enum EnvironmentParser {
         string(key: key) == "true"
     }
 
+    static func integer(key: String) -> Int? {
+        Int(string(key: key))
+    }
+
     static func string(key: String) -> String {
         environmentVariable(get: .userDefined(key))
     }

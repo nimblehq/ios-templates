@@ -56,5 +56,5 @@ private struct DemoTokenSet: TokenSetProtocol {
 
     let accessToken = "demo-access-token"
     let refreshToken = "demo-refresh-token"
-    let expiresAt = Calendar.current.date(byAdding: .day, value: 30, to: Date())
+    let expiresAt: Date? = Date().addingTimeInterval(60 * 60 * 24 * 30)
 }

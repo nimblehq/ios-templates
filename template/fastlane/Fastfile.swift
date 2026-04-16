@@ -239,10 +239,22 @@ class Fastfile: LaneFile {
         )
     }
 
-    private func bumpBuild(buildNumber: Int = numberOfCommits()) {
-        desc("Set build number with number of commits")
+    private func bumpBuild(buildNumber: Int? = nil) {
+        let ciBuildNumber = Build.ciBuildNumber
+        let resolvedBuildNumber = buildNumber ?? ciBuildNumber ?? numberOfCommits()
+        let buildSource: String
+
+        if buildNumber != nil {
+            buildSource = "provided build number"
+        } else if ciBuildNumber != nil {
+            buildSource = "CI build number"
+        } else {
+            buildSource = "number of commits"
+        }
+
+        desc("Set build number with \(buildSource)")
         incrementBuildNumber(
-            buildNumber: .userDefined(String(buildNumber)),
+            buildNumber: .userDefined(String(resolvedBuildNumber)),
             xcodeproj: .userDefined(Constant.projectPath)
         )
     }

@@ -20,6 +20,20 @@ enum Build {
         build(environment: .production, type: .appStore)
     }
 
+    static var ciBuildNumber: Int? {
+        switch Constant.platform {
+        case .gitHubActions:
+            return EnvironmentParser.integer(key: "GITHUB_RUN_NUMBER")
+        case .bitrise:
+            return EnvironmentParser.integer(key: "BITRISE_BUILD_NUMBER")
+        case .codeMagic:
+            return EnvironmentParser.integer(key: "PROJECT_BUILD_NUMBER")
+                ?? EnvironmentParser.integer(key: "BUILD_NUMBER")
+        default:
+            return nil
+        }
+    }
+
     // MARK: Save the build context
 
     static func saveBuildContextToCI() {
@@ -79,8 +93,7 @@ enum Build {
             exportMethod: .userDefined(type.value),
             exportOptions: .userDefined(exportOptions),
             buildPath: .userDefined(Constant.buildPath),
-            derivedDataPath: .userDefined(Constant.derivedDataPath),
-            xcargs: .userDefined("-verbose")
+            derivedDataPath: .userDefined(Constant.derivedDataPath)
         )
         
         echo(message: "✅ Build process completed")
