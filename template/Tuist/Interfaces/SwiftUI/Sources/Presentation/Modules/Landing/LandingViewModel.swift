@@ -54,7 +54,7 @@ final class LandingViewModel: ObservableObject {
 
 private struct DemoTokenSet: TokenSetProtocol {
 
-    var accessToken: String { "demo-access-token" }
-    var refreshToken: String { "demo-refresh-token" }
-    var expiresAt: Date? { Date().addingTimeInterval(60 * 60 * 24 * 30) }
+    let accessToken = "demo-access-token"
+    let refreshToken = "demo-refresh-token"
+    let expiresAt: Date? = Date().addingTimeInterval(60 * 60 * 24 * 30)
 }
