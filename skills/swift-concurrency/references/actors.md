@@ -22,12 +22,12 @@ actor SessionManager {
 
     func logIn(userId: String) {
         isAuthenticated = true
-        currentUserId = userId
+        self.userId = userId
     }
 
     func logOut() {
         isAuthenticated = false
-        currentUserId = nil
+        userId = nil
     }
 }
 ```
@@ -184,6 +184,7 @@ await MainActor.run {
 func updateUI() {
     // Automatically on main thread
 }
+```
 
 ### Custom global actor
 
@@ -237,8 +238,6 @@ final class HomeViewModel: Refreshable {
     func refresh() { /* runs on main actor */ }
 }
 ```
-
-If the protocol is unannotated and from a third-party framework, use `@preconcurrency` (see `references/migration.md`).
 
 ## Actor reentrancy
 
