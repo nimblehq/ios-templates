@@ -125,6 +125,7 @@ extension Target {
                 // Testing
                 .package(product: "Quick"),
                 .package(product: "Nimble"),
+                .package(product: "FactoryKit"),
                 .package(product: "OHHTTPStubsSwift"), // From OHHTTPStubs package
             ],
             settings: .settings(

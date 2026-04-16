@@ -10,7 +10,7 @@ struct DefaultRemoteConfigRepositoryTests {
     func returnsATypedStoredValue() async {
         let booleanKey = RemoteConfigKey(name: "feature_enabled", defaultValue: false)
         let repository = DefaultRemoteConfigRepository(
-            source: StubRemoteConfigSource(values: [
+            source: StubConfigSource(values: [
                 booleanKey.name: .string("true")
             ])
         )
@@ -24,7 +24,7 @@ struct DefaultRemoteConfigRepositoryTests {
     func fallsBackToTheKeyDefaultValueWhenTheSourceHasNoValue() async {
         let titleKey = RemoteConfigKey(name: "feature_title", defaultValue: "Default title")
         let repository = DefaultRemoteConfigRepository(
-            source: StubRemoteConfigSource()
+            source: StubConfigSource()
         )
 
         let value = await repository.value(for: titleKey)
@@ -33,7 +33,7 @@ struct DefaultRemoteConfigRepositoryTests {
     }
 }
 
-private actor StubRemoteConfigSource: RemoteConfigSource {
+private actor StubConfigSource: ConfigSource {
 
     private let values: [String: RemoteConfigStoredValue]
 

@@ -2,18 +2,23 @@ import Testing
 
 @testable import Data
 import Domain
+import FactoryKit
 
-@Suite("DefaultFeatureFlagRepository")
+@Suite("DefaultFeatureFlagRepository", .serialized)
 struct DefaultFeatureFlagRepositoryTests {
 
     @Test("reads feature flags through the remote config repository")
     func readsFeatureFlagsThroughTheRemoteConfigRepository() async {
+        Container.shared.reset()
+        defer { Container.shared.reset() }
+
         let welcomeFlag = FeatureFlag(name: "welcome_enabled")
-        let repository = DefaultFeatureFlagRepository(
-            remoteConfigRepository: StubRemoteConfigRepository(values: [
+        Container.shared.remoteConfigRepository.register {
+            StubRemoteConfigRepository(values: [
                 welcomeFlag.name: .bool(true)
             ])
-        )
+        }
+        let repository = DefaultFeatureFlagRepository()
 
         let isEnabled = await repository.isEnabled(welcomeFlag)
 
@@ -22,9 +27,11 @@ struct DefaultFeatureFlagRepositoryTests {
 
     @Test("falls back to the flag default value")
     func fallsBackToTheFlagDefaultValue() async {
-        let repository = DefaultFeatureFlagRepository(
-            remoteConfigRepository: StubRemoteConfigRepository()
-        )
+        Container.shared.reset()
+        defer { Container.shared.reset() }
+
+        Container.shared.remoteConfigRepository.register { StubRemoteConfigRepository() }
+        let repository = DefaultFeatureFlagRepository()
         let featureFlag = FeatureFlag(name: "new_home_enabled", defaultValue: true)
 
         let isEnabled = await repository.isEnabled(featureFlag)
