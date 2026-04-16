@@ -27,6 +27,7 @@ public enum Module: CaseIterable {
                 .target(name: Module.model.name),
                 .package(product: "Alamofire"),
                 .package(product: "KeychainAccess"),
+                .package(product: "FirebaseRemoteConfig"),
                 .package(product: "FactoryKit")
             ]
         }
