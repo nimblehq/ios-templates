@@ -9,6 +9,7 @@ import Foundation
 
 /// Configuration for token refresh retry behavior.
 public struct TokenRefreshConfiguration {
+
     /// Maximum number of retry attempts for failed refresh operations.
     public let maxRetryAttempts: Int
     

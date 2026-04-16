@@ -308,6 +308,7 @@ private actor CountingRefreshClient: RefreshTokenClient {
 private actor DelayedRefreshClient: RefreshTokenClient {
 
     enum Outcome {
+
         case success(TokenSet)
         case failure(Error)
     }
@@ -341,6 +342,7 @@ private actor DelayedRefreshClient: RefreshTokenClient {
 private actor TimingRefreshClient: RefreshTokenClient {
 
     enum Outcome {
+
         case success(TokenSet)
         case failure(Error)
     }

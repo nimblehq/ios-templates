@@ -320,7 +320,9 @@ private actor MockSessionRepository: SessionRepositoryProtocol {
 }
 
 private actor MockRefreshClient: RefreshTokenClient {
+
     enum Outcome {
+
         case success(TokenSet)
         case failure(Error)
     }
@@ -342,6 +344,7 @@ private actor MockRefreshClient: RefreshTokenClient {
 }
 
 private actor MockTokenRefreshCoordinator: TokenRefreshCoordinatorProtocol {
+
     private let sessionRepository: any SessionRepositoryProtocol
     private let refreshClient: any RefreshTokenClient
     private let validTokenResult: Result<String, Error>
