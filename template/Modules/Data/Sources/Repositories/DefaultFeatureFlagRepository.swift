@@ -7,7 +7,7 @@ import FactoryKit
 
 public struct DefaultFeatureFlagRepository: FeatureFlagRepository, Sendable {
 
-    @Injected(\.remoteConfigRepository) private var remoteConfigRepository: any RemoteConfigRepository
+    @Injected(\.remoteConfigRepository) private var remoteConfigRepository
 
     public init() {}
 

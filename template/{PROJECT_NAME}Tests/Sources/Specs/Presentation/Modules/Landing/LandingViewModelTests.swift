@@ -228,7 +228,7 @@ private actor StartupConfigLoaderMock: LoadStartupConfigUseCaseProtocol {
         self.shouldCancelFirstCall = shouldCancelFirstCall
     }
 
-    func execute() async throws -> StartupConfigLoadResult {
+    func callAsFunction() async throws -> StartupConfigLoadResult {
         callCountValue += 1
 
         if shouldCancelFirstCall, !didCancelFirstCall {

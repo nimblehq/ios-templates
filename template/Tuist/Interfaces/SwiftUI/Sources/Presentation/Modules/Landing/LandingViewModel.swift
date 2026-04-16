@@ -28,7 +28,7 @@ final class LandingViewModel: ObservableObject {
         guard !hasRestoredSession else { return }
 
         do {
-            startupConfigLoadResult = try await loadStartupConfigUseCase.execute()
+            startupConfigLoadResult = try await loadStartupConfigUseCase()
         } catch is CancellationError {
             return
         } catch {
