@@ -3,6 +3,12 @@ name: PR Report
 on:
   workflow_dispatch:
   push:
+    paths-ignore:
+      - README.md
+      - AGENTS.md
+      - .github/wiki/**
+      - template/README.md
+      - template/AGENTS.md
   schedule:
     - cron: '0 2 * * 1-5' # weekdays at 9 AM ICT (UTC+7)
 

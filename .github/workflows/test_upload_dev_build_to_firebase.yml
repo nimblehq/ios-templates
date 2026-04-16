@@ -10,6 +10,12 @@ on:
   push:
     branches:
       - develop
+    paths-ignore:
+      - README.md
+      - AGENTS.md
+      - .github/wiki/**
+      - template/README.md
+      - template/AGENTS.md
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -27,6 +33,14 @@ jobs:
       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
       with:
         fetch-depth: 0
+
+    - name: Cache iOSTemplateMaker Build
+      uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache@v5.0.4
+      with:
+        path: scripts/iOSTemplateMaker/.build
+        key: ${{ runner.os }}-iostemplatemaker-${{ hashFiles('scripts/iOSTemplateMaker/Package.swift', 'scripts/iOSTemplateMaker/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-iostemplatemaker-
 
     - name: Create Release Note
       run: |

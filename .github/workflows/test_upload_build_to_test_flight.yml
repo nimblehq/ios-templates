@@ -38,14 +38,13 @@ jobs:
     - name: Setup CI environment
       uses: ./.github/actions/setup-ci-environment
 
-    - name: Cache SPM Packages
+    - name: Cache iOSTemplateMaker Build
       uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache@v5.0.4
-      id: spmCache
       with:
-        path: .build
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        path: scripts/iOSTemplateMaker/.build
+        key: ${{ runner.os }}-iostemplatemaker-${{ hashFiles('scripts/iOSTemplateMaker/Package.swift', 'scripts/iOSTemplateMaker/Package.resolved') }}
         restore-keys: |
-          ${{ runner.os }}-spm-
+          ${{ runner.os }}-iostemplatemaker-
 
     - name: Start Install Script for Template App
       run: swift run --package-path scripts/iOSTemplateMaker iOSTemplateMaker make --bundle-id-production co.nimblehq.ios.templates --bundle-id-staging co.nimblehq.ios.templates.staging --project-name TemplateApp
