@@ -168,6 +168,10 @@ class Fastfile: LaneFile {
 
     func buildAndTestLane() {
         desc("Build and Test project")
+        guard testTargetCount() > 0 else {
+            echo(message: "🚨 Nothing to test")
+            return
+        }
         Test.buildAndTest(
             environment: .staging,
             devices: Constant.devices
@@ -176,6 +180,10 @@ class Fastfile: LaneFile {
 
     func buildAndTestDevLane() {
         desc("Build and Test dev project")
+        guard testTargetCount() > 0 else {
+            echo(message: "🚨 Nothing to test")
+            return
+        }
         Test.buildAndTest(
             environment: .dev,
             devices: Constant.devices
@@ -267,5 +275,14 @@ class Fastfile: LaneFile {
         incrementBuildNumber(
             buildNumber: .userDefined("\(theLatestBuildNumber)")
         )
+    }
+
+    private func testTargetCount(in testPlanPath: String = "\(Constant.projectName).xctestplan") -> Int {
+        guard let data = FileManager.default.contents(atPath: testPlanPath),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let testTargets = json?["testTargets"] as? [Any] else {
+            return 0
+        }
+        return testTargets.count
     }
 }

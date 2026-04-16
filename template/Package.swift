@@ -33,6 +33,5 @@ let package = Package(
         .package(url: "https://github.com/Quick/Quick.git", from: "7.6.2"),
         .package(url: "https://github.com/Quick/Nimble.git", from: "14.0.0"),
         .package(url: "https://github.com/AliSoftware/OHHTTPStubs.git", from: "9.1.0"), // Provides OHHTTPStubsSwift product
-        .package(url: "https://github.com/mikeger/XcodeSelectiveTesting.git", from: "0.14.2") // Selective Testing
     ]
 )

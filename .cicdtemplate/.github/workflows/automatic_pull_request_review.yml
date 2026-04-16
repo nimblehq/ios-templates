@@ -25,6 +25,9 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gems-
 
+    - name: Setup Mint
+      uses: irgaly/setup-mint@8566ee44b3a79d20642d1924db21c8ab0402859f # irgaly/setup-mint@v1
+
     - name: Setup CI environment
       uses: ./.github/actions/setup-ci-environment
       with:
@@ -40,6 +43,13 @@ jobs:
 
     - name: Run Arkana
       run: bundle exec arkana
+
+    # using mikeger/XcodeSelectiveTesting@0.14.5
+    - name: Modify test plan
+      run: |
+        mint run mikeger/XcodeSelectiveTesting@1c0927e5553a9ddb6b3634d6d13497651a0ef476 iOSTemplate.xcodeproj \
+        --test-plan iOSTemplate.xctestplan \
+        --base-branch origin/${{ github.base_ref }}
 
     - name: Build and Test
       run: bundle exec fastlane buildAndTest
