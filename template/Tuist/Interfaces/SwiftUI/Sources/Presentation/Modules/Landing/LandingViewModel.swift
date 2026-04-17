@@ -13,6 +13,7 @@ final class LandingViewModel: ObservableObject {
         case loading
         case signedOut
         case signedIn
+        case forceUpdateRequired
     }
 
     @Published private(set) var state: State = .loading
@@ -20,6 +21,7 @@ final class LandingViewModel: ObservableObject {
 
     @Injected(\.loadStartupConfigUseCase) private var loadStartupConfigUseCase: any LoadStartupConfigUseCaseProtocol
     @Injected(\.sessionRepository) private var sessionRepository: any SessionRepositoryProtocol
+    @Injected(\.checkForceUpdateUseCase) private var checkForceUpdateUseCase: any CheckForceUpdateUseCaseProtocol
     private var hasRestoredSession = false
 
     func restoreSessionIfNeeded() async {
@@ -29,9 +31,16 @@ final class LandingViewModel: ObservableObject {
             startupConfigLoadResult = try await loadStartupConfigUseCase()
         } catch is CancellationError {
             return
+        } catch {
+            startupConfigLoadResult = .usedLocalDefaults
         }
 
         hasRestoredSession = true
+
+        guard !(await checkForceUpdateUseCase()) else {
+            state = .forceUpdateRequired
+            return
+        }
         state = await sessionRepository.hasActiveSession() ? .signedIn : .signedOut
     }
 

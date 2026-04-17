@@ -4,7 +4,7 @@
 
 public protocol LoadStartupConfigUseCaseProtocol: Sendable {
 
-    func callAsFunction() async throws(CancellationError) -> StartupConfigLoadResult
+    func callAsFunction() async throws -> StartupConfigLoadResult
 }
 
 public struct LoadStartupConfigUseCase: LoadStartupConfigUseCaseProtocol, Sendable {
@@ -15,7 +15,7 @@ public struct LoadStartupConfigUseCase: LoadStartupConfigUseCaseProtocol, Sendab
         self.remoteConfigRepository = remoteConfigRepository
     }
 
-    public func callAsFunction() async throws(CancellationError) -> StartupConfigLoadResult {
+    public func callAsFunction() async throws -> StartupConfigLoadResult {
         do {
             try await remoteConfigRepository.refresh()
             return .refreshed
