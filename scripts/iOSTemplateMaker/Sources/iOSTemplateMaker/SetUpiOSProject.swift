@@ -173,6 +173,7 @@ class SetUpIOSProject {
         try fileManager.rename(file: "template/\(CONSTANT_PROJECT_NAME)Tests", to: "template/\(projectNameNoSpace)Tests")
         try fileManager.rename(file: "template/\(CONSTANT_PROJECT_NAME)KIFUITests", to: "template/\(projectNameNoSpace)KIFUITests")
         try fileManager.rename(file: "template/\(CONSTANT_PROJECT_NAME)", to: "template/\(projectNameNoSpace)")
+        try fileManager.rename(file: "template/\(CONSTANT_PROJECT_NAME).xctestplan", to: "template/\(projectNameNoSpace).xctestplan")
     }
 
     private func createPlaceholderFiles() throws {

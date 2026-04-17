@@ -2,52 +2,48 @@ import ProjectDescription
 
 extension Scheme {
     public static func productionScheme(name: String) -> Scheme {
-        let debugConfigName = BuildConfiguration.debugProduction.name
-        let releaseConfigName = BuildConfiguration.releaseProduction.name
-
-        return .scheme(
+        makeScheme(
             name: name,
-            shared: true,
-            buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets(testTargets(for: name), configuration: debugConfigName),
-            runAction: .runAction(configuration: debugConfigName),
-            archiveAction: .archiveAction(configuration: releaseConfigName)
+            debugConfiguration: .debugProduction,
+            releaseConfiguration: .releaseProduction
         )
     }
 
     public static func stagingScheme(name: String) -> Scheme {
-        let debugConfigName = BuildConfiguration.debugStaging.name
-        let releaseConfigName = BuildConfiguration.releaseStaging.name
-
-        return .scheme(
-            name: "\(name) Staging",
-            shared: true,
-            buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets(testTargets(for: name), configuration: debugConfigName),
-            runAction: .runAction(configuration: debugConfigName),
-            archiveAction: .archiveAction(configuration: releaseConfigName)
+        makeScheme(
+            name: name,
+            schemeSuffix: "Staging",
+            debugConfiguration: .debugStaging,
+            releaseConfiguration: .releaseStaging
         )
     }
-    
+
     public static func devScheme(name: String) -> Scheme {
-        let debugConfigName = BuildConfiguration.debugDev.name
-        let releaseConfigName = BuildConfiguration.releaseDev.name
-
-        return .scheme(
-            name: "\(name) Dev",
-            shared: true,
-            buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: TestAction.targets(testTargets(for: name), configuration: debugConfigName),
-            runAction: .runAction(configuration: debugConfigName),
-            archiveAction: .archiveAction(configuration: releaseConfigName),
+        makeScheme(
+            name: name,
+            schemeSuffix: "Dev",
+            debugConfiguration: .debugDev,
+            releaseConfiguration: .releaseDev
         )
     }
 
-    private static func testTargets(for name: String) -> [TestableTarget] {
-        [
-            .testableTarget(target: TargetReference(stringLiteral: Module.domain.name + Constant.testsPath)),
-            .testableTarget(target: TargetReference(stringLiteral: Module.data.name + Constant.testsPath)),
-            .testableTarget(target: TargetReference(stringLiteral: "\(name)Tests"))
-        ]
+    private static func makeScheme(
+        name: String,
+        schemeSuffix: String? = nil,
+        debugConfiguration: BuildConfiguration,
+        releaseConfiguration: BuildConfiguration
+    ) -> Scheme {
+        let schemeName = [name, schemeSuffix]
+            .compactMap { $0 }
+            .joined(separator: " ")
+
+        return .scheme(
+            name: schemeName,
+            shared: true,
+            buildAction: .buildAction(targets: ["\(name)"]),
+            testAction: .testPlans([.path("\(name).xctestplan")], configuration: debugConfiguration.name),
+            runAction: .runAction(configuration: debugConfiguration.name),
+            archiveAction: .archiveAction(configuration: releaseConfiguration.name)
+        )
     }
 }
