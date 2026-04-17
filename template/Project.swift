@@ -59,6 +59,9 @@ extension Project {
                 .productionScheme(name: name),
                 .stagingScheme(name: name),
                 .devScheme(name: name)
+            ],
+            additionalFiles: [
+                "\(name).xctestplan"
             ]
         )
     }

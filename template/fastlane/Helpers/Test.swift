@@ -25,6 +25,7 @@ enum Test {
             scheme: .userDefined(environment.scheme),
             devices: .userDefined(devices),
             onlyTesting: onlyTesting,
+            testplan: .userDefined("\(Constant.projectName)"),
             codeCoverage: .userDefined(true),
             outputDirectory: Constant.testOutputDirectoryPath,
             resultBundle: .userDefined(true),
