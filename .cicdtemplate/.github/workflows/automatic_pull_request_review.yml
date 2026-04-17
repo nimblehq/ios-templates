@@ -9,8 +9,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  review_pull_request:
-    name: Pull request review by Danger
+  early_review:
+    name: Early PR review by Danger
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
@@ -29,7 +29,35 @@ jobs:
       uses: ./.github/actions/setup-ci-environment
       with:
         bundler-cache: "false"
-        bundle-install-command: "bundle install --path vendor/bundle"
+        bundle-install-command: "bundle config set --local path 'vendor/bundle' && bundle install"
+
+    - name: Early PR review by Danger
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: bundle exec danger --dangerfile=template/EarlyDangerfile
+
+  build_and_test:
+    name: Build and Test
+    runs-on: macOS-latest
+    needs: early_review
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
+      with:
+        fetch-depth: 0
+
+    - uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache@v5.0.4
+      id: bundlerCache
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    - name: Setup CI environment
+      uses: ./.github/actions/setup-ci-environment
+      with:
+        bundler-cache: "false"
+        bundle-install-command: "bundle config set --local path 'vendor/bundle' && bundle install"
 
     - name: Setup ENV file
       env:
@@ -49,7 +77,7 @@ jobs:
     - name: Clean up previous code coverage report
       run: bundle exec fastlane cleanUpOutput
 
-    - name: Review pull request by Danger
+    - name: Post-build PR review by Danger
       env:
         DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: bundle exec danger
