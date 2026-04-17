@@ -50,7 +50,8 @@ public final class AppConfig<DecodedConfig: Sendable>: AppConfigProtocol {
     }
 
     public func setUp() {
-        remoteConfig = RemoteConfig.remoteConfig()
+        // Uncomment after we set up firebase remote config
+//        remoteConfig = RemoteConfig.remoteConfig()
         setUpConfigSettings()
         setUpDefaults()
         setUpListener()
