@@ -11,4 +11,18 @@ extension Container {
     var checkForceUpdateUseCase: Factory<CheckForceUpdateUseCaseProtocol> {
         self { CheckForceUpdateUseCase(remoteConfigRepository: self.remoteConfigRepository()) }
     }
+
+    var shouldShowRatingPromptUseCase: Factory<ShouldShowRatingPromptUseCaseProtocol> {
+        self { ShouldShowRatingPromptUseCase(storage: self.ratingPromptStorage()) }
+    }
+
+    var requestRatingPromptUseCase: Factory<RequestRatingPromptUseCaseProtocol> {
+        self {
+            RequestRatingPromptUseCase(
+                storage: self.ratingPromptStorage(),
+                shouldShowRatingPromptUseCase: self.shouldShowRatingPromptUseCase(),
+                presenter: self.ratingPromptPresenter()
+            )
+        }
+    }
 }

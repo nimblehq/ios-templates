@@ -46,4 +46,13 @@ extension Container {
         self { NetworkAPI(authenticationInterceptor: self.authenticationInterceptor()) }
             .singleton
     }
+
+    public var ratingPromptStorage: Factory<RatingPromptStorageProtocol> {
+        self { RatingPromptStorage(userDefaultsManager: self.userDefaultsManager()) }.singleton
+    }
+
+    public var ratingPromptPresenter: Factory<RatingPromptPresenterProtocol> {
+        self { DefaultRatingPromptPresenter() }.singleton
+    }
+
 }
