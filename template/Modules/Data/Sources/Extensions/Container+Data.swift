@@ -50,9 +50,4 @@ extension Container {
     public var ratingPromptStorage: Factory<RatingPromptStorageProtocol> {
         self { RatingPromptStorage(userDefaultsManager: self.userDefaultsManager()) }.singleton
     }
-
-    public var ratingPromptPresenter: Factory<RatingPromptPresenterProtocol> {
-        self { DefaultRatingPromptPresenter() }.singleton
-    }
-
 }

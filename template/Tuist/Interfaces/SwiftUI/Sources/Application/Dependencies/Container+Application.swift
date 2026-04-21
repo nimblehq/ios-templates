@@ -25,4 +25,8 @@ extension Container {
             )
         }
     }
+
+    var ratingPromptPresenter: Factory<RatingPromptPresenterProtocol> {
+        self { DefaultRatingPromptPresenter(storeReviewController: StoreReviewController()) }.singleton
+    }
 }

@@ -4,6 +4,7 @@ import Foundation
 final class RatingPromptStorage: RatingPromptStorageProtocol, @unchecked Sendable {
     
     private let userDefaultsManager: UserDefaultsManagerProtocol
+    private let lock = NSLock()
     
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
@@ -29,11 +30,12 @@ final class RatingPromptStorage: RatingPromptStorageProtocol, @unchecked Sendabl
     }
     
     func recordAppLaunch() {
-        // Increment launch count
+        lock.lock()
+        defer { lock.unlock() }
+        
         let currentCount = userDefaultsManager.getIntValue(for: UserDefaultsKey.ratingPromptAppLaunchCount.rawValue)
         userDefaultsManager.set(currentCount + 1, for: UserDefaultsKey.ratingPromptAppLaunchCount.rawValue)
         
-        // Set first launch date if not already set
         if userDefaultsManager.getDataValue(for: UserDefaultsKey.ratingPromptFirstLaunchDate.rawValue) == nil {
             let now = Date()
             if let dateData = try? JSONEncoder().encode(now) {
@@ -45,6 +47,9 @@ final class RatingPromptStorage: RatingPromptStorageProtocol, @unchecked Sendabl
     }
     
     func recordSignificantEvent() {
+        lock.lock()
+        defer { lock.unlock() }
+        
         let currentCount = userDefaultsManager.getIntValue(for: UserDefaultsKey.ratingPromptSignificantEventCount.rawValue)
         userDefaultsManager.set(currentCount + 1, for: UserDefaultsKey.ratingPromptSignificantEventCount.rawValue)
         userDefaultsManager.synchronize()

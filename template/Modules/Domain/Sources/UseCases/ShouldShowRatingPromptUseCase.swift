@@ -28,24 +28,18 @@ public struct ShouldShowRatingPromptUseCase: ShouldShowRatingPromptUseCaseProtoc
     public func callAsFunction(configuration: RatingPromptConfiguration) -> Bool {
         let data = storage.getRatingPromptData()
         
-        if data.hasBeenPromptedForCurrentVersion(currentVersion) {
+        guard !data.hasBeenPromptedForCurrentVersion(currentVersion) else {
             return false
         }
         
-        let daysSinceFirstLaunch = data.daysSinceFirstLaunch
-        guard daysSinceFirstLaunch >= configuration.minimumDaysSinceFirstLaunch else {
+        guard data.daysSinceFirstLaunch >= configuration.minimumDaysSinceFirstLaunch else {
             return false
         }
         
-        guard data.appLaunchCount >= configuration.minimumAppLaunches else {
-            return false
-        }
+        let hasEnoughAppLaunches = data.appLaunchCount >= configuration.minimumAppLaunches
+        let hasEnoughSignificantEvents = data.significantEventCount >= configuration.minimumSignificantEvents
         
-        guard data.significantEventCount >= configuration.minimumSignificantEvents else {
-            return false
-        }
-        
-        return true
+        return hasEnoughAppLaunches || hasEnoughSignificantEvents
     }
 }
 
