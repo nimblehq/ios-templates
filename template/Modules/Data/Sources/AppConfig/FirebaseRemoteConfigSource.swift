@@ -10,7 +10,7 @@ import Foundation
 
 /// Abstracts the Firebase `RemoteConfig` API surface used by `FirebaseRemoteConfigSource`,
 /// enabling the class to be tested without subclassing the Firebase singleton.
-protocol RemoteConfigInterface {
+protocol RemoteConfigInterface: Sendable {
     func fetchAndActivate(completionHandler: ((RemoteConfigFetchAndActivateStatus, (any Error)?) -> Void)?)
     func configEntry(forKey key: String) -> (data: Data, source: FirebaseRemoteConfig.RemoteConfigSource)
 }
@@ -56,10 +56,6 @@ public final class FirebaseRemoteConfigSource: RemoteConfigSource {
         guard source != .static || !data.isEmpty else {
             return nil
         }
-
-        guard !data.isEmpty else {
-            return nil
-        }
         
         if let string = String(data: data, encoding: .utf8) {
             if let boolValue = string.normalizedRemoteConfigBoolean {
@@ -87,9 +83,9 @@ private extension String {
 
     var normalizedRemoteConfigBoolean: Bool? {
         switch trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
-        case "1", "true", "yes", "y", "on":
+        case "true", "yes", "y", "on":
             return true
-        case "0", "false", "no", "n", "off":
+        case "false", "no", "n", "off":
             return false
         default:
             return nil

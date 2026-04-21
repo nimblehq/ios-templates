@@ -28,8 +28,7 @@ public final class AppConfig<DecodedConfig: Sendable>: AppConfigProtocol {
     private var remoteConfig: RemoteConfig?
     private let defaultConfig: AppDefaultConfig
     private let configMapper: (RemoteConfigDecoder) -> DecodedConfig
-
-    public let currentConfigSubject: CurrentValueSubject<DecodedConfig, Never>
+    private let currentConfigSubject: CurrentValueSubject<DecodedConfig, Never>
 
     public var currentConfigPublisher: AnyPublisher<DecodedConfig, Never> {
         currentConfigSubject.eraseToAnyPublisher()
