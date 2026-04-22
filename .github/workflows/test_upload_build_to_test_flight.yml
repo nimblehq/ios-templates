@@ -39,7 +39,7 @@ jobs:
       uses: ./.github/actions/setup-ci-environment
 
     - name: Cache iOSTemplateMaker Build
-      uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache@v5.0.4
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # actions/cache@v5.0.5
       with:
         path: scripts/iOSTemplateMaker/.build
         key: ${{ runner.os }}-iostemplatemaker-${{ hashFiles('scripts/iOSTemplateMaker/Package.swift', 'scripts/iOSTemplateMaker/Package.resolved') }}

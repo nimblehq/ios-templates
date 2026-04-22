@@ -32,7 +32,7 @@ jobs:
         run: echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Restore daily TS cache
-        uses: actions/cache/restore@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache/restore@v5.0.4
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # actions/cache/restore@v5.0.5
         with:
           path: .pr_report_ts
           key: pr-report-ts-${{ steps.date.outputs.date }}-${{ github.run_id }}
@@ -56,7 +56,7 @@ jobs:
 
       - name: Save daily TS cache
         if: always()
-        uses: actions/cache/save@668228422ae6a00e4ad889ee87cd7109ec5666a7 # actions/cache/save@v5.0.4
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # actions/cache/save@v5.0.5
         with:
           path: .pr_report_ts
           key: pr-report-ts-${{ steps.date.outputs.date }}-${{ github.run_id }}
