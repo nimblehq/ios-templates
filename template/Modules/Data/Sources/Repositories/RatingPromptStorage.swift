@@ -1,16 +1,15 @@
 import Domain
 import Foundation
 
-final class RatingPromptStorage: RatingPromptStorageProtocol, @unchecked Sendable {
+actor RatingPromptStorage: RatingPromptStorageProtocol {
     
     private let userDefaultsManager: UserDefaultsManagerProtocol
-    private let lock = NSLock()
     
     init(userDefaultsManager: UserDefaultsManagerProtocol) {
         self.userDefaultsManager = userDefaultsManager
     }
     
-    func getRatingPromptData() -> RatingPromptData {
+    func getRatingPromptData() async -> RatingPromptData {
         let appLaunchCount = userDefaultsManager.getIntValue(for: UserDefaultsKey.ratingPromptAppLaunchCount.rawValue)
         let firstLaunchDateData = userDefaultsManager.getDataValue(for: UserDefaultsKey.ratingPromptFirstLaunchDate.rawValue)
         let lastPromptedVersion = userDefaultsManager.getStringValue(for: UserDefaultsKey.ratingPromptLastPromptedVersion.rawValue)
@@ -29,10 +28,7 @@ final class RatingPromptStorage: RatingPromptStorageProtocol, @unchecked Sendabl
         )
     }
     
-    func recordAppLaunch() {
-        lock.lock()
-        defer { lock.unlock() }
-        
+    func recordAppLaunch() async {
         let currentCount = userDefaultsManager.getIntValue(for: UserDefaultsKey.ratingPromptAppLaunchCount.rawValue)
         userDefaultsManager.set(currentCount + 1, for: UserDefaultsKey.ratingPromptAppLaunchCount.rawValue)
         
@@ -46,27 +42,24 @@ final class RatingPromptStorage: RatingPromptStorageProtocol, @unchecked Sendabl
         userDefaultsManager.synchronize()
     }
     
-    func recordSignificantEvent() {
-        lock.lock()
-        defer { lock.unlock() }
-        
+    func recordSignificantEvent() async {
         let currentCount = userDefaultsManager.getIntValue(for: UserDefaultsKey.ratingPromptSignificantEventCount.rawValue)
         userDefaultsManager.set(currentCount + 1, for: UserDefaultsKey.ratingPromptSignificantEventCount.rawValue)
         userDefaultsManager.synchronize()
     }
     
-    func recordPromptShown(for appVersion: String) {
+    func recordPromptShown(for appVersion: String) async {
         userDefaultsManager.set(appVersion, for: UserDefaultsKey.ratingPromptLastPromptedVersion.rawValue)
         userDefaultsManager.synchronize()
     }
     
-    func resetCounters() {
+    func resetCounters() async {
         userDefaultsManager.set(0, for: UserDefaultsKey.ratingPromptAppLaunchCount.rawValue)
         userDefaultsManager.set(0, for: UserDefaultsKey.ratingPromptSignificantEventCount.rawValue)
         userDefaultsManager.synchronize()
     }
     
-    func clearAllData() {
+    func clearAllData() async {
         let keys = [
             UserDefaultsKey.ratingPromptAppLaunchCount.rawValue,
             UserDefaultsKey.ratingPromptFirstLaunchDate.rawValue,

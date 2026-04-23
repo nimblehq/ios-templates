@@ -4,6 +4,5 @@
 
 public protocol RatingPromptPresenterProtocol: Sendable {
 
-    @MainActor
     func show() async -> Bool
 }

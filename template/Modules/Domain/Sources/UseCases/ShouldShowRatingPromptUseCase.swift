@@ -9,7 +9,7 @@ public protocol ShouldShowRatingPromptUseCaseProtocol: Sendable {
     /// Determines if rating prompt should be shown based on configuration rules
     /// - Parameter configuration: Rules for determining eligibility
     /// - Returns: True if prompt should be shown
-    func callAsFunction(configuration: RatingPromptConfiguration) -> Bool
+    func callAsFunction(configuration: RatingPromptConfiguration) async -> Bool
 }
 
 public struct ShouldShowRatingPromptUseCase: ShouldShowRatingPromptUseCaseProtocol, Sendable {
@@ -25,8 +25,8 @@ public struct ShouldShowRatingPromptUseCase: ShouldShowRatingPromptUseCaseProtoc
         self.currentVersion = currentVersion
     }
     
-    public func callAsFunction(configuration: RatingPromptConfiguration) -> Bool {
-        let data = storage.getRatingPromptData()
+    public func callAsFunction(configuration: RatingPromptConfiguration) async -> Bool {
+        let data = await storage.getRatingPromptData()
         
         guard !data.hasBeenPromptedForCurrentVersion(currentVersion) else {
             return false

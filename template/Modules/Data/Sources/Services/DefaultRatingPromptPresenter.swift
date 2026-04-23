@@ -7,7 +7,7 @@ import StoreKit
 
 // MARK: - DefaultRatingPromptPresenter
 
-public final class DefaultRatingPromptPresenter: RatingPromptPresenterProtocol, @unchecked Sendable {
+public actor DefaultRatingPromptPresenter: RatingPromptPresenterProtocol {
 
     private let storeReviewController: any StoreReviewControllerProtocol
 
@@ -15,7 +15,6 @@ public final class DefaultRatingPromptPresenter: RatingPromptPresenterProtocol, 
         self.storeReviewController = storeReviewController
     }
 
-    @MainActor
     public func show() async -> Bool {
         return await storeReviewController.requestReview()
     }

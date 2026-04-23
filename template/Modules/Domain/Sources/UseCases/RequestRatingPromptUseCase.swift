@@ -35,15 +35,15 @@ public struct RequestRatingPromptUseCase: RequestRatingPromptUseCaseProtocol {
 
     @MainActor
     public func callAsFunction(configuration: RatingPromptConfiguration) async -> Bool {
-        guard shouldShowRatingPromptUseCase(configuration: configuration) else { return false }
+        guard await shouldShowRatingPromptUseCase(configuration: configuration) else { return false }
 
         let didRequestPrompt = await presenter.show()
         guard didRequestPrompt else { return false }
 
-        storage.recordPromptShown(for: currentVersion())
+        await storage.recordPromptShown(for: currentVersion())
 
         if configuration.resetCounterAfterPrompt {
-            storage.resetCounters()
+            await storage.resetCounters()
         }
 
         return true
