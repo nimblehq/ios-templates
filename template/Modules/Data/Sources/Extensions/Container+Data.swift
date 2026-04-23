@@ -47,12 +47,8 @@ extension Container {
             .singleton
     }
 
-    public var firebaseRemoteConfigSource: Factory<FirebaseRemoteConfigSource> {
+    public var firebaseRemoteConfigSource: Factory<RemoteConfigSource> {
         self { FirebaseRemoteConfigSource() }.singleton
-    }
-
-    public var remoteConfigRepository: Factory<RemoteConfigRepository> {
-        self { DefaultRemoteConfigRepository(source: self.firebaseRemoteConfigSource()) }.singleton
     }
 
     /// Example AppConfig factory. Replace with your app-specific configuration.

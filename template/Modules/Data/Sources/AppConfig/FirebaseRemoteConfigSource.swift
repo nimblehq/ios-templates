@@ -30,7 +30,11 @@ public final class FirebaseRemoteConfigSource: RemoteConfigSource {
 
     private let remoteConfig: any RemoteConfigInterface
 
-    public convenience init(remoteConfig: RemoteConfig = RemoteConfig.remoteConfig()) {
+    public convenience init() {
+        self.init(config: RemoteConfig.remoteConfig())
+    }
+    
+    public convenience init(remoteConfig: RemoteConfig) {
         self.init(config: remoteConfig)
     }
 
@@ -53,7 +57,7 @@ public final class FirebaseRemoteConfigSource: RemoteConfigSource {
     public func value(forKey key: String) async -> RemoteConfigStoredValue? {
         let (data, source) = remoteConfig.configEntry(forKey: key)
 
-        guard source != .static || !data.isEmpty else {
+        guard !data.isEmpty, source != .static else {
             return nil
         }
         

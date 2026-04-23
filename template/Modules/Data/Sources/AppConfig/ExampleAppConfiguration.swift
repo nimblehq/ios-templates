@@ -46,7 +46,7 @@ public func createExampleAppConfig() -> AppConfig<ExampleAppConfiguration> {
 
     let configMapper: (RemoteConfigDecoder) -> ExampleAppConfiguration = { decoder in
         ExampleAppConfiguration(
-            isFeatureEnabled: decoder.decodeBool(forKey: ExampleConfigKey.isFeatureEnabled.rawValue),
+            isFeatureEnabled: decoder.decodeBool(forKey: ExampleConfigKey.isFeatureEnabled.rawValue) ?? false,
             maxRetryCount: decoder.decodeNumber(forKey: ExampleConfigKey.maxRetryCount.rawValue)?.intValue ?? 3,
             apiTimeout: decoder.decodeNumber(forKey: ExampleConfigKey.apiTimeout.rawValue)?.doubleValue ?? 30.0,
             welcomeMessage: decoder.decodeString(forKey: ExampleConfigKey.welcomeMessage.rawValue) ?? "Welcome"

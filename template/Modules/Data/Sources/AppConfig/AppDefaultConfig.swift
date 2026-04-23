@@ -7,7 +7,7 @@ import Foundation
 /// Wraps an arbitrary key-value dictionary to be loaded as Firebase Remote Config defaults.
 public struct AppDefaultConfig: Encodable {
 
-    public var configs: [AnyCodingKey: any Encodable]
+    public let configs: [AnyCodingKey: any Encodable]
 
     public init(configs: [AnyCodingKey: any Encodable] = [:]) {
         self.configs = configs

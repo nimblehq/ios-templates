@@ -54,14 +54,24 @@ public struct RemoteConfigDecoder {
         return value
     }
 
-    public func decodeBool(forKey keyString: String) -> Bool {
-        let value = remoteConfig[keyString].boolValue
+    public func decodeBool(forKey keyString: String) -> Bool? {
+        let configValue = remoteConfig[keyString]
+        guard !configValue.dataValue.isEmpty else {
+            log("No bool value for key: \(keyString)")
+            return nil
+        }
+        let value = configValue.boolValue
         log("Decoded bool for \(keyString): \(value)")
         return value
     }
 
     public func decodeNumber(forKey keyString: String) -> NSNumber? {
-        let value = remoteConfig[keyString].numberValue
+        let configValue = remoteConfig[keyString]
+        guard !configValue.dataValue.isEmpty else {
+            log("No number value for key: \(keyString)")
+            return nil
+        }
+        let value = configValue.numberValue
         log("Decoded number for \(keyString): \(value)")
         return value
     }
