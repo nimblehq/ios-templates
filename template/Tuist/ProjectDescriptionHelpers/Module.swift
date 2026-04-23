@@ -2,12 +2,14 @@ import ProjectDescription
 
 public enum Module: CaseIterable {
 
+    case analytics
     case data
     case domain
     case model
 
     public var name: String {
         switch self {
+        case .analytics: "Analytics"
         case .data: "Data"
         case .domain: "Domain"
         case .model: "Model"
@@ -17,6 +19,7 @@ public enum Module: CaseIterable {
     public var dependencies: [TargetDependency] {
         switch self {
         case .model: []
+        case .analytics: []
         case .domain:
             [
                 .target(name: Module.model.name)
