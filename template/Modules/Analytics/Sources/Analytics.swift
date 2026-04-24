@@ -21,7 +21,7 @@ public final class Analytics: AnalyticsProtocol {
     // MARK: - Event Tracking
     
     public func trackEvent(name: String, parameters: [String: Any]?) {
-        trackEvent(name: name, parameters: parameters, on: .allCases)
+        trackEvent(name: name, parameters: parameters, on: AnalyticsTrackerType.allCases)
     }
     
     public func trackEvent(name: String, parameters: [String: Any]?, on trackerTypes: [AnalyticsTrackerType]) {
@@ -30,7 +30,7 @@ public final class Analytics: AnalyticsProtocol {
     }
     
     public func trackEvent(_ event: AnalyticsEvent) {
-        trackEvent(event, on: .allCases)
+        trackEvent(event, on: AnalyticsTrackerType.allCases)
     }
     
     public func trackEvent(_ event: AnalyticsEvent, on trackerTypes: [AnalyticsTrackerType]) {
@@ -40,7 +40,7 @@ public final class Analytics: AnalyticsProtocol {
     // MARK: - Screen Tracking
     
     public func trackScreen(name: String, screenClass: String?) {
-        trackScreen(name: name, screenClass: screenClass, on: .allCases)
+        trackScreen(name: name, screenClass: screenClass, on: AnalyticsTrackerType.allCases)
     }
     
     public func trackScreen(name: String, screenClass: String?, on trackerTypes: [AnalyticsTrackerType]) {
@@ -51,7 +51,7 @@ public final class Analytics: AnalyticsProtocol {
     // MARK: - User Properties
     
     public func setUserProperty(key: String, value: String) {
-        setUserProperty(key: key, value: value, on: .allCases)
+        setUserProperty(key: key, value: value, on: AnalyticsTrackerType.allCases)
     }
     
     public func setUserProperty(key: String, value: String, on trackerTypes: [AnalyticsTrackerType]) {
@@ -60,7 +60,7 @@ public final class Analytics: AnalyticsProtocol {
     }
     
     public func setUserId(_ userId: String?) {
-        setUserId(userId, on: .allCases)
+        setUserId(userId, on: AnalyticsTrackerType.allCases)
     }
     
     public func setUserId(_ userId: String?, on trackerTypes: [AnalyticsTrackerType]) {

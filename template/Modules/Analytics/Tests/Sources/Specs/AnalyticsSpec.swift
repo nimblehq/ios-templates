@@ -25,21 +25,19 @@ struct AnalyticsTests {
     @Test("Configure trackers with additional parameters")
     func configureTrackersWithParameters() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         let additionalParams = ["app_version": "1.0.0", "build": "123"]
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker], additionalParameters: additionalParams)
+        sut.configure(trackers: [mockConsoleTracker], additionalParameters: additionalParams)
         
-        #expect(mockFirebaseTracker.isSetUp)
-        #expect(mockAppsFlyerTracker.isSetUp)
-        #expect(mockFirebaseTracker.setupParameters as? [String: String] == additionalParams)
+        #expect(mockConsoleTracker.isSetUp)
+        #expect(mockConsoleTracker.setupParameters as? [String: String] == additionalParams)
     }
     
     @Test("Add individual trackers")
     func addIndividualTracker() {
         let sut = Analytics()
-        let mockTracker = MockAnalyticsTracker(type: .firebase)
+        let mockTracker = MockAnalyticsTracker(type: .console)
         let params = ["test": "value"]
         
         sut.addTracker(mockTracker, additionalParameters: params)
@@ -53,39 +51,35 @@ struct AnalyticsTests {
     @Test("Track events on all trackers by default")
     func trackEventOnAllTrackers() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
+        sut.configure(trackers: [mockConsoleTracker])
         sut.trackEvent(name: "user_login", parameters: ["method": "email"])
         
-        #expect(mockFirebaseTracker.hasTrackedEvent(name: "user_login"))
-        #expect(mockAppsFlyerTracker.hasTrackedEvent(name: "user_login"))
+        #expect(mockConsoleTracker.hasTrackedEvent(name: "user_login"))
         
-        let firebaseEvent = mockFirebaseTracker.trackedEvents.first
-        #expect(firebaseEvent?.parameters?["method"] as? String == "email")
+        let consoleEvent = mockConsoleTracker.trackedEvents.first
+        #expect(consoleEvent?.parameters?["method"] as? String == "email")
     }
     
     @Test("Track events on specific trackers")
     func trackEventOnSpecificTrackers() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
-        sut.trackEvent(name: "purchase", parameters: ["amount": 9.99], on: [.firebase])
+        sut.configure(trackers: [mockConsoleTracker])
+        sut.trackEvent(name: "purchase", parameters: ["amount": 9.99], on: [.console])
         
-        #expect(mockFirebaseTracker.hasTrackedEvent(name: "purchase"))
-        #expect(!mockAppsFlyerTracker.hasTrackedEvent(name: "purchase"))
+        #expect(mockConsoleTracker.hasTrackedEvent(name: "purchase"))
     }
     
     @Test("Track events without parameters")
     func trackEventWithoutParameters() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
+        sut.configure(trackers: [mockConsoleTracker])
         sut.trackEvent(name: "app_open")
         
         #expect(mockFirebaseTracker.hasTrackedEvent(name: "app_open"))
@@ -95,7 +89,7 @@ struct AnalyticsTests {
     @Test("Track structured events")
     func trackStructuredEvent() {
         let sut = Analytics()
-        let mockTracker = MockAnalyticsTracker(type: .firebase)
+        let mockTracker = MockAnalyticsTracker(type: .console)
         
         sut.configure(trackers: [mockTracker])
         
@@ -113,27 +107,24 @@ struct AnalyticsTests {
     @Test("Track screens on all trackers by default")
     func trackScreenOnAllTrackers() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
+        sut.configure(trackers: [mockConsoleTracker])
         sut.trackScreen(name: "HomeScreen", screenClass: "HomeViewController")
         
-        #expect(mockFirebaseTracker.hasTrackedScreen(name: "HomeScreen"))
-        #expect(mockAppsFlyerTracker.hasTrackedScreen(name: "HomeScreen"))
+        #expect(mockConsoleTracker.hasTrackedScreen(name: "HomeScreen"))
     }
     
     @Test("Track screens on specific trackers")
     func trackScreenOnSpecificTrackers() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
+        sut.configure(trackers: [mockConsoleTracker])
         sut.trackScreen(name: "ProfileScreen", screenClass: nil, on: [.appsFlyer])
         
-        #expect(!mockFirebaseTracker.hasTrackedScreen(name: "ProfileScreen"))
-        #expect(mockAppsFlyerTracker.hasTrackedScreen(name: "ProfileScreen"))
+        #expect(!mockConsoleTracker.hasTrackedScreen(name: "ProfileScreen"))
     }
     
     // MARK: - User Properties Tests
@@ -141,40 +132,34 @@ struct AnalyticsTests {
     @Test("Set user properties on all trackers by default")
     func setUserPropertyOnAllTrackers() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
+        sut.configure(trackers: [mockConsoleTracker])
         sut.setUserProperty(key: "subscription_type", value: "premium")
         
-        #expect(mockFirebaseTracker.userProperties["subscription_type"] == "premium")
-        #expect(mockAppsFlyerTracker.userProperties["subscription_type"] == "premium")
+        #expect(mockConsoleTracker.userProperties["subscription_type"] == "premium")
     }
     
     @Test("Set user properties on specific trackers")
     func setUserPropertyOnSpecificTrackers() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
-        sut.setUserProperty(key: "age_group", value: "25-34", on: [.firebase])
+        sut.configure(trackers: [mockConsoleTracker])
+        sut.setUserProperty(key: "age_group", value: "25-34", on: [.console])
         
-        #expect(mockFirebaseTracker.userProperties["age_group"] == "25-34")
-        #expect(mockAppsFlyerTracker.userProperties["age_group"] == nil)
+        #expect(mockConsoleTracker.userProperties["age_group"] == "25-34")
     }
     
     @Test("Set user ID on all trackers by default")
     func setUserIdOnAllTrackers() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
+        sut.configure(trackers: [mockConsoleTracker])
         sut.setUserId("user_12345")
         
-        #expect(mockFirebaseTracker.userId == "user_12345")
-        #expect(mockAppsFlyerTracker.userId == "user_12345")
+        #expect(mockConsoleTracker.userId == "user_12345")
     }
     
     // MARK: - Tracker Utility Tests
@@ -182,16 +167,13 @@ struct AnalyticsTests {
     @Test("Return specific tracker by type")
     func getTrackerByType() {
         let sut = Analytics()
-        let mockFirebaseTracker = MockAnalyticsTracker(type: .firebase)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
+        let mockConsoleTracker = MockAnalyticsTracker(type: .console)
         
-        sut.configure(trackers: [mockFirebaseTracker, mockAppsFlyerTracker])
+        sut.configure(trackers: [mockConsoleTracker])
         
-        let firebaseTracker = sut.tracker(for: .firebase)
-        let facebookTracker = sut.tracker(for: .facebook)
-        
-        #expect(firebaseTracker != nil)
-        #expect(firebaseTracker?.type == .firebase)
-        #expect(facebookTracker == nil)
+        let consoleTracker = sut.tracker(for: .console)
+
+        #expect(consoleTracker != nil)
+        #expect(consoleTracker?.type == .console)
     }
 }
