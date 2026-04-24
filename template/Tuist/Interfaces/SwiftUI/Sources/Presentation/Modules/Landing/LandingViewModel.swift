@@ -1,3 +1,4 @@
+import Analytics
 import Data
 import Domain
 import FactoryKit
@@ -19,6 +20,7 @@ final class LandingViewModel: ObservableObject {
     @Published private(set) var state: State = .loading
     private(set) var startupConfigLoadResult: StartupConfigLoadResult?
 
+    @Injected(\.analytics) private var analytics: AnalyticsProtocol
     @Injected(\.loadStartupConfigUseCase) private var loadStartupConfigUseCase: any LoadStartupConfigUseCaseProtocol
     @Injected(\.sessionRepository) private var sessionRepository: any SessionRepositoryProtocol
     @Injected(\.checkForceUpdateUseCase) private var checkForceUpdateUseCase: any CheckForceUpdateUseCaseProtocol
@@ -48,8 +50,16 @@ final class LandingViewModel: ObservableObject {
         do {
             try await sessionRepository.save(tokenSet: DemoTokenSet())
             state = .signedIn
+            
+            // Track successful login event
+            let loginEvent = UserLoginEvent(loginMethod: "demo", isSuccessful: true)
+            analytics.trackEvent(loginEvent)
         } catch {
             state = .signedOut
+            
+            // Track failed login event
+            let loginEvent = UserLoginEvent(loginMethod: "demo", isSuccessful: false)
+            analytics.trackEvent(loginEvent)
         }
     }
 

@@ -1,8 +1,9 @@
-import Testing
+import Analytics
 import Domain
 import FactoryKit
 import Foundation
 import Model
+import Testing
 
 @testable import {PROJECT_NAME}
 
@@ -11,7 +12,7 @@ struct LandingViewModelTests {
 
     @Test("shows the signed-out flow when no active session exists")
     func showsTheSignedOutFlowWhenNoActiveSessionExists() async {
-        await Self.withSUT { _, _, viewModel in
+        await Self.withSUT { _, _, _, viewModel in
             await viewModel.restoreSessionIfNeeded()
 
             #expect(viewModel.state == .signedOut)
@@ -21,7 +22,7 @@ struct LandingViewModelTests {
 
     @Test("shows the signed-in flow when an active session exists")
     func showsTheSignedInFlowWhenAnActiveSessionExists() async {
-        await Self.withSUT { sessionRepository, _, viewModel in
+        await Self.withSUT { sessionRepository, _, _, viewModel in
             await sessionRepository.setHasActiveSession(true)
 
             await viewModel.restoreSessionIfNeeded()
@@ -33,7 +34,7 @@ struct LandingViewModelTests {
 
     @Test("falls back to local defaults before showing the signed-out flow")
     func fallsBackToLocalDefaultsBeforeShowingTheSignedOutFlow() async {
-        await Self.withSUT(startupConfigLoadResult: .usedLocalDefaults) { _, loader, viewModel in
+        await Self.withSUT(startupConfigLoadResult: .usedLocalDefaults) { _, loader, _, viewModel in
             await viewModel.restoreSessionIfNeeded()
 
             #expect(viewModel.state == .signedOut)
@@ -44,7 +45,7 @@ struct LandingViewModelTests {
 
     @Test("retries restoration after cancellation")
     func retriesRestorationAfterCancellation() async {
-        await Self.withSUT(cancelFirstCall: true) { _, loader, viewModel in
+        await Self.withSUT(cancelFirstCall: true) { _, loader, _, viewModel in
             await viewModel.restoreSessionIfNeeded()
 
             #expect(viewModel.state == .loading)
@@ -61,7 +62,7 @@ struct LandingViewModelTests {
 
     @Test("loads startup config only once")
     func loadsStartupConfigOnlyOnce() async {
-        await Self.withSUT { _, loader, viewModel in
+        await Self.withSUT { _, loader, _, viewModel in
             await viewModel.restoreSessionIfNeeded()
             await viewModel.restoreSessionIfNeeded()
 
@@ -71,7 +72,7 @@ struct LandingViewModelTests {
 
     @Test("shows the force update screen when a force update is required")
     func showsTheForceUpdateScreenWhenAForceUpdateIsRequired() async {
-        await Self.withSUT(forceUpdateRequired: true) { _, _, viewModel in
+        await Self.withSUT(forceUpdateRequired: true) { _, _, _, viewModel in
             await viewModel.restoreSessionIfNeeded()
 
             #expect(viewModel.state == .forceUpdateRequired)
@@ -81,7 +82,7 @@ struct LandingViewModelTests {
 
     @Test("skips the session check when a force update is required")
     func skipsTheSessionCheckWhenAForceUpdateIsRequired() async {
-        await Self.withSUT(forceUpdateRequired: true) { sessionRepository, _, viewModel in
+        await Self.withSUT(forceUpdateRequired: true) { sessionRepository, _, _, viewModel in
             await viewModel.restoreSessionIfNeeded()
 
             #expect(viewModel.state == .forceUpdateRequired)
@@ -91,16 +92,28 @@ struct LandingViewModelTests {
 
     @Test("activates a demo session and shows the signed-in flow")
     func activatesADemoSessionAndShowsTheSignedInFlow() async {
-        await Self.withSUT { _, _, viewModel in
+        await Self.withSUT { _, _, _, viewModel in
             await viewModel.continueWithDemoSession()
 
             #expect(viewModel.state == .signedIn)
         }
     }
 
+    @Test("tracks a successful login event when a demo session is activated")
+    func tracksASuccessfulLoginEventWhenADemoSessionIsActivated() async {
+        await Self.withSUT { _, _, analytics, viewModel in
+            await viewModel.continueWithDemoSession()
+
+            #expect(analytics.trackedStructEvents.count == 1)
+            #expect(analytics.trackedStructEvents[0].name == "user_login")
+            #expect(analytics.trackedStructEvents[0].parameters?["login_method"] as? String == "demo")
+            #expect(analytics.trackedStructEvents[0].parameters?["is_successful"] as? Bool == true)
+        }
+    }
+
     @Test("keeps showing the signed-out flow when activating demo session fails")
     func keepsShowingTheSignedOutFlowWhenActivatingDemoSessionFails() async {
-        await Self.withSUT { sessionRepository, _, viewModel in
+        await Self.withSUT { sessionRepository, _, _, viewModel in
             await sessionRepository.setShouldFailActivation(true)
 
             await viewModel.continueWithDemoSession()
@@ -109,9 +122,23 @@ struct LandingViewModelTests {
         }
     }
 
+    @Test("tracks a failed login event when a demo session activation fails")
+    func tracksAFailedLoginEventWhenADemoSessionActivationFails() async {
+        await Self.withSUT { sessionRepository, _, analytics, viewModel in
+            await sessionRepository.setShouldFailActivation(true)
+
+            await viewModel.continueWithDemoSession()
+
+            #expect(analytics.trackedStructEvents.count == 1)
+            #expect(analytics.trackedStructEvents[0].name == "user_login")
+            #expect(analytics.trackedStructEvents[0].parameters?["login_method"] as? String == "demo")
+            #expect(analytics.trackedStructEvents[0].parameters?["is_successful"] as? Bool == false)
+        }
+    }
+
     @Test("clears the session and shows the signed-out flow")
     func clearsTheSessionAndShowsTheSignedOutFlow() async {
-        await Self.withSUT { _, _, viewModel in
+        await Self.withSUT { _, _, _, viewModel in
             await viewModel.continueWithDemoSession()
 
             await viewModel.signOut()
@@ -122,7 +149,7 @@ struct LandingViewModelTests {
 
     @Test("keeps showing the signed-in flow when clearing session fails")
     func keepsShowingTheSignedInFlowWhenClearingSessionFails() async {
-        await Self.withSUT { sessionRepository, _, viewModel in
+        await Self.withSUT { sessionRepository, _, _, viewModel in
             await viewModel.continueWithDemoSession()
             await sessionRepository.setShouldFailClearSession(true)
 
@@ -137,7 +164,7 @@ struct LandingViewModelTests {
         startupConfigLoadResult: StartupConfigLoadResult = .refreshed,
         cancelFirstCall: Bool = false,
         forceUpdateRequired: Bool = false,
-        _ test: @MainActor (SessionRepositoryMock, StartupConfigLoaderMock, LandingViewModel) async -> Void
+        _ test: @MainActor (SessionRepositoryMock, StartupConfigLoaderMock, AnalyticsProtocolMock, LandingViewModel) async -> Void
     ) async {
         Container.shared.reset()
 
@@ -146,8 +173,10 @@ struct LandingViewModelTests {
             result: startupConfigLoadResult,
             shouldCancelFirstCall: cancelFirstCall
         )
+        let analytics = AnalyticsProtocolMock()
         Container.shared.loadStartupConfigUseCase.register { startupConfigLoader }
         Container.shared.sessionRepository.register { sessionRepository }
+        Container.shared.analytics.register { analytics }
 
         let checkForceUpdateUseCase = CheckForceUpdateUseCaseMock(shouldForceUpdate: forceUpdateRequired)
         Container.shared.checkForceUpdateUseCase.register { checkForceUpdateUseCase }
@@ -157,8 +186,43 @@ struct LandingViewModelTests {
             Container.shared.reset()
         }
 
-        await test(sessionRepository, startupConfigLoader, viewModel)
+        await test(sessionRepository, startupConfigLoader, analytics, viewModel)
     }
+}
+
+private final class AnalyticsProtocolMock: AnalyticsProtocol, @unchecked Sendable {
+
+    private(set) var trackedStructEvents: [AnalyticsEvent] = []
+
+    func configure(trackers: [AnalyticsTracker], additionalParameters: [String: Any]?) {}
+
+    func addTracker(_ tracker: AnalyticsTracker, additionalParameters: [String: Any]?) {}
+
+    func trackEvent(name: String, parameters: [String: Any]?) {}
+
+    func trackEvent(name: String, parameters: [String: Any]?, on trackerTypes: [AnalyticsTrackerType]) {}
+
+    func trackEvent(_ event: AnalyticsEvent) {
+        trackedStructEvents.append(event)
+    }
+
+    func trackEvent(_ event: AnalyticsEvent, on trackerTypes: [AnalyticsTrackerType]) {
+        trackedStructEvents.append(event)
+    }
+
+    func trackScreen(name: String, screenClass: String?) {}
+
+    func trackScreen(name: String, screenClass: String?, on trackerTypes: [AnalyticsTrackerType]) {}
+
+    func setUserProperty(key: String, value: String) {}
+
+    func setUserProperty(key: String, value: String, on trackerTypes: [AnalyticsTrackerType]) {}
+
+    func setUserId(_ userId: String?) {}
+
+    func setUserId(_ userId: String?, on trackerTypes: [AnalyticsTrackerType]) {}
+
+    func tracker(for type: AnalyticsTrackerType) -> AnalyticsTracker? { nil }
 }
 
 private actor SessionRepositoryMock: SessionRepositoryProtocol {
