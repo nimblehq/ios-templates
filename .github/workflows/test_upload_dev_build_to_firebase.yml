@@ -62,7 +62,7 @@ jobs:
 
     - name: Read Google Service Account
       id: firebase_service_account
-      uses: timheuer/base64-to-file@adaa40c0c581f276132199d4cf60afa07ce60eac # timheuer/base64-to-file@v1.2
+      uses: timheuer/base64-to-file@dfa5a5dd38803cb4f5c3a081eeb28e8362d43e9c # timheuer/base64-to-file@v2.0.0
       with:
         fileName: 'firebase_service_account.json'
         encodedString: ${{ secrets.FIREBASE_GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}
