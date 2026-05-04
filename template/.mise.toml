@@ -1,4 +1,8 @@
+[settings]
+experimental = true
+
 [tools]
 ruby = "3.2"
 "asdf:tuist" = "4.110.3"
 xcbeautify = "latest"
+"spm:mikeger/XcodeSelectiveTesting" = "0.14.5"

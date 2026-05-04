@@ -1,0 +1,45 @@
+{
+  "configurations" : [
+    {
+      "id" : "C56A3802-C716-4C08-8B7A-53EFE53D4FE0",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "identifier" : "PLACEHOLDER",
+        "containerPath" : "container:{PROJECT_NAME}.xcodeproj",
+        "name" : "DomainTests"
+      }
+    },
+    {
+      "target" : {
+        "identifier" : "PLACEHOLDER",
+        "containerPath" : "container:{PROJECT_NAME}.xcodeproj",
+        "name" : "{PROJECT_NAME}Tests"
+      }
+    },
+    {
+      "target" : {
+        "identifier" : "PLACEHOLDER",
+        "containerPath" : "container:{PROJECT_NAME}.xcodeproj",
+        "name" : "DataTests"
+      }
+    },
+    {
+      "target" : {
+        "identifier" : "PLACEHOLDER",
+        "containerPath" : "container:{PROJECT_NAME}.xcodeproj",
+        "name" : "ModelTests"
+      }
+    }
+  ],
+  "version" : 1
+}
