@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# Early checks that don't require build artifacts
-# This runs before build/test to provide faster feedback
+# Prebuild review: no build artifacts; runs before build/test for faster feedback
 
 # Warn when there is a big PR
 warn("This pull request is quite big (#{git.lines_of_code} lines changed), please consider splitting it into multiple pull requests.") if git.lines_of_code > 500
