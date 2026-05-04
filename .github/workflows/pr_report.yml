@@ -15,7 +15,7 @@ on:
 permissions:
   contents: read
   pull-requests: read
-  actions: write
+  actions: read
 
 jobs:
   report:
@@ -27,17 +27,24 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Get today's date
-        id: date
-        run: echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      - name: Find previous successful run
+        id: prev_run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          run_id=$(gh api \
+            "repos/${{ github.repository }}/actions/workflows/pr_report.yml/runs?status=success&per_page=20" \
+            --jq "[.workflow_runs[] | select(.id != ${{ github.run_id }})] | .[0].id // empty")
+          echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
 
-      - name: Restore daily TS cache
-        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae # actions/cache/restore@v5.0.5
+      - name: Download daily TS artifact
+        if: steps.prev_run.outputs.run_id != ''
+        continue-on-error: true
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # actions/download-artifact@v4.3.0
         with:
-          path: .pr_report_ts
-          key: pr-report-ts-${{ steps.date.outputs.date }}-${{ github.run_id }}
-          restore-keys: |
-            pr-report-ts-${{ steps.date.outputs.date }}-
+          name: pr-report-ts
+          run-id: ${{ steps.prev_run.outputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run PR Report
         env:
@@ -54,9 +61,13 @@ jobs:
           fi
           python3 scripts/pr_report.py
 
-      - name: Save daily TS cache
+      - name: Upload daily TS artifact
         if: always()
-        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae # actions/cache/save@v5.0.5
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # actions/upload-artifact@v4.6.2
         with:
+          name: pr-report-ts
           path: .pr_report_ts
-          key: pr-report-ts-${{ steps.date.outputs.date }}-${{ github.run_id }}
+          retention-days: 1
+          overwrite: true
+          include-hidden-files: true
+          if-no-files-found: ignore
