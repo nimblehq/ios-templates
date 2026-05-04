@@ -29,6 +29,8 @@ extension iOSTemplateMaker {
         var projectName: String?
         @Option(help: "The minimum iOS version (14.0)")
         var minimumVersion: String?
+        @Option(help: "The App Store app ID used to build the App Store URL")
+        var appStoreId: String?
         @Option(help: "The CI/CD service (github, bitrise, codemagic, none)")
         var cicd: String?
         @Option(help: "The GitHub runner type (macos-latest, self-hosted) — only used when --cicd=github")
@@ -43,6 +45,7 @@ extension iOSTemplateMaker {
                 bundleIdDev: bundleIdDev.string,
                 projectName: projectName.string,
                 minimumVersion: minimumVersion.string,
+                appStoreId: appStoreId.string,
                 cicd: cicd.string,
                 githubRunner: githubRunner.string,
                 setupConstants: setupConstants

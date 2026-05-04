@@ -8,6 +8,7 @@ class SetUpIOSProject {
     private let CONSTANT_BUNDLE_STAGING = "{BUNDLE_ID_STAGING}"
     private let CONSTANT_BUNDLE_DEV = "{BUNDLE_ID_DEV}"
     private let CONSTANT_MINIMUM_VERSION = "{TARGET_VERSION}"
+    private let CONSTANT_APP_STORE_ID = "{APP_STORE_ID}"
     private let fileManager = FileManager.default
 
     private var bundleIdProduction = ""
@@ -15,6 +16,7 @@ class SetUpIOSProject {
     private var bundleIdDev = ""
     private var projectName = ""
     private var minimumVersion = ""
+    private var appStoreId = ""
     private var cicd = ""
     private var githubRunner = ""
     private var setupConstants = false
@@ -27,6 +29,7 @@ class SetUpIOSProject {
         bundleIdDev: String = "",
         projectName: String = "",
         minimumVersion: String = "",
+        appStoreId: String = "",
         cicd: String = "",
         githubRunner: String = "",
         setupConstants: Bool = false
@@ -36,6 +39,7 @@ class SetUpIOSProject {
         self.bundleIdDev = bundleIdDev
         self.projectName = projectName
         self.minimumVersion = minimumVersion
+        self.appStoreId = appStoreId
         self.cicd = cicd
         self.githubRunner = githubRunner
         self.setupConstants = setupConstants
@@ -167,6 +171,20 @@ class SetUpIOSProject {
                 onValidate: validateVersion
             )
         }
+
+        if appStoreId.isEmpty {
+            if isCI {
+                appStoreId = "000000000"
+            } else {
+                tryMoveDown()
+                appStoreId = ask(
+                    "Which is the App Store app ID?",
+                    note: "Default: 000000000. Use the numeric ID from App Store Connect.",
+                    defaultValue: "000000000",
+                    onValidate: validateAppStoreId
+                )
+            }
+        }
     }
 
     private func replaceFileStructure() throws {
@@ -196,6 +214,7 @@ class SetUpIOSProject {
         fileManager.replaceAllOccurrences(of: CONSTANT_BUNDLE_PRODUCTION, to: bundleIdProduction)
         fileManager.replaceAllOccurrences(of: CONSTANT_PROJECT_NAME, to: projectNameNoSpace)
         fileManager.replaceAllOccurrences(of: CONSTANT_MINIMUM_VERSION, to: minimumVersion)
+        fileManager.replaceAllOccurrences(of: CONSTANT_APP_STORE_ID, to: appStoreId)
     }
 
     private func runTuist() throws {
@@ -283,6 +302,17 @@ class SetUpIOSProject {
         let valid = version ~= versionRegex
 
         return valid ? nil : "Please pick a valid version with pattern {x.y}"
+    }
+
+    private func validateAppStoreId(_ appStoreId: String) -> String? {
+        if appStoreId.isEmpty {
+            return nil
+        }
+
+        let appStoreIdRegex = "^[0-9]+$"
+        let valid = appStoreId ~= appStoreIdRegex
+
+        return valid ? nil : "Please input a valid numeric App Store app ID"
     }
 
     private func inferDevBundleId() -> String {
