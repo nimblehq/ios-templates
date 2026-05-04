@@ -9,13 +9,13 @@ struct SignOutView: View {
             Image(systemName: "person.crop.circle.badge.exclamationmark")
                 .font(.system(size: 48))
                 .foregroundColor(.accentColor)
-            Text("Signed Out")
+            Text("sign_out.title")
                 .font(.title2.bold())
-            Text("A generated project now starts from an unauthenticated state and can transition into a signed-in flow with a local demo session.")
+            Text("sign_out.message")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
 
-            Button("Continue with Demo Session", action: onContinue)
+            Button("sign_out.button.continue_demo_session", action: onContinue)
                 .buttonStyle(.borderedProminent)
         }
         .padding()

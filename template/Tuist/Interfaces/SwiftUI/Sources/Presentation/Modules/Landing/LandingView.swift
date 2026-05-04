@@ -12,7 +12,7 @@ struct LandingView: View {
             Group {
                 switch viewModel.state {
                 case .loading:
-                    Color.clear
+                    ProgressView("landing.loading.restore_session")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 case .signedOut:
                     SignOutView(onContinue: continueWithDemoSession)
@@ -85,7 +85,7 @@ struct LandingView: View {
                 .navigationDestination(for: AppRoute.self, destination: destination)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("Close", action: router.dismissFullScreen)
+                        Button("common.button.close", action: router.dismissFullScreen)
                     }
                 }
         }
