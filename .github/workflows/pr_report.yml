@@ -32,9 +32,18 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          run_id=$(gh api \
+          run_id=""
+          for candidate in $(gh api \
             "repos/${{ github.repository }}/actions/workflows/pr_report.yml/runs?status=success&per_page=20" \
-            --jq "[.workflow_runs[] | select(.id != ${{ github.run_id }})] | .[0].id // empty")
+            --jq '.workflow_runs[] | select(.id != ${{ github.run_id }}) | .id'); do
+            has_artifact=$(gh api \
+              "repos/${{ github.repository }}/actions/runs/${candidate}/artifacts" \
+              --jq 'any(.artifacts[]?; .name == "pr-report-ts")')
+            if [ "$has_artifact" = "true" ]; then
+              run_id="$candidate"
+              break
+            fi
+          done
           echo "run_id=$run_id" >> "$GITHUB_OUTPUT"
 
       - name: Download daily TS artifact
