@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
 
     var onSignOut: () -> Void = {}
+    var onShowSettings: () -> Void = {}
 
     var body: some View {
         VStack(spacing: 20) {
@@ -14,6 +15,9 @@ struct HomeView: View {
             Text("This starter flow demonstrates the signed-in state that teams can build on with product-specific screens.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
+
+            Button("Open Settings", action: onShowSettings)
+                .buttonStyle(.bordered)
 
             Button("Sign Out", action: onSignOut)
                 .buttonStyle(.borderedProminent)
