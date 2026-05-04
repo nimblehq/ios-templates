@@ -22,10 +22,14 @@ final class LandingViewModel: ObservableObject {
     @Injected(\.loadStartupConfigUseCase) private var loadStartupConfigUseCase: any LoadStartupConfigUseCaseProtocol
     @Injected(\.sessionRepository) private var sessionRepository: any SessionRepositoryProtocol
     @Injected(\.checkForceUpdateUseCase) private var checkForceUpdateUseCase: any CheckForceUpdateUseCaseProtocol
+    @Injected(\.ratingPromptRepository) private var ratingPromptRepository: any RatingPromptRepositoryProtocol
+    @Injected(\.requestRatingPromptUseCase) private var requestRatingPromptUseCase: any RequestRatingPromptUseCaseProtocol
     private var hasRestoredSession = false
 
     func restoreSessionIfNeeded() async {
         guard !hasRestoredSession else { return }
+
+        await ratingPromptRepository.recordAppLaunch()
 
         do {
             startupConfigLoadResult = try await loadStartupConfigUseCase()
@@ -42,12 +46,18 @@ final class LandingViewModel: ObservableObject {
             return
         }
         state = await sessionRepository.hasActiveSession() ? .signedIn : .signedOut
+
+        if state == .signedIn {
+            await tryShowRatingPrompt()
+        }
     }
 
     func continueWithDemoSession() async {
         do {
             try await sessionRepository.save(tokenSet: DemoTokenSet())
+            await ratingPromptRepository.recordSignificantEvent()
             state = .signedIn
+            await tryShowRatingPrompt()
         } catch {
             state = .signedOut
         }
@@ -58,6 +68,10 @@ final class LandingViewModel: ObservableObject {
             try await sessionRepository.clearSession()
             state = .signedOut
         } catch {}
+    }
+
+    private func tryShowRatingPrompt() async {
+        _ = await requestRatingPromptUseCase(configuration: RatingPromptConfiguration())
     }
 }
 
