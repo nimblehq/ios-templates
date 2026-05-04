@@ -58,9 +58,10 @@ Prefer this order:
 - `--sha <commit-or-prefix>`
 - `--pr <number>`
 - `--run-id <database-id>`
-- `--platform ios|android`
 
-If multiple artifacts exist, match by platform or ask the user which artifact to install.
+If multiple artifacts exist, ask the user which artifact to install. Do not filter artifact
+selection by platform because GitHub Actions artifact names may not include platform text.
+Use platform only as a Tophat recipe hint during install.
 
 ## Install
 

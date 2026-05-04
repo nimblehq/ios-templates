@@ -166,6 +166,22 @@ def list_run_artifacts(repo: str, run_id: int) -> list[dict[str, Any]]:
     return artifacts
 
 
+def attach_workflow_run_metadata(
+    artifact: dict[str, Any],
+    run: dict[str, Any],
+    run_id: int,
+) -> dict[str, Any]:
+    workflow_run = artifact.get("workflow_run") or {}
+    if not workflow_run:
+        workflow_run = {"id": run_id}
+    if "head_branch" not in workflow_run and run.get("headBranch"):
+        workflow_run["head_branch"] = run.get("headBranch")
+    if "head_sha" not in workflow_run and run.get("headSha"):
+        workflow_run["head_sha"] = run.get("headSha")
+    artifact["workflow_run"] = workflow_run
+    return artifact
+
+
 def list_matching_run_artifacts(repo: str, ref: str, sha: str) -> list[dict[str, Any]]:
     artifacts: list[dict[str, Any]] = []
 
@@ -178,13 +194,7 @@ def list_matching_run_artifacts(repo: str, ref: str, sha: str) -> list[dict[str,
             continue
 
         for artifact in list_run_artifacts(repo, int(run_id)):
-            workflow_run = artifact.get("workflow_run") or {}
-            if "head_branch" not in workflow_run and run.get("headBranch"):
-                workflow_run["head_branch"] = run.get("headBranch")
-            if "head_sha" not in workflow_run and run.get("headSha"):
-                workflow_run["head_sha"] = run.get("headSha")
-            artifact["workflow_run"] = workflow_run
-            artifacts.append(artifact)
+            artifacts.append(attach_workflow_run_metadata(artifact, run, int(run_id)))
 
     return artifacts
 
@@ -198,13 +208,7 @@ def list_all_run_artifacts(repo: str) -> list[dict[str, Any]]:
             continue
 
         for artifact in list_run_artifacts(repo, int(run_id)):
-            workflow_run = artifact.get("workflow_run") or {}
-            if "head_branch" not in workflow_run and run.get("headBranch"):
-                workflow_run["head_branch"] = run.get("headBranch")
-            if "head_sha" not in workflow_run and run.get("headSha"):
-                workflow_run["head_sha"] = run.get("headSha")
-            artifact["workflow_run"] = workflow_run
-            artifacts.append(artifact)
+            artifacts.append(attach_workflow_run_metadata(artifact, run, int(run_id)))
 
     return artifacts
 
@@ -224,7 +228,6 @@ def artifact_matches(
     ref: str,
     sha: str,
     run_id: int | None,
-    platform: str,
 ) -> bool:
     if artifact.get("expired"):
         return False
@@ -233,8 +236,6 @@ def artifact_matches(
     if run_id is not None and workflow_run.get("id") != run_id:
         return False
     if not workflow_run_matches_ref(workflow_run, ref=ref, sha=sha):
-        return False
-    if platform and platform.lower() not in (artifact.get("name") or "").lower():
         return False
     return True
 
@@ -265,7 +266,6 @@ def list_artifacts(
     sha: str,
     pr: int | None,
     run_id: int | None,
-    platform: str,
 ) -> int:
     repo = canonicalize_repo(repo)
 
@@ -290,7 +290,6 @@ def list_artifacts(
                 ref=ref,
                 sha=sha,
                 run_id=run_id,
-                platform=platform,
             )
         ]
     )
@@ -316,12 +315,6 @@ def main() -> int:
     )
     list_parser.add_argument("--pr", type=int, help="PR number to resolve.")
     list_parser.add_argument("--run-id", type=int, help="Workflow run database ID.")
-    list_parser.add_argument(
-        "--platform",
-        default="",
-        choices=("ios", "android", ""),
-        help="Platform substring to match in artifact names.",
-    )
 
     args = parser.parse_args()
 
@@ -342,7 +335,6 @@ def main() -> int:
         sha=args.sha,
         pr=args.pr,
         run_id=args.run_id,
-        platform=args.platform,
     )
 
 
