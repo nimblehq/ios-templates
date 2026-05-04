@@ -86,7 +86,7 @@ Use when results are not collected but you want bounded concurrency:
 
 ```swift
 await withDiscardingTaskGroup { group in
-    for event in eventStream {
+    for await event in eventStream {
         group.addTask { await process(event) }
     }
 }
@@ -157,23 +157,67 @@ guard !Task.isCancelled else { return }
 
 ### Propagating cancellation to child work
 
-`async let` and `TaskGroup` child tasks are cancelled automatically when the parent is cancelled. For `URLSession`, cancellation is also propagated automatically.
+#### Structured (preferred)
 
-For manual cleanup on cancellation:
+Bound to parent, inherit context, automatic cancellation:
 
 ```swift
-func fetchWithCleanup() async throws -> Data {
-    let task = Task {
-        try await networkSession.data(from: url).0
-    }
+// async let
+async let data1 = fetch(1)
+async let data2 = fetch(2)
+let results = await [data1, data2]
 
-    do {
-        return try await task.value
-    } catch is CancellationError {
-        await cleanup()
-        throw CancellationError()
+// Task groups
+await withTaskGroup(of: Data.self) { group in
+    group.addTask { await fetch(1) }
+    group.addTask { await fetch(2) }
+}
+
+// Holding reference then cancel
+let downloadTask = Task {
+    try await withThrowingTaskGroup(of: Data.self) { group in
+        for url in urls {  // Assume urls is an array
+            group.addTask {
+                try Task.checkCancellation()
+                let (data, _) = try await URLSession.shared.data(from: url)
+                return data
+            }
+        }
+        var results: [Data] = []
+        for try await data in group {
+            results.append(data)
+        }
+        return results
     }
 }
+
+// Cancel after some time
+downloadTask.cancel()  // Children inherit and stop at checks
+
+```
+
+#### Unstructured
+
+Independent lifecycle, manual cancellation; unstructured concurrency, cancellation doesn’t propagate automatically. Use manual checks or link tasks.
+
+```swift
+let task = Task {
+    await doWork() // Await for the result
+}
+
+// Manually propagate
+let parent = Task {
+    let child = Task {
+        try Task.checkCancellation()  // Will throw if parent cancelled
+        // Work...
+    }
+    // Manually propagate if needed
+    if Task.isCancelled {
+        child.cancel()
+    }
+    try await child.value
+}
+parent.cancel()  // Child gets cancelled manually
 ```
 
 ### `withTaskCancellationHandler`

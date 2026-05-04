@@ -10,7 +10,7 @@ An `actor` is a reference type that serializes access to its stored properties. 
 
 - All reads and writes to actor-isolated state happen sequentially.
 - Callers outside the actor must `await` to access isolated members.
-- No two tasks can be inside the actor concurrently.
+- Only one task executes actor-isolated code at any given time. Actors are **reentrant**: while a task is suspended at an `await` inside the actor, another task may enter and run — see [Actor reentrancy](#actor-reentrancy).
 
 ## Basic actor
 
@@ -102,7 +102,7 @@ let id = analyticsClient.serviceID
 
 Rules for `nonisolated`:
 - Safe on `let` stored properties (immutable — no data race possible).
-- Safe on computed properties and methods that only read immutable or `Sendable` values.
+- Safe on computed properties and methods that do not access actor-isolated stored state (they may only use nonisolated/static data or values that are local to the call). Note: a `Sendable` type alone is not enough — isolated state remains off-limits.
 - **Never** apply `nonisolated` to a `var` stored property — the compiler will reject it.
 
 ## `nonisolated(unsafe)` — last resort

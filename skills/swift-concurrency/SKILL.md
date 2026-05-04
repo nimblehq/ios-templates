@@ -1,5 +1,5 @@
 ---
-name: swift6-concurrency
+name: swift-concurrency
 description: >
   Write, review, or fix Swift 6 concurrency code using actors, Sendable, structured concurrency,
   and the strict data-race-safety model. Use when working with async/await, actors, data race

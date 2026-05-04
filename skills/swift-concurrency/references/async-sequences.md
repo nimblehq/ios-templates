@@ -127,7 +127,7 @@ AsyncThrowingStream { continuation in
 Use `defer` to guarantee finish:
 
 ```swift
-AsyncThrowingStream { continuation in
+AsyncStream { continuation in
     Task {
         defer { continuation.finish() }
 
@@ -161,7 +161,7 @@ continuation.onTermination = { @Sendable _ in
 }
 ```
 
-The `@Sendable` annotation on the closure is required because `onTermination` can be called from any concurrency domain.
+The `onTermination` setter already requires a `@Sendable` closure, so the compiler infers it. Annotating `@Sendable` explicitly is recommended for clarity — a reminder that this closure may be invoked from any concurrency domain.
 
 ## Converting `Combine` publishers to `AsyncSequence`
 
