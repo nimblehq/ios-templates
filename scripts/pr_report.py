@@ -3,7 +3,7 @@
 PR Report - Categorize open PRs by action required and post to Slack.
 
 Posts a new message at the start of each day and updates it on subsequent runs.
-The daily Slack message timestamp is stored in PR_REPORT_TS_FILE (managed via Actions cache).
+The daily Slack message timestamp is stored in PR_REPORT_TS_FILE (managed via Actions artifact).
 
 Environment variables:
     GITHUB_USER           Login of the user to evaluate PRs from (e.g. github.actor)
