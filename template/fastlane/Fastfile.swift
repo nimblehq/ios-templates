@@ -280,7 +280,7 @@ class Fastfile: LaneFile {
     private func testTargetCount(in testPlanPath: String = "\(Constant.projectName).xctestplan") -> Int {
         guard let data = FileManager.default.contents(atPath: testPlanPath),
               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let testTargets = json?["testTargets"] as? [Any] else {
+              let testTargets = json["testTargets"] as? [Any] else {
             return 0
         }
         return testTargets.count

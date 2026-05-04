@@ -14,29 +14,29 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:TestTemplate.xcodeproj",
         "identifier" : "PLACEHOLDER",
+        "containerPath" : "container:{PROJECT_NAME}.xcodeproj",
         "name" : "DomainTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:TestTemplate.xcodeproj",
         "identifier" : "PLACEHOLDER",
-        "name" : "TestTemplateTests"
+        "containerPath" : "container:{PROJECT_NAME}.xcodeproj",
+        "name" : "{PROJECT_NAME}Tests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:TestTemplate.xcodeproj",
         "identifier" : "PLACEHOLDER",
+        "containerPath" : "container:{PROJECT_NAME}.xcodeproj",
         "name" : "DataTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:TestTemplate.xcodeproj",
         "identifier" : "PLACEHOLDER",
+        "containerPath" : "container:{PROJECT_NAME}.xcodeproj",
         "name" : "ModelTests"
       }
     }
