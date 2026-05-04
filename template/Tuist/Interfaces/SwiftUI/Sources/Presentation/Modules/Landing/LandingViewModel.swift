@@ -22,14 +22,14 @@ final class LandingViewModel: ObservableObject {
     @Injected(\.loadStartupConfigUseCase) private var loadStartupConfigUseCase: any LoadStartupConfigUseCaseProtocol
     @Injected(\.sessionRepository) private var sessionRepository: any SessionRepositoryProtocol
     @Injected(\.checkForceUpdateUseCase) private var checkForceUpdateUseCase: any CheckForceUpdateUseCaseProtocol
-    @Injected(\.ratingPromptStorage) private var ratingPromptStorage: any RatingPromptStorageProtocol
+    @Injected(\.ratingPromptRepository) private var ratingPromptRepository: any RatingPromptRepositoryProtocol
     @Injected(\.requestRatingPromptUseCase) private var requestRatingPromptUseCase: any RequestRatingPromptUseCaseProtocol
     private var hasRestoredSession = false
 
     func restoreSessionIfNeeded() async {
         guard !hasRestoredSession else { return }
 
-        ratingPromptStorage.recordAppLaunch()
+        await ratingPromptRepository.recordAppLaunch()
 
         do {
             startupConfigLoadResult = try await loadStartupConfigUseCase()
@@ -55,7 +55,7 @@ final class LandingViewModel: ObservableObject {
     func continueWithDemoSession() async {
         do {
             try await sessionRepository.save(tokenSet: DemoTokenSet())
-            ratingPromptStorage.recordSignificantEvent()
+            await ratingPromptRepository.recordSignificantEvent()
             state = .signedIn
             await tryShowRatingPrompt()
         } catch {
