@@ -14,20 +14,20 @@ public protocol RequestRatingPromptUseCaseProtocol: Sendable {
 
 public struct RequestRatingPromptUseCase: RequestRatingPromptUseCaseProtocol {
 
-    private let storage: any RatingPromptStorageProtocol
+    private let repository: any RatingPromptRepositoryProtocol
     private let shouldShowRatingPromptUseCase: any ShouldShowRatingPromptUseCaseProtocol
     private let presenter: any RatingPromptPresenterProtocol
     private let currentVersion: @Sendable () -> String
 
     public init(
-        storage: any RatingPromptStorageProtocol,
+        repository: any RatingPromptRepositoryProtocol,
         shouldShowRatingPromptUseCase: any ShouldShowRatingPromptUseCaseProtocol,
         presenter: any RatingPromptPresenterProtocol,
         currentVersion: @Sendable @escaping () -> String = {
-            Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+            Bundle.main.info.shortVersion ?? "1.0.0"
         }
     ) {
-        self.storage = storage
+        self.repository = repository
         self.shouldShowRatingPromptUseCase = shouldShowRatingPromptUseCase
         self.presenter = presenter
         self.currentVersion = currentVersion
@@ -40,10 +40,10 @@ public struct RequestRatingPromptUseCase: RequestRatingPromptUseCaseProtocol {
         let didRequestPrompt = await presenter.show()
         guard didRequestPrompt else { return false }
 
-        await storage.recordPromptShown(for: currentVersion())
+        await repository.recordPromptShown(for: currentVersion())
 
         if configuration.resetCounterAfterPrompt {
-            await storage.resetCounters()
+            await repository.resetCounters()
         }
 
         return true

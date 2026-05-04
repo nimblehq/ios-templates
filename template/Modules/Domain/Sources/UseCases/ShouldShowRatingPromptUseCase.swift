@@ -13,20 +13,20 @@ public protocol ShouldShowRatingPromptUseCaseProtocol: Sendable {
 }
 
 public struct ShouldShowRatingPromptUseCase: ShouldShowRatingPromptUseCaseProtocol, Sendable {
-    
-    private let storage: any RatingPromptStorageProtocol
+
+    private let repository: any RatingPromptRepositoryProtocol
     private let currentVersion: String
-    
+
     public init(
-        storage: any RatingPromptStorageProtocol,
-        currentVersion: String = Self.defaultCurrentVersion()
+        repository: any RatingPromptRepositoryProtocol,
+        currentVersion: String = Bundle.main.info.shortVersion ?? "1.0.0"
     ) {
-        self.storage = storage
+        self.repository = repository
         self.currentVersion = currentVersion
     }
-    
+
     public func callAsFunction(configuration: RatingPromptConfiguration) async -> Bool {
-        let data = await storage.getRatingPromptData()
+        let data = await repository.getRatingPromptData()
         
         guard !data.hasBeenPromptedForCurrentVersion(currentVersion) else {
             return false
@@ -40,12 +40,5 @@ public struct ShouldShowRatingPromptUseCase: ShouldShowRatingPromptUseCaseProtoc
         let hasEnoughSignificantEvents = data.significantEventCount >= configuration.minimumSignificantEvents
         
         return hasEnoughAppLaunches || hasEnoughSignificantEvents
-    }
-}
-
-extension ShouldShowRatingPromptUseCase {
-    
-    public static func defaultCurrentVersion() -> String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
     }
 }

@@ -13,13 +13,13 @@ extension Container {
     }
 
     var shouldShowRatingPromptUseCase: Factory<ShouldShowRatingPromptUseCaseProtocol> {
-        self { ShouldShowRatingPromptUseCase(storage: self.ratingPromptStorage()) }
+        self { ShouldShowRatingPromptUseCase(repository: self.ratingPromptRepository()) }
     }
 
     var requestRatingPromptUseCase: Factory<RequestRatingPromptUseCaseProtocol> {
         self {
             RequestRatingPromptUseCase(
-                storage: self.ratingPromptStorage(),
+                repository: self.ratingPromptRepository(),
                 shouldShowRatingPromptUseCase: self.shouldShowRatingPromptUseCase(),
                 presenter: self.ratingPromptPresenter()
             )

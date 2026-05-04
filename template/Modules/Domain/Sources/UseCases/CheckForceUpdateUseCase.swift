@@ -33,7 +33,7 @@ public struct CheckForceUpdateUseCase: CheckForceUpdateUseCaseProtocol, Sendable
 extension CheckForceUpdateUseCase {
 
     public static func defaultCurrentVersion() -> AppVersion {
-        let string = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+        let string = Bundle.main.info.shortVersion ?? ""
         return AppVersion(string: string) ?? AppVersion(major: 1, minor: 0, patch: 0)
     }
 }
