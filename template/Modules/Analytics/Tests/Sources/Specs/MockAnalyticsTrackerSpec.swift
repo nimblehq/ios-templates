@@ -8,9 +8,9 @@ struct MockAnalyticsTrackerTests {
     
     @Test("MockAnalyticsTracker initializes with correct type")
     func initializeWithCorrectType() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
-        #expect(sut.type == .firebase)
+        #expect(sut.type == .console)
         #expect(!sut.isSetUp)
     }
     
@@ -18,7 +18,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Track setup call with parameters")
     func trackSetupWithParameters() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         let params = ["key": "value"]
         
         sut.setUp(additionalParameters: params)
@@ -29,7 +29,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Handle setup without parameters")
     func handleSetupWithoutParameters() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.setUp(additionalParameters: nil)
         
@@ -41,7 +41,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Track events with parameters")
     func trackEventsWithParameters() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.trackEvent(name: "test_event", parameters: ["param1": "value1"])
         
@@ -55,7 +55,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Track events without parameters")
     func trackEventsWithoutParameters() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.trackEvent(name: "simple_event", parameters: nil)
         
@@ -65,7 +65,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Track multiple events")
     func trackMultipleEvents() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.trackEvent(name: "event1", parameters: nil)
         sut.trackEvent(name: "event2", parameters: nil)
@@ -80,7 +80,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Track screens with class")
     func trackScreensWithClass() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.trackScreen(name: "HomeScreen", screenClass: "HomeViewController")
         
@@ -93,7 +93,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Track screens without class")
     func trackScreensWithoutClass() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.trackScreen(name: "ProfileScreen", screenClass: nil)
         
@@ -105,7 +105,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Set user properties")
     func setUserProperties() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.setUserProperty(key: "subscription", value: "premium")
         sut.setUserProperty(key: "age", value: "25")
@@ -116,7 +116,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Set user ID")
     func setUserId() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.setUserId("user_123")
         
@@ -125,7 +125,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Handle nil user ID")
     func handleNilUserId() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         sut.setUserId("user_123")
         sut.setUserId(nil)
@@ -137,7 +137,7 @@ struct MockAnalyticsTrackerTests {
     
     @Test("Reset all tracked data")
     func resetAllTrackedData() {
-        let sut = MockAnalyticsTracker(type: .firebase)
+        let sut = MockAnalyticsTracker(type: .console)
         
         // Setup some data
         sut.setUp(additionalParameters: ["key": "value"])

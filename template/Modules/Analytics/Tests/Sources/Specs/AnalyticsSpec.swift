@@ -77,13 +77,11 @@ struct AnalyticsTests {
     func trackEventWithoutParameters() {
         let sut = Analytics()
         let mockConsoleTracker = MockAnalyticsTracker(type: .console)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
         
         sut.configure(trackers: [mockConsoleTracker])
         sut.trackEvent(name: "app_open")
         
-        #expect(mockFirebaseTracker.hasTrackedEvent(name: "app_open"))
-        #expect(mockAppsFlyerTracker.hasTrackedEvent(name: "app_open"))
+        #expect(mockConsoleTracker.hasTrackedEvent(name: "app_open"))
     }
     
     @Test("Track structured events")
@@ -119,12 +117,11 @@ struct AnalyticsTests {
     func trackScreenOnSpecificTrackers() {
         let sut = Analytics()
         let mockConsoleTracker = MockAnalyticsTracker(type: .console)
-        let mockAppsFlyerTracker = MockAnalyticsTracker(type: .appsFlyer)
         
         sut.configure(trackers: [mockConsoleTracker])
-        sut.trackScreen(name: "ProfileScreen", screenClass: nil, on: [.appsFlyer])
+        sut.trackScreen(name: "ProfileScreen", screenClass: nil, on: [.console])
         
-        #expect(!mockConsoleTracker.hasTrackedScreen(name: "ProfileScreen"))
+        #expect(mockConsoleTracker.hasTrackedScreen(name: "ProfileScreen"))
     }
     
     // MARK: - User Properties Tests

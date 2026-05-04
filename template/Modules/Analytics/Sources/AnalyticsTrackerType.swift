@@ -1,4 +1,4 @@
-public enum AnalyticsTrackerType: String, CaseIterable {
+public enum AnalyticsTrackerType: String, CaseIterable, Sendable {
     
     case console
 }

@@ -1,4 +1,4 @@
-public protocol AnalyticsProtocol {
+public protocol AnalyticsProtocol: AnyObject {
     
     // MARK: - Setup
     

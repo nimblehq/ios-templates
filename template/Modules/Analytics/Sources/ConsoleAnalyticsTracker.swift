@@ -1,10 +1,12 @@
 import Foundation
+import os
 
 /// Console tracker that logs analytics events to the console for debugging
 public final class ConsoleAnalyticsTracker: AnalyticsTracker {
     
     public let type: AnalyticsTrackerType
     private let prefix: String
+    private let logger = Logger(subsystem: "Analytics", category: "ConsoleTracker")
     
     public init(type: AnalyticsTrackerType, logPrefix: String? = nil) {
         self.type = type
@@ -14,37 +16,38 @@ public final class ConsoleAnalyticsTracker: AnalyticsTracker {
     // MARK: - AnalyticsTracker Implementation
     
     public func setUp(additionalParameters: [String: Any]?) {
-        let paramsString = additionalParameters?.description ?? "none"
-        print("\(prefix) SETUP - Additional parameters: \(paramsString)")
+        if let params = additionalParameters, !params.isEmpty {
+            let sortedKeys = params.keys.sorted()
+            let paramsString = sortedKeys.map { "\($0): \(params[$0]!)" }.joined(separator: ", ")
+            logger.info("\(self.prefix, privacy: .public) SETUP - Additional parameters: \(paramsString, privacy: .private)")
+        } else {
+            logger.info("\(self.prefix, privacy: .public) SETUP - Additional parameters: none")
+        }
     }
     
     public func trackEvent(name: String, parameters: [String: Any]?) {
-        var message = "\(prefix) EVENT - \(name)"
-        
         if let parameters = parameters, !parameters.isEmpty {
             let paramsString = parameters.map { "\($0.key): \($0.value)" }.joined(separator: ", ")
-            message += " | Parameters: {\(paramsString)}"
+            logger.info("\(self.prefix, privacy: .public) EVENT - \(name, privacy: .private) | Parameters: {\(paramsString, privacy: .private)}")
+        } else {
+            logger.info("\(self.prefix, privacy: .public) EVENT - \(name, privacy: .private)")
         }
-        
-        print(message)
     }
     
     public func trackScreen(name: String, screenClass: String?) {
-        var message = "\(prefix) SCREEN - \(name)"
-        
         if let screenClass = screenClass {
-            message += " | Class: \(screenClass)"
+            logger.info("\(self.prefix, privacy: .public) SCREEN - \(name, privacy: .private) | Class: \(screenClass, privacy: .private)")
+        } else {
+            logger.info("\(self.prefix, privacy: .public) SCREEN - \(name, privacy: .private)")
         }
-        
-        print(message)
     }
     
     public func setUserProperty(key: String, value: String) {
-        print("\(prefix) USER_PROPERTY - \(key): \(value)")
+        logger.info("\(self.prefix, privacy: .public) USER_PROPERTY - \(key, privacy: .private): \(value, privacy: .private)")
     }
     
     public func setUserId(_ userId: String?) {
         let userIdString = userId ?? "null"
-        print("\(prefix) USER_ID - \(userIdString)")
+        logger.info("\(self.prefix, privacy: .public) USER_ID - \(userIdString, privacy: .private)")
     }
 }
