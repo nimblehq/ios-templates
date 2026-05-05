@@ -32,6 +32,7 @@ extension Target {
             resources: ["\(name)/Resources/**"],
             dependencies: [
                 // Internal modules
+                .target(name: Module.analytics.name),
                 .target(name: Module.data.name),
                 .target(name: Module.domain.name),
                 .target(name: Module.model.name),
