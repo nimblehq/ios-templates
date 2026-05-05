@@ -3,13 +3,9 @@ import SwiftUI
 @MainActor
 struct LandingView: View {
 
-    @StateObject private var viewModel: LandingViewModel
+    @StateObject private var viewModel: LandingViewModel = .init()
     @EnvironmentObject private var router: AppRouter
     @Environment(\.openURL) private var openURL
-
-    init() {
-        _viewModel = StateObject(wrappedValue: LandingViewModel())
-    }
 
     var body: some View {
         NavigationStack(path: $router.routes) {
@@ -48,9 +44,7 @@ struct LandingView: View {
     private func signOut() {
         Task {
             await viewModel.signOut()
-            router.popToRoot()
-            router.dismissCover()
-            router.dismissFullScreen()
+            router.reset()
         }
     }
 
@@ -76,8 +70,9 @@ struct LandingView: View {
 
     @ViewBuilder
     private func fullScreenDestination(for route: AppRoute) -> some View {
-        NavigationStack {
+        NavigationStack(path: $router.fullScreenRoutes) {
             destination(for: route)
+                .navigationDestination(for: AppRoute.self, destination: destination)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Close", action: router.dismissFullScreen)

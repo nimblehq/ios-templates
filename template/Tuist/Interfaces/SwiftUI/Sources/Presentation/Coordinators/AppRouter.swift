@@ -10,6 +10,7 @@ final class AppRouter: ObservableObject {
     }
 
     @Published var routes: [AppRoute] = []
+    @Published var fullScreenRoutes: [AppRoute] = []
     @Published var coverRoute: AppRoute?
     @Published var fullScreenRoute: AppRoute?
 
@@ -20,8 +21,12 @@ final class AppRouter: ObservableObject {
     func present(_ route: AppRoute, style: PresentationStyle = .fullScreenCover) {
         switch style {
         case .cover:
+            fullScreenRoute = nil
+            fullScreenRoutes.removeAll()
             coverRoute = route
         case .fullScreenCover:
+            coverRoute = nil
+            fullScreenRoutes.removeAll()
             fullScreenRoute = route
         }
     }
@@ -44,11 +49,33 @@ final class AppRouter: ObservableObject {
         routes.removeAll()
     }
 
+    func pushInFullScreen(_ route: AppRoute) {
+        fullScreenRoutes.append(route)
+    }
+
+    func popFullScreen() {
+        guard !fullScreenRoutes.isEmpty else { return }
+
+        fullScreenRoutes.removeLast()
+    }
+
+    func popFullScreenToRoot() {
+        fullScreenRoutes.removeAll()
+    }
+
     func dismissCover() {
         coverRoute = nil
     }
 
     func dismissFullScreen() {
         fullScreenRoute = nil
+        fullScreenRoutes.removeAll()
+    }
+
+    func reset() {
+        routes.removeAll()
+        coverRoute = nil
+        fullScreenRoute = nil
+        fullScreenRoutes.removeAll()
     }
 }
