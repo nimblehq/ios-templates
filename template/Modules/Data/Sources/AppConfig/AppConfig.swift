@@ -26,9 +26,15 @@ public protocol AppConfigProtocol<DecodedConfig> {
 public final class AppConfig<DecodedConfig: Sendable>: AppConfigProtocol {
 
     private var remoteConfig: RemoteConfig?
-    private let defaultConfig: AppDefaultConfig
+    private var configUpdateListenerRegistration: ConfigUpdateListenerRegistration?
+    private var didSetUp = false
+    private let remoteConfigDefaults: AppDefaultConfig
     private let configMapper: (RemoteConfigDecoder) -> DecodedConfig
     private let currentConfigSubject: CurrentValueSubject<DecodedConfig, Never>
+
+    deinit {
+        configUpdateListenerRegistration?.remove()
+    }
 
     public var currentConfigPublisher: AnyPublisher<DecodedConfig, Never> {
         currentConfigSubject.eraseToAnyPublisher()
@@ -39,16 +45,18 @@ public final class AppConfig<DecodedConfig: Sendable>: AppConfigProtocol {
     }
 
     public init(
-        defaultConfig: AppDefaultConfig = AppDefaultConfig(),
-        initialConfig: DecodedConfig,
+        remoteConfigDefaults: AppDefaultConfig = AppDefaultConfig(),
+        bootstrapDecodedConfig: DecodedConfig,
         configMapper: @escaping (RemoteConfigDecoder) -> DecodedConfig
     ) {
-        self.defaultConfig = defaultConfig
+        self.remoteConfigDefaults = remoteConfigDefaults
         self.configMapper = configMapper
-        currentConfigSubject = CurrentValueSubject(initialConfig)
+        currentConfigSubject = CurrentValueSubject(bootstrapDecodedConfig)
     }
 
     public func setUp() {
+        guard !didSetUp else { return }
+        didSetUp = true
         remoteConfig = RemoteConfig.remoteConfig()
         setUpConfigSettings()
         setUpDefaults()
@@ -57,11 +65,14 @@ public final class AppConfig<DecodedConfig: Sendable>: AppConfigProtocol {
     }
 
     public func getAllKeysFromDefault() -> [String] {
-        remoteConfig?.allKeys(from: .default) ?? []
+        if let remoteConfig {
+            return remoteConfig.allKeys(from: .default).sorted()
+        }
+        return remoteConfigDefaults.configs.keys.map(\.stringValue).sorted()
     }
 
     public func getAllKeysFromRemote() -> [String] {
-        remoteConfig?.allKeys(from: .remote) ?? []
+        remoteConfig?.allKeys(from: .remote).sorted() ?? []
     }
 }
 
@@ -79,7 +90,7 @@ extension AppConfig {
 
     private func setUpDefaults() {
         do {
-            try remoteConfig?.setDefaults(from: defaultConfig)
+            try remoteConfig?.setDefaults(from: remoteConfigDefaults)
         } catch {
             #if DEBUG || DEV
                 NSLog("[AppConfig] Failed to set defaults: \(error).")
@@ -88,12 +99,12 @@ extension AppConfig {
     }
 
     private func setUpListener() {
-        remoteConfig?.addOnConfigUpdateListener { [weak self] _, error in
+        configUpdateListenerRegistration = remoteConfig?.addOnConfigUpdateListener { [weak self] _, error in
             guard let self else { return }
             if logError(error, context: "Listener update") { return }
             remoteConfig?.activate { [weak self] _, error in
                 guard let self else { return }
-                if logError(error, context: "Listener activate") { return }
+                _ = logError(error, context: "Listener activate")
                 publishUpdatedConfig()
             }
         }
@@ -102,7 +113,7 @@ extension AppConfig {
     private func fetchAndActivate() {
         remoteConfig?.fetchAndActivate { [weak self] _, error in
             guard let self else { return }
-            if logError(error, context: "Fetch and activate") { return }
+            _ = logError(error, context: "Fetch and activate")
             publishUpdatedConfig()
         }
     }

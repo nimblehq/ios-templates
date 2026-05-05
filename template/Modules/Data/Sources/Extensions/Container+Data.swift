@@ -53,6 +53,6 @@ extension Container {
 
     /// Example AppConfig factory. Replace with your app-specific configuration.
     public var exampleAppConfig: Factory<AppConfig<ExampleAppConfiguration>> {
-        self { createExampleAppConfig() }.singleton
+        self { ExampleAppConfiguration.makeAppConfig() }.singleton
     }
 }

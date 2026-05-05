@@ -78,7 +78,7 @@ public struct RemoteConfigDecoder {
 
     private func log(_ message: String) {
         #if DEBUG || DEV
-            NSLog("[AppConfig] \(message).")
+            NSLog("[RemoteConfigDecoder] \(message).")
         #endif
     }
 }
