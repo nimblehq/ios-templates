@@ -3,25 +3,49 @@ import SwiftUI
 @MainActor
 final class AppRouter: ObservableObject {
 
-    @Published var path: [AppRoute] = []
+    enum PresentationStyle {
+
+        case cover
+        case fullScreenCover
+    }
+
+    @Published var routes: [AppRoute] = []
+    @Published var coverRoute: AppRoute?
     @Published var fullScreenRoute: AppRoute?
 
     func push(_ route: AppRoute) {
-        path.append(route)
+        routes.append(route)
+    }
+
+    func present(_ route: AppRoute, style: PresentationStyle = .fullScreenCover) {
+        switch style {
+        case .cover:
+            coverRoute = route
+        case .fullScreenCover:
+            fullScreenRoute = route
+        }
     }
 
     func presentFullScreen(_ route: AppRoute) {
-        fullScreenRoute = route
+        present(route, style: .fullScreenCover)
+    }
+
+    func presentCover(_ route: AppRoute) {
+        present(route, style: .cover)
     }
 
     func pop() {
-        guard !path.isEmpty else { return }
+        guard !routes.isEmpty else { return }
 
-        path.removeLast()
+        routes.removeLast()
     }
 
     func popToRoot() {
-        path.removeAll()
+        routes.removeAll()
+    }
+
+    func dismissCover() {
+        coverRoute = nil
     }
 
     func dismissFullScreen() {

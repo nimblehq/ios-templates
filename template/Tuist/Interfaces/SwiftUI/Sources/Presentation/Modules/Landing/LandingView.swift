@@ -4,21 +4,15 @@ import SwiftUI
 struct LandingView: View {
 
     @StateObject private var viewModel: LandingViewModel
-    @StateObject private var router: AppRouter
+    @EnvironmentObject private var router: AppRouter
     @Environment(\.openURL) private var openURL
 
     init() {
         _viewModel = StateObject(wrappedValue: LandingViewModel())
-        _router = StateObject(wrappedValue: AppRouter())
-    }
-
-    init(viewModel: LandingViewModel, router: AppRouter) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-        _router = StateObject(wrappedValue: router)
     }
 
     var body: some View {
-        NavigationStack(path: $router.path) {
+        NavigationStack(path: $router.routes) {
             Group {
                 switch viewModel.state {
                 case .loading:
@@ -41,6 +35,7 @@ struct LandingView: View {
                 await viewModel.restoreSessionIfNeeded()
             }
         }
+        .sheet(item: $router.coverRoute, content: destination)
         .fullScreenCover(item: $router.fullScreenRoute, content: fullScreenDestination)
     }
 
@@ -54,6 +49,7 @@ struct LandingView: View {
         Task {
             await viewModel.signOut()
             router.popToRoot()
+            router.dismissCover()
             router.dismissFullScreen()
         }
     }

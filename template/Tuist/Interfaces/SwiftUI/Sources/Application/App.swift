@@ -4,6 +4,8 @@ import SwiftUI
 @main
 struct {PROJECT_NAME}App: App {
 
+    @StateObject private var router = AppRouter()
+
     init() {
         #if DEBUG
         Analytics.shared.configure(
@@ -18,6 +20,7 @@ struct {PROJECT_NAME}App: App {
     var body: some Scene {
         WindowGroup {
             LandingView()
+                .environmentObject(router)
         }
     }
 }
