@@ -29,7 +29,8 @@ struct LandingView: View {
                 case .signedIn:
                     HomeView(
                         onSignOut: signOut,
-                        onShowSettings: showSettings
+                        onShowSettings: showSettings,
+                        onPresentSettings: presentSettings
                     )
                 case .forceUpdateRequired:
                     ForceUpdateView(onUpdate: openAppStore)
@@ -40,6 +41,7 @@ struct LandingView: View {
                 await viewModel.restoreSessionIfNeeded()
             }
         }
+        .fullScreenCover(item: $router.fullScreenRoute, content: fullScreenDestination)
     }
 
     private func continueWithDemoSession() {
@@ -52,11 +54,16 @@ struct LandingView: View {
         Task {
             await viewModel.signOut()
             router.popToRoot()
+            router.dismissFullScreen()
         }
     }
 
     private func showSettings() {
         router.push(.settings)
+    }
+
+    private func presentSettings() {
+        router.presentFullScreen(.settings)
     }
 
     private func openAppStore() {
@@ -68,6 +75,18 @@ struct LandingView: View {
         switch route {
         case .settings:
             SettingsView()
+        }
+    }
+
+    @ViewBuilder
+    private func fullScreenDestination(for route: AppRoute) -> some View {
+        NavigationStack {
+            destination(for: route)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Close", action: router.dismissFullScreen)
+                    }
+                }
         }
     }
 }
