@@ -8,7 +8,6 @@ name: Test Add device and regenerate profiles with fastlane match
 ### ISSUER_ID
 
 on:
-  pull_request:
   workflow_dispatch:
     inputs:
       devices:
