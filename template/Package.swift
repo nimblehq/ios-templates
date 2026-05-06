@@ -3,13 +3,9 @@
 
 #if TUIST
     import struct ProjectDescription.PackageSettings
-    import enum ProjectDescription.Product
 
     let packageSettings = PackageSettings(
-        productTypes: [
-            "Alamofire": .framework,
-            "FactoryKit": .framework
-        ]
+        productTypes: [:]
     )
 #endif
 

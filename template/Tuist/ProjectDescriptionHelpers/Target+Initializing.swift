@@ -36,8 +36,13 @@ extension Target {
                 .target(name: Module.data.name),
                 .target(name: Module.domain.name),
                 .target(name: Module.model.name),
+                // Backend
+                .package(product: "Alamofire"),
+                .package(product: "JSONAPIMapper"),
                 // UI
                 .package(product: "Kingfisher"),
+                // Storage
+                .package(product: "KeychainAccess"),
                 // Tools
                 .package(product: "FirebaseCrashlytics"), // From firebase-ios-sdk
                 .package(product: "NimbleExtension"),
