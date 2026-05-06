@@ -36,13 +36,8 @@ extension Target {
                 .target(name: Module.data.name),
                 .target(name: Module.domain.name),
                 .target(name: Module.model.name),
-                // Backend
-                .package(product: "Alamofire"),
-                .package(product: "JSONAPIMapper"),
                 // UI
                 .package(product: "Kingfisher"),
-                // Storage
-                .package(product: "KeychainAccess"),
                 // Tools
                 .package(product: "FirebaseCrashlytics"), // From firebase-ios-sdk
                 .package(product: "NimbleExtension"),
@@ -55,7 +50,11 @@ extension Target {
                     "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon",
                     // ALWAYS_SEARCH_USER_PATHS: Disables deprecated traditional headermap style.
                     // Set to NO to use modern separate headermaps and eliminate Xcode warnings.
-                    "ALWAYS_SEARCH_USER_PATHS": "NO"
+                    "ALWAYS_SEARCH_USER_PATHS": "NO",
+                    // Keep Xcode from attempting to strip already signed embedded local frameworks.
+                    "COPY_PHASE_STRIP": "NO",
+                    "STRIP_INSTALLED_PRODUCT": "NO",
+                    "DEPLOYMENT_POSTPROCESSING": "NO"
                 ]
             )
         )
@@ -68,6 +67,7 @@ extension Target {
             product: .framework,
             bundleId: module.bundleId(mainBundleId: bundleId),
             deploymentTargets: .iOS("{TARGET_VERSION}"),
+            infoPlist: module.infoPlist,
             sources: module.sources,
             resources: module.resources,
             dependencies: module.dependencies,
@@ -78,7 +78,11 @@ extension Target {
                     "SKIP_INSTALL": "YES",
                     // ALWAYS_SEARCH_USER_PATHS: Disables deprecated traditional headermap style.
                     // Set to NO to use modern separate headermaps and eliminate Xcode warnings.
-                    "ALWAYS_SEARCH_USER_PATHS": "NO"
+                    "ALWAYS_SEARCH_USER_PATHS": "NO",
+                    // Keep Xcode from attempting to strip already signed local frameworks.
+                    "COPY_PHASE_STRIP": "NO",
+                    "STRIP_INSTALLED_PRODUCT": "NO",
+                    "DEPLOYMENT_POSTPROCESSING": "NO"
                 ]
             )
         )
@@ -88,6 +92,7 @@ extension Target {
             destinations: .iOS,
             product: .unitTests,
             bundleId: module.testBundleId(mainBundleId: bundleId),
+            infoPlist: module.testsInfoPlist,
             sources: module.testsSources,
             resources: module.testsResources,
             dependencies: moduleTestDependencies(for: module)
