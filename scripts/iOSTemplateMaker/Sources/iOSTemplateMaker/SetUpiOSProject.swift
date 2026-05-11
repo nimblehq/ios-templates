@@ -93,6 +93,10 @@ class SetUpIOSProject {
                 try promoteTemplateToRoot()
             }
 
+            try step(title: "Remove contributor-only agent files") {
+                try removeContributorOnlyAgentFiles()
+            }
+
             try step(title: "Setup CI/CD") {
                 try setUpCICD()
             }
@@ -263,6 +267,11 @@ class SetUpIOSProject {
             try fileManager.removeItems(in: name)
         }
         try safeShell("git reset")
+    }
+
+    private func removeContributorOnlyAgentFiles() throws {
+        try fileManager.removeItems(in: "AGENTS.md")
+        try fileManager.removeItems(in: "CLAUDE.md")
     }
 
     private func setUpCICD() throws {

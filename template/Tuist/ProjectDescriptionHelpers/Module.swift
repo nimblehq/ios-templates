@@ -47,8 +47,16 @@ public enum Module: CaseIterable {
         []
     }
 
+    public var infoPlist: ProjectDescription.InfoPlist {
+        .file(path: "\(frameworkPath)/\(Constant.plistsPath)/Info.plist")
+    }
+
     public var testsSources: ProjectDescription.SourceFilesList {
         ["\(frameworkPath)/\(Constant.testsPath)/**"]
+    }
+
+    public var testsInfoPlist: ProjectDescription.InfoPlist {
+        .file(path: "\(frameworkPath)/\(Constant.testsPath)/\(Constant.plistsPath)/Info.plist")
     }
 
     public var testsResources: ProjectDescription.ResourceFileElements {
