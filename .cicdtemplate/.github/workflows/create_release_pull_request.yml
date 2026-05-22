@@ -11,21 +11,27 @@ jobs:
     name: Create Release Pull Request
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
     steps:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Get release version
+        id: extract_version
         run: |
           filename=$(find . -maxdepth 1 -name "*.xcodeproj" -exec basename {} .xcodeproj \; | head -n 1)
-          release_version=$(sed -n 's/.*MARKETING_VERSION *= *\([^;]*\);.*/\1/p' "$filename.xcodeproj/project.pbxproj" | head -n 1 | sed 's/^[^=]*=\s*//' | tr -d ' ')
-          echo $release_version
-          echo "RELEASE_VERSION=$release_version" >> "$GITHUB_ENV"
+          version=$(sed -n 's/.*MARKETING_VERSION *= *\([^;]*\);.*/\1/p' "$filename.xcodeproj/project.pbxproj" | head -n 1 | sed 's/^[^=]*=\s*//' | tr -d ' ')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Build version: $version"
 
       - uses: nimblehq/github-actions-workflows/create_release_pull_request@d2f913f1faba9dd814eb0cab86147d2bab6e0e34 # nimblehq/github-actions-workflows/create_release_pull_request@v0.1.10
         with:
-          release_version: ${{ env.RELEASE_VERSION }}
+          release_version: "${{ steps.extract_version.outputs.version }}"
           changelog_configuration: ".github/workflows/configs/changelog-config.json"
-          assignee: bot-nimble
+          base_branch: main
+          assignee: ${{ github.actor }}
