@@ -31,7 +31,7 @@ runs:
   using: composite
   steps:
     - name: Setup Ruby
-      uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f # ruby/setup-ruby@v1.306.0
+      uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # ruby/setup-ruby@v1.310.0
       with:
         ruby-version: ${{ inputs.ruby-version }}
         bundler-cache: ${{ inputs.bundler-cache }}
