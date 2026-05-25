@@ -13,7 +13,7 @@ struct AppRouterTests {
 
         router.push(.settings)
 
-        #expect(router.path == [.settings])
+        #expect(router.routes == [.settings])
     }
 
     @Test("pops the last route from the navigation path")
@@ -23,7 +23,7 @@ struct AppRouterTests {
 
         router.pop()
 
-        #expect(router.path.isEmpty)
+        #expect(router.routes.isEmpty)
     }
 
     @Test("clears all routes from the navigation path")
@@ -34,7 +34,7 @@ struct AppRouterTests {
 
         router.popToRoot()
 
-        #expect(router.path.isEmpty)
+        #expect(router.routes.isEmpty)
     }
 
     @Test("opens pushed app links from URLs")
@@ -45,7 +45,7 @@ struct AppRouterTests {
         let handled = router.open(url)
 
         #expect(handled)
-        #expect(router.path == [.settings])
+        #expect(router.routes == [.settings])
         #expect(router.fullScreenRoute == nil)
     }
 
@@ -57,7 +57,7 @@ struct AppRouterTests {
         let handled = router.open(url)
 
         #expect(handled)
-        #expect(router.path.isEmpty)
+        #expect(router.routes.isEmpty)
         #expect(router.fullScreenRoute == .settings)
     }
 
@@ -69,7 +69,7 @@ struct AppRouterTests {
         let handled = router.open(url)
 
         #expect(!handled)
-        #expect(router.path.isEmpty)
+        #expect(router.routes.isEmpty)
         #expect(router.fullScreenRoute == nil)
     }
 }
