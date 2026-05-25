@@ -7,13 +7,13 @@ struct SettingsView: View {
             Image(systemName: "gearshape")
                 .font(.system(size: 48))
                 .foregroundColor(.accentColor)
-            Text("Settings")
+            Text("settings.title")
                 .font(.title2.bold())
-            Text("This placeholder route gives generated apps a native NavigationStack destination to extend.")
+            Text("settings.message")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
         }
         .padding()
-        .navigationTitle("Settings")
+        .navigationTitle("settings.title")
     }
 }

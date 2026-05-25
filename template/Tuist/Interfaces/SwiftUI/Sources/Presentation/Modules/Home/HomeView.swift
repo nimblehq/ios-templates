@@ -11,19 +11,19 @@ struct HomeView: View {
             Image(systemName: "person.crop.circle.badge.checkmark")
                 .font(.system(size: 48))
                 .foregroundColor(.accentColor)
-            Text("Signed In")
+            Text("home.title")
                 .font(.title2.bold())
-            Text("This starter flow demonstrates the signed-in state that teams can build on with product-specific screens.")
+            Text("home.message")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
 
-            Button("Open Settings", action: onShowSettings)
+            Button("home.button.open_settings", action: onShowSettings)
                 .buttonStyle(.bordered)
 
-            Button("Present Settings Full Screen", action: onPresentSettings)
+            Button("home.button.present_settings_full_screen", action: onPresentSettings)
                 .buttonStyle(.bordered)
 
-            Button("Sign Out", action: onSignOut)
+            Button("home.button.sign_out", action: onSignOut)
                 .buttonStyle(.borderedProminent)
         }
         .padding()
