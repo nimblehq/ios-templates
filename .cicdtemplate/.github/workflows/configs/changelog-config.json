@@ -31,5 +31,5 @@
       ]
     }
   ],
-  "max_pull_requests": 200
+  "pr_template": "- #{{TITLE}} (by @#{{ASSIGNEES}} in [##{{NUMBER}}](#{{URL}}))"
 }
