@@ -183,6 +183,14 @@ def slack_api(token, method, payload):
         return json.loads(resp.read())
 
 
+def warn_slack_delivery_failed(error):
+    print(
+        f"⚠️ Slack delivery skipped: {error}. "
+        "Verify PR_REPORT_SLACK_BOT_TOKEN, PR_REPORT_SLACK_CHANNEL_ID, and bot channel access.",
+        file=sys.stderr
+    )
+
+
 def post_message(token, channel_id, text):
     result = slack_api(token, "chat.postMessage", {
         "channel": channel_id,
@@ -252,11 +260,14 @@ def main():
     if not any(grouped.values()):
         print("No actionable PRs found.")
         empty_message = "No actionable PRs today."
-        if existing_ts:
-            update_message(token, channel_id, existing_ts, empty_message)
-        else:
-            new_ts = post_message(token, channel_id, empty_message)
-            save_daily_ts(ts_file, today, new_ts)
+        try:
+            if existing_ts:
+                update_message(token, channel_id, existing_ts, empty_message)
+            else:
+                new_ts = post_message(token, channel_id, empty_message)
+                save_daily_ts(ts_file, today, new_ts)
+        except RuntimeError as e:
+            warn_slack_delivery_failed(e)
         return
 
     for cat in PRIORITY:
@@ -278,8 +289,7 @@ def main():
             save_daily_ts(ts_file, today, new_ts)
             print(f"✅ Message posted (ts={new_ts}).")
     except RuntimeError as e:
-        print(f"❌ {e}", file=sys.stderr)
-        sys.exit(1)
+        warn_slack_delivery_failed(e)
 
 
 if __name__ == "__main__":

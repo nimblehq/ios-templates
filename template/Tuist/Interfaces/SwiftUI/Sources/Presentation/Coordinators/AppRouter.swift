@@ -39,6 +39,25 @@ final class AppRouter: ObservableObject {
         present(route, style: .cover)
     }
 
+    @discardableResult
+    func open(_ url: URL) -> Bool {
+        guard let appLink = AppLink(url: url) else { return false }
+
+        open(appLink)
+        return true
+    }
+
+    func open(_ appLink: AppLink) {
+        switch appLink.presentationStyle {
+        case .push:
+            dismissFullScreen()
+            popToRoot()
+            push(appLink.route)
+        case .fullScreen:
+            presentFullScreen(appLink.route)
+        }
+    }
+
     func pop() {
         guard !routes.isEmpty else { return }
 

@@ -1,3 +1,4 @@
+import Foundation
 import Testing
 
 @testable import {PROJECT_NAME}
@@ -34,5 +35,41 @@ struct AppRouterTests {
         router.popToRoot()
 
         #expect(router.path.isEmpty)
+    }
+
+    @Test("opens pushed app links from URLs")
+    func opensPushedAppLinksFromURLs() throws {
+        let router = AppRouter()
+        let url = try #require(URL(string: "https://example.com/settings"))
+
+        let handled = router.open(url)
+
+        #expect(handled)
+        #expect(router.path == [.settings])
+        #expect(router.fullScreenRoute == nil)
+    }
+
+    @Test("opens full-screen app links from URLs")
+    func opensFullScreenAppLinksFromURLs() throws {
+        let router = AppRouter()
+        let url = try #require(URL(string: "https://example.com/settings/full-screen"))
+
+        let handled = router.open(url)
+
+        #expect(handled)
+        #expect(router.path.isEmpty)
+        #expect(router.fullScreenRoute == .settings)
+    }
+
+    @Test("returns false when URLs are not supported")
+    func returnsFalseWhenURLsAreNotSupported() throws {
+        let router = AppRouter()
+        let url = try #require(URL(string: "https://example.com/unsupported"))
+
+        let handled = router.open(url)
+
+        #expect(!handled)
+        #expect(router.path.isEmpty)
+        #expect(router.fullScreenRoute == nil)
     }
 }
