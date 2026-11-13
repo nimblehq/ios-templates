@@ -38,7 +38,7 @@ runs:
 
     - name: Install tools with mise
       if: ${{ inputs.setup-mise == 'true' }}
-      uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # jdx/mise-action@v4.1.0
+      uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d # jdx/mise-action@v4.2.0
 
     - name: Bundle install
       if: ${{ inputs.run-bundle-install == 'true' && inputs.bundler-cache != 'true' }}
