@@ -1,0 +1,68 @@
+name: Tag the new Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  tag_and_release:
+    name: Tag and release
+    if: |
+      github.event.pull_request.merged == true
+      && contains(github.event.pull_request.labels.*.name, 'type : release')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Extract release version from head branch
+        id: extract_version
+        shell: bash
+        run: |
+          head_ref="${{ github.event.pull_request.head.ref }}"
+          if [[ ! "$head_ref" =~ ^release/([0-9]+\.[0-9]+\.[0-9]+)$ ]]; then
+            echo "Head ref '$head_ref' does not match release/X.Y.Z pattern"
+            exit 1
+          fi
+          version="${BASH_REMATCH[1]}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Extracted version: $version"
+
+      - name: Checkout main at merge commit
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # actions/checkout@v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 0
+
+      - name: Ensure tag does not already exist
+        shell: bash
+        run: |
+          tag="${{ steps.extract_version.outputs.version }}"
+          if git rev-parse "refs/tags/$tag" >/dev/null 2>&1; then
+            echo "Tag $tag already exists — refusing to overwrite"
+            exit 1
+          fi
+
+      - name: Create and push tag
+        shell: bash
+        run: |
+          tag="${{ steps.extract_version.outputs.version }}"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a "$tag" -m "Release $tag"
+          git push origin "$tag"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          tag="${{ steps.extract_version.outputs.version }}"
+          gh release create "$tag" \
+            --target "${{ github.event.pull_request.merge_commit_sha }}" \
+            --title "$tag" \
+            --generate-notes
