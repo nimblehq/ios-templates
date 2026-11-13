@@ -42,7 +42,7 @@ jobs:
         fetch-depth: 1
 
     - name: Cache iOSTemplateMaker Build
-      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # actions/cache@v5.0.5
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # actions/cache@v6.1.0
       with:
         path: scripts/iOSTemplateMaker/.build
         key: ${{ runner.os }}-iostemplatemaker-${{ hashFiles('scripts/iOSTemplateMaker/Package.swift', 'scripts/iOSTemplateMaker/Package.resolved') }}
