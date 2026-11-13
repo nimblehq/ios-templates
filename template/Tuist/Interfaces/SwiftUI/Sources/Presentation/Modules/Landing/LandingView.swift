@@ -33,6 +33,12 @@ struct LandingView: View {
         }
         .sheet(item: $router.coverRoute, content: destination)
         .fullScreenCover(item: $router.fullScreenRoute, content: fullScreenDestination)
+        .onOpenURL(perform: handleOpenURL)
+        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
+            guard let url = userActivity.webpageURL else { return }
+
+            handleOpenURL(url)
+        }
     }
 
     private func continueWithDemoSession() {
@@ -58,6 +64,10 @@ struct LandingView: View {
 
     private func openAppStore() {
         openURL(Constants.appStoreURL)
+    }
+
+    private func handleOpenURL(_ url: URL) {
+        router.open(url)
     }
 
     @ViewBuilder
