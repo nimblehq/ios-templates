@@ -46,4 +46,13 @@ extension Container {
         self { NetworkAPI(authenticationInterceptor: self.authenticationInterceptor()) }
             .singleton
     }
+
+    public var firebaseRemoteConfigSource: Factory<RemoteConfigSource> {
+        self { FirebaseRemoteConfigSource() }.singleton
+    }
+
+    /// Example AppConfig factory. Replace with your app-specific configuration.
+    public var exampleAppConfig: Factory<AppConfig<ExampleAppConfiguration>> {
+        self { ExampleAppConfiguration.makeAppConfig() }.singleton
+    }
 }
