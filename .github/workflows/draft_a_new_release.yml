@@ -13,6 +13,6 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@eada3c96a64734dd381cfbda23511034e328ddb0 # release-drafter/release-drafter@v7.6.0
+      - uses: release-drafter/release-drafter@978bb0b30c5ee8cdd332ced253758157150d43f0 # release-drafter/release-drafter@v7.10.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
